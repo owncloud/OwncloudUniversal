@@ -139,6 +139,7 @@ namespace owncloud_universal
                 SyncDirection = SyncDirection.TwoWay
             };
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
+            fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();
         }
 
         private async void CreateListView(Folder folder)

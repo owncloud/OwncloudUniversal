@@ -1,7 +1,6 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0",
     "SQLitePCL": "3.8.7.2"
   },
   "frameworks": {
