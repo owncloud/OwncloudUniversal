@@ -1,0 +1,44 @@
+﻿<Page x:Name="SettingsPage"
+    x:Class="owncloud_universal.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:owncloud_universal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" RequestedTheme="Dark" Background="Black" x:FieldModifier="public">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton x:Name="btnMapping" Icon="Folder" Label="Folder Mappings" Click="btnMapping_Click"/>
+            <AppBarButton x:Name="btnSave" Icon="Save" Label="Save" Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="Black" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock TextWrapping="NoWrap" Text="Settings" VerticalAlignment="Top" OpticalMarginAlignment="None" FontSize="24" FontWeight="Bold" Grid.ColumnSpan="1" Margin="0,0,-10,0" Height="32"/>
+        <TextBlock Grid.Row="1" VerticalAlignment="Top" Margin="10,5,-10,0" Height="20">
+        	<Run Text="FQDN"/>
+        	<Run Text=":"/>
+        </TextBlock>
+        <TextBox x:Name="txtServerName" Margin="94,0,10,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Top" Height="32"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,80,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="79">
+        	<Run Text="User:"/>
+        </TextBlock>
+        <TextBox x:Name="txtUsername" Margin="94,74,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,116,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Height="20" Width="79"/>
+        <PasswordBox x:Name="pwBox" Margin="94,111,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
+        <TextBlock Grid.Row="1" VerticalAlignment="Top" Margin="10,42,-10,0" Height="20">
+        	<Run Text="Path"/>
+        	<Run Text=":"/>
+        </TextBlock>
+        <TextBox x:Name="txtFolderPath" Margin="94,37,10,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Top" Height="32"/>
+        <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="Accept" Label="appbarbutton" Margin="45,30,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Page>
