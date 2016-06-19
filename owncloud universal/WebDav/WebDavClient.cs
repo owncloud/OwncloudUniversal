@@ -152,6 +152,11 @@ namespace owncloud_universal.WebDav
                     var result = new List<DavItem>(items.Count());
                     foreach (var item in items)
                     {
+                        if(depth == 0)
+                        {
+                            result.Add(item);
+                            continue;
+                        }
                         // If it's not a collection, add it to the result
                         if (!item.IsCollection)
                         {

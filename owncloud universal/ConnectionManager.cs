@@ -43,6 +43,14 @@ namespace owncloud_universal
             return davItems.Select(davItem => new RemoteItem (davItem)).ToList();
         }
 
+        public static async Task<List<RemoteItem>> GetFolderInfo(string href)
+        {
+            if (string.IsNullOrWhiteSpace(href))
+                href = Configuration.FolderPath;
+            var davItems = await _webDavClient.List(href, 0);
+            return davItems.Select(davItem => new RemoteItem(davItem)).ToList();
+        }
+
         public static async Task<bool> Download(string href, StorageFile localFile)
         {
             var content = await _webDavClient.Download(href);
