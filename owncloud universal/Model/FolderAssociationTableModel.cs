@@ -31,11 +31,10 @@ namespace owncloud_universal.Model
 
         protected override void BindInsertItemQuery(ISQLiteStatement query, FolderAssociation item)
         {
-            query.Bind(1, item.Id);
-            query.Bind(2, item.LocalItem.Id);
-            query.Bind(3, item.RemoteItem.Id);
-            query.Bind(4, item.IsActive ? 1 : 0);
-            query.Bind(5, (int)item.SyncDirection);
+            query.Bind(1, item.LocalItem.Id);
+            query.Bind(2, item.RemoteItem.Id);
+            query.Bind(3, item.IsActive ? 1 : 0);
+            query.Bind(4, (int)item.SyncDirection);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -81,7 +80,7 @@ namespace owncloud_universal.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Association (Id, LocalItemId, RemoteItemId, IsActive, SyncDirection) VALUES(@id, @localitemid, @remoteitemid, @isactive, @syncdirection)";
+            return "INSERT INTO Association (LocalItemId, RemoteItemId, IsActive, SyncDirection) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection)";
         }
 
         protected override string GetSelectAllQuery()
