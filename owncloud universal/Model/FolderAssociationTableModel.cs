@@ -31,8 +31,8 @@ namespace owncloud_universal.Model
 
         protected override void BindInsertItemQuery(ISQLiteStatement query, FolderAssociation item)
         {
-            query.Bind(1, item.LocalItem.Id);
-            query.Bind(2, item.RemoteItem.Id);
+            query.Bind(1, item.LocalPath);
+            query.Bind(2, item.RemotePath);
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (int)item.SyncDirection);
         }
@@ -49,8 +49,8 @@ namespace owncloud_universal.Model
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, FolderAssociation item, long key)
         {
-            query.Bind(1, item.LocalItem.Id);
-            query.Bind(2, item.RemoteItem.Id);
+            query.Bind(1, item.LocalPath);
+            query.Bind(2, item.RemotePath);
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (int)item.SyncDirection);
             query.Bind(5, item.Id);
@@ -63,13 +63,8 @@ namespace owncloud_universal.Model
             fa.IsActive = (long)query[3] == 1;
             fa.SyncDirection = (SyncDirection)Enum.Parse(typeof(SyncDirection), (string)query[4]);
 
-
-            var li = LocalItemTableModel.GetDefault();
-            fa.LocalItem = li.GetItem((long)query[1]);
-
-            var ri = RemoteItemTableModel.GetDefault();
-            fa.RemoteItem = ri.GetItem((long)query[2]);
-
+            fa.LocalPath = (string)query[1];
+            fa.RemotePath = (string)query[2];
             return fa;
         }
 
@@ -80,22 +75,22 @@ namespace owncloud_universal.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Association (LocalItemId, RemoteItemId, IsActive, SyncDirection) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection)";
+            return "INSERT INTO Association (LocalPath, RemotePath, IsActive, SyncDirection) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection)";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection FROM Association";
+            return "SELECT Id, LocalPath, RemotePath, IsActive, SyncDirection FROM Association";
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection FROM Association WHERE Id = ?";
+            return "SELECT Id, LocalPath, RemotePath, IsActive, SyncDirection FROM Association WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE Association  SET LocalItemId = ?, RemoteItemId = ?, IsActive = ?, SyncDirection = ? WHERE Id = ?";
+            return "UPDATE Association  SET LocalPath = ?, RemotePath = ?, IsActive = ?, SyncDirection = ? WHERE Id = ?";
         }
 
         protected override string GetLastInsertRowIdQuery()
