@@ -23,22 +23,14 @@
         </Grid.RowDefinitions>
 
         <TextBlock TextWrapping="NoWrap" Text="Settings" VerticalAlignment="Top" OpticalMarginAlignment="None" FontSize="24" FontWeight="Bold" Grid.ColumnSpan="1" Margin="0,0,-10,0" Height="32"/>
-        <TextBlock Grid.Row="1" VerticalAlignment="Top" Margin="10,5,-10,0" Height="20">
-        	<Run Text="FQDN"/>
-        	<Run Text=":"/>
-        </TextBlock>
-        <TextBox x:Name="txtServerName" Margin="94,0,10,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Top" Height="32"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,80,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="79">
+        <TextBlock Grid.Row="1" VerticalAlignment="Top" Margin="10,5,-10,0" Height="20" Text="URL:"/>
+        <TextBox x:Name="txtServerUrl" Margin="94,0,10,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Top" Height="32"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,43,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="79">
         	<Run Text="User:"/>
         </TextBlock>
-        <TextBox x:Name="txtUsername" Margin="94,74,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,116,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Height="20" Width="79"/>
-        <PasswordBox x:Name="pwBox" Margin="94,111,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
-        <TextBlock Grid.Row="1" VerticalAlignment="Top" Margin="10,42,-10,0" Height="20">
-        	<Run Text="Path"/>
-        	<Run Text=":"/>
-        </TextBlock>
-        <TextBox x:Name="txtFolderPath" Margin="94,37,10,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Top" Height="32"/>
+        <TextBox x:Name="txtUsername" Margin="94,37,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Height="20" Width="79"/>
+        <PasswordBox x:Name="pwBox" Margin="94,74,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
         <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="Accept" Label="appbarbutton" Margin="45,30,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

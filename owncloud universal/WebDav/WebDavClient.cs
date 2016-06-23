@@ -46,12 +46,7 @@ namespace owncloud_universal.WebDav
         
         private readonly HttpClient _client;
         private readonly HttpClient _uploadClient;
-        private string _server;
-        private string _basePath = "/";
-
-        private string _encodedBasePath;
-        
-
+        private string _server;     
 
         #region WebDAV connection parameters
 
@@ -67,27 +62,6 @@ namespace owncloud_universal.WebDav
                 _server = value;
             }
         }
-
-        /// <summary>
-        /// Specify the path of a WebDAV directory to use as 'root' (default: /)
-        /// </summary>
-        public string BasePath
-        {
-            get { return _basePath; }
-            set
-            {
-                value = value.Trim('/');
-                if (string.IsNullOrEmpty(value))
-                    _basePath = "/";
-                else
-                    _basePath = "/" + value + "/";
-            }
-        }
-
-        /// <summary>
-        /// Specify an port (default: null = auto-detect)
-        /// </summary>
-        public int? Port { get; set; }
 
         /// <summary>
         /// Specify the UserAgent (and UserAgent version) string to use in requests
@@ -119,7 +93,7 @@ namespace owncloud_universal.WebDav
         /// <returns>A list of files (entries without a trailing slash) and directories (entries with a trailing slash)</returns>
         public async Task<IEnumerable<DavItem>> List(string path = "/", int? depth = 1)
         {
-            var listUri = await GetServerUrl(path, true).ConfigureAwait(false);
+            Uri uri = BuildUrl(path);
 
             // Depth header: http://webdav.org/specs/rfc4918.html#rfc.section.9.1.4
             IDictionary<string, string> headers = new Dictionary<string, string>();
@@ -130,7 +104,7 @@ namespace owncloud_universal.WebDav
             HttpResponseMessage response = null;
             try
             {
-                response = await HttpRequest(listUri.Uri, PropFind, headers, Encoding.UTF8.GetBytes(PropFindRequestContent)).ConfigureAwait(false);
+                response = await HttpRequest(uri, PropFind, headers, Encoding.UTF8.GetBytes(PropFindRequestContent)).ConfigureAwait(false);
 
                 if (response.StatusCode != HttpStatusCode.Ok &&
                     (int) response.StatusCode != HttpStatusCodeMultiStatus)
@@ -147,11 +121,21 @@ namespace owncloud_universal.WebDav
                         throw new Exception("Failed deserializing data returned from server.");
                     }
 
-                    var listUrl = listUri.ToString();
+                    var listUrl = uri.ToString();
 
                     var result = new List<DavItem>(items.Count());
                     foreach (var item in items)
                     {
+<<<<<<< .mine
+                        string currentPath = BuildUrl(path).AbsolutePath;
+                        if (currentPath.Substring(currentPath.Length - 1) != "/")
+                            currentPath += "/";
+                        if (item.Href != currentPath)
+||||||| .r1
+                        // If it's not a collection, add it to the result
+                        if (!item.IsCollection)
+                        {
+=======
                         if(depth == 0)
                         {
                             result.Add(item);
@@ -160,17 +144,8 @@ namespace owncloud_universal.WebDav
                         // If it's not a collection, add it to the result
                         if (!item.IsCollection)
                         {
+>>>>>>> .r3
                             result.Add(item);
-                        }
-                        else
-                        {
-                            // If it's not the requested parent folder, add it to the result
-                            var fullHref = await GetServerUrl(item.Href, true).ConfigureAwait(false);
-                            if (!string.Equals(fullHref.ToString(), listUrl, StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                result.Add(item);
-                            }
-                        }
                     }
                     return result;
                 }
@@ -189,8 +164,8 @@ namespace owncloud_universal.WebDav
         /// <returns>A list of files (entries without a trailing slash) and directories (entries with a trailing slash)</returns>
         public async Task<DavItem> GetFolder(string path = "/")
         {
-            var listUri = await GetServerUrl(path, true).ConfigureAwait(false);
-            return await Get(listUri.Uri, path).ConfigureAwait(false);
+            var listUri = BuildUrl(path);
+            return await Get(listUri, path).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -199,8 +174,8 @@ namespace owncloud_universal.WebDav
         /// <returns>A list of files (entries without a trailing slash) and directories (entries with a trailing slash)</returns>
         public async Task<DavItem> GetFile(string path = "/")
         {
-            var listUri = await GetServerUrl(path, false).ConfigureAwait(false);
-            return await Get(listUri.Uri, path).ConfigureAwait(false);
+            var listUri = BuildUrl(path);
+            return await Get(listUri, path).ConfigureAwait(false);
         }
 
 
@@ -251,10 +226,10 @@ namespace owncloud_universal.WebDav
         public async Task<Stream> Download(string remoteFilePath)
         {
             // Should not have a trailing slash.
-            var downloadUri = await GetServerUrl(remoteFilePath, false).ConfigureAwait(false);
+            var downloadUri = BuildUrl(remoteFilePath);
 
             var dictionary = new Dictionary<string, string> { { "translate", "f" } };
-            var response = await HttpRequest(downloadUri.Uri, HttpMethod.Get, dictionary).ConfigureAwait(false);
+            var response = await HttpRequest(downloadUri, HttpMethod.Get, dictionary).ConfigureAwait(false);
             if (response.StatusCode != HttpStatusCode.Ok)
             {
                 throw new Exception("Failed retrieving file.");
@@ -271,13 +246,13 @@ namespace owncloud_universal.WebDav
         public async Task<bool> Upload(string remoteFilePath, Stream content, string name)
         {
             // Should not have a trailing slash.
-            var uploadUri = await GetServerUrl(remoteFilePath.TrimEnd('/') + "/" + name.TrimStart('/'), false).ConfigureAwait(false);
+            var uploadUri = BuildUrl(remoteFilePath.TrimEnd('/') + "/" + name.TrimStart('/'));
 
             HttpResponseMessage response = null;
 
             try
             {
-                response = await HttpUploadRequest(uploadUri.Uri, HttpMethod.Put, content).ConfigureAwait(false);
+                response = await HttpUploadRequest(uploadUri, HttpMethod.Put, content).ConfigureAwait(false);
 
                 if (response.StatusCode != HttpStatusCode.Ok &&
                     response.StatusCode != HttpStatusCode.NoContent &&
@@ -305,13 +280,13 @@ namespace owncloud_universal.WebDav
         public async Task<bool> CreateDir(string remotePath, string name)
         {
             // Should not have a trailing slash.
-            var dirUri = await GetServerUrl(remotePath.TrimEnd('/') + "/" + name.TrimStart('/'), false).ConfigureAwait(false);
+            var dirUri = BuildUrl(remotePath.TrimEnd('/') + "/" + name.TrimStart('/'));
 
             HttpResponseMessage response = null;
 
             try
             {
-                response = await HttpRequest(dirUri.Uri, MkCol).ConfigureAwait(false);
+                response = await HttpRequest(dirUri, MkCol).ConfigureAwait(false);
 
                 if (response.StatusCode == HttpStatusCode.Conflict)
                     throw new Exception("Failed creating folder.");
@@ -334,14 +309,14 @@ namespace owncloud_universal.WebDav
 
         public async Task DeleteFolder(string href)
         {
-            var listUri = await GetServerUrl(href, true).ConfigureAwait(false);
-            await Delete(listUri.Uri).ConfigureAwait(false);
+            var listUri = BuildUrl(href);
+            await Delete(listUri).ConfigureAwait(false);
         }
 
         public async Task DeleteFile(string href)
         {
-            var listUri = await GetServerUrl(href, false).ConfigureAwait(false);
-            await Delete(listUri.Uri).ConfigureAwait(false);
+            var listUri = BuildUrl(href);
+            await Delete(listUri).ConfigureAwait(false);
         }
 
 
@@ -354,44 +329,6 @@ namespace owncloud_universal.WebDav
             {
                 throw new Exception("Failed deleting item.");
             }
-        }
-
-        public async Task<bool> MoveFolder(string srcFolderPath, string dstFolderPath)
-        {
-            // Should have a trailing slash.
-            var srcUri = await GetServerUrl(srcFolderPath, true).ConfigureAwait(false);
-            var dstUri = await GetServerUrl(dstFolderPath, true).ConfigureAwait(false);
-
-            return await Move(srcUri.Uri, dstUri.Uri).ConfigureAwait(false);
-
-        }
-
-        public async Task<bool> MoveFile(string srcFilePath, string dstFilePath)
-        {
-            // Should not have a trailing slash.
-            var srcUri = await GetServerUrl(srcFilePath, false).ConfigureAwait(false);
-            var dstUri = await GetServerUrl(dstFilePath, false).ConfigureAwait(false);
-
-            return await Move(srcUri.Uri, dstUri.Uri).ConfigureAwait(false);
-        }
-
-
-        private async Task<bool> Move(Uri srcUri, Uri dstUri)
-        {
-            const string requestContent = "MOVE";
-
-            IDictionary<string, string> headers = new Dictionary<string, string>();
-            headers.Add("Destination", dstUri.ToString());
-
-            var response = await HttpRequest(srcUri, MoveMethod, headers, Encoding.UTF8.GetBytes(requestContent)).ConfigureAwait(false);
-
-            if (response.StatusCode != HttpStatusCode.Ok &&
-                response.StatusCode != HttpStatusCode.Created)
-            {
-                throw new Exception("Failed moving file.");
-            }
-
-            return response.IsSuccessStatusCode;
         }
 
         #endregion
@@ -410,7 +347,7 @@ namespace owncloud_universal.WebDav
             using (HttpRequestMessage request = new Windows.Web.Http.HttpRequestMessage(method, uri))
             {
                 request.Headers.Connection.Add(new HttpConnectionOptionHeaderValue("Keep-Alive"));
-                request.Headers.UserAgent.Add(HttpProductInfoHeaderValue.Parse("Mozilla/4.0"));
+                request.Headers.UserAgent.Add(HttpProductInfoHeaderValue.Parse("Mozilla/5.0"));
 
                 var buffer = Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary(_credential.UserName + ":" + _credential.Password, Windows.Security.Cryptography.BinaryStringEncoding.Utf8);
                 string base64token = Windows.Security.Cryptography.CryptographicBuffer.EncodeToBase64String(buffer);
@@ -447,12 +384,10 @@ namespace owncloud_universal.WebDav
             using (var request = new HttpRequestMessage(method, uri))
             {
                 request.Headers.Connection.Add(HttpConnectionOptionHeaderValue.Parse("Keep-Alive"));
-                request.Headers.UserAgent.Add(!string.IsNullOrWhiteSpace(UserAgent)
-                    ? new HttpProductInfoHeaderValue(UserAgent, UserAgentVersion)
-                    : new HttpProductInfoHeaderValue("Webdav"));
+                request.Headers.UserAgent.Add(HttpProductInfoHeaderValue.Parse("Mozilla/5.0"));
 
-                var b = Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary(_credential.UserName + ":" + _credential.Password, Windows.Security.Cryptography.BinaryStringEncoding.Utf16LE);
-                string base64token = Windows.Security.Cryptography.CryptographicBuffer.EncodeToBase64String(b);
+                var credentialBuffer = Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary(_credential.UserName + ":" + _credential.Password, Windows.Security.Cryptography.BinaryStringEncoding.Utf8);
+                string base64token = Windows.Security.Cryptography.CryptographicBuffer.EncodeToBase64String(credentialBuffer);
 
                 request.Headers.Authorization = new HttpCredentialsHeaderValue("Basic", base64token);
                 if (headers != null)
@@ -480,87 +415,10 @@ namespace owncloud_universal.WebDav
             }
         }
 
-        /// <summary>
-        /// Try to create an Uri with kind UriKind.Absolute
-        /// This particular implementation also works on Mono/Linux 
-        /// It seems that on Mono it is expected behaviour that uris
-        /// of kind /a/b are indeed absolute uris since it referes to a file in /a/b. 
-        /// https://bugzilla.xamarin.com/show_bug.cgi?id=30854
-        /// </summary>
-        /// <param name="uriString"></param>
-        /// <param name="uriResult"></param>
-        /// <returns></returns>
-        private static bool TryCreateAbsolute(string uriString, out Uri uriResult)
+        private Uri BuildUrl(string path)
         {
-            return Uri.TryCreate(uriString, UriKind.Absolute, out uriResult);
-        }
-
-        private async Task<UriBuilder> GetServerUrl(string path, bool appendTrailingSlash)
-        {
-            // Resolve the base path on the server
-            if (_encodedBasePath == null)
-            {
-                var baseUri = new UriBuilder(_server) {Path = _basePath};
-                var root = await Get(baseUri.Uri, null).ConfigureAwait(false);
-
-                _encodedBasePath = root.Href;
-            }
-
-
-            // If we've been asked for the "root" folder
-            if (string.IsNullOrEmpty(path))
-            {
-                // If the resolved base path is an absolute URI, use it
-                Uri absoluteBaseUri;
-                if (TryCreateAbsolute(_encodedBasePath, out absoluteBaseUri))
-                {
-                    return new UriBuilder(absoluteBaseUri);
-                }
-
-                // Otherwise, use the resolved base path relatively to the server
-                var baseUri = new UriBuilder(_server) {Path = _encodedBasePath};
-                return baseUri;
-            }
-
-            // If the requested path is absolute, use it
-            Uri absoluteUri;
-            if (TryCreateAbsolute(path, out absoluteUri))
-            {
-                var baseUri = new UriBuilder(absoluteUri);
-                return baseUri;
-            }
-            else
-            {
-                // Otherwise, create a URI relative to the server
-                UriBuilder baseUri;
-                if (TryCreateAbsolute(_encodedBasePath, out absoluteUri))
-                {
-                    baseUri = new UriBuilder(absoluteUri);
-
-                    baseUri.Path = baseUri.Path.TrimEnd('/') + "/" + path.TrimStart('/');
-
-                    if (appendTrailingSlash && !baseUri.Path.EndsWith("/"))
-                        baseUri.Path += "/";
-                }
-                else
-                {
-                    baseUri = new UriBuilder(_server);
-
-                    // Ensure we don't add the base path twice
-                    var finalPath = path;
-                    if (!finalPath.StartsWith(_encodedBasePath, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        finalPath = _encodedBasePath.TrimEnd('/') + "/" + path;
-                    }
-                    if (appendTrailingSlash)
-                        finalPath = finalPath.TrimEnd('/') + "/";
-
-                    baseUri.Path = finalPath;
-                }
-                
-
-                return baseUri;
-            }
+            Uri baseUri = new Uri(_server);
+            return new Uri(baseUri, path);
         }
 
         #endregion

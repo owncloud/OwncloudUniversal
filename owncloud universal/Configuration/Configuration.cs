@@ -11,15 +11,15 @@ namespace owncloud_universal
     {
         private static Windows.Storage.ApplicationDataContainer Config = Windows.Storage.ApplicationData.Current.LocalSettings;
 
-        public static string ServerName
+        public static string ServerUrl
         {
             get
             {
-                if (Config.Values.ContainsKey("ServerName"))
-                    return (string)Config.Values["ServerName"];
+                if (Config.Values.ContainsKey("ServerUrl"))
+                    return (string)Config.Values["ServerUrl"];
                 return String.Empty;
             }
-            set { Config.Values["ServerName"] = value; } 
+            set { Config.Values["ServerUrl"] = value; } 
         }
 
         public static string FolderPath

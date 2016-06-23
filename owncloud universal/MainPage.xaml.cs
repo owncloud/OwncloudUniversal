@@ -145,7 +145,8 @@ namespace owncloud_universal
         private async void CreateListView(Folder folder)
         {
             var list = await folder.LoadItems();
-            listView.ItemsSource = list;
+            var orderedList = list.OrderBy(x => !x.DavItem.IsCollection).ThenBy(x => x.DavItem.DisplayName);
+            listView.ItemsSource = orderedList;
         }
 
         private async void Download(RemoteItem item)
