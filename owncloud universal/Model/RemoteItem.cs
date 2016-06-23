@@ -11,7 +11,6 @@ namespace owncloud_universal.Model
     public class RemoteItem
     {
         public long Id { get; set; }
-        public long AssocaitionId { get; set; }
         public RemoteItem(DavItem davItem)
         {
             DavItem = davItem;

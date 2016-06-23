@@ -17,11 +17,9 @@ namespace owncloud_universal
 
             query = @"CREATE TABLE IF NOT EXISTS [LocalItem] (
                         [Id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-                        [AssociationId] INTEGER NOT NULL,
                         [LastModified] TIMESTAMP  NULL,
                         [IsCollection] BOOLEAN  NULL,
-                        [Path] TEXT  NULL,
-                        FOREIGN KEY(AssociationId) REFERENCES Association(Id)
+                        [Path] TEXT  NULL
                         );";
             using (var statement = Connection.Prepare(query))
             {
@@ -30,13 +28,11 @@ namespace owncloud_universal
 
             query = @"CREATE TABLE IF NOT EXISTS [RemoteItem] (
                         [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        [AssociationId] INTEGER NOT NULL,
                         [Etag] NVARCHAR(255)  NULL,
                         [IsCollection] BOOLEAN  NULL,
                         [Href] TEXT  NULL,
                         [DisplayName] NVARCHAR(255)  NULL,
-                        [LastModified] TIMESTAMP  NULL,
-                        FOREIGN KEY(AssociationId) REFERENCES Association(Id)
+                        [LastModified] TIMESTAMP  NULL
                     );";
             using (var statement = Connection.Prepare(query))
             {
@@ -44,13 +40,13 @@ namespace owncloud_universal
             }
 
             query = @"CREATE TABLE IF NOT EXISTS [Association] (
-                        [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL
+                        [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        [LocalItemId] INTEGER  NULL,
+                        [RemoteItemId] INTEGER  NULL,
                         [IsActive] BOOLEAN  NULL,
                         [SyncDirection] NVARCHAR(32),
-                        [LocalPath] TEXT NULL,
-                        [RemotePath] TEXT NULL,
-                        [ModifyDate] TIMESTAMP NULL,
-                        [Etag] NVARCHAR(255)
+                        FOREIGN KEY(LocalItemId) REFERENCES LocalItem(Id),
+                        FOREIGN KEY(RemoteItemId) REFERENCES RemoteItem(Id)
                     );";
             using (var statement = Connection.Prepare(query))
             {

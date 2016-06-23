@@ -134,12 +134,11 @@ namespace owncloud_universal
             FolderAssociation fa = new FolderAssociation
             {
                 IsActive = true,
-                LocalPath = li.Path,
-                RemotePath = item.DavItem.Href,
+                LocalItem = li,
+                RemoteItem = item,
                 SyncDirection = SyncDirection.TwoWay
             };
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
-            fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();
         }
 
         private async void CreateListView(Folder folder)
@@ -165,8 +164,7 @@ namespace owncloud_universal
                 savePicker.FileTypeChoices.Add("All Files", new List<string>() { extension });
                 savePicker.SuggestedFileName = item.DavItem.DisplayName;
                 var file = await savePicker.PickSaveFileAsync();
-                if (file == null)
-                    return;
+                
                 var success = await ConnectionManager.Download(item.DavItem.Href, file);
                 if (success)
                 {
@@ -174,6 +172,7 @@ namespace owncloud_universal
                     await d.ShowAsync();
                 }
             }
+
         }
 
         private void appBarButton_Click_1(object sender, RoutedEventArgs e)

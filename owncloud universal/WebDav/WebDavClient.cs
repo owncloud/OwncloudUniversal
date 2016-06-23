@@ -126,25 +126,10 @@ namespace owncloud_universal.WebDav
                     var result = new List<DavItem>(items.Count());
                     foreach (var item in items)
                     {
-<<<<<<< .mine
                         string currentPath = BuildUrl(path).AbsolutePath;
                         if (currentPath.Substring(currentPath.Length - 1) != "/")
                             currentPath += "/";
                         if (item.Href != currentPath)
-||||||| .r1
-                        // If it's not a collection, add it to the result
-                        if (!item.IsCollection)
-                        {
-=======
-                        if(depth == 0)
-                        {
-                            result.Add(item);
-                            continue;
-                        }
-                        // If it's not a collection, add it to the result
-                        if (!item.IsCollection)
-                        {
->>>>>>> .r3
                             result.Add(item);
                     }
                     return result;
