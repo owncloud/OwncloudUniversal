@@ -44,16 +44,14 @@ namespace owncloud_universal
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            Configuration.ServerName = txtServerName.Text;
-            Configuration.FolderPath = txtFolderPath.Text;
+            Configuration.ServerUrl = txtServerUrl.Text;
             Configuration.UserName = txtUsername.Text;
             Configuration.Password = pwBox.Password;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            txtServerName.Text = Configuration.ServerName;
-            txtFolderPath.Text = Configuration.FolderPath;
+            txtServerUrl.Text = Configuration.ServerUrl;
             txtUsername.Text = Configuration.UserName;
             pwBox.Password = Configuration.Password;
 

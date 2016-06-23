@@ -19,12 +19,12 @@ namespace owncloud_universal
 
         public static bool SetUp()
         {
-            if (string.IsNullOrEmpty(Configuration.ServerName) || string.IsNullOrEmpty(Configuration.FolderPath) || string.IsNullOrEmpty(Configuration.UserName) || string.IsNullOrEmpty(Configuration.Password))
+            if (string.IsNullOrEmpty(Configuration.ServerUrl) || string.IsNullOrEmpty(Configuration.UserName) || string.IsNullOrEmpty(Configuration.Password))
                 return false;
             _webDavClient = new WebDavClient(new NetworkCredential(Configuration.UserName, Configuration.Password))
             {
-                Server = Configuration.ServerName,
-                BasePath = Configuration.FolderPath
+                Server = Configuration.ServerUrl,
+                //BasePath = Configuration.FolderPath
             };
             IsSetup = true;
             return true;

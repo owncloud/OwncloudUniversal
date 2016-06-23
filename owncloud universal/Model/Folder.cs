@@ -17,31 +17,15 @@ namespace owncloud_universal.Model
         public Folder(string href)
         {
             Href = href;
-            GetParent();
             GetDisplayName();
-            CheckForParent();
         }
 
         public async Task<List<RemoteItem>>  LoadItems()
         {
             var list = new List<RemoteItem>();
-            if (HasParent)
-                list.Add(new RemoteItem(new DavItem
-                {
-                    DisplayName = "..",
-                    Href = Parent,
-                    IsCollection = true
-                }));
             var i = await ConnectionManager.GetFolder(Href);
             list.AddRange(i);
             return list;
-        }
-
-        private void CheckForParent()
-        {
-            Uri uri = new Uri(Configuration.ServerName + Href);
-            string parentAbsolute = uri.AbsoluteUri.Remove(uri.AbsoluteUri.Length - uri.Segments.Last().Length);
-            HasParent = parentAbsolute.Contains(Configuration.FolderPath);
         }
 
         private void GetDisplayName()
@@ -50,13 +34,6 @@ namespace owncloud_universal.Model
             var path = Href.Remove(0, Configuration.FolderPath.Length);
             if (!String.IsNullOrWhiteSpace(path) && path.Substring(0, 1) != "/")
                 DisplayName = path;
-        }
-
-        private void GetParent()
-        {
-            Uri uri = new Uri(Configuration.ServerName + Href);
-            string parentAbsolute = uri.AbsoluteUri.Remove(uri.AbsoluteUri.Length - uri.Segments.Last().Length);
-            Parent = parentAbsolute.Contains(Configuration.FolderPath) ? parentAbsolute.Remove(0, Configuration.ServerName.Length) : Configuration.FolderPath;
         }
     }
 }
