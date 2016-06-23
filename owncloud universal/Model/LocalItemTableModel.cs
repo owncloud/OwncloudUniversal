@@ -34,7 +34,6 @@ namespace owncloud_universal.Model
             query.Bind(1, SQLite.DateTimeHelper.DateTimeSQLite(item.LastModified));
             query.Bind(2, (item.IsCollection ? 1 : 0));
             query.Bind(3, item.Path);
-            query.Bind(4, item.AssocaitionId);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -52,8 +51,7 @@ namespace owncloud_universal.Model
             query.Bind(1, SQLite.DateTimeHelper.DateTimeSQLite(item.LastModified));
             query.Bind(2, (item.IsCollection ? 1 : 0));
             query.Bind(3, item.Path);
-            query.Bind(4, item.AssocaitionId);
-            query.Bind(5, key);
+            query.Bind(4, key);
         }
 
         protected override LocalItem CreateInstance(ISQLiteStatement query)
@@ -63,8 +61,8 @@ namespace owncloud_universal.Model
                 Id = (long) query[0],
                 LastModified = Convert.ToDateTime(query[1]),
                 IsCollection = (long)query[2] == 1,
-                Path = (string)query[3],
-                AssocaitionId = (long)query[4]
+                Path = (string)query[3]
+
             };
             return i;
         }
@@ -76,22 +74,22 @@ namespace owncloud_universal.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO LocalItem (LastModified, IsCollection, Path, AssiciationId) VALUES (@lastmodified, @iscollection, @path, @associationid)";
+            return "INSERT INTO LocalItem (LastModified, IsCollection, Path) VALUES (@lastmodified, @iscollection, @path)";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, LastModified, IsCollection, Path, AssiciationId  FROM LocalItem";
+            return "SELECT Id, LastModified, IsCollection, Path FROM LocalItem";
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, LastModified, IsCollection, Path, AssiciationId FROM LocalItem WHERE Id = ?";
+            return "SELECT Id, LastModified, IsCollection, Path FROM LocalItem WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE LocalItem SET LastModified = ?, IsCollection = ?, Path = ?, AssiciationId = ? WHERE Id= ?";
+            return "UPDATE LocalItem SET LastModified = ?, IsCollection = ?, Path = ? WHERE Id= ?";
         }
 
         protected override string GetLastInsertRowIdQuery()
