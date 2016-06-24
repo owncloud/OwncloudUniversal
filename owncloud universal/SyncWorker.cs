@@ -20,7 +20,7 @@ namespace owncloud_universal
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (var item in items)
             {
-                UploadItems(item);
+                UpdateItemInfos(item);
             }
         }
 

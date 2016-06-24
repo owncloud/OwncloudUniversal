@@ -51,9 +51,14 @@ namespace owncloud_universal
 
         private void BackRequestet(object sender, BackRequestedEventArgs args)
         {
-            if (!Frame.CanGoBack || args.Handled != false) return;
-            args.Handled = true;
-            Frame.GoBack();
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+            if (rootFrame.CanGoBack && args.Handled == false)
+            {
+                args.Handled = true;
+                rootFrame.GoBack();
+            }
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
