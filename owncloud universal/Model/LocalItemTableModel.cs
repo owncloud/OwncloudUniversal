@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLitePCL;
+using System.Collections.ObjectModel;
 
 namespace owncloud_universal.Model
 {
@@ -56,6 +57,11 @@ namespace owncloud_universal.Model
             query.Bind(5, key);
         }
 
+        protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId)
+        {
+            query.Bind(1, path);
+            query.Bind(2, folderId);
+        }
         protected override LocalItem CreateInstance(ISQLiteStatement query)
         {
             LocalItem i = new LocalItem
@@ -100,9 +106,9 @@ namespace owncloud_universal.Model
             return "SELECT last_insert_rowid() FROM LocalItem";
         }
 
-        public string GetExistenceQuery()
+        protected override string GetSelectByPathQuery()
         {
-            return "SELECT * FROM LocalItem WHERE Path = ? AND FolderId = ?";
+            return "SELECT  Id, LastModified, IsCollection, Path, FolderId FROM LocalItem WHERE Path = ? AND FolderId = ?";
         }
     }
 }

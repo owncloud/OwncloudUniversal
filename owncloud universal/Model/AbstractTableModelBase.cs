@@ -98,6 +98,23 @@ namespace owncloud_universal.Model
             return items;
         }
 
+        public ObservableCollection<TItem> SelectByPath(string path, long folderId)
+        {
+            var items = new ObservableCollection<TItem>();
+            using(var query = connection.Prepare(GetSelectByPathQuery()))
+            {
+                BindSelectByPathQuery(query, path, folderId);
+                while (query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
+
         protected abstract string GetLastInsertRowIdQuery();
+        protected abstract string GetSelectByPathQuery();
+        protected abstract void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId);
     }
 }

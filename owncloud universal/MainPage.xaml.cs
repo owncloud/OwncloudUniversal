@@ -180,10 +180,12 @@ namespace owncloud_universal
 
         }
 
-        private void appBarButton_Click_1(object sender, RoutedEventArgs e)
+        private async void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
             SyncWorker s = new SyncWorker();
-            s.Run();
+            await s.Run();
+            MessageDialog d = new MessageDialog("Scan Finished.");
+            await d.ShowAsync();
         }
     }
 }
