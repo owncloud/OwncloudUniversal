@@ -19,8 +19,9 @@ namespace owncloud_universal
                         [Id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
                         [LastModified] TIMESTAMP  NULL,
                         [IsCollection] BOOLEAN  NULL,
-                        [Path] TEXT  NULL
-                        );";
+                        [Path] TEXT  NULL,
+                        [FolderId] INTEGER NULL
+                    );";
             using (var statement = Connection.Prepare(query))
             {
                 statement.Step();
@@ -32,7 +33,8 @@ namespace owncloud_universal
                         [IsCollection] BOOLEAN  NULL,
                         [Href] TEXT  NULL,
                         [DisplayName] NVARCHAR(255)  NULL,
-                        [LastModified] TIMESTAMP  NULL
+                        [LastModified] TIMESTAMP  NULL,
+                        [FolderId] INTEGER NULL
                     );";
             using (var statement = Connection.Prepare(query))
             {

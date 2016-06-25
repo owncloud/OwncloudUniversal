@@ -139,8 +139,8 @@ namespace owncloud_universal
             FolderAssociation fa = new FolderAssociation
             {
                 IsActive = true,
-                LocalItem = li,
-                RemoteItem = item,
+                LocalFolder = li,
+                RemoteFolder = item,
                 SyncDirection = SyncDirection.TwoWay
             };
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
