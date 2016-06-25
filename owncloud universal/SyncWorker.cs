@@ -11,21 +11,22 @@ using Windows.Storage.AccessCache;
 using Windows.Storage.Search;
 using Windows.UI.Popups;
 using Windows.Storage.FileProperties;
+using System.Diagnostics;
 
 namespace owncloud_universal
 {
     class SyncWorker
     {
-        public void Run()
+        public async Task Run()
         {
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (var item in items)
             {
-                UpdateItemInfos(item);
+                await UpdateItemInfos(item);
             }
         }
 
-        private async void UpdateItemInfos(FolderAssociation association)
+        private async Task UpdateItemInfos(FolderAssociation association)
         {
             StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path);
             await ScanLocalFolder(localFolder, association.Id);
@@ -43,9 +44,26 @@ namespace owncloud_universal
             {
                 RemoteItem ri = new RemoteItem(item.DavItem);
                 ri.FolderId = associationId;
-                RemoteItemTableModel.GetDefault().InsertItem(ri);
-                if (!ri.DavItem.IsCollection) continue;
-                    await ScanRemoteFolder(item, associationId);
+                var foundItems = RemoteItemTableModel.GetDefault().SelectByPath(ri.DavItem.Href, ri.FolderId);
+                if(foundItems.Count == 0)
+                {
+                    RemoteItemTableModel.GetDefault().InsertItem(ri);
+                    if (!ri.DavItem.IsCollection) continue;
+                        await ScanRemoteFolder(item, associationId);
+                    continue;
+                }
+                    
+                foreach (var foundItem in foundItems)
+                {
+                    if(foundItem.DavItem.Etag != ri.DavItem.Etag)
+                    {
+                        RemoteItemTableModel.GetDefault().UpdateItem(ri, foundItem.Id);
+                        Debug.Write(string.Format("Updating Database {0}", foundItem.Id));
+                        if (!ri.DavItem.IsCollection) continue;
+                            await ScanRemoteFolder(item, associationId);
+                    }
+                }
+
             }
         }
 
@@ -61,10 +79,25 @@ namespace owncloud_universal
                 li.LastModified = bp.DateModified.LocalDateTime;
                 li.Path = sItem.Path;
 
-
-                LocalItemTableModel.GetDefault().InsertItem(li);
-                if (sItem is StorageFolder)
-                    await ScanLocalFolder((StorageFolder)sItem, associationId);
+                var itemsInDatabase = LocalItemTableModel.GetDefault().SelectByPath(li.Path, li.FolderId);
+                if(itemsInDatabase.Count == 0)
+                {
+                    LocalItemTableModel.GetDefault().InsertItem(li);
+                    if (sItem is StorageFolder)
+                        await ScanLocalFolder((StorageFolder)sItem, associationId);
+                    continue;
+                }
+                    
+                foreach (var itemInDatabase in itemsInDatabase)
+                {
+                    if (itemInDatabase.LastModified.Equals(li.LastModified))
+                    {
+                        LocalItemTableModel.GetDefault().UpdateItem(li, itemInDatabase.Id);
+                        Debug.Write(string.Format("Updating Database {0}", itemInDatabase.Id));
+                        if (sItem is StorageFolder)
+                            await ScanLocalFolder((StorageFolder)sItem, associationId);
+                    }
+                }
             }
         }
 

@@ -103,5 +103,15 @@ namespace owncloud_universal.Model
         {
             return "SELECT last_insert_rowid() FROM Association";
         }
+
+        protected override string GetSelectByPathQuery()
+        {
+            throw new NotSupportedException();
+        }
+
+        protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId)
+        {
+            throw new NotSupportedException();
+        }
     }
 }

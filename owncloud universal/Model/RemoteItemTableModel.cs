@@ -107,5 +107,16 @@ namespace owncloud_universal.Model
         {
             return "SELECT last_insert_rowid() from RemoteItem";
         }
+
+        protected override string GetSelectByPathQuery()
+        {
+            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId FROM RemoteItem WHERE Href = ? AND FolderId = ?";
+        }
+
+        protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId)
+        {
+            query.Bind(1, path);
+            query.Bind(2, folderId);
+        }
     }
 }
