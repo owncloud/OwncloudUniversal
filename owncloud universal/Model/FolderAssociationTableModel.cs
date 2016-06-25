@@ -32,8 +32,8 @@ namespace owncloud_universal.Model
         protected override void BindInsertItemQuery(ISQLiteStatement query, FolderAssociation item)
         {
             query.Bind(1, item.Id);
-            query.Bind(2, item.LocalItem.Id);
-            query.Bind(3, item.RemoteItem.Id);
+            query.Bind(2, item.LocalFolder.Id);
+            query.Bind(3, item.RemoteFolder.Id);
             query.Bind(4, item.IsActive ? 1 : 0);
             query.Bind(5, (int)item.SyncDirection);
         }
@@ -50,8 +50,8 @@ namespace owncloud_universal.Model
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, FolderAssociation item, long key)
         {
-            query.Bind(1, item.LocalItem.Id);
-            query.Bind(2, item.RemoteItem.Id);
+            query.Bind(1, item.LocalFolder.Id);
+            query.Bind(2, item.RemoteFolder.Id);
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (int)item.SyncDirection);
             query.Bind(5, item.Id);
@@ -66,10 +66,10 @@ namespace owncloud_universal.Model
 
 
             var li = LocalItemTableModel.GetDefault();
-            fa.LocalItem = li.GetItem((long)query[1]);
+            fa.LocalFolder = li.GetItem((long)query[1]);
 
             var ri = RemoteItemTableModel.GetDefault();
-            fa.RemoteItem = ri.GetItem((long)query[2]);
+            fa.RemoteFolder = ri.GetItem((long)query[2]);
 
             return fa;
         }

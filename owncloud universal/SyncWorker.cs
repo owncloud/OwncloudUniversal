@@ -10,6 +10,7 @@ using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Search;
 using Windows.UI.Popups;
+using Windows.Storage.FileProperties;
 
 namespace owncloud_universal
 {
@@ -26,20 +27,52 @@ namespace owncloud_universal
 
         private async void UpdateItemInfos(FolderAssociation association)
         {
-            var localFolder = await StorageFolder.GetFolderFromPathAsync(association.LocalItem.Path);
-            var remoteFolder = await ConnectionManager.GetFolder(association.RemoteItem.DavItem.Href);
-
+            StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path);
+            await ScanLocalFolder(localFolder, association.Id);
+            await ScanRemoteFolder(association.RemoteFolder, association.Id);
             var properties = await localFolder.Properties.RetrievePropertiesAsync(new List<string> { "System.DateModified" });
-            association.LocalItem.LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime;
+            association.LocalFolder.LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime;
 
             //association.RemoteItem.DavItem.LastModified = remoteFolder
         }
 
+        private async Task ScanRemoteFolder(RemoteItem remoteFolder, long associationId)
+        {
+            List<RemoteItem> items = await ConnectionManager.GetFolder(remoteFolder.DavItem.Href);
+            foreach (RemoteItem item in items)
+            {
+                RemoteItem ri = new RemoteItem(item.DavItem);
+                ri.FolderId = associationId;
+                RemoteItemTableModel.GetDefault().InsertItem(ri);
+                if (!ri.DavItem.IsCollection) continue;
+                    await ScanRemoteFolder(item, associationId);
+            }
+        }
+
+        private async Task ScanLocalFolder(StorageFolder localFolder, long associationId)
+        {
+            var files = await localFolder.GetItemsAsync();
+            foreach (IStorageItem sItem in files)
+            {
+                BasicProperties bp = await sItem.GetBasicPropertiesAsync();
+                LocalItem li = new LocalItem();
+                li.FolderId = associationId;
+                li.IsCollection = sItem is StorageFolder;
+                li.LastModified = bp.DateModified.LocalDateTime;
+                li.Path = sItem.Path;
+
+
+                LocalItemTableModel.GetDefault().InsertItem(li);
+                if (sItem is StorageFolder)
+                    await ScanLocalFolder((StorageFolder)sItem, associationId);
+            }
+        }
+
         private async void UploadItems(FolderAssociation item)
         {
-            var folder = await StorageFolder.GetFolderFromPathAsync(item.LocalItem.Path);               
+            var folder = await StorageFolder.GetFolderFromPathAsync(item.LocalFolder.Path);               
             var files = await folder.GetFilesAsync();
-            var list = await ConnectionManager.GetFolder(item.RemoteItem.DavItem.Href);
+            var list = await ConnectionManager.GetFolder(item.RemoteFolder.DavItem.Href);
 
             foreach (StorageFile file in files)
             {
@@ -52,7 +85,7 @@ namespace owncloud_universal
                 if (!upload)
                     continue;
                 var stream = await file.OpenStreamForReadAsync();
-                await ConnectionManager.Upload(item.RemoteItem.DavItem.Href, stream, file.Name);
+                await ConnectionManager.Upload(item.RemoteFolder.DavItem.Href, stream, file.Name);
             }
             MessageDialog d = new MessageDialog("Sync finished");
             await d.ShowAsync();

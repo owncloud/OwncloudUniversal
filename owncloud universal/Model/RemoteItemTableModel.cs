@@ -35,6 +35,7 @@ namespace owncloud_universal.Model
             query.Bind(3, item.DavItem.Href);
             query.Bind(4, item.DavItem.DisplayName);
             query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.DavItem.LastModified));
+            query.Bind(6, item.FolderId);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -54,19 +55,26 @@ namespace owncloud_universal.Model
             query.Bind(3, item.DavItem.Href);
             query.Bind(4, item.DavItem.DisplayName);
             query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.DavItem.LastModified));
+            query.Bind(6, item.FolderId);
         }
 
         protected override RemoteItem CreateInstance(ISQLiteStatement query)
         {
             WebDav.DavItem di = new WebDav.DavItem
             {
-                Etag = (string)query[1],
-                IsCollection = (long)query[2] == 1,
-                Href = (string)query[3],
-                DisplayName = (string)query[4],
-                LastModified = Convert.ToDateTime(query[5])
+                Etag = (string)query["Etag"],
+                IsCollection = (long)query["IsCollection"] == 1,
+                Href = (string)query["Href"],
+                DisplayName = (string)query["DisplayName"]
             };
-            RemoteItem item = new RemoteItem(di) {Id = (long) query[0]};
+            var date =query["LastModified"] as DateTime?;
+            if(date != null)
+                di.LastModified = Convert.ToDateTime(date);
+            RemoteItem item = new RemoteItem(di)
+            {
+                Id = (long) query["Id"],
+                FolderId = (long) query["FolderId"]
+            };
             return item;
         }
 
@@ -77,22 +85,22 @@ namespace owncloud_universal.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO RemoteItem (Etag, IsCollection, Href, DisplayName, LastModified) VALUES (@etag, @iscollection, @href, @displayname, @lastmodified)";
+            return "INSERT INTO RemoteItem (Etag, IsCollection, Href, DisplayName, LastModified, FolderId) VALUES (@etag, @iscollection, @href, @displayname, @lastmodified, @folderid)";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified FROM RemoteItem";
+            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId FROM RemoteItem";
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified FROM RemoteItem WHERE Id = ?";
+            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId FROM RemoteItem WHERE Id = ?";
         }
         
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE RemoteItem SET Etag = ?, IsCollection = ?, Href = ?, DisplayName = ?, LastModified = ?";
+            return "UPDATE RemoteItem SET Etag = ?, IsCollection = ?, Href = ?, DisplayName = ?, LastModified = ?, FolderId = ?";
         }
 
         protected override string GetLastInsertRowIdQuery()
