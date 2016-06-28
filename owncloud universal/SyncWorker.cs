@@ -31,8 +31,14 @@ namespace owncloud_universal
             StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path);
             await ScanLocalFolder(localFolder, association.Id);
             await ScanRemoteFolder(association.RemoteFolder, association.Id);
-            var properties = await localFolder.Properties.RetrievePropertiesAsync(new List<string> { "System.DateModified" });
-            association.LocalFolder.LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime;
+            GetDataToUpdate(association);
+
+
+
+
+
+            //var properties = await localFolder.Properties.RetrievePropertiesAsync(new List<string> { "System.DateModified" });
+            //association.LocalFolder.LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime;
 
             //association.RemoteItem.DavItem.LastModified = remoteFolder
         }
@@ -124,25 +130,20 @@ namespace owncloud_universal
             await d.ShowAsync();
         }
 
-        /*private async void  GetAll(FolderAssociation item)
+        private Dictionary<LocalItem, RemoteItem> GetDataToUpdate(FolderAssociation associtation)
         {
-            StorageFolder folder;
-            try
+            var localItems = LocalItemTableModel.GetDefault().GetAllItems();
+            var remoteItems = RemoteItemTableModel.GetDefault().GetAllItems();
+            foreach(RemoteItem ri in remoteItems)
             {
-                folder = await StorageFolder.GetFolderFromPathAsync(item.LocalItem.Path);
+                var path = ri.GetRelativePath(associtation.RemoteFolder.DavItem.Href);
             }
-            catch (UnauthorizedAccessException)
+            foreach (var li in localItems)
             {
-                return;
+                Debug.WriteLine(li.GetRelavtivePath(associtation.LocalFolder.Path));
             }
-            var files = await folder.GetFilesAsync(CommonFileQuery.DefaultQuery);
-            var list = await ConnectionManager.GetFolder(item.RemoteItem.DavItem.Href);
-
-        }*/
-
-        private void GetDeleted()
-        {
-            
+            return null;
         }
+
     }
 }

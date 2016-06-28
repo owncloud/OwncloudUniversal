@@ -148,7 +148,17 @@ namespace owncloud_universal
 
         private async void CreateListView(Folder folder)
         {
-            var list = await folder.LoadItems();
+            List<RemoteItem> list = new List<RemoteItem>();
+            try
+            {
+               list = await folder.LoadItems();
+            }
+            catch (Exception)
+            {
+                MessageDialog d = new MessageDialog("Failed to load items. Please check connectivity and configuration.");
+                await d.ShowAsync();
+                return;
+            }
             var orderedList = list.OrderBy(x => !x.DavItem.IsCollection).ThenBy(x => x.DavItem.DisplayName);
             listView.ItemsSource = orderedList;
         }

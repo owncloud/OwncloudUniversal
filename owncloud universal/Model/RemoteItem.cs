@@ -18,5 +18,9 @@ namespace owncloud_universal.Model
         public long FolderId { get; set; }
         public DavItem DavItem { get; private set; }
         public Symbol Symbol { get {return DavItem.IsCollection ? Symbol.Folder : Symbol.Page2; }}
+        public string GetRelativePath(string basePath)
+        {
+            return DavItem.Href.Remove(0, basePath.Length);
+        }
     }
 }
