@@ -15,25 +15,13 @@ namespace owncloud_universal
             Connection = new SQLiteConnection("webdav-sync.db");
             string query = "";
 
-            query = @"CREATE TABLE IF NOT EXISTS [LocalItem] (
+            query = @"CREATE TABLE IF NOT EXISTS [SyncItem] (
                         [Id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
                         [LastModified] TIMESTAMP  NULL,
                         [IsCollection] BOOLEAN  NULL,
                         [Path] TEXT  NULL,
-                        [FolderId] INTEGER NULL
-                    );";
-            using (var statement = Connection.Prepare(query))
-            {
-                statement.Step();
-            }
-
-            query = @"CREATE TABLE IF NOT EXISTS [RemoteItem] (
-                        [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        [Etag] NVARCHAR(255)  NULL,
-                        [IsCollection] BOOLEAN  NULL,
-                        [Href] TEXT  NULL,
-                        [DisplayName] NVARCHAR(255)  NULL,
-                        [LastModified] TIMESTAMP  NULL,
+                        [RelativePath] TEXT NULL,
+                        [Etag] NVARCHAR(255) NULL,
                         [FolderId] INTEGER NULL
                     );";
             using (var statement = Connection.Prepare(query))
@@ -47,8 +35,8 @@ namespace owncloud_universal
                         [RemoteItemId] INTEGER  NULL,
                         [IsActive] BOOLEAN  NULL,
                         [SyncDirection] NVARCHAR(32),
-                        FOREIGN KEY(LocalItemId) REFERENCES LocalItem(Id),
-                        FOREIGN KEY(RemoteItemId) REFERENCES RemoteItem(Id)
+                        FOREIGN KEY(LocalItemId) REFERENCES SyncItem(Id),
+                        FOREIGN KEY(RemoteItemId) REFERENCES SyncItem(Id)
                     );";
             using (var statement = Connection.Prepare(query))
             {

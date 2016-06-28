@@ -50,11 +50,11 @@ namespace owncloud_universal.Model
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, RemoteItem item, long key)
         {
-            query.Bind(1, item.DavItem.Etag);
-            query.Bind(2, item.DavItem.IsCollection ? 1 : 0);
-            query.Bind(3, item.DavItem.Href);
-            query.Bind(4, item.DavItem.DisplayName);
-            query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.DavItem.LastModified));
+            query.Bind(1, item.Etag);
+            query.Bind(2, item.IsCollection ? 1 : 0);
+            query.Bind(3, item.Path);
+            query.Bind(4, item.DisplayName);
+            query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.LastModified));
             query.Bind(6, item.FolderId);
         }
 
