@@ -20,8 +20,46 @@ namespace owncloud_universal
                         [LastModified] TIMESTAMP  NULL,
                         [IsCollection] BOOLEAN  NULL,
                         [Path] TEXT  NULL,
+<<<<<<< .mine
+                        [FolderId] INTEGER NULL,
+                        [RemoteItemId] INTEGER NULL
+||||||| .r7
+                        [FolderId] INTEGER NULL
+=======
                         [RelativePath] TEXT NULL,
                         [Etag] NVARCHAR(255) NULL,
+                        [FolderId] INTEGER NULL
+>>>>>>> .r12
+                    );";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
+
+<<<<<<< .mine
+            query = @"CREATE TABLE IF NOT EXISTS [RemoteItem] (
+                        [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        [Etag] NVARCHAR(255)  NULL,
+                        [IsCollection] BOOLEAN  NULL,
+                        [Href] TEXT  NULL,
+                        [DisplayName] NVARCHAR(255)  NULL,
+                        [LastModified] TIMESTAMP  NULL,
+                        [FolderId] INTEGER NULL,
+                        [LocalItemId] INTEGER NULL
+                    );";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
+
+||||||| .r7
+            query = @"CREATE TABLE IF NOT EXISTS [RemoteItem] (
+                        [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        [Etag] NVARCHAR(255)  NULL,
+                        [IsCollection] BOOLEAN  NULL,
+                        [Href] TEXT  NULL,
+                        [DisplayName] NVARCHAR(255)  NULL,
+                        [LastModified] TIMESTAMP  NULL,
                         [FolderId] INTEGER NULL
                     );";
             using (var statement = Connection.Prepare(query))
@@ -29,6 +67,8 @@ namespace owncloud_universal
                 statement.Step();
             }
 
+=======
+>>>>>>> .r12
             query = @"CREATE TABLE IF NOT EXISTS [Association] (
                         [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
                         [LocalItemId] INTEGER  NULL,
