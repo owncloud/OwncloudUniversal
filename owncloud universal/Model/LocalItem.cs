@@ -14,9 +14,7 @@ namespace owncloud_universal.Model
         public DateTime? LastModified { get; set; }
         public bool IsCollection { get; set; }
         public string Path { get; set; }
-        public string GetRelavtivePath(string basePath)
-        {
-            return Path.Remove(0, basePath.Length);
-        }
+        public long RemoteItemId { get; set; }
+
     }
 }
