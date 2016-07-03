@@ -116,5 +116,55 @@ namespace owncloud_universal.Model
         protected abstract string GetLastInsertRowIdQuery();
         protected abstract string GetSelectByPathQuery();
         protected abstract void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId);
+
+        protected abstract string GetGetInsertsQuery();
+        protected abstract void BindGetInsertsQuery();
+        protected abstract string GetGetUpdatesQuery();
+        protected abstract void BindGetUpdatesQuery();
+        protected abstract string GetGetDeletesQuery();
+        protected abstract void BindGetDeletesQuery();
+
+        public ObservableCollection<TItem> GetInserts()
+        {
+            var items = new ObservableCollection<TItem>();
+            using (var query = connection.Prepare(GetInsertItemQuery()))
+            {
+                BindGetInsertsQuery();
+                while (query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
+        public ObservableCollection<TItem> GetUpdates()
+        {
+            var items = new ObservableCollection<TItem>();
+            using (var query = connection.Prepare(GetGetUpdatesQuery()))
+            {
+                BindGetUpdatesQuery();
+                while (query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
+        public ObservableCollection<TItem> GetDeletes()
+        {
+            var items = new ObservableCollection<TItem>();
+            using (var query = connection.Prepare(GetGetDeletesQuery()))
+            {
+                BindGetDeletesQuery();
+                while (query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
     }
 }

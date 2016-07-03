@@ -107,6 +107,11 @@ namespace owncloud_universal
             }
         }
 
+        private void GetDownloads(FolderAssociation association)
+        {
+
+        }
+
         private async void UploadItems(FolderAssociation item)
         {
             var folder = await StorageFolder.GetFolderFromPathAsync(item.LocalFolder.Path);               

@@ -36,6 +36,7 @@ namespace owncloud_universal.Model
             query.Bind(2, (item.IsCollection ? 1 : 0));
             query.Bind(3, item.Path);
             query.Bind(4, item.FolderId);
+            query.Bind(5, item.RemoteItemId);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -54,7 +55,8 @@ namespace owncloud_universal.Model
             query.Bind(2, (item.IsCollection ? 1 : 0));
             query.Bind(3, item.Path);
             query.Bind(4, item.FolderId);
-            query.Bind(5, key);
+            query.Bind(5, item.RemoteItemId);
+            query.Bind(6, key);
         }
 
         protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId)
@@ -70,8 +72,8 @@ namespace owncloud_universal.Model
                 LastModified = Convert.ToDateTime(query[1]),
                 IsCollection = (long)query[2] == 1,
                 Path = (string)query[3],
-                FolderId = (long) query[4]
-
+                FolderId = (long) query[4],
+                RemoteItemId = (long) query[5]
             };
             return i;
         }
@@ -83,22 +85,22 @@ namespace owncloud_universal.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO LocalItem (LastModified, IsCollection, Path, FolderId) VALUES (@lastmodified, @iscollection, @path, @folderid)";
+            return "INSERT INTO LocalItem (LastModified, IsCollection, Path, FolderId, RemoteItemId) VALUES (@lastmodified, @iscollection, @path, @folderid, @remoteitemid)";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, LastModified, IsCollection, Path, FolderId FROM LocalItem";
+            return "SELECT Id, LastModified, IsCollection, Path, FolderId, RemoteItemId FROM LocalItem";
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, LastModified, IsCollection, Path, FolderId FROM LocalItem WHERE Id = ?";
+            return "SELECT Id, LastModified, IsCollection, Path, FolderId, RemoteItemId FROM LocalItem WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE LocalItem SET LastModified = ?, IsCollection = ?, Path = ?, FolderId = ? WHERE Id= ?";
+            return "UPDATE LocalItem SET LastModified = ?, IsCollection = ?, Path = ?, FolderId = ?, RemoteItemId = ? WHERE Id= ?";
         }
 
         protected override string GetLastInsertRowIdQuery()
@@ -108,7 +110,37 @@ namespace owncloud_universal.Model
 
         protected override string GetSelectByPathQuery()
         {
-            return "SELECT  Id, LastModified, IsCollection, Path, FolderId FROM LocalItem WHERE Path = ? AND FolderId = ?";
+            return "SELECT  Id, LastModified, IsCollection, Path, FolderId, RemoteItemId FROM LocalItem WHERE Path = ? AND FolderId = ?";
+        }
+
+        protected override string GetGetInsertsQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetInsertsQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string GetGetUpdatesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetUpdatesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string GetGetDeletesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetDeletesQuery()
+        {
+            throw new NotImplementedException();
         }
     }
 }

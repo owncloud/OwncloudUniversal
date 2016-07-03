@@ -36,6 +36,7 @@ namespace owncloud_universal.Model
             query.Bind(4, item.DavItem.DisplayName);
             query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.DavItem.LastModified));
             query.Bind(6, item.FolderId);
+            query.Bind(7, item.LocalItemId);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -56,6 +57,8 @@ namespace owncloud_universal.Model
             query.Bind(4, item.DisplayName);
             query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.LastModified));
             query.Bind(6, item.FolderId);
+            query.Bind(7, item.LocalItemId);
+            query.Bind(8, key);
         }
 
         protected override RemoteItem CreateInstance(ISQLiteStatement query)
@@ -73,7 +76,8 @@ namespace owncloud_universal.Model
             RemoteItem item = new RemoteItem(di)
             {
                 Id = (long) query["Id"],
-                FolderId = (long) query["FolderId"]
+                FolderId = (long) query["FolderId"],
+                LocalItemId = (long) query["LocalItemId"]
             };
             return item;
         }
@@ -85,22 +89,22 @@ namespace owncloud_universal.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO RemoteItem (Etag, IsCollection, Href, DisplayName, LastModified, FolderId) VALUES (@etag, @iscollection, @href, @displayname, @lastmodified, @folderid)";
+            return "INSERT INTO RemoteItem (Etag, IsCollection, Href, DisplayName, LastModified, FolderId, LocalItemId) VALUES (@etag, @iscollection, @href, @displayname, @lastmodified, @folderid, @localitemid)";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId FROM RemoteItem";
+            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId, LocalItemId FROM RemoteItem";
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId FROM RemoteItem WHERE Id = ?";
+            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId, LocalItemId FROM RemoteItem WHERE Id = ?";
         }
         
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE RemoteItem SET Etag = ?, IsCollection = ?, Href = ?, DisplayName = ?, LastModified = ?, FolderId = ?";
+            return "UPDATE RemoteItem SET Etag = ?, IsCollection = ?, Href = ?, DisplayName = ?, LastModified = ?, FolderId = ?, LocalItemId = ? WHERE Id = ?";
         }
 
         protected override string GetLastInsertRowIdQuery()
@@ -110,13 +114,43 @@ namespace owncloud_universal.Model
 
         protected override string GetSelectByPathQuery()
         {
-            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId FROM RemoteItem WHERE Href = ? AND FolderId = ?";
+            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId, LocalItemId FROM RemoteItem WHERE Href = ? AND FolderId = ?";
         }
 
         protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId)
         {
             query.Bind(1, path);
             query.Bind(2, folderId);
+        }
+
+        protected override string GetGetInsertsQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetInsertsQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string GetGetUpdatesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetUpdatesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string GetGetDeletesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetDeletesQuery()
+        {
+            throw new NotImplementedException();
         }
     }
 }
