@@ -51,11 +51,11 @@ namespace owncloud_universal.Model
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, RemoteItem item, long key)
         {
-            query.Bind(1, item.Etag);
-            query.Bind(2, item.IsCollection ? 1 : 0);
-            query.Bind(3, item.Path);
-            query.Bind(4, item.DisplayName);
-            query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.LastModified));
+            query.Bind(1, item.DavItem.Etag);
+            query.Bind(2, item.DavItem.IsCollection ? 1 : 0);
+            query.Bind(3, item.DavItem.Href);
+            query.Bind(4, item.DavItem.DisplayName);
+            query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.DavItem.LastModified));
             query.Bind(6, item.FolderId);
             query.Bind(7, item.LocalItemId);
             query.Bind(8, key);
@@ -70,14 +70,14 @@ namespace owncloud_universal.Model
                 Href = (string)query["Href"],
                 DisplayName = (string)query["DisplayName"]
             };
-            var date =query["LastModified"] as DateTime?;
-            if(date != null)
+            var date = query["LastModified"] as DateTime?;
+            if (date != null)
                 di.LastModified = Convert.ToDateTime(date);
             RemoteItem item = new RemoteItem(di)
             {
-                Id = (long) query["Id"],
-                FolderId = (long) query["FolderId"],
-                LocalItemId = (long) query["LocalItemId"]
+                Id = (long)query["Id"],
+                FolderId = (long)query["FolderId"],
+                LocalItemId = (long)query["LocalItemId"]
             };
             return item;
         }
@@ -101,7 +101,7 @@ namespace owncloud_universal.Model
         {
             return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId, LocalItemId FROM RemoteItem WHERE Id = ?";
         }
-        
+
         protected override string GetUpdateItemQuery()
         {
             return "UPDATE RemoteItem SET Etag = ?, IsCollection = ?, Href = ?, DisplayName = ?, LastModified = ?, FolderId = ?, LocalItemId = ? WHERE Id = ?";
