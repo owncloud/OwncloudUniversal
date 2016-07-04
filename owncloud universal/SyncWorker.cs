@@ -41,6 +41,8 @@ namespace owncloud_universal
         private async Task CheckLocalFolderRecursive(StorageFolder folder, long associationId, List<LocalItem> result)
         {
             var files = await folder.GetItemsAsync();
+            var inserts = LocalItemTableModel.GetDefault().GetInserts(associationId);
+            result.AddRange(inserts);
             foreach (IStorageItem sItem in files)
             {
                 if (sItem.IsOfType(StorageItemTypes.Folder))
@@ -51,6 +53,7 @@ namespace owncloud_universal
                 li.IsCollection = sItem is StorageFolder;
                 li.LastModified = bp.DateModified.LocalDateTime;
                 li.Path = sItem.Path;
+
                 var itemsInDatabase = LocalItemTableModel.GetDefault().SelectByPath(li.Path, li.FolderId);
                 if (itemsInDatabase.Count == 0)
                     result.Add(li);
@@ -71,6 +74,8 @@ namespace owncloud_universal
         private async Task CheckRemoteFolderRecursive(FolderAssociation association, List<RemoteItem> result)
         {
             List<RemoteItem> items = await ConnectionManager.GetFolder(association.RemoteFolder.DavItem.Href);
+            var inserts = RemoteItemTableModel.GetDefault().GetInserts(association.Id);
+            result.AddRange(inserts);
             foreach (RemoteItem item in items)
             {
                 if (item.DavItem.IsCollection)
@@ -163,9 +168,14 @@ namespace owncloud_universal
         {
             foreach (var item in items)
             {
+                if (item.IsCollection)
+                    continue;
                 StorageFile file = await StorageFile.GetFileFromPathAsync(item.Path);
                 var stream = await file.OpenStreamForReadAsync();
                 await ConnectionManager.Upload(BuildRemotePath(association, file.Path), stream, file.DisplayName);
+                var remoteItem = ConnectionManager.GetFolder(BuildRemotePath(association, file.Path));
+
+                LocalItemTableModel.GetDefault().UpdateItem(item, item.Id);
             }
         }
 

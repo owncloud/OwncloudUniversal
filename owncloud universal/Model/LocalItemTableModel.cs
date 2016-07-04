@@ -118,7 +118,7 @@ namespace owncloud_universal.Model
             return "SELECT Id, LastModified, IsCollection, Path, FolderId, RemoteItemId FROM LocalItem WHERE RemoteItemId IS NULL AND FolderId = ?";
         }
 
-        protected override void BindGetInsertsQuery(ISQLiteStatement query, long key, long folderId)
+        protected override void BindGetInsertsQuery(ISQLiteStatement query, long folderId)
         { 
             query.Bind(1, folderId);
         }

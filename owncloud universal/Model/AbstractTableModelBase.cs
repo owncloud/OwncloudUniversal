@@ -118,18 +118,18 @@ namespace owncloud_universal.Model
         protected abstract void BindSelectByPathQuery(ISQLiteStatement query, string path, TKey folderId);
 
         protected abstract string GetGetInsertsQuery();
-        protected abstract void BindGetInsertsQuery(ISQLiteStatement query, TKey key, TKey folderId);
+        protected abstract void BindGetInsertsQuery(ISQLiteStatement query, TKey folderId);
         protected abstract string GetGetUpdatesQuery();
         protected abstract void BindGetUpdatesQuery(ISQLiteStatement query, object value, TKey folderId);
         protected abstract string GetGetDeletesQuery();
         protected abstract void BindGetDeletesQuery();
 
-        public ObservableCollection<TItem> GetInserts(TKey key, TKey association)
+        public ObservableCollection<TItem> GetInserts(TKey association)
         {
             var items = new ObservableCollection<TItem>();
             using (var query = connection.Prepare(GetInsertItemQuery()))
             {
-                BindGetInsertsQuery(query, key, association);
+                BindGetInsertsQuery(query, association);
                 while (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);
@@ -143,7 +143,7 @@ namespace owncloud_universal.Model
             var items = new ObservableCollection<TItem>();
             using (var query = connection.Prepare(GetGetUpdatesQuery()))
             {
-                BindGetUpdatesQuery(query,null, associatrion);
+                BindGetUpdatesQuery(query,null, as);
                 while (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);

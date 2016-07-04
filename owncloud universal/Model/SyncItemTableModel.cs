@@ -120,7 +120,7 @@ namespace owncloud_universal.Model
             throw new NotImplementedException();
         }
 
-        protected override void BindGetInsertsQuery(ISQLiteStatement query, long key, long folderId)
+        protected override void BindGetInsertsQuery(ISQLiteStatement query, long folderId)
         {
             throw new NotImplementedException();
         }
