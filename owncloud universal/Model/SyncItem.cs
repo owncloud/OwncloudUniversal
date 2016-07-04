@@ -16,9 +16,9 @@ namespace owncloud_universal.Model
         public string Etag { get; set; }
         public string RelativePath { get; set; }
         public string DisplayName { get; set; }
-        public static string GetRelavtivePath(string basePath)
+        public string GetRelavtivePath(string basePath)
         {
-            return Path.Remove(0, basePath.Length);
+            return this.Path.Remove(0, basePath.Length);
         }
     }
 }

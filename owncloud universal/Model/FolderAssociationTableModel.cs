@@ -113,5 +113,35 @@ namespace owncloud_universal.Model
         {
             throw new NotSupportedException();
         }
+
+        protected override string GetGetInsertsQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetInsertsQuery(ISQLiteStatement query, long key, long folderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string GetGetUpdatesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetUpdatesQuery(ISQLiteStatement query, object value, long folderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string GetGetDeletesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindGetDeletesQuery()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
