@@ -30,9 +30,9 @@ namespace owncloud_universal
             return true;
         }
 
-        public static async Task<bool> Upload(string href, Stream content, string fileName)
+        public static async Task Upload(string href, Stream content, string fileName)
         {
-            return await _webDavClient.Upload(href, content, fileName);
+            await _webDavClient.Upload(href, content, fileName);
         }
 
         public static async Task<List<RemoteItem>> GetFolder(string href)

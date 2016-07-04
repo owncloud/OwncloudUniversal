@@ -98,7 +98,7 @@ namespace owncloud_universal.Model
             return items;
         }
 
-        public ObservableCollection<TItem> SelectByPath(string path, long folderId)
+        public ObservableCollection<TItem> SelectByPath(string path, TKey folderId)
         {
             var items = new ObservableCollection<TItem>();
             using(var query = connection.Prepare(GetSelectByPathQuery()))
@@ -115,21 +115,21 @@ namespace owncloud_universal.Model
 
         protected abstract string GetLastInsertRowIdQuery();
         protected abstract string GetSelectByPathQuery();
-        protected abstract void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId);
+        protected abstract void BindSelectByPathQuery(ISQLiteStatement query, string path, TKey folderId);
 
         protected abstract string GetGetInsertsQuery();
-        protected abstract void BindGetInsertsQuery();
+        protected abstract void BindGetInsertsQuery(ISQLiteStatement query, TKey key, TKey folderId);
         protected abstract string GetGetUpdatesQuery();
-        protected abstract void BindGetUpdatesQuery();
+        protected abstract void BindGetUpdatesQuery(ISQLiteStatement query, object value, TKey folderId);
         protected abstract string GetGetDeletesQuery();
         protected abstract void BindGetDeletesQuery();
 
-        public ObservableCollection<TItem> GetInserts()
+        public ObservableCollection<TItem> GetInserts(TKey key, TKey association)
         {
             var items = new ObservableCollection<TItem>();
             using (var query = connection.Prepare(GetInsertItemQuery()))
             {
-                BindGetInsertsQuery();
+                BindGetInsertsQuery(query, key, association);
                 while (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);
@@ -138,12 +138,12 @@ namespace owncloud_universal.Model
             }
             return items;
         }
-        public ObservableCollection<TItem> GetUpdates()
+        public ObservableCollection<TItem> GetUpdates(TKey associatrion)
         {
             var items = new ObservableCollection<TItem>();
             using (var query = connection.Prepare(GetGetUpdatesQuery()))
             {
-                BindGetUpdatesQuery();
+                BindGetUpdatesQuery(query,null, associatrion);
                 while (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);

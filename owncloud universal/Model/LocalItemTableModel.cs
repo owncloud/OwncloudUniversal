@@ -115,22 +115,23 @@ namespace owncloud_universal.Model
 
         protected override string GetGetInsertsQuery()
         {
-            throw new NotImplementedException();
+            return "SELECT Id, LastModified, IsCollection, Path, FolderId, RemoteItemId FROM LocalItem WHERE RemoteItemId IS NULL AND FolderId = ?";
         }
 
-        protected override void BindGetInsertsQuery()
-        {
-            throw new NotImplementedException();
+        protected override void BindGetInsertsQuery(ISQLiteStatement query, long key, long folderId)
+        { 
+            query.Bind(1, folderId);
         }
 
         protected override string GetGetUpdatesQuery()
         {
-            throw new NotImplementedException();
+            return "SELECT Id, LastModified, IsCollection, Path, FolderId, RemoteItemId FROM LocalItem WHERE LastModified > ? AND FolderId = ?";
         }
 
-        protected override void BindGetUpdatesQuery()
+        protected override void BindGetUpdatesQuery(ISQLiteStatement query, object date, long folderId)
         {
-            throw new NotImplementedException();
+            query.Bind(1, (DateTime)date);
+            query.Bind(1, folderId);
         }
 
         protected override string GetGetDeletesQuery()
