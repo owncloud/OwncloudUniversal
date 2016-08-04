@@ -153,7 +153,7 @@ namespace owncloud_universal
             {
                list = await folder.LoadItems();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 MessageDialog d = new MessageDialog("Failed to load items. Please check connectivity and configuration.");
                 await d.ShowAsync();

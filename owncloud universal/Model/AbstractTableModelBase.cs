@@ -127,7 +127,7 @@ namespace owncloud_universal.Model
         public ObservableCollection<TItem> GetInserts(TKey association)
         {
             var items = new ObservableCollection<TItem>();
-            using (var query = connection.Prepare(GetInsertItemQuery()))
+            using (var query = connection.Prepare(GetGetInsertsQuery()))
             {
                 BindGetInsertsQuery(query, association);
                 while (query.Step() == SQLiteResult.ROW)
@@ -143,7 +143,7 @@ namespace owncloud_universal.Model
             var items = new ObservableCollection<TItem>();
             using (var query = connection.Prepare(GetGetUpdatesQuery()))
             {
-                BindGetUpdatesQuery(query,null, as);
+                BindGetUpdatesQuery(query,null, associatrion);
                 while (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);
