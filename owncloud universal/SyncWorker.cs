@@ -186,7 +186,12 @@ namespace owncloud_universal
                 string filePath = BuildLocalPath(assciation, item.DavItem.Href);
                 string folderPath = Path.GetDirectoryName(filePath);
                 var folder = await StorageFolder.GetFolderFromPathAsync(folderPath);
-                var file = await folder.CreateFileAsync(filePath);
+                if (item.DavItem.IsCollection)
+                {
+                    var f = await folder.CreateFolderAsync(item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
+                    continue;
+                }
+                var file = await folder.CreateFileAsync(item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
                 var result = await ConnectionManager.Download(item.DavItem.Href, file);
             }
         }

@@ -125,7 +125,7 @@ namespace owncloud_universal.Model
 
         protected override string GetGetInsertsQuery()
         {
-            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId, LocalItemId FROM RemoteItem WHERE LocalItemId IS NULL AND FolderId = ?";
+            return "SELECT Id, Etag, IsCollection, Href, DisplayName, LastModified, FolderId, LocalItemId FROM RemoteItem WHERE LocalItemId = 0 AND FolderId = ?";
         }
 
         protected override void BindGetInsertsQuery(ISQLiteStatement query, long folderId)
