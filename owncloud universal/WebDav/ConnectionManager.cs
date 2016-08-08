@@ -42,7 +42,6 @@ namespace owncloud_universal
             var davItems = await _webDavClient.List(href);
             return davItems.Select(davItem => new RemoteItem (davItem)).ToList();
         }
-
         public static async Task<bool> Download(string href, StorageFile localFile)
         {
             var content = await _webDavClient.Download(href);
@@ -59,5 +58,12 @@ namespace owncloud_universal
                 return status == FileUpdateStatus.Complete;
             }
         }
+
+        public static void CreateFolder(string href)
+        {
+            //_webDavClient.CreateDir(href, )
+        }
+
+
     }
 }

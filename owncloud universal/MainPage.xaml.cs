@@ -192,7 +192,7 @@ namespace owncloud_universal
 
         private async void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
-            SyncWorker s = new SyncWorker();
+            ProcessingManager s = new ProcessingManager();
             await s.Run();
             MessageDialog d = new MessageDialog("Scan Finished.");
             await d.ShowAsync();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace owncloud_universal.Model
 {
-    enum SyncDirection
+    public enum SyncDirection
     {
         DownloadOnly = 0,
         UploadOnly = 1,
