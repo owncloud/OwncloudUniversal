@@ -8,7 +8,7 @@ using Windows.Storage;
 
 namespace owncloud_universal.Model
 {
-    class FolderAssociation
+    public class FolderAssociation
     {
         public long Id { get; set; }
         public bool IsActive { get; set; }

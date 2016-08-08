@@ -99,11 +99,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConnectionManager.cs" />
-    <Compile Include="FolderMapping.xaml.cs">
+    <Compile Include="LocalFileSystem\FileSystemAdapter.cs" />
+    <Compile Include="Model\AbstractAdapter.cs" />
+    <Compile Include="Model\AbstractItem.cs" />
+    <Compile Include="WebDav\ConnectionManager.cs" />
+    <Compile Include="WebDav\DownloadManager.cs" />
+    <Compile Include="Configuration\FolderMapping.xaml.cs">
       <DependentUpon>FolderMapping.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoggingHelper.cs" />
     <Compile Include="Model\Folder.cs" />
     <Compile Include="Model\FolderAssociationTableModel.cs" />
     <Compile Include="Model\LocalItem.cs" />
@@ -117,7 +120,9 @@
     <Compile Include="SQLite\DateTimeHelper.cs" />
     <Compile Include="SQLite\SQLiteClient.cs" />
     <Compile Include="Model\AbstractTableModelBase.cs" />
-    <Compile Include="SyncWorker.cs" />
+    <Compile Include="Processing\SyncWorker.cs" />
+    <Compile Include="WebDav\UploadManager.cs" />
+    <Compile Include="WebDav\WebDavAdapter.cs" />
     <Compile Include="WebDav\WebDavClient.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="WebDav\ResponseParser.cs" />
@@ -126,7 +131,7 @@
     </Compile>
     <Compile Include="WebDav\DavItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.xaml.cs">
+    <Compile Include="Configuration\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -151,7 +156,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="FolderMapping.xaml">
+    <Page Include="Configuration\FolderMapping.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,7 +164,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Settings.xaml">
+    <Page Include="Configuration\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,6 +180,7 @@
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

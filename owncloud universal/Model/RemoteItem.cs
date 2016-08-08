@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace owncloud_universal.Model
 {
-    public class RemoteItem
+    public class RemoteItem : AbstractItem
     {
         public RemoteItem(DavItem davItem)
         {
