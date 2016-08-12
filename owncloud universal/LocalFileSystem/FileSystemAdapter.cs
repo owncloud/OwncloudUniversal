@@ -12,66 +12,34 @@ namespace owncloud_universal.LocalFileSystem
 {
     class FileSystemAdapter : AbstractAdapter
     {
-        private async Task ScanLocalFolder(StorageFolder localFolder, long associationId)
-        {
-            var files = await localFolder.GetItemsAsync();
-            foreach (IStorageItem sItem in files)
-            {
-                BasicProperties bp = await sItem.GetBasicPropertiesAsync();
-                LocalItem li = new LocalItem();
-                li.FolderId = associationId;
-                li.IsCollection = sItem is StorageFolder;
-                li.LastModified = bp.DateModified.LocalDateTime;
-                li.Path = sItem.Path;
-
-                var itemsInDatabase = LocalItemTableModel.GetDefault().SelectByPath(li.Path, li.FolderId);
-                if (itemsInDatabase.Count == 0)
-                {
-                    LocalItemTableModel.GetDefault().InsertItem(li);
-                    if (sItem is StorageFolder)
-                        await ScanLocalFolder((StorageFolder)sItem, associationId);
-                    continue;
-                }
-
-                foreach (var itemInDatabase in itemsInDatabase)
-                {
-                    if (itemInDatabase.LastModified.Equals(li.LastModified))
-                    {
-                        LocalItemTableModel.GetDefault().UpdateItem(li, itemInDatabase.Id);
-                        if (sItem is StorageFolder)
-                            await ScanLocalFolder((StorageFolder)sItem, associationId);
-                    }
-                }
-            }
-        }
-        private async Task CheckLocalFolderRecursive(StorageFolder folder, long associationId, List<AbstractItem> result)
+        private async Task _CheckLocalFolderRecursive(StorageFolder folder, long associationId, List<AbstractItem> result)
         {
             var files = await folder.GetItemsAsync();
             foreach (IStorageItem sItem in files)
             {
                 if (sItem.IsOfType(StorageItemTypes.Folder))
-                    await CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
+                    await _CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
                 BasicProperties bp = await sItem.GetBasicPropertiesAsync();
                 LocalItem li = new LocalItem();
-                li.FolderId = associationId;
+                li.Association = new FolderAssociation { Id = associationId };
                 li.IsCollection = sItem is StorageFolder;
                 li.LastModified = bp.DateModified.LocalDateTime;
                 li.Path = sItem.Path;
                 result.Add(li);
             }
         }
-        private async Task<List<LocalItem>> GetDataToUpload(FolderAssociation association)
+        private async Task<List<AbstractItem>> GetDataToUpload(FolderAssociation association)
         {
-            List<LocalItem> result = new List<LocalItem>();
+            List<AbstractItem> result = new List<AbstractItem>();
             StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path);
-            await CheckLocalFolderRecursive(localFolder, association.Id, result);
+            await _CheckLocalFolderRecursive(localFolder, association.Id, result);
             return result;
         }
 
         public override async void AddItem(AbstractItem item)
         {
             var _item = (RemoteItem)item;
-            var folder = await GetStorageFolder(_item);
+            var folder = await _GetStorageFolder(_item);
             if (item.IsCollection)
             {
                 var f = await folder.CreateFolderAsync(_item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
@@ -91,14 +59,14 @@ namespace owncloud_universal.LocalFileSystem
                 //nothing to do
                 return;
             }
-            var folder = await GetStorageFolder(_item);
+            var folder = await _GetStorageFolder(_item);
             await folder.CreateFileAsync(_item.DavItem.DisplayName, CreationCollisionOption.ReplaceExisting);
         }
 
         public override async void DeleteItem(AbstractItem item)
         {
             var _item = (RemoteItem)item;
-            var folder = await GetStorageFolder(_item);
+            var folder = await _GetStorageFolder(_item);
             if (_item.IsCollection)
             {
                 await folder.DeleteAsync(StorageDeleteOption.Default);
@@ -110,26 +78,23 @@ namespace owncloud_universal.LocalFileSystem
             }
         }
 
-        public override async void GetAllItems(FolderAssociation association, out List<AbstractItem> items)
+        public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
-            StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path);
+            List<AbstractItem> items = new List<AbstractItem>();
+            StorageFolder folder = StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path).GetResults();
             items = new List<AbstractItem>();
-            await CheckLocalFolderRecursive(folder, association.Id, items);
+            await _CheckLocalFolderRecursive(folder, association.Id, items);
+            return items;
         }
 
-        public override void UpdateIndexes()
+        private async Task<StorageFolder> _GetStorageFolder(RemoteItem item)
         {
-            throw new NotImplementedException();
-        }
-
-        private async Task<StorageFolder> GetStorageFolder(RemoteItem item)
-        {
-            string filePath = item.IsCollection ? BuildFolderPath(item) : BuildFilePath(item);
+            string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
             string folderPath = Path.GetDirectoryName(filePath);
             return await StorageFolder.GetFolderFromPathAsync(folderPath);
         }
 
-        private string BuildFilePath(RemoteItem item)
+        private string _BuildFilePath(RemoteItem item)
         {
             Uri serverUri = new Uri(Configuration.ServerUrl);
             Uri folderUri = new Uri(serverUri, item.Association.RemoteFolder.DavItem.Href);
@@ -139,9 +104,11 @@ namespace owncloud_universal.LocalFileSystem
             return item.Association.LocalFolder.Path + '\\' + path;
         }
 
-        private string BuildFolderPath(RemoteItem item)
+        private string _BuildFolderPath(RemoteItem item)
         {
-            throw new NotImplementedException();
+            Uri serverUri = new Uri(Configuration.ServerUrl);
+            Uri folderUri = new Uri(serverUri, item.Association.RemoteFolder.DavItem.Href);
+            return Uri.UnescapeDataString(folderUri.ToString().Replace('/', '\\'));            
         }
     }
 }

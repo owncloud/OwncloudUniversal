@@ -32,8 +32,8 @@ namespace owncloud_universal.Model
         protected override void BindInsertItemQuery(ISQLiteStatement query, FolderAssociation item)
         {
             query.Bind(1, item.Id);
-            query.Bind(2, item.LocalFolder.Id);
-            query.Bind(3, item.RemoteFolder.Id);
+            query.Bind(2, item.LocalFolder.EntityId);
+            query.Bind(3, item.RemoteFolder.EntityId);
             query.Bind(4, item.IsActive ? 1 : 0);
             query.Bind(5, (int)item.SyncDirection);
         }
@@ -50,8 +50,8 @@ namespace owncloud_universal.Model
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, FolderAssociation item, long key)
         {
-            query.Bind(1, item.LocalFolder.Id);
-            query.Bind(2, item.RemoteFolder.Id);
+            query.Bind(1, item.LocalFolder.EntityId);
+            query.Bind(2, item.RemoteFolder.EntityId);
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (int)item.SyncDirection);
             query.Bind(5, item.Id);
@@ -140,6 +140,11 @@ namespace owncloud_universal.Model
         }
 
         protected override void BindGetDeletesQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindSelectItemQuery(ISQLiteStatement query, string itemId)
         {
             throw new NotImplementedException();
         }
