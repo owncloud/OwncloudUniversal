@@ -102,8 +102,10 @@
     <Compile Include="LocalFileSystem\FileSystemAdapter.cs" />
     <Compile Include="Model\AbstractAdapter.cs" />
     <Compile Include="Model\AbstractItem.cs" />
+    <Compile Include="Model\AbstractItemTableModel.cs" />
+    <Compile Include="Model\LinkStatus.cs" />
+    <Compile Include="Model\LinkStatusTableModel.cs" />
     <Compile Include="WebDav\ConnectionManager.cs" />
-    <Compile Include="WebDav\DownloadManager.cs" />
     <Compile Include="Configuration\FolderMapping.xaml.cs">
       <DependentUpon>FolderMapping.xaml</DependentUpon>
     </Compile>
@@ -111,17 +113,12 @@
     <Compile Include="Model\FolderAssociationTableModel.cs" />
     <Compile Include="Model\LocalItem.cs" />
     <Compile Include="Model\RemoteItem.cs" />
-    <Compile Include="Model\RemoteItemTableModel.cs" />
     <Compile Include="Model\FolderAssociation.cs" />
-    <Compile Include="Model\LocalItemTableModel.cs" />
     <Compile Include="Model\SyncDirection.cs" />
-    <Compile Include="Model\SyncItem.cs" />
-    <Compile Include="Model\SyncItemTableModel.cs" />
     <Compile Include="SQLite\DateTimeHelper.cs" />
     <Compile Include="SQLite\SQLiteClient.cs" />
     <Compile Include="Model\AbstractTableModelBase.cs" />
     <Compile Include="Processing\SyncWorker.cs" />
-    <Compile Include="WebDav\UploadManager.cs" />
     <Compile Include="WebDav\WebDavAdapter.cs" />
     <Compile Include="WebDav\WebDavClient.cs" />
     <Compile Include="Configuration\Configuration.cs" />

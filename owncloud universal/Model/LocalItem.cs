@@ -9,10 +9,8 @@ namespace owncloud_universal.Model
 {
     public class LocalItem : AbstractItem
     {
-        public long FolderId { get; set; }
         public DateTime? LastModified { get; set; }        
         public string Path { get; set; }
-        public long RemoteItemId { get; set; }
         public override string ChangeKey
         {
             get

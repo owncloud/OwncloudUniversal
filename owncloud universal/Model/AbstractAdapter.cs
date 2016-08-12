@@ -14,8 +14,6 @@ namespace owncloud_universal.Model
 
         public abstract void DeleteItem(AbstractItem item);
 
-        public abstract List<AbstractItem> GetAllItems(FolderAssociation association, out List<AbstractItem> items);
-
-        public abstract void UpdateIndexes();
+        public abstract Task<List<AbstractItem>> GetAllItems(FolderAssociation association);
     }
 }

@@ -14,10 +14,18 @@ namespace owncloud_universal.Model
         {
             DavItem = davItem;
         }
-        public long Id { get; set; }
-        public long FolderId { get; set; }
         public DavItem DavItem { get; private set; }
-        public Symbol Symbol { get {return DavItem.IsCollection ? Symbol.Folder : Symbol.Page2; }}
-        public long LocalItemId { get; set; }
+        public override string ChangeKey
+        {
+            get
+            {
+                return DavItem.Etag;
+            }
+
+            set
+            {
+                DavItem.Etag = value;
+            }
+        }
     }
 }

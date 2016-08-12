@@ -1,72 +1,88 @@
 ﻿using owncloud_universal.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace owncloud_universal.WebDav
 {
-    class WebDavAdapter
+    class WebDavAdapter : AbstractAdapter
     {
-        private async Task ScanRemoteFolder(RemoteItem remoteFolder, long associationId)
+        public override async void AddItem(AbstractItem item)
         {
-            List<RemoteItem> items = await ConnectionManager.GetFolder(remoteFolder.DavItem.Href);
-            foreach (RemoteItem item in items)
+            var _item = (LocalItem)item;
+            if (_item.IsCollection)
             {
-                RemoteItem ri = new RemoteItem(item.DavItem);
-                ri.FolderId = associationId;
-                var foundItems = RemoteItemTableModel.GetDefault().SelectByPath(ri.DavItem.Href, ri.FolderId);
-                if (foundItems.Count == 0)
-                {
-                    RemoteItemTableModel.GetDefault().InsertItem(ri);
-                    if (!ri.DavItem.IsCollection) continue;
-                    await ScanRemoteFolder(item, associationId);
-                    continue;
-                }
+                string path = _BuildRemoteFolderPath(_item.Association, _item.Path);
+                string name = (await StorageFolder.GetFolderFromPathAsync(_item.Path)).DisplayName;
+                ConnectionManager.CreateFolder(path, name);
+                return;
+            }
+            StorageFile file = await StorageFile.GetFileFromPathAsync(_item.Path);
+            var stream = await file.OpenStreamForReadAsync();
+            await ConnectionManager.Upload(_BuildRemoteFilePath(_item.Association, file.Path), stream, file.DisplayName);
+            var remoteItem = ConnectionManager.GetFolder(_BuildRemoteFilePath(_item.Association, file.Path));
 
-                foreach (var foundItem in foundItems)
-                {
-                    if (foundItem.DavItem.Etag != ri.DavItem.Etag)
-                    {
-                        RemoteItemTableModel.GetDefault().UpdateItem(ri, foundItem.Id);
-                        Debug.Write(string.Format("Updating Database {0}", foundItem.Id));
-                        if (!ri.DavItem.IsCollection) continue;
-                        await ScanRemoteFolder(item, associationId);
-                    }
-                }
+            LocalItemTableModel.GetDefault().UpdateItem(_item, _item.EntityId);
+        }
 
+        public override void UpdateItem(AbstractItem item)
+        {
+            AddItem(item);
+        }
+
+        public override async void DeleteItem(AbstractItem item)
+        {
+            var _item = (LocalItem)item;
+            if (_item.IsCollection)
+            {
+                string path = _BuildRemoteFolderPath(_item.Association, _item.Path);
+                string name = (await StorageFolder.GetFolderFromPathAsync(_item.Path)).DisplayName;
+                ConnectionManager.DeleteFolder(_item.Path +'/'+ name);
+                return;
+            }
+            else
+            {
+                ConnectionManager.DeleteFile(_BuildRemoteFilePath(_item.Association, _item.Path));
             }
         }
 
-        private async Task<List<RemoteItem>> GetDataToDownload(FolderAssociation association)
+        public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
-            var result = new List<RemoteItem>();
-            await CheckRemoteFolderRecursive(association, result);
-            return result;
+            List<AbstractItem> items = new List<AbstractItem>();
+            await _CheckRemoteFolderRecursive(association, items);
+            return items;
         }
-
-
-
-        private async Task CheckRemoteFolderRecursive(FolderAssociation association, List<RemoteItem> result)
+        private async Task _CheckRemoteFolderRecursive(FolderAssociation association, List<AbstractItem> result)
         {
             List<RemoteItem> items = await ConnectionManager.GetFolder(association.RemoteFolder.DavItem.Href);
-            var inserts = RemoteItemTableModel.GetDefault().GetInserts(association.Id);
-            result.AddRange(inserts);
             foreach (RemoteItem item in items)
             {
                 if (item.DavItem.IsCollection)
-                    await CheckRemoteFolderRecursive(association, result);
-
-                var foundItems = RemoteItemTableModel.GetDefault().SelectByPath(item.DavItem.Href, item.FolderId);
-                if (foundItems.Count == 0)
-                    result.Add(item);
-                else foreach (var foundItem in foundItems)
-                    {
-                        if (foundItem.DavItem.Etag != item.DavItem.Etag)
-                            result.Add(item);
-                    }
+                    await _CheckRemoteFolderRecursive(association, result);
+                result.Add(item);
             }
+        }
+        private string _BuildRemoteFilePath(FolderAssociation association, string path)
+        {
+            Uri baseUri = new Uri(association.LocalFolder.Path);
+            Uri fileUri = new Uri(path);
+            Uri relativeUri = baseUri.MakeRelativeUri(fileUri);
+            string uri = relativeUri.ToString();
+            var relativeString = uri.Substring(uri.IndexOf('/') + 1);
+            return association.RemoteFolder.DavItem.Href + relativeString;
+        }
+        private string _BuildRemoteFolderPath(FolderAssociation association, string path)
+        {
+            Uri baseUri = new Uri(association.LocalFolder.Path);
+            Uri fileUri = new Uri(path);
+            Uri relativeUri = baseUri.MakeRelativeUri(fileUri);
+            string uri = relativeUri.ToString();
+            var relativeString = uri.Remove(uri.LastIndexOf('/'));
+            return association.RemoteFolder.DavItem.Href + relativeString;
         }
     }
 }

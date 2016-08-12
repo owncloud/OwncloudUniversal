@@ -14,6 +14,7 @@ namespace owncloud_universal.Model
 
         protected abstract string GetSelectItemQuery();
         protected abstract void BindSelectItemQuery(ISQLiteStatement query, TKey key);
+        protected abstract void BindSelectItemQuery(ISQLiteStatement query, string itemId);
 
         protected abstract string GetInsertItemQuery();
         protected abstract void BindInsertItemQuery(ISQLiteStatement query, TItem item);
@@ -35,6 +36,20 @@ namespace owncloud_universal.Model
             {
                 BindSelectItemQuery(query, key);
                 if(query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    return item;
+                }
+            }
+            throw new ArgumentOutOfRangeException("Key not found");
+        }
+
+        public TItem GetItem(string itemId)
+        {
+            using (var query = connection.Prepare(GetSelectItemQuery()))
+            {
+                BindSelectItemQuery(query, itemId);
+                if (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);
                     return item;
@@ -117,54 +132,6 @@ namespace owncloud_universal.Model
         protected abstract string GetSelectByPathQuery();
         protected abstract void BindSelectByPathQuery(ISQLiteStatement query, string path, TKey folderId);
 
-        protected abstract string GetGetInsertsQuery();
-        protected abstract void BindGetInsertsQuery(ISQLiteStatement query, TKey folderId);
-        protected abstract string GetGetUpdatesQuery();
-        protected abstract void BindGetUpdatesQuery(ISQLiteStatement query, object value, TKey folderId);
-        protected abstract string GetGetDeletesQuery();
-        protected abstract void BindGetDeletesQuery();
 
-        public ObservableCollection<TItem> GetInserts(TKey association)
-        {
-            var items = new ObservableCollection<TItem>();
-            using (var query = connection.Prepare(GetGetInsertsQuery()))
-            {
-                BindGetInsertsQuery(query, association);
-                while (query.Step() == SQLiteResult.ROW)
-                {
-                    var item = CreateInstance(query);
-                    items.Add(item);
-                }
-            }
-            return items;
-        }
-        public ObservableCollection<TItem> GetUpdates(TKey associatrion)
-        {
-            var items = new ObservableCollection<TItem>();
-            using (var query = connection.Prepare(GetGetUpdatesQuery()))
-            {
-                BindGetUpdatesQuery(query,null, associatrion);
-                while (query.Step() == SQLiteResult.ROW)
-                {
-                    var item = CreateInstance(query);
-                    items.Add(item);
-                }
-            }
-            return items;
-        }
-        public ObservableCollection<TItem> GetDeletes()
-        {
-            var items = new ObservableCollection<TItem>();
-            using (var query = connection.Prepare(GetGetDeletesQuery()))
-            {
-                BindGetDeletesQuery();
-                while (query.Step() == SQLiteResult.ROW)
-                {
-                    var item = CreateInstance(query);
-                    items.Add(item);
-                }
-            }
-            return items;
-        }
     }
 }

@@ -155,7 +155,7 @@ namespace owncloud_universal
             }
             catch (Exception e)
             {
-                MessageDialog d = new MessageDialog("Failed to load items. Please check connectivity and configuration.");
+                MessageDialog d = new MessageDialog("Failed to load items. Please check connectivity and configuration. " + e.Message);
                 await d.ShowAsync();
                 return;
             }

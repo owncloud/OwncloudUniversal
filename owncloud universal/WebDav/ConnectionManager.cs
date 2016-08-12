@@ -59,9 +59,20 @@ namespace owncloud_universal
             }
         }
 
-        public static void CreateFolder(string href)
+        public static async void DeleteFile(string href)
         {
-            //_webDavClient.CreateDir(href, )
+            await _webDavClient.DeleteFile(href);
+        }
+
+        public static async void DeleteFolder(string path)
+        {
+            await _webDavClient.DeleteFolder(path);
+        }
+
+        public static async void CreateFolder(string href, string folderName)
+        {
+            if (await _webDavClient.CreateDir(href, folderName))
+                throw new Exception("Failed to CreateFolder");
         }
 
 
