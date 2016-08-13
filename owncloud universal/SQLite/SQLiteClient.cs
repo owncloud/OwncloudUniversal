@@ -17,10 +17,23 @@ namespace owncloud_universal
 
             query = @"CREATE TABLE IF NOT EXISTS [Item] (
                         [Id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-                        [FolderId] INTEGER NULL,
+                        [AssociationId] INTEGER NULL,
                         [IsCollection] BOOLEAN  NULL,
-                        [ChangeKey] TEXT  NULL,
-                        [ItemId] Text NULL
+                        [ChangeNumber] INTEGER NULL,
+                        [ChangeKey] NVARCHAR(510)  NULL,
+                        [EntityId] NVARCHAR(510) NULL
+                    );";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
+
+            query = @"CREATE TABLE IF NOT EXISTS [LinkStatus] (
+                        [Id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+                        [TargetItemId] INTEGER NULL,
+                        [SourceItemId] INTEGER  NULL,
+                        [ChangeNumber] INTEGER  NULL,
+                        [AssociationId] INTEGER NULL
                     );";
             using (var statement = Connection.Prepare(query))
             {
@@ -32,9 +45,7 @@ namespace owncloud_universal
                         [LocalItemId] INTEGER  NULL,
                         [RemoteItemId] INTEGER  NULL,
                         [IsActive] BOOLEAN  NULL,
-                        [SyncDirection] NVARCHAR(32),
-                        FOREIGN KEY(LocalItemId) REFERENCES LocalItem(Id),
-                        FOREIGN KEY(RemoteItemId) REFERENCES RemoteItem(Id)
+                        [SyncDirection] NVARCHAR(32)
                     );";
             using (var statement = Connection.Prepare(query))
             {

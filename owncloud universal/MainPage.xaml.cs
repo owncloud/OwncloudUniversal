@@ -124,26 +124,33 @@ namespace owncloud_universal
 
             StorageApplicationPermissions.FutureAccessList.Add(folder);
             var properties = await folder.Properties.RetrievePropertiesAsync(new List<string> { "System.DateModified" });
-            LocalItem li = new LocalItem
-            {
-                IsCollection = true,
-                LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime,
-                Path = folder.Path
-            };
-            LocalItemTableModel.GetDefault().InsertItem(li);
-            li = LocalItemTableModel.GetDefault().GetLastInsertItem();
-
-            RemoteItemTableModel.GetDefault().InsertItem(item);
-            item = RemoteItemTableModel.GetDefault().GetLastInsertItem();
 
             FolderAssociation fa = new FolderAssociation
             {
                 IsActive = true,
-                LocalFolder = li,
+                LocalFolder = new LocalItem { Id = 0},
                 RemoteFolder = item,
                 SyncDirection = SyncDirection.TwoWay
             };
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
+            fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();
+
+            AbstractItem li = new LocalItem
+            {
+                IsCollection = true,
+                LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime,
+                Path = folder.Path,
+                Association = fa,
+            };
+            AbstractItemTableModel.GetDefault().InsertItem(li);
+            li = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+
+            item.Association = fa;
+            AbstractItemTableModel.GetDefault().InsertItem(item);
+            var ri = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+            fa.RemoteFolder = ri;
+            fa.LocalFolder = li;
+            FolderAssociationTableModel.GetDefault().UpdateItem(fa, fa.Id);
         }
 
         private async void CreateListView(Folder folder)

@@ -28,11 +28,11 @@ namespace owncloud_universal.Model
         protected abstract string GetSelectAllQuery();
         protected abstract void BindSelectAllQuery(ISQLiteStatement query);
 
-        private ISQLiteConnection connection { get { return SQLiteClient.Connection; } }
+        protected ISQLiteConnection Connection { get { return SQLiteClient.Connection; } }
 
         public TItem GetItem(TKey key)
         {
-            using(var query = connection.Prepare(GetSelectItemQuery()))
+            using(var query = Connection.Prepare(GetSelectItemQuery()))
             {
                 BindSelectItemQuery(query, key);
                 if(query.Step() == SQLiteResult.ROW)
@@ -41,12 +41,12 @@ namespace owncloud_universal.Model
                     return item;
                 }
             }
-            throw new ArgumentOutOfRangeException("Key not found");
+            return default(TItem);
         }
 
         public TItem GetItem(string itemId)
         {
-            using (var query = connection.Prepare(GetSelectItemQuery()))
+            using (var query = Connection.Prepare(GetSelectItemQuery()))
             {
                 BindSelectItemQuery(query, itemId);
                 if (query.Step() == SQLiteResult.ROW)
@@ -60,7 +60,7 @@ namespace owncloud_universal.Model
 
         public void InsertItem(TItem item)
         {
-            using (var query = connection.Prepare(GetInsertItemQuery()))
+            using (var query = Connection.Prepare(GetInsertItemQuery()))
             {
                 BindInsertItemQuery(query, item);
                 query.Step();
@@ -69,7 +69,7 @@ namespace owncloud_universal.Model
 
         public void UpdateItem(TItem item, TKey key)
         {
-            using(var query = connection.Prepare(GetUpdateItemQuery()))
+            using(var query = Connection.Prepare(GetUpdateItemQuery()))
             {
                 BindUpdateItemQuery(query, item, key);
             }
@@ -77,7 +77,7 @@ namespace owncloud_universal.Model
 
         public void DeleteItem(TKey key)
         {
-            using(var query = connection.Prepare(GetDeleteItemQuery()))
+            using(var query = Connection.Prepare(GetDeleteItemQuery()))
             {
                 BindDeleteItemQuery(query, key);
                 query.Step();
@@ -86,7 +86,7 @@ namespace owncloud_universal.Model
 
         public TItem GetLastInsertItem()
         {
-            using (var query = connection.Prepare(GetLastInsertRowIdQuery()))
+            using (var query = Connection.Prepare(GetLastInsertRowIdQuery()))
             {
                 if (query.Step() == SQLiteResult.ROW)
                 {
@@ -101,25 +101,10 @@ namespace owncloud_universal.Model
         public ObservableCollection<TItem> GetAllItems()
         {
             var items = new ObservableCollection<TItem>();
-            using(var query = connection.Prepare(GetSelectAllQuery()))
+            using(var query = Connection.Prepare(GetSelectAllQuery()))
             {
                 BindSelectAllQuery(query);
                 while(query.Step() == SQLiteResult.ROW)
-                {
-                    var item = CreateInstance(query);
-                    items.Add(item);
-                }
-            }
-            return items;
-        }
-
-        public ObservableCollection<TItem> SelectByPath(string path, TKey folderId)
-        {
-            var items = new ObservableCollection<TItem>();
-            using(var query = connection.Prepare(GetSelectByPathQuery()))
-            {
-                BindSelectByPathQuery(query, path, folderId);
-                while (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);
                     items.Add(item);
