@@ -13,7 +13,7 @@ namespace owncloud_universal.Model
         public long Id { get; set; }
         public bool IsActive { get; set; }
         public SyncDirection SyncDirection { get; set; }
-        public LocalItem LocalFolder { get; set; }
-        public RemoteItem RemoteFolder { get; set; }
+        public AbstractItem LocalFolder { get; set; }
+        public AbstractItem RemoteFolder { get; set; }
     }
 }

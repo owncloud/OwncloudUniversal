@@ -7,38 +7,38 @@ using SQLitePCL;
 
 namespace owncloud_universal.Model
 {
-    class AbstractItemTableModel : AbstractTableModelBase<AbstractItem, int>
+    class AbstractItemTableModel : AbstractTableModelBase<AbstractItem, long>
     {
-        private AbstractItemTableModel() { }
+        //public AbstractItemTableModel() { }
 
         private static AbstractItemTableModel instance;
         public static AbstractItemTableModel GetDefault()
         {
-            lock (typeof(AbstractItemTableModel))
-            {
+            //lock (typeof(AbstractItemTableModel))
+            //{
                 if (instance == null)
                     instance = new AbstractItemTableModel();
-                return instance;
-            }
+                return new AbstractItemTableModel();
+            //}
         }
-        protected override void BindDeleteItemQuery(ISQLiteStatement query, int key)
+        protected override void BindDeleteItemQuery(ISQLiteStatement query, long key)
         {
-            throw new NotImplementedException();
+            query.Bind(1, key);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
         {
-            throw new NotImplementedException();
+            //nix
         }
 
-        protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, int folderId)
+        protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId)
         {
             throw new NotImplementedException();
         }
 
-        protected override void BindSelectItemQuery(ISQLiteStatement query, int key)
+        protected override void BindSelectItemQuery(ISQLiteStatement query, long key)
         {
-            throw new NotImplementedException();
+            query.Bind(1, key);
         }
 
         protected override string GetDeleteItemQuery()
@@ -48,52 +48,72 @@ namespace owncloud_universal.Model
              
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Item (FolderId, ItemId, IsCollection, ChangeKey, ItemId) VALUES(@folderid, @itemid, @iscollection, @changekey, @itemid)";
+            return "INSERT INTO Item (AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber) VALUES(@AssociationId, @EntityId, @iscollection, @changekey, @changenumber)";
         }
 
         protected override string GetLastInsertRowIdQuery()
         {
-            throw new NotImplementedException();
+            return "SELECT last_insert_rowid() FROM Item";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "";
+            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber FROM Item";
         }
 
         protected override string GetSelectByPathQuery()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return null;
         }
 
         protected override string GetSelectItemQuery()
         {
-            throw new NotImplementedException();
+            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber FROM Item WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            throw new NotImplementedException();
+            return "UPDATE Item SET EntityId = ?, IsCollection = ?, ChangeKey = ?, ChangeNumber = ? WHERE Id = ?";
         }
 
         protected override void BindSelectItemQuery(ISQLiteStatement query, string itemId)
         {
-            throw new NotImplementedException();
+            query.Bind(1, itemId);
         }
 
         protected override void BindInsertItemQuery(ISQLiteStatement query, AbstractItem item)
         {
-            throw new NotImplementedException();
+            //"INSERT INTO Item (AssociationId, ItemId, IsCollection, ChangeKey, ChangeNumber) VALUES(@AssociationId, @itemid, @iscollection, @changekey, @changenumber)";
+            query.Bind(1, item.Association.Id);
+            query.Bind(2, item.EntityId);
+            query.Bind(3, item.IsCollection ? 1 : 0);
+            query.Bind(4, item.ChangeKey);
+            query.Bind(5, item.ChangeNumber);
         }
 
-        protected override void BindUpdateItemQuery(ISQLiteStatement query, AbstractItem item, int key)
+        protected override void BindUpdateItemQuery(ISQLiteStatement query, AbstractItem item, long key)
         {
-            throw new NotImplementedException();
+            //"UPDATE Item SET EntityId = ?, IsCollection = ?, ChangeKey = ?, ChangeNumber = ? WHERE Id = ?";
+            query.Bind(1, item.EntityId);
+            query.Bind(2, item.IsCollection ? 1 : 0);
+            query.Bind(3, item.ChangeKey);
+            query.Bind(4, item.ChangeNumber);
+            query.Bind(5, key);
         }
 
         protected override AbstractItem CreateInstance(ISQLiteStatement query)
         {
-            throw new NotImplementedException();
+            //SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber FROM Item WHERE Id = ?
+            var item = new AbstractItem();
+            item.Id = (long)query["Id"];
+            var associationModel = FolderAssociationTableModel.GetDefault();
+            item.Association = associationModel.GetItem((long)query["AssociationId"]);
+            item.EntityId = (string)query["EntityId"];
+            item.IsCollection = (long)query["IsCollection"] == 1;
+            item.ChangeKey = (string)query["ChangeKey"];
+            item.ChangeNumber = (long)query["ChangeNumber"];
+            return item;
         }
     }
 }

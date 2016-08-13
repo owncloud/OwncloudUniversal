@@ -113,7 +113,7 @@ namespace owncloud_universal
             var result = new List<AbstractItem>();
             foreach (var item in allItems)
             {
-                var links = linkList.Where(x => x.SourceItemId == item.EntityId || x.TargetItemId == item.EntityId).ToList();
+                var links = linkList.Where(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id).ToList();
                 if(links.Count == 0)
                 {
                     //es ist noch kein link vorhanden, also ein neues Item
@@ -131,7 +131,7 @@ namespace owncloud_universal
                 //wenn die chngenum vom link kleiner ist als die vom item muss es geupdated werden
                 var links = linkList.Where(x => 
                         x.ChangeNumber < item.ChangeNumber &&
-                        (x.SourceItemId == item.EntityId || x.TargetItemId== item.Id)
+                        (x.SourceItemId == item.Id || x.TargetItemId== item.Id)
                     ).ToList();
                 if (links.Count != 0)
                 {

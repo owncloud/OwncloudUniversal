@@ -31,7 +31,7 @@ namespace owncloud_universal.LocalFileSystem
         private async Task<List<AbstractItem>> GetDataToUpload(FolderAssociation association)
         {
             List<AbstractItem> result = new List<AbstractItem>();
-            StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path);
+            StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(((LocalItem)association.LocalFolder).Path);
             await _CheckLocalFolderRecursive(localFolder, association.Id, result);
             return result;
         }
@@ -81,7 +81,7 @@ namespace owncloud_universal.LocalFileSystem
         public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
             List<AbstractItem> items = new List<AbstractItem>();
-            StorageFolder folder = StorageFolder.GetFolderFromPathAsync(association.LocalFolder.Path).GetResults();
+            StorageFolder folder = StorageFolder.GetFolderFromPathAsync(((LocalItem)association.LocalFolder).Path).GetResults();
             items = new List<AbstractItem>();
             await _CheckLocalFolderRecursive(folder, association.Id, items);
             return items;
@@ -97,17 +97,17 @@ namespace owncloud_universal.LocalFileSystem
         private string _BuildFilePath(RemoteItem item)
         {
             Uri serverUri = new Uri(Configuration.ServerUrl);
-            Uri folderUri = new Uri(serverUri, item.Association.RemoteFolder.DavItem.Href);
+            Uri folderUri = new Uri(serverUri, ((RemoteItem)item.Association.RemoteFolder).DavItem.Href);
             Uri fileUri = new Uri(serverUri, item.DavItem.Href);
             Uri relativeUri = folderUri.MakeRelativeUri(fileUri);
             string path = Uri.UnescapeDataString(relativeUri.ToString().Replace('/', '\\'));
-            return item.Association.LocalFolder.Path + '\\' + path;
+            return ((LocalItem)item.Association.LocalFolder).Path + '\\' + path;
         }
 
         private string _BuildFolderPath(RemoteItem item)
         {
             Uri serverUri = new Uri(Configuration.ServerUrl);
-            Uri folderUri = new Uri(serverUri, item.Association.RemoteFolder.DavItem.Href);
+            Uri folderUri = new Uri(serverUri, ((RemoteItem)item.Association.RemoteFolder).DavItem.Href);
             return Uri.UnescapeDataString(folderUri.ToString().Replace('/', '\\'));            
         }
     }

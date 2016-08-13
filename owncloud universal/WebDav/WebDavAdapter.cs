@@ -26,7 +26,7 @@ namespace owncloud_universal.WebDav
             await ConnectionManager.Upload(_BuildRemoteFilePath(_item.Association, file.Path), stream, file.DisplayName);
             var remoteItem = ConnectionManager.GetFolder(_BuildRemoteFilePath(_item.Association, file.Path));
 
-            LocalItemTableModel.GetDefault().UpdateItem(_item, _item.EntityId);
+            AbstractItemTableModel.GetDefault().UpdateItem(_item, _item.Id);
         }
 
         public override void UpdateItem(AbstractItem item)
@@ -58,7 +58,7 @@ namespace owncloud_universal.WebDav
         }
         private async Task _CheckRemoteFolderRecursive(FolderAssociation association, List<AbstractItem> result)
         {
-            List<RemoteItem> items = await ConnectionManager.GetFolder(association.RemoteFolder.DavItem.Href);
+            List<RemoteItem> items = await ConnectionManager.GetFolder(((RemoteItem)association.RemoteFolder).DavItem.Href);
             foreach (RemoteItem item in items)
             {
                 if (item.DavItem.IsCollection)
@@ -68,21 +68,21 @@ namespace owncloud_universal.WebDav
         }
         private string _BuildRemoteFilePath(FolderAssociation association, string path)
         {
-            Uri baseUri = new Uri(association.LocalFolder.Path);
+            Uri baseUri = new Uri(((LocalItem)association.LocalFolder).Path);
             Uri fileUri = new Uri(path);
             Uri relativeUri = baseUri.MakeRelativeUri(fileUri);
             string uri = relativeUri.ToString();
             var relativeString = uri.Substring(uri.IndexOf('/') + 1);
-            return association.RemoteFolder.DavItem.Href + relativeString;
+            return ((RemoteItem)association.RemoteFolder).DavItem.Href + relativeString;
         }
         private string _BuildRemoteFolderPath(FolderAssociation association, string path)
         {
-            Uri baseUri = new Uri(association.LocalFolder.Path);
+            Uri baseUri = new Uri(((LocalItem)association.LocalFolder).Path);
             Uri fileUri = new Uri(path);
             Uri relativeUri = baseUri.MakeRelativeUri(fileUri);
             string uri = relativeUri.ToString();
             var relativeString = uri.Remove(uri.LastIndexOf('/'));
-            return association.RemoteFolder.DavItem.Href + relativeString;
+            return ((RemoteItem)association.RemoteFolder).DavItem.Href + relativeString;
         }
     }
 }

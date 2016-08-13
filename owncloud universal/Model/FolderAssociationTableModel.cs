@@ -16,12 +16,12 @@ namespace owncloud_universal.Model
 
         public static FolderAssociationTableModel GetDefault()
         {
-            lock (typeof(FolderAssociationTableModel))
-            {
+            //lock (typeof(FolderAssociationTableModel))
+            //{
                 if (instance == null)
                     instance = new FolderAssociationTableModel();
                 return instance;
-            }
+            //}
         }
 
         protected override void BindDeleteItemQuery(ISQLiteStatement query, long key)
@@ -35,7 +35,7 @@ namespace owncloud_universal.Model
             query.Bind(2, item.LocalFolder.EntityId);
             query.Bind(3, item.RemoteFolder.EntityId);
             query.Bind(4, item.IsActive ? 1 : 0);
-            query.Bind(5, (int)item.SyncDirection);
+            query.Bind(5, (long)item.SyncDirection);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -53,7 +53,7 @@ namespace owncloud_universal.Model
             query.Bind(1, item.LocalFolder.EntityId);
             query.Bind(2, item.RemoteFolder.EntityId);
             query.Bind(3, item.IsActive ? 1 : 0);
-            query.Bind(4, (int)item.SyncDirection);
+            query.Bind(4, (long)item.SyncDirection);
             query.Bind(5, item.Id);
         }
 
@@ -65,12 +65,10 @@ namespace owncloud_universal.Model
             fa.SyncDirection = (SyncDirection)Enum.Parse(typeof(SyncDirection), (string)query[4]);
 
 
-            var li = LocalItemTableModel.GetDefault();
+            var li = new AbstractItemTableModel();
             fa.LocalFolder = li.GetItem((long)query[1]);
-
-            var ri = RemoteItemTableModel.GetDefault();
+            var ri = AbstractItemTableModel.GetDefault();
             fa.RemoteFolder = ri.GetItem((long)query[2]);
-
             return fa;
         }
 
@@ -112,36 +110,6 @@ namespace owncloud_universal.Model
         protected override void BindSelectByPathQuery(ISQLiteStatement query, string path, long folderId)
         {
             throw new NotSupportedException();
-        }
-
-        protected override string GetGetInsertsQuery()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void BindGetInsertsQuery(ISQLiteStatement query, long folderId)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override string GetGetUpdatesQuery()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void BindGetUpdatesQuery(ISQLiteStatement query, object value, long folderId)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override string GetGetDeletesQuery()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void BindGetDeletesQuery()
-        {
-            throw new NotImplementedException();
         }
 
         protected override void BindSelectItemQuery(ISQLiteStatement query, string itemId)
