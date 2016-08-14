@@ -9,18 +9,18 @@ namespace owncloud_universal.Model
 {
     class AbstractItemTableModel : AbstractTableModelBase<AbstractItem, long>
     {
-        //public AbstractItemTableModel() { }
+        private AbstractItemTableModel() { }
 
         private static AbstractItemTableModel instance;
         public static AbstractItemTableModel GetDefault()
         {
-            //lock (typeof(AbstractItemTableModel))
-            //{
+            lock (typeof(AbstractItemTableModel))
+            {
                 if (instance == null)
                     instance = new AbstractItemTableModel();
                 return new AbstractItemTableModel();
-            //}
         }
+    }
         protected override void BindDeleteItemQuery(ISQLiteStatement query, long key)
         {
             query.Bind(1, key);
@@ -109,11 +109,25 @@ namespace owncloud_universal.Model
             item.Id = (long)query["Id"];
             var associationModel = FolderAssociationTableModel.GetDefault();
             item.Association = associationModel.GetItem((long)query["AssociationId"]);
-            item.EntityId = (string)query["EntityId"];
+            item.EntityId = (string)(query["EntityId"] == null ? default(string) : query["EntityId"]);
             item.IsCollection = (long)query["IsCollection"] == 1;
             item.ChangeKey = (string)query["ChangeKey"];
             item.ChangeNumber = (long)query["ChangeNumber"];
             return item;
+        }
+
+        public AbstractItem GetItem(AbstractItem item)
+        {
+            using (var query = Connection.Prepare("SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber FROM Item WHERE Id = ?"))
+            {
+                query.Bind(1, item.EntityId);
+                if (query.Step() == SQLiteResult.ROW)
+                {
+                    item = CreateInstance(query);
+                    return item;
+                }
+            }
+            return null;
         }
     }
 }

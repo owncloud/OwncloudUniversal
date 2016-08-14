@@ -19,8 +19,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding RemoteFolder.DavItem.Href}"/>
-                        <TextBlock Text="{Binding LocalFolder.Path}" Margin="20,0,0,0" FontStyle="Italic"/>
+                        <TextBlock Text="{Binding RemoteFolderId}"/>
+                        <TextBlock Text="{Binding LocalFolderId}" Margin="20,0,0,0" FontStyle="Italic"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

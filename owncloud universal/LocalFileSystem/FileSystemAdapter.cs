@@ -20,50 +20,57 @@ namespace owncloud_universal.LocalFileSystem
                 if (sItem.IsOfType(StorageItemTypes.Folder))
                     await _CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
                 BasicProperties bp = await sItem.GetBasicPropertiesAsync();
-                LocalItem li = new LocalItem();
-                li.Association = new FolderAssociation { Id = associationId };
-                li.IsCollection = sItem is StorageFolder;
-                li.LastModified = bp.DateModified.LocalDateTime;
-                li.Path = sItem.Path;
-                result.Add(li);
+                var item = new LocalItem(new FolderAssociation { Id = associationId }, sItem, bp);
+                result.Add(item);
             }
         }
         private async Task<List<AbstractItem>> GetDataToUpload(FolderAssociation association)
         {
             List<AbstractItem> result = new List<AbstractItem>();
-            StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(((LocalItem)association.LocalFolder).Path);
+            StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(GetAssociatedItem(association.LocalFolderId).EntityId);
             await _CheckLocalFolderRecursive(localFolder, association.Id, result);
             return result;
         }
 
-        public override async void AddItem(AbstractItem item)
+        public override async Task<AbstractItem> AddItem(AbstractItem item)
         {
             var _item = (RemoteItem)item;
             var folder = await _GetStorageFolder(_item);
+            IStorageItem storageItem;
             if (item.IsCollection)
             {
-                var f = await folder.CreateFolderAsync(_item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
+                storageItem = await folder.CreateFolderAsync(_item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
             }
             else
             {
-                var file = await folder.CreateFileAsync(_item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
-                var result = await ConnectionManager.Download(_item.DavItem.Href, file);
+                storageItem = await folder.CreateFileAsync(_item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
+                await ConnectionManager.Download(_item.DavItem.Href, (StorageFile)storageItem);
             }
+            var targetItem = new LocalItem();
+            BasicProperties bp = await storageItem.GetBasicPropertiesAsync();
+            targetItem = new LocalItem(item.Association, storageItem, bp);
+            return targetItem;
         }
 
-        public override async void UpdateItem(AbstractItem item)
+        public override async Task<AbstractItem> UpdateItem(AbstractItem item)
         {
-            var _item = (RemoteItem)item;
+            var folder = await _GetStorageFolder(item);
+            AbstractItem targetItem = null;
             if (item.IsCollection)
             {
-                //nothing to do
-                return;
+                var bp = await folder.GetBasicPropertiesAsync();
+                targetItem = new LocalItem(item.Association, folder, bp);
             }
-            var folder = await _GetStorageFolder(_item);
-            await folder.CreateFileAsync(_item.DavItem.DisplayName, CreationCollisionOption.ReplaceExisting);
+            else
+            {
+                var file = await folder.CreateFileAsync(((RemoteItem)item).DavItem.DisplayName, CreationCollisionOption.ReplaceExisting);
+                var bp = await file.GetBasicPropertiesAsync();
+                targetItem = new LocalItem(item.Association, file, bp);
+            }
+            return targetItem; 
         }
 
-        public override async void DeleteItem(AbstractItem item)
+        public override async Task DeleteItem(AbstractItem item)
         {
             var _item = (RemoteItem)item;
             var folder = await _GetStorageFolder(_item);
@@ -81,34 +88,45 @@ namespace owncloud_universal.LocalFileSystem
         public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
             List<AbstractItem> items = new List<AbstractItem>();
-            StorageFolder folder = StorageFolder.GetFolderFromPathAsync(((LocalItem)association.LocalFolder).Path).GetResults();
+            var item = GetAssociatedItem(association.LocalFolderId);
+            StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(item.EntityId);
             items = new List<AbstractItem>();
             await _CheckLocalFolderRecursive(folder, association.Id, items);
             return items;
         }
 
-        private async Task<StorageFolder> _GetStorageFolder(RemoteItem item)
+        private async Task<StorageFolder> _GetStorageFolder(AbstractItem item)
         {
             string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
             string folderPath = Path.GetDirectoryName(filePath);
             return await StorageFolder.GetFolderFromPathAsync(folderPath);
         }
 
-        private string _BuildFilePath(RemoteItem item)
+        private string _BuildFilePath(AbstractItem item)
         {
-            Uri serverUri = new Uri(Configuration.ServerUrl);
-            Uri folderUri = new Uri(serverUri, ((RemoteItem)item.Association.RemoteFolder).DavItem.Href);
-            Uri fileUri = new Uri(serverUri, item.DavItem.Href);
-            Uri relativeUri = folderUri.MakeRelativeUri(fileUri);
-            string path = Uri.UnescapeDataString(relativeUri.ToString().Replace('/', '\\'));
-            return ((LocalItem)item.Association.LocalFolder).Path + '\\' + path;
+            var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);          
+            var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
+            var relativefileUri = item.EntityId.Replace(remoteFolder.EntityId, ""); 
+            string path = Uri.UnescapeDataString(relativefileUri.ToString().Replace('/', '\\'));
+            var result = folderUri.LocalPath + '\\' + path;
+            return folderUri.LocalPath + '\\' + path;
         }
 
-        private string _BuildFolderPath(RemoteItem item)
+        private string _BuildFolderPath(AbstractItem item)
         {
-            Uri serverUri = new Uri(Configuration.ServerUrl);
-            Uri folderUri = new Uri(serverUri, ((RemoteItem)item.Association.RemoteFolder).DavItem.Href);
-            return Uri.UnescapeDataString(folderUri.ToString().Replace('/', '\\'));            
+            var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);
+            var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
+            var relativefileUri = item.EntityId.Replace(remoteFolder.EntityId, "");
+            relativefileUri = relativefileUri.Remove(relativefileUri.LastIndexOf("/"));
+            string relativePath = Uri.UnescapeDataString(relativefileUri.ToString().Replace('/', '\\'));
+            var absoltuePath = folderUri.LocalPath + '\\' + relativePath;
+            //var result = absoltuePath.Remove(absoltuePath.LastIndexOf("\\"));
+            return absoltuePath;
+        }
+
+        private AbstractItem GetAssociatedItem(long id)
+        {
+            return AbstractItemTableModel.GetDefault().GetItem(id);
         }
     }
 }

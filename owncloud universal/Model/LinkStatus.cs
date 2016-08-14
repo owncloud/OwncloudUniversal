@@ -8,6 +8,14 @@ namespace owncloud_universal.Model
 {
     public class LinkStatus
     {
+        public LinkStatus() { }
+        public LinkStatus(AbstractItem sourceItem, AbstractItem targetItem)
+        {
+            SourceItemId = sourceItem.Id;
+            TargetItemId = targetItem.Id;
+            ChangeNumber = 0;
+            AssociationId = sourceItem.Association.Id;
+        }
         public long Id { get; set; }
         public long TargetItemId { get; set; }
         public long SourceItemId { get; set; }
