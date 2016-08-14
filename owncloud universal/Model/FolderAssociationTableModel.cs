@@ -16,12 +16,12 @@ namespace owncloud_universal.Model
 
         public static FolderAssociationTableModel GetDefault()
         {
-            //lock (typeof(FolderAssociationTableModel))
-            //{
+            lock (typeof(FolderAssociationTableModel))
+            {
                 if (instance == null)
                     instance = new FolderAssociationTableModel();
                 return instance;
-            //}
+            }
         }
 
         protected override void BindDeleteItemQuery(ISQLiteStatement query, long key)
@@ -31,11 +31,10 @@ namespace owncloud_universal.Model
 
         protected override void BindInsertItemQuery(ISQLiteStatement query, FolderAssociation item)
         {
-            query.Bind(1, item.Id);
-            query.Bind(2, item.LocalFolder.EntityId);
-            query.Bind(3, item.RemoteFolder.EntityId);
-            query.Bind(4, item.IsActive ? 1 : 0);
-            query.Bind(5, (long)item.SyncDirection);
+            query.Bind(1, item.LocalFolderId);
+            query.Bind(2, item.RemoteFolderId);
+            query.Bind(3, item.IsActive ? 1 : 0);
+            query.Bind(4, (long)item.SyncDirection);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -50,8 +49,8 @@ namespace owncloud_universal.Model
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, FolderAssociation item, long key)
         {
-            query.Bind(1, item.LocalFolder.EntityId);
-            query.Bind(2, item.RemoteFolder.EntityId);
+            query.Bind(1, item.LocalFolderId);
+            query.Bind(2, item.RemoteFolderId);
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (long)item.SyncDirection);
             query.Bind(5, item.Id);
@@ -61,14 +60,10 @@ namespace owncloud_universal.Model
         {
             FolderAssociation fa = new FolderAssociation();
             fa.Id = (long)query[0];
+            fa.LocalFolderId = (long)query[1];
+            fa.RemoteFolderId = (long)query[2];
             fa.IsActive = (long)query[3] == 1;
             fa.SyncDirection = (SyncDirection)Enum.Parse(typeof(SyncDirection), (string)query[4]);
-
-
-            var li = new AbstractItemTableModel();
-            fa.LocalFolder = li.GetItem((long)query[1]);
-            var ri = AbstractItemTableModel.GetDefault();
-            fa.RemoteFolder = ri.GetItem((long)query[2]);
             return fa;
         }
 
@@ -79,7 +74,7 @@ namespace owncloud_universal.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Association (Id, LocalItemId, RemoteItemId, IsActive, SyncDirection) VALUES(@id, @localitemid, @remoteitemid, @isactive, @syncdirection)";
+            return "INSERT INTO Association (LocalItemId, RemoteItemId, IsActive, SyncDirection) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection)";
         }
 
         protected override string GetSelectAllQuery()

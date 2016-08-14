@@ -28,7 +28,7 @@ namespace owncloud_universal
             _webDavAdapter = new WebDavAdapter();
             _fileSystemAdapter = new FileSystemAdapter();
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
-            foreach (var item in items)
+            foreach (FolderAssociation item in items)
             {
                 allItems = await _webDavAdapter.GetAllItems(item);
                 allItems.AddRange(await _fileSystemAdapter.GetAllItems(item));
@@ -38,53 +38,98 @@ namespace owncloud_universal
 
                 var inserts = GetInserts();
                 var updates = GetUpdates();
-                var deltes = GetDeletes();
+                var deletes = GetDeletes();
+
+                DoInserts(inserts);
+                DoUpdates(updates);
+                DoDeletes(deletes);
             }
         }  
         
-        private void DoInserts(List<AbstractItem> items)
+        private async void DoInserts(List<AbstractItem> items)
         {
+            //add the folders
+            foreach (var item in items)
+            {
+                AbstractItem targetItem = null;
+                if (item.IsCollection)
+                {
+                    if (item.GetType() == typeof(LocalItem))
+                    {
+                        targetItem = await _webDavAdapter.AddItem(item);
+                    }
+                    else
+                    {
+                        targetItem = await _fileSystemAdapter.AddItem(item);
+                    }
+                }
+                //creat link and increase changenum
+            }
+
+            //then the files
             foreach (var item in items)
             {
                 if(item.GetType() == typeof(LocalItem))
                 {
-                    _webDavAdapter.AddItem(item);
+                    await _webDavAdapter.AddItem(item);
                 }
                 else
                 {
-                    _fileSystemAdapter.AddItem(item);
+                    await _fileSystemAdapter.AddItem(item);
                 }
+                //creat link and increase changenum
             }
         }
 
-        private void DoUpdates(List<AbstractItem> items)
+        private async void DoUpdates(List<AbstractItem> items)
         {
             foreach (var item in items)
             {
                 if (item.GetType() == typeof(LocalItem))
                 {
-                    _webDavAdapter.UpdateItem(item);
+                    await _webDavAdapter.UpdateItem(item);
                 }
                 else
                 {
-                    _fileSystemAdapter.UpdateItem(item);
+                    await _fileSystemAdapter.UpdateItem(item);
                 }
+                //creat link and increase changenum
             }
         }
 
-        private void DoDeletes(List<AbstractItem> items)
+        private async void DoDeletes(List<AbstractItem> items)
         {
+            //delete files
             foreach (var item in items)
             {
-                if (item.GetType() == typeof(LocalItem))
+                if(!item.IsCollection)
                 {
-                    _webDavAdapter.DeleteItem(item);
-                }
-                else
-                {
-                    _fileSystemAdapter.DeleteItem(item);
+                    if (item.GetType() == typeof(LocalItem))
+                    {
+                        await _webDavAdapter.DeleteItem(item);
+                    }
+                    else
+                    {
+                        await _fileSystemAdapter.DeleteItem(item);
+                    }
                 }
             }
+            //and then folders
+            foreach (var item in items)
+            {
+                if (item.IsCollection)
+                {
+                    if (item.GetType() == typeof(LocalItem))
+                    {
+                        await _webDavAdapter.DeleteItem(item);
+                    }
+                    else
+                    {
+                        await _fileSystemAdapter.DeleteItem(item);
+                    }
+                }
+            }
+            //delete link and item
         }
 
         private void _UpdateFileIndexes(FolderAssociation association)
@@ -94,7 +139,8 @@ namespace owncloud_universal
             
             foreach (var item in allItems)
             {
-                var foundItem = itemTableModel.GetItem(item.EntityId);
+                item.Association = association;
+                var foundItem = itemTableModel.GetItem(item);
                 if (foundItem == null)
                 {
                     itemTableModel.InsertItem(item);
@@ -152,6 +198,33 @@ namespace owncloud_universal
                     result.Add(item);
             }
             return result;
+        }
+
+        private void AfterInsert(AbstractItem sourceItem, AbstractItem targetItem)
+        {
+            AbstractItemTableModel.GetDefault().InsertItem(targetItem);
+            targetItem = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+            LinkStatus link = new LinkStatus(sourceItem, targetItem);
+            LinkStatusTableModel.GetDefault().InsertItem(link);
+        }
+
+        private void AfterUpdate(AbstractItem sourceItem, AbstractItem targetItem)
+        {
+            sourceItem.ChangeNumber++;
+            targetItem.ChangeNumber++;
+            AbstractItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
+            AbstractItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
+            var link = linkList.Where(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id).First();
+            link.ChangeNumber = sourceItem.ChangeNumber;
+            LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
+        }
+
+        private void AfterDelete(AbstractItem sourceItem, AbstractItem targetItem)
+        {
+            AbstractItemTableModel.GetDefault().DeleteItem(sourceItem.Id);
+            AbstractItemTableModel.GetDefault().DeleteItem(targetItem.Id);
+            var link = linkList.Where(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id).First();
+            LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
         }
     }
 }

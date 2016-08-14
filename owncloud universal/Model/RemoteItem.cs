@@ -15,6 +15,31 @@ namespace owncloud_universal.Model
             DavItem = davItem;
         }
         public DavItem DavItem { get; private set; }
+        public Symbol Symbol { get { return DavItem.IsCollection ? Symbol.Folder : Symbol.Page2; } }
+        public override bool IsCollection
+        {
+            get
+            {
+                return DavItem.IsCollection;
+            }
+
+            set
+            {
+                DavItem.IsCollection = value;
+            }
+        }
+        public override string EntityId
+        {
+            get
+            {
+                return DavItem.Href;
+            }
+
+            set
+            {
+                DavItem.Href = value;
+            }
+        }
         public override string ChangeKey
         {
             get

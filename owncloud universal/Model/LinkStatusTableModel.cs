@@ -85,12 +85,12 @@ namespace owncloud_universal.Model
 
         public static LinkStatusTableModel GetDefault()
         {
-            //lock (typeof(LinkStatusTableModel))
-            //{
+            lock (typeof(LinkStatusTableModel))
+            {
                 if (instance == null)
                     instance = new LinkStatusTableModel();
                 return instance;
-            //}
+            }
         }
 
         protected override string GetSelectAllQuery()
@@ -133,8 +133,7 @@ namespace owncloud_universal.Model
             var items = new ObservableCollection<LinkStatus>();
             using (var query = Connection.Prepare(GetSelectAllQuery() + " WHERE AssociationId = ?"))
             {
-                BindSelectAllQuery(query);
-                query.Bind(6, association.Id);
+                query.Bind(1, association.Id);
                 while (query.Step() == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);

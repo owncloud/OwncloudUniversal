@@ -274,7 +274,7 @@ namespace owncloud_universal.WebDav
                 response = await HttpRequest(dirUri, MkCol).ConfigureAwait(false);
 
                 if (response.StatusCode == HttpStatusCode.Conflict)
-                    throw new Exception("Failed creating folder.");
+                    throw new Exception("Folder Conflict");
 
                 if (response.StatusCode != HttpStatusCode.Ok &&
                     response.StatusCode != HttpStatusCode.NoContent &&

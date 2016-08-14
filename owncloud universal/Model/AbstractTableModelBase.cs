@@ -72,6 +72,7 @@ namespace owncloud_universal.Model
             using(var query = Connection.Prepare(GetUpdateItemQuery()))
             {
                 BindUpdateItemQuery(query, item, key);
+                query.Step();
             }
         }
 

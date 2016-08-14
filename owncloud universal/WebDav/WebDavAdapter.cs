@@ -11,30 +11,62 @@ namespace owncloud_universal.WebDav
 {
     class WebDavAdapter : AbstractAdapter
     {
-        public override async void AddItem(AbstractItem item)
+        public override async Task<AbstractItem> AddItem(AbstractItem remoteItem)
         {
-            var _item = (LocalItem)item;
-            if (_item.IsCollection)
+            AbstractItem targetItem = null;
+            if (remoteItem.IsCollection)
             {
-                string path = _BuildRemoteFolderPath(_item.Association, _item.Path);
-                string name = (await StorageFolder.GetFolderFromPathAsync(_item.Path)).DisplayName;
+                string path = _BuildRemoteFolderPath(remoteItem.Association, remoteItem.EntityId);
+                string name = (await StorageFolder.GetFolderFromPathAsync(remoteItem.EntityId)).DisplayName;
+                CreateFolderRecursive(remoteItem.Association, path, name);
                 ConnectionManager.CreateFolder(path, name);
-                return;
+                var folder = await ConnectionManager.GetFolder(path);
+                targetItem = folder.Where(x => x.DavItem.DisplayName == name).FirstOrDefault();
             }
-            StorageFile file = await StorageFile.GetFileFromPathAsync(_item.Path);
-            var stream = await file.OpenStreamForReadAsync();
-            await ConnectionManager.Upload(_BuildRemoteFilePath(_item.Association, file.Path), stream, file.DisplayName);
-            var remoteItem = ConnectionManager.GetFolder(_BuildRemoteFilePath(_item.Association, file.Path));
+            else
+            {
+                StorageFile file = await StorageFile.GetFileFromPathAsync(remoteItem.EntityId);
+                var stream = await file.OpenStreamForReadAsync();
+                var folderPath = _BuildRemoteFolderPath(remoteItem.Association, file.Path);
+                await ConnectionManager.Upload(folderPath, stream, file.DisplayName);
+                var folder = await ConnectionManager.GetFolder(folderPath);
+                targetItem = folder.Where(x => x.DavItem.DisplayName == file.DisplayName).FirstOrDefault();
 
-            AbstractItemTableModel.GetDefault().UpdateItem(_item, _item.Id);
+            }
+            return targetItem;
         }
 
-        public override void UpdateItem(AbstractItem item)
+        private void CreateFolderRecursive(FolderAssociation association, string path, string folderName)
         {
-            AddItem(item);
+            string[] pathParts = path.Split('/');
+            string[] baseParts = GetAssociatedItem(association.RemoteFolderId).EntityId.Split('/');
+            for (int i = baseParts.Length; i < pathParts.Length; i++)
+            {
+                var j = pathParts[i];
+                var p = _BuildRemoteFolderPath(association, );
+            }
+            try
+            {
+                var localFolder = GetAssociatedItem(association.LocalFolderId);
+                Uri baseUri = new Uri(localFolder.EntityId);
+                var relative = path.Replace(baseUri.ToString(), "");
+                relative = relative.Remove(relative.LastIndexOf('/')).TrimStart('/');
+                //var relativeString = uri.Remove(uri.ToString());
+                
+                var folder = ConnectionManager.GetFolder(path);
+            }
+            catch (Exception)
+            {
+                var parent = _BuildRemoteFolderPath(association, path);
+            }
         }
 
-        public override async void DeleteItem(AbstractItem item)
+        public override async Task<AbstractItem> UpdateItem(AbstractItem item)
+        {
+            return await AddItem(item);
+        }
+
+        public override async Task DeleteItem(AbstractItem item)
         {
             var _item = (LocalItem)item;
             if (_item.IsCollection)
@@ -53,36 +85,46 @@ namespace owncloud_universal.WebDav
         public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
             List<AbstractItem> items = new List<AbstractItem>();
-            await _CheckRemoteFolderRecursive(association, items);
+            var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
+            await _CheckRemoteFolderRecursive(remoteFolder, items);
             return items;
         }
-        private async Task _CheckRemoteFolderRecursive(FolderAssociation association, List<AbstractItem> result)
+        private async Task _CheckRemoteFolderRecursive(AbstractItem folder, List<AbstractItem> result)
         {
-            List<RemoteItem> items = await ConnectionManager.GetFolder(((RemoteItem)association.RemoteFolder).DavItem.Href);
+            List<RemoteItem> items = await ConnectionManager.GetFolder(folder.EntityId);
             foreach (RemoteItem item in items)
             {
-                if (item.DavItem.IsCollection)
-                    await _CheckRemoteFolderRecursive(association, result);
+                if (item.IsCollection)
+                    await _CheckRemoteFolderRecursive(item, result);
                 result.Add(item);
             }
         }
         private string _BuildRemoteFilePath(FolderAssociation association, string path)
         {
-            Uri baseUri = new Uri(((LocalItem)association.LocalFolder).Path);
+            var localFolder = GetAssociatedItem(association.LocalFolderId);
+            Uri baseUri = new Uri(localFolder.EntityId);
             Uri fileUri = new Uri(path);
             Uri relativeUri = baseUri.MakeRelativeUri(fileUri);
             string uri = relativeUri.ToString();
             var relativeString = uri.Substring(uri.IndexOf('/') + 1);
-            return ((RemoteItem)association.RemoteFolder).DavItem.Href + relativeString;
+            var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
+            return remoteFolder.EntityId + relativeString;
         }
         private string _BuildRemoteFolderPath(FolderAssociation association, string path)
         {
-            Uri baseUri = new Uri(((LocalItem)association.LocalFolder).Path);
+            var localFolder = GetAssociatedItem(association.LocalFolderId);
+            Uri baseUri = new Uri(localFolder.EntityId);
             Uri fileUri = new Uri(path);
-            Uri relativeUri = baseUri.MakeRelativeUri(fileUri);
-            string uri = relativeUri.ToString();
-            var relativeString = uri.Remove(uri.LastIndexOf('/'));
-            return ((RemoteItem)association.RemoteFolder).DavItem.Href + relativeString;
+            var relative = fileUri.ToString().Replace(baseUri.ToString(), "");
+            relative = relative.Remove(relative.LastIndexOf('/')).TrimStart('/');
+            //var relativeString = uri.Remove(uri.ToString());
+            var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
+            var result = remoteFolder.EntityId + relative;
+            return result;
+        }
+        private AbstractItem GetAssociatedItem(long id)
+        {
+            return AbstractItemTableModel.GetDefault().GetItem(id);
         }
     }
 }

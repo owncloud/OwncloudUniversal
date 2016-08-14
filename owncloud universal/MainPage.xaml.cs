@@ -128,8 +128,8 @@ namespace owncloud_universal
             FolderAssociation fa = new FolderAssociation
             {
                 IsActive = true,
-                LocalFolder = new LocalItem { Id = 0},
-                RemoteFolder = item,
+                LocalFolderId = 0,
+                RemoteFolderId = 0,
                 SyncDirection = SyncDirection.TwoWay
             };
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
@@ -148,8 +148,9 @@ namespace owncloud_universal
             item.Association = fa;
             AbstractItemTableModel.GetDefault().InsertItem(item);
             var ri = AbstractItemTableModel.GetDefault().GetLastInsertItem();
-            fa.RemoteFolder = ri;
-            fa.LocalFolder = li;
+
+            fa.RemoteFolderId = ri.Id;
+            fa.LocalFolderId = li.Id;
             FolderAssociationTableModel.GetDefault().UpdateItem(fa, fa.Id);
         }
 
