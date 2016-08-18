@@ -21,7 +21,7 @@ namespace owncloud_universal
     {
         private WebDavAdapter _webDavAdapter;
         private FileSystemAdapter _fileSystemAdapter;
-        private List<AbstractItem> allItems;
+        private List<AbstractItem> itemIndex;
         private List<LinkStatus> linkList;
         public async Task Run()
         {
@@ -30,175 +30,107 @@ namespace owncloud_universal
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)
             {
-                allItems = await _webDavAdapter.GetAllItems(item);
-                allItems.AddRange(await _fileSystemAdapter.GetAllItems(item));
+                itemIndex = await _webDavAdapter.GetAllItems(item);
+                itemIndex.AddRange(await _fileSystemAdapter.GetAllItems(item));
                 _UpdateFileIndexes(item);
                 var model = LinkStatusTableModel.GetDefault();
                 linkList = model.GetAllItems(item).ToList();
 
-                var inserts = GetInserts();
-                var updates = GetUpdates();
-                var deletes = GetDeletes();
+                foreach (var i in itemIndex)
+                {
+                    try
+                    {
+                        await _Process(i);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                    }
+                }
 
-                DoInserts(inserts);
-                DoUpdates(updates);
-                DoDeletes(deletes);
+                //var inserts = GetInserts();
+                //var updates = GetUpdates();
+                //var deletes = GetDeletes();
+
+                //await DoInserts(inserts);
+                //await DoUpdates(updates);
+                //await DoDeletes(deletes);
             }
         }  
         
-        private async void DoInserts(List<AbstractItem> items)
+        private async Task _Process(AbstractItem item)
         {
-            //add the folders
-            foreach (var item in items)
+            var link = linkList.Where(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id).FirstOrDefault();
+            if (link == null)
             {
-                AbstractItem targetItem = null;
-                if (item.IsCollection)
-                {
-                    if (item.GetType() == typeof(LocalItem))
-                    {
-                        targetItem = await _webDavAdapter.AddItem(item);
-                    }
-                    else
-                    {
-                        targetItem = await _fileSystemAdapter.AddItem(item);
-                    }
-                }
-                //creat link and increase changenum
+                //es ist noch kein link vorhanden, also ein neues Item
+                var result = await Insert(item);
+                AfterInsert(item, result);
             }
-
-            //then the files
-            foreach (var item in items)
+            if(link  != null)
             {
-                if(item.GetType() == typeof(LocalItem))
+                if (item.ChangeNumber > link.ChangeNumber)
                 {
-                    await _webDavAdapter.AddItem(item);
+                    var result = await Update(item);
+                    AfterUpdate(item, result);
                 }
-                else
-                {
-                    await _fileSystemAdapter.AddItem(item);
-                }
-                //creat link and increase changenum
+
             }
         }
 
-        private async void DoUpdates(List<AbstractItem> items)
+        private async Task<AbstractItem> Insert(AbstractItem item)
         {
-            foreach (var item in items)
+
+            AbstractItem targetItem = null;
+            if (item.GetType() == typeof(LocalItem))
             {
-                if (item.GetType() == typeof(LocalItem))
-                {
-                    await _webDavAdapter.UpdateItem(item);
-                }
-                else
-                {
-                    await _fileSystemAdapter.UpdateItem(item);
-                }
-                //creat link and increase changenum
+                targetItem = await _webDavAdapter.AddItem(item);
             }
+            else
+            {
+                targetItem = await _fileSystemAdapter.AddItem(item);
+            }
+            return targetItem;
+
         }
 
-        private async void DoDeletes(List<AbstractItem> items)
+        private async Task<AbstractItem> Update(AbstractItem item)
         {
-            //delete files
-            foreach (var item in items)
+            AbstractItem result = null;
+            if (item.GetType() == typeof(LocalItem))
             {
-                if(!item.IsCollection)
-                {
-                    if (item.GetType() == typeof(LocalItem))
-                    {
-                        await _webDavAdapter.DeleteItem(item);
-                    }
-                    else
-                    {
-                        await _fileSystemAdapter.DeleteItem(item);
-                    }
-                }
+                result = await _webDavAdapter.UpdateItem(item);
             }
-            //and then folders
-            foreach (var item in items)
+            else if(item.GetType() == typeof(LocalItem))
             {
-                if (item.IsCollection)
-                {
-                    if (item.GetType() == typeof(LocalItem))
-                    {
-                        await _webDavAdapter.DeleteItem(item);
-                    }
-                    else
-                    {
-                        await _fileSystemAdapter.DeleteItem(item);
-                    }
-                }
+                result = await _fileSystemAdapter.UpdateItem(item);
             }
-            //delete link and item
+            return result;
         }
+
 
         private void _UpdateFileIndexes(FolderAssociation association)
         {
 
             var itemTableModel = AbstractItemTableModel.GetDefault();
-            
-            foreach (var item in allItems)
+
+            for (int i = 0; i < itemIndex.Count; i++)
             {
-                item.Association = association;
-                var foundItem = itemTableModel.GetItem(item);
+                itemIndex[i].Association = association;
+                var foundItem = itemTableModel.GetItem(itemIndex[i]);
                 if (foundItem == null)
                 {
-                    itemTableModel.InsertItem(item);
+                    itemTableModel.InsertItem(itemIndex[i]);
+                    itemIndex[i] = itemTableModel.GetLastInsertItem();
                 }
                 else
                 {
-                    itemTableModel.UpdateItem(item, foundItem.Id);
+                    itemTableModel.UpdateItem(itemIndex[i], foundItem.Id);
                 }
             }
 
             //TODO delete old items??
         }   
-
-        private List<AbstractItem> GetInserts()
-        {
-            var result = new List<AbstractItem>();
-            foreach (var item in allItems)
-            {
-                var links = linkList.Where(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id).ToList();
-                if(links.Count == 0)
-                {
-                    //es ist noch kein link vorhanden, also ein neues Item
-                    result.Add(item);
-                }
-            }
-            return result;
-        }
-
-        private List<AbstractItem> GetUpdates()
-        {
-            var result = new List<AbstractItem>();
-            foreach (var item in allItems)
-            {
-                //wenn die chngenum vom link kleiner ist als die vom item muss es geupdated werden
-                var links = linkList.Where(x => 
-                        x.ChangeNumber < item.ChangeNumber &&
-                        (x.SourceItemId == item.Id || x.TargetItemId== item.Id)
-                    ).ToList();
-                if (links.Count != 0)
-                {
-                    result.Add(item);
-                }
-            }
-            return result;
-        }
-
-        private List<AbstractItem> GetDeletes()
-        {
-            var result = new List<AbstractItem>();
-            var itemTableModel = AbstractItemTableModel.GetDefault();
-            foreach (var item in itemTableModel.GetAllItems())
-            {
-                var i = allItems.Where(x => x.EntityId == item.EntityId);
-                if (i == null)
-                    result.Add(item);
-            }
-            return result;
-        }
 
         private void AfterInsert(AbstractItem sourceItem, AbstractItem targetItem)
         {
@@ -217,14 +149,6 @@ namespace owncloud_universal
             var link = linkList.Where(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id).First();
             link.ChangeNumber = sourceItem.ChangeNumber;
             LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
-        }
-
-        private void AfterDelete(AbstractItem sourceItem, AbstractItem targetItem)
-        {
-            AbstractItemTableModel.GetDefault().DeleteItem(sourceItem.Id);
-            AbstractItemTableModel.GetDefault().DeleteItem(targetItem.Id);
-            var link = linkList.Where(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id).First();
-            LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
-        }
+        }        
     }
 }

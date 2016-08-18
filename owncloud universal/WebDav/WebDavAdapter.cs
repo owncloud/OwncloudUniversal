@@ -11,53 +11,57 @@ namespace owncloud_universal.WebDav
 {
     class WebDavAdapter : AbstractAdapter
     {
-        public override async Task<AbstractItem> AddItem(AbstractItem remoteItem)
+        public override async Task<AbstractItem> AddItem(AbstractItem localItem)
         {
             AbstractItem targetItem = null;
-            if (remoteItem.IsCollection)
+            if (localItem.IsCollection)
             {
-                string path = _BuildRemoteFolderPath(remoteItem.Association, remoteItem.EntityId);
-                string name = (await StorageFolder.GetFolderFromPathAsync(remoteItem.EntityId)).DisplayName;
-                CreateFolderRecursive(remoteItem.Association, path, name);
-                ConnectionManager.CreateFolder(path, name);
+                string path = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
+                string name = (await StorageFolder.GetFolderFromPathAsync(localItem.EntityId)).DisplayName;
+                await CreateFolder(localItem.Association, localItem, name);
+                //ConnectionManager.CreateFolder(path, name);
                 var folder = await ConnectionManager.GetFolder(path);
                 targetItem = folder.Where(x => x.DavItem.DisplayName == name).FirstOrDefault();
+                targetItem.Association = localItem.Association;
             }
             else
             {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(remoteItem.EntityId);
+                StorageFile file = await StorageFile.GetFileFromPathAsync(localItem.EntityId);
                 var stream = await file.OpenStreamForReadAsync();
-                var folderPath = _BuildRemoteFolderPath(remoteItem.Association, file.Path);
-                await ConnectionManager.Upload(folderPath, stream, file.DisplayName);
+                await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(file.Path));
+                var folderPath = _BuildRemoteFolderPath(localItem.Association, file.Path);
+                await ConnectionManager.Upload(folderPath, stream, file.Name);
                 var folder = await ConnectionManager.GetFolder(folderPath);
-                targetItem = folder.Where(x => x.DavItem.DisplayName == file.DisplayName).FirstOrDefault();
-
+                targetItem = folder.Where(x => x.DavItem.DisplayName == file.Name).FirstOrDefault();
+                targetItem.Association = localItem.Association;
             }
             return targetItem;
         }
 
-        private void CreateFolderRecursive(FolderAssociation association, string path, string folderName)
+        private async Task CreateFolder(FolderAssociation association, AbstractItem localItem, string name)
         {
-            string[] pathParts = path.Split('/');
-            string[] baseParts = GetAssociatedItem(association.RemoteFolderId).EntityId.Split('/');
-            for (int i = baseParts.Length; i < pathParts.Length; i++)
+            //adds the folder and if necessesary the parent folder
+            var remoteBaseFolder = GetAssociatedItem(association.RemoteFolderId).EntityId;
+            var path = _BuildRemoteFolderPath(association, localItem.EntityId).Replace(remoteBaseFolder, "");
+            name = name.TrimEnd('\\');
+            name = name.Substring(name.LastIndexOf('\\') + 1);
+            var folders = (path + '/' + name).Split('/');
+
+            var currentFolder = remoteBaseFolder.TrimEnd('/');
+            for (int i = 0; i < folders.Length; i++)
             {
-                var j = pathParts[i];
-                var p = _BuildRemoteFolderPath(association, );
-            }
-            try
-            {
-                var localFolder = GetAssociatedItem(association.LocalFolderId);
-                Uri baseUri = new Uri(localFolder.EntityId);
-                var relative = path.Replace(baseUri.ToString(), "");
-                relative = relative.Remove(relative.LastIndexOf('/')).TrimStart('/');
-                //var relativeString = uri.Remove(uri.ToString());
-                
-                var folder = ConnectionManager.GetFolder(path);
-            }
-            catch (Exception)
-            {
-                var parent = _BuildRemoteFolderPath(association, path);
+                try
+                {
+                    var folderContent = await ConnectionManager.GetFolder(currentFolder);
+                    if(folderContent.Where(x => x.DavItem.DisplayName == folders[i] && x.IsCollection).Count() == 0)
+                        ConnectionManager.CreateFolder(currentFolder, folders[i]);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                    //wenn ordner schon existiert weiter machen
+                }
+                currentFolder += '/' + folders[i];
             }
         }
 

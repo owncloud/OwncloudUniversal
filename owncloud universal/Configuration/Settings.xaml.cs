@@ -61,5 +61,10 @@ namespace owncloud_universal
         {
             Frame.Navigate(typeof (FolderMapping));
         }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            SQLiteClient.Reset();
+        }
     }
 }

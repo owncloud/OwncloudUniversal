@@ -9,6 +9,7 @@ using Windows.Storage;
 using Windows.Storage.Provider;
 using owncloud_universal.Model;
 using owncloud_universal.WebDav;
+using System.Diagnostics;
 
 namespace owncloud_universal
 {
@@ -71,7 +72,7 @@ namespace owncloud_universal
             }
             catch (Exception e)
             {
-
+                Debug.WriteLine(string.Format("Error: {0}, Href: {1}, folderName: {3}", e.Message, href, folderName));
             }
 
         }

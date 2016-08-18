@@ -60,5 +60,29 @@ namespace owncloud_universal
             }
 
         }
+
+        public static void Reset()
+        {
+            string query = "";
+
+            query = @"DROP TABLE LinkStatus;";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
+
+            query = @"DROP TABLE Item;";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
+
+            query = @"DROP TABLE Association;";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
+            Init();
+        }
     }
 }

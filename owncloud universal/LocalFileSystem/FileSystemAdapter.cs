@@ -34,17 +34,18 @@ namespace owncloud_universal.LocalFileSystem
 
         public override async Task<AbstractItem> AddItem(AbstractItem item)
         {
-            var _item = (RemoteItem)item;
-            var folder = await _GetStorageFolder(_item);
+            var folder = await _GetStorageFolder(item);
             IStorageItem storageItem;
+            var displayName = _BuildFilePath(item).TrimEnd('\\');
+            displayName = displayName.Substring(displayName.LastIndexOf('\\') +1);
             if (item.IsCollection)
             {
-                storageItem = await folder.CreateFolderAsync(_item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
+                storageItem = await folder.CreateFolderAsync(displayName, CreationCollisionOption.OpenIfExists);
             }
             else
             {
-                storageItem = await folder.CreateFileAsync(_item.DavItem.DisplayName, CreationCollisionOption.OpenIfExists);
-                await ConnectionManager.Download(_item.DavItem.Href, (StorageFile)storageItem);
+                storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
+                await ConnectionManager.Download(item.EntityId, (StorageFile)storageItem);
             }
             var targetItem = new LocalItem();
             BasicProperties bp = await storageItem.GetBasicPropertiesAsync();

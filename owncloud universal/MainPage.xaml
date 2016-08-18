@@ -14,7 +14,7 @@
             </CommandBar.Content>
             <AppBarButton x:Name="ReloadButton" Label="Reload" Click="AppBarButton_Click" Background="{x:Null}" Icon="Refresh"/>
             <AppBarButton x:Name="SettingsButton" Icon="Edit" Label="Edit" Click="SettingsButton_Click"/>
-            <AppBarButton x:Name="appBarButton" Icon="Sync" Label="appbarbutton" Click="appBarButton_Click_1"/>
+            <AppBarButton x:Name="appBarButton" Icon="Sync" Label="Sync" Click="appBarButton_Click_1"/>
         </CommandBar>
     </Page.BottomAppBar>
 
@@ -28,6 +28,7 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ProgressBar x:Name="progressBar" Height="10" Width="100"/>
         </ListView>
     </Grid>
 </Page>
