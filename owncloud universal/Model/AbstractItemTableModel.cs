@@ -118,7 +118,7 @@ namespace owncloud_universal.Model
 
         public AbstractItem GetItem(AbstractItem item)
         {
-            using (var query = Connection.Prepare("SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber FROM Item WHERE Id = ?"))
+            using (var query = Connection.Prepare("SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber FROM Item WHERE EntityId = ?"))
             {
                 query.Bind(1, item.EntityId);
                 if (query.Step() == SQLiteResult.ROW)

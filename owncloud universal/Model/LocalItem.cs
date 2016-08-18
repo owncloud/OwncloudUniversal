@@ -15,7 +15,7 @@ namespace owncloud_universal.Model
 
         public LocalItem(FolderAssociation association,IStorageItem storageItem, BasicProperties basicProperties)
         {
-            Association = Association;
+            Association = association;
             IsCollection = storageItem is StorageFolder;
             ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(basicProperties.DateModified.LocalDateTime);
             EntityId = storageItem.Path;

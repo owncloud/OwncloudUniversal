@@ -32,5 +32,6 @@
         <TextBlock HorizontalAlignment="Left" Margin="10,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Height="20" Width="79"/>
         <PasswordBox x:Name="pwBox" Margin="94,74,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
         <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="Accept" Label="appbarbutton" Margin="45,30,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnReset" Content="Reset Sync Database" HorizontalAlignment="Left" Margin="10,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnReset_Click"/>
     </Grid>
 </Page>
