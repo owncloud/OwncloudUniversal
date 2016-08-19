@@ -14,23 +14,24 @@ namespace OwncloudUniversal.BackgroundOperations
 
             var taskName = "owncloud-backgroundSync";
 
-            //foreach (var task in BackgroundTaskRegistration.AllTasks)
-            //{
-            //    if (task.Value.Name == taskName)
-            //    {
-            //        break;
-            //    }
-            //}
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == taskName)
+                {
+                    task.Value.Unregister(true);
+                }
+            }
 
 
             var builder = new BackgroundTaskBuilder();
             builder.Name = taskName;
-            builder.TaskEntryPoint = "owncloud_universal.BackgroundOperations.BackgroundSync";
+            builder.TaskEntryPoint = "OwncloudUniversal.BackgroundSync.WebDavBackgroundSync";
             BackgroundExecutionManager.RemoveAccess();
             var promise = await BackgroundExecutionManager.RequestAccessAsync();
 
             builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserAway, false));
             BackgroundTaskRegistration registration = builder.Register();
+            
         }
     }
 }

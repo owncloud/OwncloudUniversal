@@ -18,6 +18,7 @@ namespace OwncloudUniversal.Shared
         private List<LinkStatus> linkList;
         public async Task Run()
         {
+            SQLite.SQLiteClient.Init();
             _webDavAdapter = new WebDavAdapter();
             _fileSystemAdapter = new FileSystemAdapter();
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
@@ -37,7 +38,7 @@ namespace OwncloudUniversal.Shared
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine(e.Message);
+                        Debug.WriteLine(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
                     }
                 }
             }
@@ -71,7 +72,7 @@ namespace OwncloudUniversal.Shared
             {
                 targetItem = await _webDavAdapter.AddItem(item);
             }
-            else
+            else if (item.GetType() == typeof(RemoteItem))
             {
                 targetItem = await _fileSystemAdapter.AddItem(item);
             }
