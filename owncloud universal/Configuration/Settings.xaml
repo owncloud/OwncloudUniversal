@@ -1,8 +1,8 @@
 ﻿<Page x:Name="SettingsPage"
-    x:Class="owncloud_universal.Settings"
+    x:Class="OwncloudUniversal.Settings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:owncloud_universal"
+    xmlns:local="using:OwncloudUniversal"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark" Background="Black" x:FieldModifier="public">
@@ -33,5 +33,6 @@
         <PasswordBox x:Name="pwBox" Margin="94,74,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
         <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="Accept" Label="appbarbutton" Margin="45,30,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnReset" Content="Reset Sync Database" HorizontalAlignment="Left" Margin="10,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnReset_Click"/>
+        <Button x:Name="btnTask" Content="Enable background sync" HorizontalAlignment="Left" Margin="10,148,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnTask_Click"/>
     </Grid>
 </Page>
