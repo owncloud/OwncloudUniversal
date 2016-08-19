@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OwncloudUniversal.Shared;
+using OwncloudUniversal.Shared.SQLite;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -21,7 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 // Die Elementvorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
-namespace owncloud_universal
+namespace OwncloudUniversal
 {
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
@@ -65,6 +67,12 @@ namespace owncloud_universal
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
             SQLiteClient.Reset();
+        }
+
+        private void btnTask_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundOperations.BackgroundSyncConfiguguration c = new BackgroundOperations.BackgroundSyncConfiguguration();
+            c.Register();
         }
     }
 }

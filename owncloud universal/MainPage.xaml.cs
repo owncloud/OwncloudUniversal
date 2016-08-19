@@ -24,15 +24,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using owncloud_universal.Model;
+using OwncloudUniversal.Model;
 using Windows.Storage.AccessCache;
 using Windows.Storage.FileProperties;
+using OwncloudUniversal.Shared.WebDav;
+using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Shared;
 //using owncloud_universal.WebDav;
 
 
 // Die Vorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 dokumentiert.
 
-namespace owncloud_universal
+namespace OwncloudUniversal
 {
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
@@ -189,7 +192,7 @@ namespace owncloud_universal
                 var file = await savePicker.PickSaveFileAsync();
                 
                 var success = await ConnectionManager.Download(item.DavItem.Href, file);
-                if (success)
+                if (success)    
                 {
                     MessageDialog d = new MessageDialog("Download Finished.");
                     await d.ShowAsync();
@@ -200,10 +203,13 @@ namespace owncloud_universal
 
         private async void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
-            ProcessingManager s = new ProcessingManager();
+            progressBar.IsIndeterminate = true;
+            ProcessingManager s = new OwncloudUniversal.Shared.ProcessingManager();
             await s.Run();
+            progressBar.IsIndeterminate = false;
             MessageDialog d = new MessageDialog("Scan Finished.");
             await d.ShowAsync();
+
         }
     }
 }
