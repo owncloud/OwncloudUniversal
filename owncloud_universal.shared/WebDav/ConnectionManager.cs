@@ -30,10 +30,14 @@ namespace OwncloudUniversal.Shared.WebDav
         }
         public static async Task Upload(string href, Stream content, string fileName)
         {
+            if (!IsSetup)
+                SetUp();
             await _webDavClient.Upload(href, content, fileName);
         }
         public static async Task<List<RemoteItem>> GetFolder(string href)
         {
+            if (!IsSetup)
+                SetUp();
             if (string.IsNullOrWhiteSpace(href))
                 href = Configuration.FolderPath;
             var davItems = await _webDavClient.List(href);
@@ -41,6 +45,9 @@ namespace OwncloudUniversal.Shared.WebDav
         }
         public static async Task<bool> Download(string href, StorageFile localFile)
         {
+            if (!IsSetup)
+                SetUp();
+
             var content = await _webDavClient.Download(href);
             byte[] buffer = new byte[16 * 1024];
             using (MemoryStream ms = new MemoryStream())
@@ -57,16 +64,24 @@ namespace OwncloudUniversal.Shared.WebDav
         }
         public static async void DeleteFile(string href)
         {
+            if (!IsSetup)
+                SetUp();
+
             await _webDavClient.DeleteFile(href);
         }
         public static async void DeleteFolder(string path)
         {
+            if (!IsSetup)
+                SetUp();
+
             await _webDavClient.DeleteFolder(path);
         }
         public static async void CreateFolder(string href, string folderName)
         {
             try
             {
+                if (!IsSetup)
+                    SetUp();
                 await _webDavClient.CreateDir(href, folderName);
             }
             catch (Exception e)

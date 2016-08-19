@@ -146,17 +146,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
-    <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
-      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Universal</Name>
-    </SDKReference>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.13.0">
-      <Name>SQLite for Universal Windows Platform</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\OwncloudUniversal.BackgroundSync\OwncloudUniversal.BackgroundSync.csproj">
+      <Project>{38a3ae71-c876-429a-b46c-3758ec5d3691}</Project>
+      <Name>OwncloudUniversal.BackgroundSync</Name>
+    </ProjectReference>
     <ProjectReference Include="..\owncloud_universal.shared\owncloud_universal.shared.csproj">
       <Project>{fa10e7b0-ac70-44bd-9446-492bd3ae1119}</Project>
       <Name>owncloud_universal.shared</Name>

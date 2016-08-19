@@ -93,7 +93,6 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             List<AbstractItem> items = new List<AbstractItem>();
             var item = GetAssociatedItem(association.LocalFolderId);
             StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(item.EntityId);
-            items = new List<AbstractItem>();
             await _CheckLocalFolderRecursive(folder, association.Id, items);
             return items;
         }
