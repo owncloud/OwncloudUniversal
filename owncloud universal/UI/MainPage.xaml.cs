@@ -1,41 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
-using Windows.System;
-using Windows.UI.ApplicationSettings;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using OwncloudUniversal.Model;
-using Windows.Storage.AccessCache;
-using Windows.Storage.FileProperties;
-using OwncloudUniversal.Shared.WebDav;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal;
 using OwncloudUniversal.Shared;
+using OwncloudUniversal.Shared.LocalFileSystem;
+using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Shared.Synchronisation;
+using OwncloudUniversal.Shared.WebDav;
+
 //using owncloud_universal.WebDav;
 
 
 // Die Vorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 dokumentiert.
 
-namespace OwncloudUniversal
+namespace OwncloudUniversal.UI
 {
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
@@ -142,7 +130,7 @@ namespace OwncloudUniversal
             {
                 IsCollection = true,
                 LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime,
-                Path = folder.Path,
+                EntityId = folder.Path,
                 Association = fa,
             };
             AbstractItemTableModel.GetDefault().InsertItem(li);
@@ -204,9 +192,11 @@ namespace OwncloudUniversal
         private async void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
             progressBar.IsIndeterminate = true;
-            ProcessingManager s = new OwncloudUniversal.Shared.ProcessingManager();
+            progressBar.Visibility = Visibility.Visible;
+            ProcessingManager s = new ProcessingManager(new FileSystemAdapter(), new WebDavAdapter());
             await s.Run();
             progressBar.IsIndeterminate = false;
+            progressBar.Visibility = Visibility.Collapsed;
             MessageDialog d = new MessageDialog("Scan Finished.");
             await d.ShowAsync();
 

@@ -18,9 +18,9 @@ namespace OwncloudUniversal.Shared.WebDav
             if (localItem.IsCollection)
             {
                 string path = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
-                string name = (await StorageFolder.GetFolderFromPathAsync(localItem.EntityId)).DisplayName;
+                var file = await StorageFolder.GetFolderFromPathAsync(localItem.EntityId);
+                var name = file.DisplayName;
                 await CreateFolder(localItem.Association, localItem, name);
-                //ConnectionManager.CreateFolder(path, name);
                 var folder = await ConnectionManager.GetFolder(path);
                 targetItem = folder.Where(x => x.DavItem.DisplayName == name).FirstOrDefault();
                 targetItem.Association = localItem.Association;
@@ -55,6 +55,7 @@ namespace OwncloudUniversal.Shared.WebDav
                 {
                     var folderContent = await ConnectionManager.GetFolder(currentFolder);
                     if(folderContent.Where(x => x.DavItem.DisplayName == folders[i] && x.IsCollection).Count() == 0)
+                        if(!string.IsNullOrWhiteSpace(folders[i]))
                         ConnectionManager.CreateFolder(currentFolder, folders[i]);
                 }
                 catch (Exception e)
@@ -76,14 +77,14 @@ namespace OwncloudUniversal.Shared.WebDav
             var _item = (LocalItem)item;
             if (_item.IsCollection)
             {
-                string path = _BuildRemoteFolderPath(_item.Association, _item.Path);
-                string name = (await StorageFolder.GetFolderFromPathAsync(_item.Path)).DisplayName;
-                ConnectionManager.DeleteFolder(_item.Path +'/'+ name);
+                string path = _BuildRemoteFolderPath(_item.Association, _item.EntityId);
+                string name = (await StorageFolder.GetFolderFromPathAsync(_item.EntityId)).DisplayName;
+                ConnectionManager.DeleteFolder(_item.EntityId + '/'+ name);
                 return;
             }
             else
             {
-                ConnectionManager.DeleteFile(_BuildRemoteFilePath(_item.Association, _item.Path));
+                ConnectionManager.DeleteFile(_BuildRemoteFilePath(_item.Association, _item.EntityId));
             }
         }
 

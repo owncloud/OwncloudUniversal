@@ -112,9 +112,9 @@
     <Compile Include="WebDavBackgroundSync.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\owncloud_universal.shared\owncloud_universal.shared.csproj">
+    <ProjectReference Include="..\owncloud_universal.shared\OwncloudUniversal.Shared.csproj">
       <Project>{fa10e7b0-ac70-44bd-9446-492bd3ae1119}</Project>
-      <Name>owncloud_universal.shared</Name>
+      <Name>OwncloudUniversal.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

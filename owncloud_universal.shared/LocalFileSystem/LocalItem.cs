@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.Shared.Model
 {

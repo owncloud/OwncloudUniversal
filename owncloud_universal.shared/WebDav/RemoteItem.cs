@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.Shared.Model
 {
