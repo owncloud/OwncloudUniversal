@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using OwncloudUniversal.Shared.LocalFileSystem;
+using OwncloudUniversal.Shared.Synchronisation;
+using OwncloudUniversal.Shared.WebDav;
 
 namespace OwncloudUniversal.BackgroundSync
 {
@@ -14,7 +17,7 @@ namespace OwncloudUniversal.BackgroundSync
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             _deferral = taskInstance.GetDeferral();
-            ProcessingManager s = new ProcessingManager();
+            ProcessingManager s = new ProcessingManager(new FileSystemAdapter(), new WebDavAdapter());
             await s.Run();
         }
     }

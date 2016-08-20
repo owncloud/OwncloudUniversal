@@ -1,36 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using OwncloudUniversal.Model;
-using System.Diagnostics;
-using OwncloudUniversal.Shared.WebDav;
 using OwncloudUniversal.Shared.Model;
-using OwncloudUniversal.Shared.LocalFileSystem;
 
-namespace OwncloudUniversal.Shared
+namespace OwncloudUniversal.Shared.Synchronisation
 {
     public class ProcessingManager
-    {
-        private WebDavAdapter _webDavAdapter;
-        private FileSystemAdapter _fileSystemAdapter;
-        private List<AbstractItem> itemIndex;
-        private List<LinkStatus> linkList;
+    {       
+        private List<AbstractItem> _itemIndex;
+        private List<LinkStatus> _linkList;
+
+        private readonly AbstractAdapter _sourceEntityAdapter;
+        private readonly AbstractAdapter _targetEntityAdapter;
+
+        public ProcessingManager(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter)
+        {
+            _sourceEntityAdapter = sourceEntityAdapter;
+            _targetEntityAdapter = targetEntityAdapter;
+        }
+
         public async Task Run()
         {
             SQLite.SQLiteClient.Init();
-            _webDavAdapter = new WebDavAdapter();
-            _fileSystemAdapter = new FileSystemAdapter();
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)
             {
-                itemIndex = await _webDavAdapter.GetAllItems(item);
-                itemIndex.AddRange(await _fileSystemAdapter.GetAllItems(item));
+                _itemIndex = await _targetEntityAdapter.GetAllItems(item);
+                _itemIndex.AddRange(await _sourceEntityAdapter.GetAllItems(item));
                 _UpdateFileIndexes(item);
                 var model = LinkStatusTableModel.GetDefault();
-                linkList = model.GetAllItems(item).ToList();
+                _linkList = model.GetAllItems(item).ToList();
 
-                foreach (var i in itemIndex)
+                foreach (var i in _itemIndex)
                 {
                     try
                     {
@@ -46,7 +50,7 @@ namespace OwncloudUniversal.Shared
         
         private async Task _Process(AbstractItem item)
         {
-            var link = linkList.Where(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id).FirstOrDefault();
+            var link = _linkList.FirstOrDefault(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id);
             if (link == null)
             {
                 //es ist noch kein link vorhanden, also ein neues Item
@@ -70,11 +74,11 @@ namespace OwncloudUniversal.Shared
             AbstractItem targetItem = null;
             if (item.GetType() == typeof(LocalItem))
             {
-                targetItem = await _webDavAdapter.AddItem(item);
+                targetItem = await _targetEntityAdapter.AddItem(item);
             }
             else if (item.GetType() == typeof(RemoteItem))
             {
-                targetItem = await _fileSystemAdapter.AddItem(item);
+                targetItem = await _sourceEntityAdapter.AddItem(item);
             }
             return targetItem;
 
@@ -85,11 +89,11 @@ namespace OwncloudUniversal.Shared
             AbstractItem result = null;
             if (item.GetType() == typeof(LocalItem))
             {
-                result = await _webDavAdapter.UpdateItem(item);
+                result = await _targetEntityAdapter.UpdateItem(item);
             }
             else if(item.GetType() == typeof(LocalItem))
             {
-                result = await _fileSystemAdapter.UpdateItem(item);
+                result = await _sourceEntityAdapter.UpdateItem(item);
             }
             return result;
         }
@@ -100,18 +104,18 @@ namespace OwncloudUniversal.Shared
 
             var itemTableModel = AbstractItemTableModel.GetDefault();
 
-            for (int i = 0; i < itemIndex.Count; i++)
+            for (int i = 0; i < _itemIndex.Count; i++)
             {
-                itemIndex[i].Association = association;
-                var foundItem = itemTableModel.GetItem(itemIndex[i]);
+                _itemIndex[i].Association = association;
+                var foundItem = itemTableModel.GetItem(_itemIndex[i]);
                 if (foundItem == null)
                 {
-                    itemTableModel.InsertItem(itemIndex[i]);
-                    itemIndex[i] = itemTableModel.GetLastInsertItem();
+                    itemTableModel.InsertItem(_itemIndex[i]);
+                    _itemIndex[i].Id = itemTableModel.GetLastInsertItem().Id;
                 }
                 else
                 {
-                    itemTableModel.UpdateItem(itemIndex[i], foundItem.Id);
+                    itemTableModel.UpdateItem(_itemIndex[i], foundItem.Id);
                 }
             }
 
@@ -132,7 +136,7 @@ namespace OwncloudUniversal.Shared
             targetItem.ChangeNumber++;
             AbstractItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
             AbstractItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
-            var link = linkList.Where(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id).First();
+            var link = _linkList.First(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id);
             link.ChangeNumber = sourceItem.ChangeNumber;
             LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
         }        

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.Shared.Model
 {
