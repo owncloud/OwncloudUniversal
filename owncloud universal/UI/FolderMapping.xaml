@@ -3,18 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Dark" Background="Transparent">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/200">
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.Content>
                 <Grid/>
             </CommandBar.Content>
-            <AppBarButton Icon="Delete" Label="appbarbutton" Click="AppBarButton_Click"/>
+            <AppBarButton Label="appbarbutton" Click="AppBarButton_Click" Icon="Delete"/>
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Mode=OneTime}">
             <ListView.ItemTemplate>
                 <DataTemplate>

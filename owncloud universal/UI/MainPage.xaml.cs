@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Windows.ApplicationModel.Background;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.UI.Core;
@@ -17,6 +18,7 @@ using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Shared.Synchronisation;
 using OwncloudUniversal.Shared.WebDav;
+using Windows.System;
 
 //using owncloud_universal.WebDav;
 
@@ -33,7 +35,6 @@ namespace OwncloudUniversal.UI
         public MainPage()
         {
             this.InitializeComponent();
-            this.RequestedTheme = ElementTheme.Dark;
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
         }
@@ -182,8 +183,7 @@ namespace OwncloudUniversal.UI
                 var success = await ConnectionManager.Download(item.DavItem.Href, file);
                 if (success)    
                 {
-                    MessageDialog d = new MessageDialog("Download Finished.");
-                    await d.ShowAsync();
+                    await Launcher.LaunchFileAsync(file);
                 }
             }
 
@@ -200,6 +200,58 @@ namespace OwncloudUniversal.UI
             MessageDialog d = new MessageDialog("Scan Finished.");
             await d.ShowAsync();
 
+        }
+
+        private async void btnUpload_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker picker = new FileOpenPicker();
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            //what the hell, no wild cards allowed??????????
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+            picker.FileTypeFilter.Add(".odt");
+            picker.FileTypeFilter.Add(".ods");
+            picker.FileTypeFilter.Add(".odp");
+            picker.FileTypeFilter.Add(".doc");
+            picker.FileTypeFilter.Add(".docx");
+            picker.FileTypeFilter.Add(".mp4");
+            picker.FileTypeFilter.Add(".mp3");
+            picker.FileTypeFilter.Add(".zip");
+            picker.FileTypeFilter.Add(".rar");
+            picker.FileTypeFilter.Add(".txt");
+            picker.FileTypeFilter.Add(".pdf");
+            picker.FileTypeFilter.Add(".odf");
+            picker.FileTypeFilter.Add(".kdbx");
+            picker.FileTypeFilter.Add(".ppt");
+            picker.FileTypeFilter.Add(".pptx");
+            picker.FileTypeFilter.Add(".xlsx");
+            picker.FileTypeFilter.Add(".xls");
+            picker.FileTypeFilter.Add(".gif");
+            //picker.FileTypeFilter.Add(".tar.gz");
+            picker.FileTypeFilter.Add(".mid");
+            picker.FileTypeFilter.Add(".aac");
+            var files = await picker.PickMultipleFilesAsync();
+            if (files.Count > 0)
+            {
+                foreach (var file in files)
+                {
+                    StorageApplicationPermissions.FutureAccessList.AddOrReplace("uploadFile", file);
+                    var stream = await file.OpenStreamForReadAsync();
+                    if(string.IsNullOrWhiteSpace(_currentFolder.Href))
+                    {
+                        await ConnectionManager.Upload(Configuration.ServerUrl, stream, file.Name);
+                    }
+                    else
+                    {
+                        await ConnectionManager.Upload(_currentFolder.Href, stream, file.Name);
+                    }
+                    
+                }
+            }
+            MessageDialog dialog = new MessageDialog("Upload Finished");
+            await dialog.ShowAsync();
+            CreateListView(_currentFolder);
         }
     }
 }

@@ -120,6 +120,7 @@
     <Compile Include="Model\LinkStatus.cs" />
     <Compile Include="Model\LinkStatusTableModel.cs" />
     <Compile Include="LocalFileSystem\LocalItem.cs" />
+    <Compile Include="Synchronisation\ExecutionContext.cs" />
     <Compile Include="WebDav\RemoteItem.cs" />
     <Compile Include="Model\SyncDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,7 +138,7 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.13.0">
+    <SDKReference Include="SQLite.UWP.2015, Version=3.14.1">
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
   </ItemGroup>

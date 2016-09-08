@@ -7,7 +7,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
     {
         private const string TaskName = "owncloud-backgroundSync";
         private const string EntryPoint = "OwncloudUniversal.BackgroundSync.WebDavBackgroundSync";
-        public async void Register()
+        public async void Register(ApplicationTrigger trigger = null)
         { 
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
@@ -22,7 +22,15 @@ namespace OwncloudUniversal.Shared.Synchronisation
             BackgroundExecutionManager.RemoveAccess();
             var promise = await BackgroundExecutionManager.RequestAccessAsync();
 
-            builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserAway, false));
+            if (trigger != null)
+            {
+                builder.SetTrigger(trigger);
+            }
+            else
+            {
+                builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserAway, false));
+            }
+                
             BackgroundTaskRegistration registration = builder.Register();
             
         }
