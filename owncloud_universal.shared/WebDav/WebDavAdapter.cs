@@ -28,12 +28,16 @@ namespace OwncloudUniversal.Shared.WebDav
             else
             {
                 StorageFile file = await StorageFile.GetFileFromPathAsync(localItem.EntityId);
-                var stream = await file.OpenStreamForReadAsync();
-                await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(file.Path));
-                var folderPath = _BuildRemoteFolderPath(localItem.Association, file.Path);
-                await ConnectionManager.Upload(folderPath, stream, file.Name);
-                var folder = await ConnectionManager.GetFolder(folderPath);
-                targetItem = folder.Where(x => x.DavItem.DisplayName == file.Name).FirstOrDefault();
+                using (var stream = await file.OpenStreamForReadAsync())
+                {
+                    await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(file.Path));
+                    var folderPath = _BuildRemoteFolderPath(localItem.Association, file.Path);
+                    await ConnectionManager.Upload(folderPath, stream, file.Name);
+                    var folder = await ConnectionManager.GetFolder(folderPath);
+                    targetItem = folder.Where(x => x.DavItem.DisplayName == file.Name).FirstOrDefault();
+                }
+
+
                 targetItem.Association = localItem.Association;
             }
             return targetItem;
@@ -44,9 +48,9 @@ namespace OwncloudUniversal.Shared.WebDav
             //adds the folder and if necessesary the parent folder
             var remoteBaseFolder = GetAssociatedItem(association.RemoteFolderId).EntityId;
             var path = _BuildRemoteFolderPath(association, localItem.EntityId).Replace(remoteBaseFolder, "");
-            name = name.TrimEnd('\\');
-            name = name.Substring(name.LastIndexOf('\\') + 1);
-            var folders = (path + '/' + name).Split('/');
+            //name = name.TrimEnd('\\');
+            //name = name.Substring(name.LastIndexOf('\\') + 1);
+            var folders = (path).Split('/');
 
             var currentFolder = remoteBaseFolder.TrimEnd('/');
             for (int i = 0; i < folders.Length; i++)
@@ -54,9 +58,9 @@ namespace OwncloudUniversal.Shared.WebDav
                 try
                 {
                     var folderContent = await ConnectionManager.GetFolder(currentFolder);
-                    if(folderContent.Where(x => x.DavItem.DisplayName == folders[i] && x.IsCollection).Count() == 0)
+                    if(folderContent.Count(x => x.DavItem.DisplayName == folders[i] && x.IsCollection) == 0)
                         if(!string.IsNullOrWhiteSpace(folders[i]))
-                        ConnectionManager.CreateFolder(currentFolder, folders[i]);
+                            ConnectionManager.CreateFolder(currentFolder, folders[i]);
                 }
                 catch (Exception e)
                 {

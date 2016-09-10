@@ -41,7 +41,7 @@ namespace OwncloudUniversal.Shared.WebDav
             if (string.IsNullOrWhiteSpace(href))
                 href = Configuration.FolderPath;
             var davItems = await _webDavClient.List(href);
-            return davItems.Select(davItem => new RemoteItem(davItem)).ToList();
+            return davItems.Where(davItem => davItem.Href != href ).Select(x => new RemoteItem(x)).ToList();
         }
         public static async Task<bool> Download(string href, StorageFile localFile)
         {

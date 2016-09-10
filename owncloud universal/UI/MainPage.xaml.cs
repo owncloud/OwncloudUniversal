@@ -237,14 +237,16 @@ namespace OwncloudUniversal.UI
                 foreach (var file in files)
                 {
                     StorageApplicationPermissions.FutureAccessList.AddOrReplace("uploadFile", file);
-                    var stream = await file.OpenStreamForReadAsync();
-                    if(string.IsNullOrWhiteSpace(_currentFolder.Href))
+                    using (var stream = await file.OpenStreamForReadAsync())
                     {
-                        await ConnectionManager.Upload(Configuration.ServerUrl, stream, file.Name);
-                    }
-                    else
-                    {
-                        await ConnectionManager.Upload(_currentFolder.Href, stream, file.Name);
+                        if (string.IsNullOrWhiteSpace(_currentFolder.Href))
+                        {
+                            await ConnectionManager.Upload(Configuration.ServerUrl, stream, file.Name);
+                        }
+                        else
+                        {
+                            await ConnectionManager.Upload(_currentFolder.Href, stream, file.Name);
+                        }
                     }
                     
                 }
