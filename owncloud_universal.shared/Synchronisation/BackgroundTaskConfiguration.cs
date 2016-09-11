@@ -3,7 +3,7 @@ using Windows.ApplicationModel.Background;
 
 namespace OwncloudUniversal.Shared.Synchronisation
 {
-    public class BackgroundTaskConfiguguration
+    public class BackgroundTaskConfiguration
     {
         private const string TaskName = "owncloud-backgroundSync";
         private const string EntryPoint = "OwncloudUniversal.BackgroundSync.WebDavBackgroundSync";

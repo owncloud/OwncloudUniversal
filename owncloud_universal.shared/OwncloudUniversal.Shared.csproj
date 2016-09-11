@@ -107,7 +107,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Synchronisation\BackgroundTaskConfiguguration.cs" />
+    <Compile Include="Synchronisation\BackgroundTaskConfiguration.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="LocalFileSystem\FileSystemAdapter.cs" />
     <Compile Include="Model\AbstractAdapter.cs" />
