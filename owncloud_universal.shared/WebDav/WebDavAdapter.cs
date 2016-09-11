@@ -17,21 +17,39 @@ namespace OwncloudUniversal.Shared.WebDav
             AbstractItem targetItem = null;
             if (localItem.IsCollection)
             {
+                //build path and folder name
                 string path = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
-                var file = await StorageFolder.GetFolderFromPathAsync(localItem.EntityId);
-                var name = file.DisplayName;
-                await CreateFolder(localItem.Association, localItem, name);
+                var folderName = (await StorageFolder.GetFolderFromPathAsync(localItem.EntityId)).DisplayName;
+
+                //create folder and parent folders
+                await CreateFolder(localItem.Association, localItem, folderName);
+                //load the folder again to update the item properties
                 var folder = await ConnectionManager.GetFolder(path);
-                targetItem = folder.Where(x => x.DavItem.DisplayName == name).FirstOrDefault();
+                targetItem = folder.FirstOrDefault(x => x.DavItem.DisplayName == folderName);
                 targetItem.Association = localItem.Association;
             }
             else
             {
                 StorageFile file = await StorageFile.GetFileFromPathAsync(localItem.EntityId);
+                var folderPath = _BuildRemoteFolderPath(localItem.Association, file.Path);
+                try
+                {
+                    //if the file already exists dont upload it again
+                    var folder = await ConnectionManager.GetFolder(folderPath);
+                    var existingItem = folder.Where(x => x.DavItem.DisplayName == file.Name).FirstOrDefault();
+                    if (existingItem != null)
+                    {
+                        existingItem.Association = localItem.Association;
+                        return existingItem;
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                }
                 using (var stream = await file.OpenStreamForReadAsync())
                 {
                     await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(file.Path));
-                    var folderPath = _BuildRemoteFolderPath(localItem.Association, file.Path);
                     await ConnectionManager.Upload(folderPath, stream, file.Name);
                     var folder = await ConnectionManager.GetFolder(folderPath);
                     targetItem = folder.Where(x => x.DavItem.DisplayName == file.Name).FirstOrDefault();
@@ -50,7 +68,12 @@ namespace OwncloudUniversal.Shared.WebDav
             var path = _BuildRemoteFolderPath(association, localItem.EntityId).Replace(remoteBaseFolder, "");
             //name = name.TrimEnd('\\');
             //name = name.Substring(name.LastIndexOf('\\') + 1);
-            var folders = (path).Split('/');
+            var folders = path.Split('/');
+            if (localItem.IsCollection)
+            {
+                folders = (path + "/" + name).Split('/');
+            }
+            
 
             var currentFolder = remoteBaseFolder.TrimEnd('/');
             for (int i = 0; i < folders.Length; i++)
@@ -60,7 +83,7 @@ namespace OwncloudUniversal.Shared.WebDav
                     var folderContent = await ConnectionManager.GetFolder(currentFolder);
                     if(folderContent.Count(x => x.DavItem.DisplayName == folders[i] && x.IsCollection) == 0)
                         if(!string.IsNullOrWhiteSpace(folders[i]))
-                            ConnectionManager.CreateFolder(currentFolder, folders[i]);
+                            await ConnectionManager.CreateFolder(currentFolder, folders[i]);
                 }
                 catch (Exception e)
                 {

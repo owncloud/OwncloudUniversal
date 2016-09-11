@@ -26,13 +26,6 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 result.Add(item);
             }
         }
-        private async Task<List<AbstractItem>> GetDataToUpload(FolderAssociation association)
-        {
-            List<AbstractItem> result = new List<AbstractItem>();
-            StorageFolder localFolder = await StorageFolder.GetFolderFromPathAsync(GetAssociatedItem(association.LocalFolderId).EntityId);
-            await _CheckLocalFolderRecursive(localFolder, association.Id, result);
-            return result;
-        }
 
         public override async Task<AbstractItem> AddItem(AbstractItem item)
         {
@@ -46,8 +39,13 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             }
             else
             {
-                storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
-                await ConnectionManager.Download(item.EntityId, (StorageFile)storageItem);
+                storageItem = await folder.TryGetItemAsync(displayName);
+                if (storageItem == null)
+                {
+                    storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
+                    await ConnectionManager.Download(item.EntityId, (StorageFile)storageItem);
+                }
+
             }
             var targetItem = new LocalItem();
             BasicProperties bp = await storageItem.GetBasicPropertiesAsync();
@@ -67,6 +65,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             else
             {
                 var file = await folder.CreateFileAsync(((RemoteItem)item).DavItem.DisplayName, CreationCollisionOption.ReplaceExisting);
+                await ConnectionManager.Download(item.EntityId, file);
                 var bp = await file.GetBasicPropertiesAsync();
                 targetItem = new LocalItem(item.Association, file, bp);
             }

@@ -92,7 +92,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 result = await _targetEntityAdapter.UpdateItem(item);
             }
-            else if(item.GetType() == typeof(LocalItem))
+            else if(item.GetType() == typeof(RemoteItem))
             {
                 result = await _sourceEntityAdapter.UpdateItem(item);
             }
@@ -102,39 +102,52 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private void _UpdateFileIndexes(FolderAssociation association)
         {
-
             var itemTableModel = AbstractItemTableModel.GetDefault();
 
-            for (int i = 0; i < _itemIndex.Count; i++)
+            foreach (AbstractItem t in _itemIndex)
             {
-                _itemIndex[i].Association = association;
-                var foundItem = itemTableModel.GetItem(_itemIndex[i]);
+                t.Association = association;
+                var foundItem = itemTableModel.GetItem(t);
                 if (foundItem == null)
                 {
-                    itemTableModel.InsertItem(_itemIndex[i]);
-                    _itemIndex[i].Id = itemTableModel.GetLastInsertItem().Id;
+                    itemTableModel.InsertItem(t);
+                    t.Id = itemTableModel.GetLastInsertItem().Id;
                 }
                 else
                 {
-                    itemTableModel.UpdateItem(_itemIndex[i], foundItem.Id);
+                    if (foundItem.ChangeKey != t.ChangeKey)
+                    {
+                        t.ChangeNumber = foundItem.ChangeNumber + 1;
+                        itemTableModel.UpdateItem(t, foundItem.Id);
+                    }
+                    t.Id = foundItem.Id;
+
                 }
             }
-
-            //TODO delete old items??
-        }   
+        }
 
         private void AfterInsert(AbstractItem sourceItem, AbstractItem targetItem)
         {
-            AbstractItemTableModel.GetDefault().InsertItem(targetItem);
-            targetItem = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+            //check if item with same path already exists
+            var existingItem = AbstractItemTableModel.GetDefault().GetItem(targetItem);
+            if (existingItem != null)
+            {
+                AbstractItemTableModel.GetDefault().UpdateItem(targetItem, existingItem.Id);
+                targetItem.Id = existingItem.Id;
+            }
+            else
+            {
+                AbstractItemTableModel.GetDefault().InsertItem(targetItem);
+                targetItem = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+            }
+
             LinkStatus link = new LinkStatus(sourceItem, targetItem);
             LinkStatusTableModel.GetDefault().InsertItem(link);
         }
 
         private void AfterUpdate(AbstractItem sourceItem, AbstractItem targetItem)
         {
-            sourceItem.ChangeNumber++;
-            targetItem.ChangeNumber++;
+            targetItem.ChangeNumber = sourceItem.ChangeNumber;
             AbstractItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
             AbstractItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
             var link = _linkList.First(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id);

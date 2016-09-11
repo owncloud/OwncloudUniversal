@@ -76,7 +76,7 @@ namespace OwncloudUniversal.Shared.WebDav
 
             await _webDavClient.DeleteFolder(path);
         }
-        public static async void CreateFolder(string href, string folderName)
+        public static async Task CreateFolder(string href, string folderName)
         {
             try
             {
