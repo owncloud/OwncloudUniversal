@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.SQLite;
 using OwncloudUniversal.Shared.Synchronisation;
+using OwncloudUniversal.Shared.WebDav;
 
 // Die Elementvorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
@@ -34,6 +35,7 @@ namespace OwncloudUniversal.UI
             Configuration.ServerUrl = txtServerUrl.Text;
             Configuration.UserName = txtUsername.Text;
             Configuration.Password = pwBox.Password;
+            ConnectionManager.SetUp();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

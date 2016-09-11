@@ -34,7 +34,7 @@ namespace OwncloudUniversal.UI
 
         private void LoadSyncItems()
         {
-            var associations = FolderAssociationTableModel.GetDefault().GetAllItems();           
+            var associations = FolderAssociationTableModel.GetDefault().GetAllItems();   
             listView.ItemsSource = associations;
         }
 

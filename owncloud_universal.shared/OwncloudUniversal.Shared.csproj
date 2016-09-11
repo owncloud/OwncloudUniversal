@@ -121,6 +121,7 @@
     <Compile Include="Model\LinkStatusTableModel.cs" />
     <Compile Include="LocalFileSystem\LocalItem.cs" />
     <Compile Include="Synchronisation\ExecutionContext.cs" />
+    <Compile Include="ToastHelper.cs" />
     <Compile Include="WebDav\RemoteItem.cs" />
     <Compile Include="Model\SyncDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

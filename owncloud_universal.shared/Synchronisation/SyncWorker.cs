@@ -45,35 +45,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
+                        ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
                     }
                 }
             }
-            SendToast();
+            ToastHelper.SendToast("Finished synchronization cycle");
         }
 
-        private void SendToast()
-        {
-            var xmlToastTemplate = "<toast launch=\"app-defined-string\">" +
-                                   "<visual>" +
-                                   "<binding template =\"ToastGeneric\">" +
-                                   "<text>OwncloudUniversal</text>" +
-                                   "<text>" +
-                                   "Sync Finished" +
-                                   "</text>" +
-                                   "</binding>" +
-                                   "</visual>" +
-                                   "</toast>";
-
-
-            // load the template as XML document
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(xmlToastTemplate);
-            // create the toast notification and show to user
-            var toastNotification = new ToastNotification(xmlDocument);
-            var notification = ToastNotificationManager.CreateToastNotifier();
-            notification.Show(toastNotification);
-        }
+        
 
         private async Task _Process(AbstractItem item)
         {
