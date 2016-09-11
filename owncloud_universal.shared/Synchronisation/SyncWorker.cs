@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Data.Xml.Dom;
 using Windows.System.Power;
+using Windows.UI.Notifications;
 using OwncloudUniversal.Model;
 using OwncloudUniversal.Shared.Model;
 
@@ -47,8 +49,32 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     }
                 }
             }
-        }  
-        
+            SendToast();
+        }
+
+        private void SendToast()
+        {
+            var xmlToastTemplate = "<toast launch=\"app-defined-string\">" +
+                                   "<visual>" +
+                                   "<binding template =\"ToastGeneric\">" +
+                                   "<text>OwncloudUniversal</text>" +
+                                   "<text>" +
+                                   "Sync Finished" +
+                                   "</text>" +
+                                   "</binding>" +
+                                   "</visual>" +
+                                   "</toast>";
+
+
+            // load the template as XML document
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(xmlToastTemplate);
+            // create the toast notification and show to user
+            var toastNotification = new ToastNotification(xmlDocument);
+            var notification = ToastNotificationManager.CreateToastNotifier();
+            notification.Show(toastNotification);
+        }
+
         private async Task _Process(AbstractItem item)
         {
             var link = _linkList.FirstOrDefault(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id);

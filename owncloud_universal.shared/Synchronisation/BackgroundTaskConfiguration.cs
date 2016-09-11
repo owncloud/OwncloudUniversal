@@ -19,6 +19,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             var builder = new BackgroundTaskBuilder();
             builder.Name = TaskName;
             builder.TaskEntryPoint = EntryPoint;
+            SystemCondition networkCondition = new SystemCondition(SystemConditionType.FreeNetworkAvailable);
+            builder.AddCondition(networkCondition);
             BackgroundExecutionManager.RemoveAccess();
             var promise = await BackgroundExecutionManager.RequestAccessAsync();
 
@@ -28,9 +30,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
             else
             {
-                builder.SetTrigger(new SystemTrigger(SystemTriggerType.UserAway, false));
+                var t = new TimeTrigger(15, false);
+                builder.SetTrigger(t);
             }
-                
             BackgroundTaskRegistration registration = builder.Register();
             
         }

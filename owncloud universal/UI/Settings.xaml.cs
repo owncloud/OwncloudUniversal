@@ -56,7 +56,7 @@ namespace OwncloudUniversal.UI
 
         private void btnTask_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundTaskConfiguguration c = new BackgroundTaskConfiguguration();
+            BackgroundTaskConfiguration c = new BackgroundTaskConfiguration();
             c.Register();
         }
     }
