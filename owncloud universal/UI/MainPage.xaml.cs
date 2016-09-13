@@ -51,6 +51,7 @@ namespace OwncloudUniversal.UI
                 args.Handled = true;
                 rootFrame.GoBack();
             }
+            SystemNavigationManager.GetForCurrentView().BackRequested -= BackRequestet;
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

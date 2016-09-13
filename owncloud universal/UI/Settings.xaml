@@ -10,7 +10,6 @@
             <CommandBar.Content>
                 <Grid/>
             </CommandBar.Content>
-            <AppBarButton x:Name="btnMapping" Label="Folder Mappings" Click="btnMapping_Click" Icon="Link"/>
             <AppBarButton x:Name="btnSave" Icon="Save" Label="Save" Click="AppBarButton_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
@@ -31,7 +30,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="10,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Height="20" Width="79"/>
         <PasswordBox x:Name="pwBox" Margin="94,74,10,0" Grid.Row="1" VerticalAlignment="Top" Height="32"/>
         <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="Accept" Label="appbarbutton" Margin="45,30,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnReset" Content="Reset Sync Database" HorizontalAlignment="Left" Margin="10,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnReset_Click"/>
-        <Button x:Name="btnTask" Content="Enable background sync" HorizontalAlignment="Left" Margin="10,148,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnTask_Click"/>
+        <ToggleSwitch x:Name="toggleSwitch" Header="Automatic Background Sync" HorizontalAlignment="Stretch" Margin="10,111,10,0" Grid.Row="1" VerticalAlignment="Top" Toggled="toggleSwitch_Toggled"/>
+        <Button x:Name="btnReset" Content="Reset Sync-Database" HorizontalAlignment="Left" Margin="10,213,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnReset_Click"/>
+        <Button x:Name="btnFolderPairs" Content="Manage synchronized Folders" HorizontalAlignment="Left" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnFolderPairs_Click"/>
     </Grid>
 </Page>

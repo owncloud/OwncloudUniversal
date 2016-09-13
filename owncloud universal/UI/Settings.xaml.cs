@@ -1,4 +1,6 @@
-﻿using Windows.UI.Core;
+﻿using System;
+using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -16,6 +18,8 @@ namespace OwncloudUniversal.UI
     /// </summary>
     public sealed partial class Settings : Page
     {
+
+        BackgroundTaskConfiguration taskConfig = new BackgroundTaskConfiguration();
         public Settings()
         {
             this.InitializeComponent();
@@ -43,23 +47,25 @@ namespace OwncloudUniversal.UI
             txtServerUrl.Text = Configuration.ServerUrl;
             txtUsername.Text = Configuration.UserName;
             pwBox.Password = Configuration.Password;
+            toggleSwitch.IsOn = taskConfig.Enabled;
 
         }
 
-        private void btnMapping_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof (FolderMapping));
-        }
-
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private async void btnReset_Click(object sender, RoutedEventArgs e)
         {
             SQLiteClient.Reset();
+            MessageDialog dialog = new MessageDialog("Database reset. Please configure the synced folders again.");
+            await dialog.ShowAsync();
         }
 
-        private void btnTask_Click(object sender, RoutedEventArgs e)
+        private void toggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            BackgroundTaskConfiguration c = new BackgroundTaskConfiguration();
-            c.Register();
+            taskConfig.Enabled = toggleSwitch.IsOn;
+        }
+
+        private void btnFolderPairs_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(FolderMapping));
         }
     }
 }

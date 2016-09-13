@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Windows.ApplicationModel.Background;
 
 namespace OwncloudUniversal.Shared.Synchronisation
@@ -7,7 +8,22 @@ namespace OwncloudUniversal.Shared.Synchronisation
     {
         private const string TaskName = "owncloud-backgroundSync";
         private const string EntryPoint = "OwncloudUniversal.BackgroundSync.WebDavBackgroundSync";
-        public async void Register(ApplicationTrigger trigger = null)
+
+        public bool Enabled
+        {
+            get { return BackgroundTaskRegistration.AllTasks.Any(task => task.Value.Name == TaskName); }
+            set
+            {
+                if(value)
+                    Register();
+                else
+                {
+                    Deregister();
+                }
+            }
+        }
+
+        private async void Register()
         { 
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
@@ -22,29 +38,21 @@ namespace OwncloudUniversal.Shared.Synchronisation
             BackgroundExecutionManager.RemoveAccess();
             var promise = await BackgroundExecutionManager.RequestAccessAsync();
 
-            if (trigger != null)
-            {
-                builder.SetTrigger(trigger);
-            }
-            else
-            {
-                var t = new MaintenanceTrigger(15, false);
-                builder.SetTrigger(t);
-            }
+            var maintenanceTrigger = new MaintenanceTrigger(15, false);
+            builder.SetTrigger(maintenanceTrigger);
             BackgroundTaskRegistration registration = builder.Register();
             
         }
 
-        public bool IsRegistered()
+        private void Deregister()
         {
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
                 if (task.Value.Name == TaskName)
                 {
-                    return true;
+                    task.Value.Unregister(true);
                 }
             }
-            return false;
         }
     }
 
