@@ -104,8 +104,12 @@ namespace OwncloudUniversal.Shared.WebDav
             HttpResponseMessage response = null;
             try
             {
-                response = await HttpRequest(uri, PropFind, headers, Encoding.UTF8.GetBytes(PropFindRequestContent)).ConfigureAwait(false);
-
+                using (var memoryStream = new MemoryStream())
+                {
+                    var bytes = Encoding.UTF8.GetBytes(PropFindRequestContent);
+                    memoryStream.Read(bytes, 0, bytes.Length);
+                    response = await HttpRequest(uri, PropFind, headers, memoryStream.AsInputStream()).ConfigureAwait(false);
+                }
                 if (response.StatusCode != HttpStatusCode.Ok &&
                     (int) response.StatusCode != HttpStatusCodeMultiStatus)
                 {
@@ -177,7 +181,12 @@ namespace OwncloudUniversal.Shared.WebDav
             HttpResponseMessage response = null;
             try
             {
-                response = await HttpRequest(listUri, PropFind, headers, Encoding.UTF8.GetBytes(PropFindRequestContent)).ConfigureAwait(false);
+                using (var memoryStream = new MemoryStream())
+                {
+                    var bytes = Encoding.UTF8.GetBytes(PropFindRequestContent);
+                    memoryStream.Read(bytes, 0, bytes.Length);
+                    response = await HttpRequest(listUri, PropFind, headers, memoryStream.AsInputStream()).ConfigureAwait(false);
+                }
 
                 if (response.StatusCode != HttpStatusCode.Ok &&
                     (int) response.StatusCode != HttpStatusCodeMultiStatus)
@@ -212,14 +221,17 @@ namespace OwncloudUniversal.Shared.WebDav
         {
             // Should not have a trailing slash.
             var downloadUri = BuildUrl(remoteFilePath);
-
-            var dictionary = new Dictionary<string, string> { { "translate", "f" } };
-            var response = await HttpRequest(downloadUri, HttpMethod.Get, dictionary).ConfigureAwait(false);
-            if (response.StatusCode != HttpStatusCode.Ok)
+            HttpResponseMessage response = null;
+            using (IInputStream stream = new InMemoryRandomAccessStream())
             {
-                throw new Exception("Failed retrieving file.");
+                var dictionary = new Dictionary<string, string> { { "translate", "f" } };
+                response = await HttpRequest(downloadUri, HttpMethod.Get, dictionary, stream);
+                if (response.StatusCode != HttpStatusCode.Ok)
+                {
+                    throw new Exception("Failed retrieving file.");
+                }
             }
-            return ((IInputStream)await response.Content.ReadAsInputStreamAsync()).AsStreamForRead();
+            return (await response.Content.ReadAsInputStreamAsync()).AsStreamForRead(16*1024);
         }
 
         /// <summary>
@@ -228,7 +240,7 @@ namespace OwncloudUniversal.Shared.WebDav
         /// <param name="remoteFilePath">Source path and filename of the file on the server</param>
         /// <param name="content"></param>
         /// <param name="name"></param>
-        public async Task<bool> Upload(string remoteFilePath, Stream content, string name)
+        public async Task<bool> Upload(string remoteFilePath, IInputStream content, string name)
         {
             // Should not have a trailing slash.
             var uploadUri = BuildUrl(remoteFilePath.TrimEnd('/') + "/" + name.TrimStart('/'));
@@ -327,7 +339,7 @@ namespace OwncloudUniversal.Shared.WebDav
         /// <param name="method"></param>
         /// <param name="headers"></param>
         /// <param name="content"></param>
-        private async Task<HttpResponseMessage> HttpRequest(Uri uri, Windows.Web.Http.HttpMethod method, IDictionary<string, string> headers = null, byte[] content = null)
+        private async Task<HttpResponseMessage> HttpRequest(Uri uri, Windows.Web.Http.HttpMethod method, IDictionary<string, string> headers = null, IInputStream content = null)
         {
             using (HttpRequestMessage request = new Windows.Web.Http.HttpRequestMessage(method, uri))
             {
@@ -349,11 +361,14 @@ namespace OwncloudUniversal.Shared.WebDav
                 // Need to send along content?
                 if (content != null)
                 {
-                    request.Content = new HttpStreamContent(new MemoryStream(content).AsRandomAccessStream());
+                    request.Content = new HttpStreamContent(content);
                     request.Content.Headers.ContentType = new HttpMediaTypeHeaderValue("text/xml");
                 }
+
+                    var response = await _client.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
+  
                 
-                return await _client.SendRequestAsync(request);
+                return response;
             }
         }
 
@@ -364,7 +379,7 @@ namespace OwncloudUniversal.Shared.WebDav
         /// <param name="headers"></param>
         /// <param name="method"></param>
         /// <param name="content"></param>
-        private async Task<HttpResponseMessage> HttpUploadRequest(Uri uri, HttpMethod method, Stream content, IDictionary<string, string> headers = null)
+        private async Task<HttpResponseMessage> HttpUploadRequest(Uri uri, HttpMethod method, IInputStream content, IDictionary<string, string> headers = null)
         {
             using (var request = new HttpRequestMessage(method, uri))
             {
@@ -386,16 +401,10 @@ namespace OwncloudUniversal.Shared.WebDav
                 // Need to send along content?
                 if (content != null)
                 {
-                    byte[] buffer = new byte[16*1024];
-                    MemoryStream ms = new MemoryStream();
-
-                    int read;
-                    while ((read = content.Read(buffer, 0, buffer.Length)) > 0)
-                        ms.Write(buffer, 0, read);
-                    request.Content = new HttpBufferContent(ms.GetWindowsRuntimeBuffer());
+                    request.Content = new HttpStreamContent(content);
                 }
                 var client = _uploadClient ?? _client;
-                var response =  await client.SendRequestAsync(request);
+                var response =  await client.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 return response;
             }
         }

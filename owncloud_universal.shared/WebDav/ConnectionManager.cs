@@ -32,7 +32,7 @@ namespace OwncloudUniversal.Shared.WebDav
         {
             if (!IsSetup)
                 SetUp();
-            await _webDavClient.Upload(href, content, fileName);
+            await _webDavClient.Upload(href, content.AsInputStream(), fileName);
         }
         public static async Task<List<RemoteItem>> GetFolder(string href)
         {
@@ -47,17 +47,15 @@ namespace OwncloudUniversal.Shared.WebDav
         {
             if (!IsSetup)
                 SetUp();
-
-            var content = await _webDavClient.Download(href);
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
+            byte[] buffer = new byte[16 * 1024 * 1024];
+            using (var stream = await localFile.OpenStreamForWriteAsync())
+            using (var content = await _webDavClient.Download(href))
             {
-                int read;
-                while ((read = content.Read(buffer, 0, buffer.Length)) > 0)
+                int read = 0;
+                while ((read = await content.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
-                    ms.Write(buffer, 0, read);
+                    await stream.WriteAsync(buffer, 0, read);
                 }
-                await FileIO.WriteBytesAsync(localFile, ms.ToArray());
                 FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(localFile);
                 return status == FileUpdateStatus.Complete;
             }
