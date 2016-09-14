@@ -43,6 +43,7 @@ namespace OwncloudUniversal.UI
 
         private void BackRequestet(object sender, BackRequestedEventArgs args)
         {
+            SystemNavigationManager.GetForCurrentView().BackRequested -= BackRequestet;
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
                 return;
@@ -51,7 +52,6 @@ namespace OwncloudUniversal.UI
                 args.Handled = true;
                 rootFrame.GoBack();
             }
-            SystemNavigationManager.GetForCurrentView().BackRequested -= BackRequestet;
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -173,7 +173,7 @@ namespace OwncloudUniversal.UI
             if (result.Id.ToString() == "YES")
             {
                 var savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+                savePicker.SuggestedStartLocation = PickerLocationId.Downloads;
                 string extension = Path.GetExtension(item.DavItem.DisplayName);
                 if (String.IsNullOrWhiteSpace(extension))
                     extension = ".txt";
@@ -189,11 +189,23 @@ namespace OwncloudUniversal.UI
             }
 
         }
-
+        private const string TaskName = "owncloud-backgroundSync";
+        private const string EntryPoint = "OwncloudUniversal.BackgroundSync.WebDavBackgroundSync";
         private async void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
             progressBar.IsIndeterminate = true;
             progressBar.Visibility = Visibility.Visible;
+            //BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+            //builder.TaskEntryPoint = EntryPoint;
+            //builder.Name = TaskName;
+            //var trigger = new ApplicationTrigger();
+            //builder.SetTrigger(trigger);
+            //builder.Register();
+
+            //var registration = BackgroundTaskRegistration.AllTasks.FirstOrDefault(reg => reg.Value.Name == TaskName).Value as BackgroundTaskRegistration;
+            //var registeredTrigger = registration.Trigger as ApplicationTrigger;
+            //await registeredTrigger.RequestAsync();
+
             ProcessingManager s = new ProcessingManager(new FileSystemAdapter(), new WebDavAdapter());
             await s.Run();
             progressBar.IsIndeterminate = false;

@@ -240,7 +240,7 @@ namespace OwncloudUniversal.Shared.WebDav
         /// <param name="remoteFilePath">Source path and filename of the file on the server</param>
         /// <param name="content"></param>
         /// <param name="name"></param>
-        public async Task<bool> Upload(string remoteFilePath, IInputStream content, string name)
+        public async Task Upload(string remoteFilePath, IInputStream content, string name)
         {
             // Should not have a trailing slash.
             var uploadUri = BuildUrl(remoteFilePath.TrimEnd('/') + "/" + name.TrimStart('/'));
@@ -251,14 +251,10 @@ namespace OwncloudUniversal.Shared.WebDav
             {
                 response = await HttpUploadRequest(uploadUri, HttpMethod.Put, content).ConfigureAwait(false);
 
-                if (response.StatusCode != HttpStatusCode.Ok &&
-                    response.StatusCode != HttpStatusCode.NoContent &&
-                    response.StatusCode != HttpStatusCode.Created)
+                if (!response.IsSuccessStatusCode)
                 {
-                    throw new Exception("Failed uploading file.");
+                    throw new Exception("Failed uploading file. HttpStatus: " + response.StatusCode);
                 }
-
-                return response.IsSuccessStatusCode;
             }
             finally
             {

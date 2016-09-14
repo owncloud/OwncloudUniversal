@@ -13,7 +13,7 @@
             <AppBarButton x:Name="ReloadButton" Label="Reload" Click="AppBarButton_Click" Background="{x:Null}" Icon="Refresh"/>
             <AppBarButton x:Name="btnUpload" Icon="Upload" Label="Upload" Click="btnUpload_Click"/>
             <AppBarButton x:Name="appBarButton" Icon="Sync" Label="Sync" Click="appBarButton_Click_1"/>
-            <AppBarButton x:Name="SettingsButton" Icon="Setting" Label="Edit" Click="SettingsButton_Click" RenderTransformOrigin="3.064,0.542"/>
+            <AppBarButton x:Name="SettingsButton" Icon="Setting" Label="Settings" Click="SettingsButton_Click" RenderTransformOrigin="3.064,0.542"/>
         </CommandBar>
     </Page.BottomAppBar>
 

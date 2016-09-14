@@ -52,7 +52,7 @@ namespace OwncloudUniversal.Shared.WebDav
                     await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(file.Path));
                     await ConnectionManager.Upload(folderPath, stream, file.Name);
                     var folder = await ConnectionManager.GetFolder(folderPath);
-                    targetItem = folder.Where(x => x.DavItem.DisplayName == file.Name).FirstOrDefault();
+                    targetItem = folder.FirstOrDefault(x => x.DavItem.DisplayName == file.Name);
                 }
 
 
@@ -66,8 +66,6 @@ namespace OwncloudUniversal.Shared.WebDav
             //adds the folder and if necessesary the parent folder
             var remoteBaseFolder = GetAssociatedItem(association.RemoteFolderId).EntityId;
             var path = _BuildRemoteFolderPath(association, localItem.EntityId).Replace(remoteBaseFolder, "");
-            //name = name.TrimEnd('\\');
-            //name = name.Substring(name.LastIndexOf('\\') + 1);
             var folders = path.Split('/');
             if (localItem.IsCollection)
             {

@@ -24,14 +24,20 @@ namespace OwncloudUniversal.UI
         {
             this.InitializeComponent();
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
+        }
+
+        private void BackRequestet(object sender, BackRequestedEventArgs args)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested -= BackRequestet;
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+            if (rootFrame.CanGoBack && args.Handled == false)
             {
-                if (Frame.CanGoBack)
-                {
-                    Frame.GoBack();
-                    a.Handled = true;
-                }
-            };
+                args.Handled = true;
+                rootFrame.GoBack();
+            }
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

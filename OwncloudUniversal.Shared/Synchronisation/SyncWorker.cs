@@ -27,6 +27,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         public async Task Run()
         {
+            LogHelper log = new LogHelper();
             SQLite.SQLiteClient.Init();
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)

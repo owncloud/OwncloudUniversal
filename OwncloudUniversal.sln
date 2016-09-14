@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal", "owncloud universal\OwncloudUniversal.csproj", "{8A0B8BAC-292D-40E7-81CD-8002A06C8250}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal", "OwncloudUniversal\OwncloudUniversal.csproj", "{8A0B8BAC-292D-40E7-81CD-8002A06C8250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.Shared", "owncloud_universal.shared\OwncloudUniversal.Shared.csproj", "{FA10E7B0-AC70-44BD-9446-492BD3AE1119}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.Shared", "OwncloudUniversal.Shared\OwncloudUniversal.Shared.csproj", "{FA10E7B0-AC70-44BD-9446-492BD3AE1119}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.BackgroundSync", "OwncloudUniversal.BackgroundSync\OwncloudUniversal.BackgroundSync.csproj", "{38A3AE71-C876-429A-B46C-3758EC5D3691}"
 EndProject

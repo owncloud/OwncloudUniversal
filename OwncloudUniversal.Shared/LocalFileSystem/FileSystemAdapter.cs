@@ -100,6 +100,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         {
             string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
             string folderPath = Path.GetDirectoryName(filePath);
+            await Task.Run(() => Directory.CreateDirectory(folderPath));
             return await StorageFolder.GetFolderFromPathAsync(folderPath);
         }
 
