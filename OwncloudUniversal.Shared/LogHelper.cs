@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 
 namespace OwncloudUniversal.Shared
 {
@@ -12,17 +13,12 @@ namespace OwncloudUniversal.Shared
     {
         public async void Write(string text)
         {
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("Owncloud-Sync-Log.txt", CreationCollisionOption.OpenIfExists);
+            var folder = await StorageFolder.GetFolderFromPathAsync(@"C:\Data\Users\Public\Documents");
+           
+            var file = await folder.CreateFileAsync("Owncloud-Sync-Log.txt", CreationCollisionOption.OpenIfExists);
             byte[] buffer = new byte[16 * 1024];
-            using (var stream = await file.OpenStreamForWriteAsync())
-            using (var content = new MemoryStream(Encoding.UTF8.GetBytes(text)))
-            {
-                int read = 0;
-                while ((read = await content.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                {
-                    await stream.WriteAsync(buffer, 0, read);
-                }
-            }
+            text = DateTime.Now + " - " + text + Environment.NewLine;
+            await Task.Run(() => File.AppendAllText(file.Path, text));
         }
     }
 }

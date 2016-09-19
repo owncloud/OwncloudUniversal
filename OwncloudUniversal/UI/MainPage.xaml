@@ -22,7 +22,7 @@
             <ColumnDefinition Width="29*"/>
             <ColumnDefinition Width="31*"/>
         </Grid.ColumnDefinitions>
-        <ProgressBar x:Name="progressBar" IsIndeterminate="False" Height="10" Margin="0,0,10,630" Grid.ColumnSpan="2" Visibility="Collapsed"/>
+        <ProgressBar x:Name="progressBar" IsIndeterminate="False" Height="10" Grid.ColumnSpan="2" Visibility="Collapsed"/>
         <ListView x:Name="listView" Margin="10,15,19,10" SelectionChanged="listView_SelectionChanged" RightTapped="listView_RightTapped" IsRightTapEnabled="True" Grid.ColumnSpan="2" >
             <ListView.ItemTemplate>
                 <DataTemplate>

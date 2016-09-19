@@ -19,6 +19,7 @@ using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Shared.Synchronisation;
 using OwncloudUniversal.Shared.WebDav;
 using Windows.System;
+using Windows.System.Display;
 
 //using owncloud_universal.WebDav;
 
@@ -189,29 +190,20 @@ namespace OwncloudUniversal.UI
             }
 
         }
-        private const string TaskName = "owncloud-backgroundSync";
-        private const string EntryPoint = "OwncloudUniversal.BackgroundSync.WebDavBackgroundSync";
         private async void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
             progressBar.IsIndeterminate = true;
             progressBar.Visibility = Visibility.Visible;
-            //BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-            //builder.TaskEntryPoint = EntryPoint;
-            //builder.Name = TaskName;
-            //var trigger = new ApplicationTrigger();
-            //builder.SetTrigger(trigger);
-            //builder.Register();
-
-            //var registration = BackgroundTaskRegistration.AllTasks.FirstOrDefault(reg => reg.Value.Name == TaskName).Value as BackgroundTaskRegistration;
-            //var registeredTrigger = registration.Trigger as ApplicationTrigger;
-            //await registeredTrigger.RequestAsync();
-
+            DisplayRequest request = new DisplayRequest();
+            request.RequestActive();
             ProcessingManager s = new ProcessingManager(new FileSystemAdapter(), new WebDavAdapter());
             await s.Run();
             progressBar.IsIndeterminate = false;
             progressBar.Visibility = Visibility.Collapsed;
-            MessageDialog d = new MessageDialog("Scan Finished.");
+            request.RequestRelease();
+            MessageDialog d = new MessageDialog("Synchronization Finished.");
             await d.ShowAsync();
+
 
         }
 

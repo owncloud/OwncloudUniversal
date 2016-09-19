@@ -21,10 +21,11 @@ namespace OwncloudUniversal.Shared.Model
             ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(basicProperties.DateModified.LocalDateTime);
             EntityId = storageItem.Path;
             ChangeNumber = 0;
-            
+            Size = Convert.ToInt32(basicProperties.Size);
         }
         public DateTime? LastModified { get; set; }        
         public string Path { get; set; }
+        public override int Size { get; set; }
 
         public override string EntityId
         {

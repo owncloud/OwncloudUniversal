@@ -15,23 +15,31 @@ namespace OwncloudUniversal.Shared.Synchronisation
     {       
         private List<AbstractItem> _itemIndex;
         private List<LinkStatus> _linkList;
+        private int _uploadCount;
+        private int _downloadCount;
 
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
+        private LogHelper logHelper;
 
         public ProcessingManager(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter)
         {
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
+            logHelper = new LogHelper();
         }
 
         public async Task Run()
         {
-            LogHelper log = new LogHelper();
+            var watch = Stopwatch.StartNew();
+            logHelper.Write("Starting Sync");
             SQLite.SQLiteClient.Init();
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)
             {
+                if (watch.Elapsed.Minutes >= 9)
+                    break;
+
                 _itemIndex = await _targetEntityAdapter.GetAllItems(item);
                 _itemIndex.AddRange(await _sourceEntityAdapter.GetAllItems(item));
                 _UpdateFileIndexes(item);
@@ -42,15 +50,31 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     try
                     {
+                        //skip files bigger than 50MB, these will have to be synced manually
+                        //otherwise the upload/download could take too long and task would be terminated
+                        //TODO make this configurable
+                        if (i.Size > (50 * 1024 * 1024))
+                        {
+                            continue;
+                        }
                         await _Process(i);
                     }
                     catch (Exception e)
                     {
                         ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
+                        logHelper.Write(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
                     }
+                    //we have 10 Minutes in total for each background task cycle
+                    //after 10 minutes windows will terminate the task
+                    //so after 9 minutes we stop the sync and just wait for the next cycle
+                    if (watch.Elapsed.Minutes >= 9)
+                        break;
                 }
             }
-            ToastHelper.SendToast("Finished synchronization cycle");
+            logHelper.Write("Finished synchronization cycle");
+            ToastHelper.SendToast($"{_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded");
+            watch.Stop();
+
         }
 
         
@@ -79,13 +103,15 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
 
             AbstractItem targetItem = null;
-            if (item.GetType() == typeof(LocalItem))
+            if (item is LocalItem)
             {
                 targetItem = await _targetEntityAdapter.AddItem(item);
+                _uploadCount++;
             }
-            else if (item.GetType() == typeof(RemoteItem))
+            else if (item is RemoteItem)
             {
                 targetItem = await _sourceEntityAdapter.AddItem(item);
+                _downloadCount++;
             }
             return targetItem;
 
@@ -94,13 +120,15 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private async Task<AbstractItem> Update(AbstractItem item)
         {
             AbstractItem result = null;
-            if (item.GetType() == typeof(LocalItem))
+            if (item is LocalItem)
             {
                 result = await _targetEntityAdapter.UpdateItem(item);
+                _uploadCount++;
             }
-            else if(item.GetType() == typeof(RemoteItem))
+            else if(item is RemoteItem)
             {
                 result = await _sourceEntityAdapter.UpdateItem(item);
+                _downloadCount++;
             }
             return result;
         }
