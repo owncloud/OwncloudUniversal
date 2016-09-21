@@ -109,6 +109,9 @@
     <Compile Include="UI\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UnsyncedItems.xaml.cs">
+      <DependentUpon>UnsyncedItems.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -140,6 +143,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UnsyncedItems.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

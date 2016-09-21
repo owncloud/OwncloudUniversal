@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -129,6 +130,22 @@ namespace OwncloudUniversal.Shared.Model
                 }
             }
             return null;
+        }
+
+        public ObservableCollection<AbstractItem> GetUnsyncedItems()
+        {
+            var items = new ObservableCollection<AbstractItem>();
+            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber from Item " +
+                                                  "i left join LinkStatus l on i.Id =l.SourceItemId or l.id = l.SourceItemId " +
+                                                  "where l.Id is null"))
+            {
+                while (query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    items.Add(item);
+                }
+            }
+            return items;
         }
     }
 }

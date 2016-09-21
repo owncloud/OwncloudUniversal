@@ -73,5 +73,10 @@ namespace OwncloudUniversal.UI
         {
             Frame.Navigate(typeof(FolderMapping));
         }
+
+        private void btnUnsync_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(UnsyncedItems));
+        }
     }
 }
