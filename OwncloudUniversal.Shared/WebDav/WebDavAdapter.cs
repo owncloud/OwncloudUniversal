@@ -45,7 +45,7 @@ namespace OwncloudUniversal.Shared.WebDav
                 }
                 catch (Exception)
                 {
-                    
+
                 }
                 using (var stream = await file.OpenStreamForReadAsync())
                 {
@@ -71,7 +71,7 @@ namespace OwncloudUniversal.Shared.WebDav
             {
                 folders = (path + "/" + name).Split('/');
             }
-            
+
 
             var currentFolder = remoteBaseFolder.TrimEnd('/');
             for (int i = 0; i < folders.Length; i++)
@@ -79,8 +79,8 @@ namespace OwncloudUniversal.Shared.WebDav
                 try
                 {
                     var folderContent = await ConnectionManager.GetFolder(currentFolder);
-                    if(folderContent.Count(x => x.DavItem.DisplayName == folders[i] && x.IsCollection) == 0)
-                        if(!string.IsNullOrWhiteSpace(folders[i]))
+                    if (folderContent.Count(x => x.DavItem.DisplayName == folders[i] && x.IsCollection) == 0)
+                        if (!string.IsNullOrWhiteSpace(folders[i]))
                             await ConnectionManager.CreateFolder(currentFolder, folders[i]);
                 }
                 catch (Exception e)
@@ -94,17 +94,33 @@ namespace OwncloudUniversal.Shared.WebDav
 
         public override async Task<AbstractItem> UpdateItem(AbstractItem item)
         {
-            return await AddItem(item);
+            if (item.IsCollection)
+                return null;//TODO
+            AbstractItem targetItem = null;
+
+            StorageFile file = await StorageFile.GetFileFromPathAsync(item.EntityId);
+            var folderPath = _BuildRemoteFolderPath(item.Association, file.Path);
+            using (var stream = await file.OpenStreamForReadAsync())
+            {
+                await ConnectionManager.Upload(folderPath, stream, file.Name);
+                var folder = await ConnectionManager.GetFolder(folderPath);
+                targetItem = folder.FirstOrDefault(x => x.DavItem.DisplayName == file.Name);
+            }
+
+
+            targetItem.Association = item.Association;
+            
+            return targetItem;
         }
 
         public override async Task DeleteItem(AbstractItem item)
         {
-            var _item = (LocalItem)item;
+            var _item = (LocalItem) item;
             if (_item.IsCollection)
             {
                 string path = _BuildRemoteFolderPath(_item.Association, _item.EntityId);
                 string name = (await StorageFolder.GetFolderFromPathAsync(_item.EntityId)).DisplayName;
-                ConnectionManager.DeleteFolder(_item.EntityId + '/'+ name);
+                ConnectionManager.DeleteFolder(_item.EntityId + '/' + name);
                 return;
             }
             else
@@ -120,13 +136,16 @@ namespace OwncloudUniversal.Shared.WebDav
             await _CheckRemoteFolderRecursive(remoteFolder, items);
             return items;
         }
+
         private async Task _CheckRemoteFolderRecursive(AbstractItem folder, List<AbstractItem> result)
         {
             List<RemoteItem> items = await ConnectionManager.GetFolder(folder.EntityId);
             foreach (RemoteItem item in items)
             {
                 if (item.IsCollection)
+                {
                     await _CheckRemoteFolderRecursive(item, result);
+                }
                 result.Add(item);
             }
         }

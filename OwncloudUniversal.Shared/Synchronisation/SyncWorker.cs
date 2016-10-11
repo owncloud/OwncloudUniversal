@@ -53,7 +53,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         //skip files bigger than 50MB, these will have to be synced manually
                         //otherwise the upload/download could take too long and task would be terminated
                         //TODO make this configurable
-                        if (i.Size > (50 * 1024 * 1024))
+                        if (i.Size > (50 * 1024 * 1024) || i.Size == 0)
                         {
                             continue;
                         }

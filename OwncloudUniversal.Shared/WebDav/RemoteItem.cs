@@ -18,11 +18,11 @@ namespace OwncloudUniversal.Shared.Model
         public DavItem DavItem { get; private set; }
         public Symbol Symbol { get { return DavItem.IsCollection ? Symbol.Folder : Symbol.Page2; } }
 
-        public override int Size
+        public override ulong Size
         {
             get
             {
-                if (DavItem.ContentLength != null) return DavItem.ContentLength.Value;
+                if (DavItem.ContentLength != null) return (ulong)DavItem.ContentLength.Value;
                 return 0;
             }
         }
