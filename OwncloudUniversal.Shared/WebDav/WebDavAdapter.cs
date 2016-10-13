@@ -142,6 +142,7 @@ namespace OwncloudUniversal.Shared.WebDav
             List<RemoteItem> items = await ConnectionManager.GetFolder(folder.EntityId);
             foreach (RemoteItem item in items)
             {
+                if (!ChangekeyHasChanged(item)) continue;
                 if (item.IsCollection)
                 {
                     await _CheckRemoteFolderRecursive(item, result);
@@ -149,6 +150,13 @@ namespace OwncloudUniversal.Shared.WebDav
                 result.Add(item);
             }
         }
+
+        private bool ChangekeyHasChanged(AbstractItem item)
+        {
+            var i = AbstractItemTableModel.GetDefault().GetItem(item);
+            return i == null || i.ChangeKey != item.ChangeKey;
+        }
+
         private string _BuildRemoteFilePath(FolderAssociation association, string path)
         {
             var localFolder = GetAssociatedItem(association.LocalFolderId);
@@ -175,6 +183,10 @@ namespace OwncloudUniversal.Shared.WebDav
         private AbstractItem GetAssociatedItem(long id)
         {
             return AbstractItemTableModel.GetDefault().GetItem(id);
+        }
+
+        public WebDavAdapter(bool isBackgroundSync) : base(isBackgroundSync)
+        {
         }
     }
 }

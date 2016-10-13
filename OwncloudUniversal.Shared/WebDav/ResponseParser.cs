@@ -95,8 +95,8 @@ namespace OwncloudUniversal.Shared.WebDav
                                 if (!reader.IsEmptyElement)
                                 {
                                     reader.Read();
-                                    int contentLength;
-                                    if (int.TryParse(reader.Value, out contentLength))
+                                    ulong contentLength;
+                                    if (ulong.TryParse(reader.Value, out contentLength))
                                         davItemInfo.ContentLength = contentLength;
                                 }
                                 break;

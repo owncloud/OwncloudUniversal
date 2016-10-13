@@ -21,7 +21,8 @@ namespace OwncloudUniversal.Shared.SQLite
                         [IsCollection] BOOLEAN  NULL,
                         [ChangeNumber] INTEGER NULL,
                         [ChangeKey] NVARCHAR(510)  NULL,
-                        [EntityId] NVARCHAR(510) NULL
+                        [EntityId] NVARCHAR(510) NULL,
+                        [SyncPostponed] BOOLEAN NULL
                     );";
             using (var statement = Connection.Prepare(query))
             {

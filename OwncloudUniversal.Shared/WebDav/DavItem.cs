@@ -12,6 +12,6 @@ namespace OwncloudUniversal.Shared.WebDav
         public string ContentType { get; set; }
         public DateTime? LastModified { get; set; }
         public string DisplayName { get; set; }
-        public long? ContentLength { get; set; }
+        public ulong? ContentLength { get; set; }
     }
 }

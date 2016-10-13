@@ -25,7 +25,7 @@ namespace OwncloudUniversal.BackgroundSync
                 toastElements[0].InnerText = reason.ToString();
                 ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
             };
-            ProcessingManager s = new ProcessingManager(new FileSystemAdapter(), new WebDavAdapter());
+            ProcessingManager s = new ProcessingManager(new FileSystemAdapter(true), new WebDavAdapter(true), true);
             await s.Run();
             _deferral.Complete();
         }

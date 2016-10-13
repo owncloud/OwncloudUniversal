@@ -14,6 +14,16 @@ namespace OwncloudUniversal.Shared.Model
     {
         public LocalItem() { }
 
+        public LocalItem(AbstractItem item)
+        {
+            ChangeKey = item.ChangeKey;
+            EntityId = item.EntityId;
+            Association = item.Association;
+            IsCollection = item.IsCollection;
+            ChangeNumber = item.ChangeNumber;
+            Size = item.Size;
+        }
+
         public LocalItem(FolderAssociation association,IStorageItem storageItem, BasicProperties basicProperties)
         {
             Association = association;

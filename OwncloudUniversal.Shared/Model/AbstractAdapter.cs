@@ -9,6 +9,12 @@ namespace OwncloudUniversal.Shared.Model
 {
     public abstract class AbstractAdapter
     {
+        protected AbstractAdapter(bool isBackgroundSync)
+        {
+            IsBackgroundSync = isBackgroundSync;
+        }
+
+        public bool IsBackgroundSync { get; }
         //gibt das neue item zurück
         public abstract Task<AbstractItem> AddItem(AbstractItem item);
 

@@ -196,7 +196,7 @@ namespace OwncloudUniversal.UI
             progressBar.Visibility = Visibility.Visible;
             DisplayRequest request = new DisplayRequest();
             request.RequestActive();
-            ProcessingManager s = new ProcessingManager(new FileSystemAdapter(), new WebDavAdapter());
+            ProcessingManager s = new ProcessingManager(new FileSystemAdapter(false), new WebDavAdapter(false), false);
             await s.Run();
             progressBar.IsIndeterminate = false;
             progressBar.Visibility = Visibility.Collapsed;

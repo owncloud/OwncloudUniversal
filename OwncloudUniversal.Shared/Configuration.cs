@@ -9,50 +9,61 @@ namespace OwncloudUniversal.Shared
 {
     public static class Configuration
     {
-        private static Windows.Storage.ApplicationDataContainer Config = Windows.Storage.ApplicationData.Current.LocalSettings;
+        private static Windows.Storage.ApplicationDataContainer _config = Windows.Storage.ApplicationData.Current.LocalSettings;
 
         public static string ServerUrl
         {
             get
             {
-                if (Config.Values.ContainsKey("ServerUrl"))
-                    return (string)Config.Values["ServerUrl"];
+                if (_config.Values.ContainsKey("ServerUrl"))
+                    return (string)_config.Values["ServerUrl"];
                 return String.Empty;
             }
-            set { Config.Values["ServerUrl"] = value; } 
+            set { _config.Values["ServerUrl"] = value; } 
         }
 
         public static string FolderPath
         {
             get
             {
-                if (Config.Values.ContainsKey("FolderPath"))
-                    return (string) Config.Values["FolderPath"];
+                if (_config.Values.ContainsKey("FolderPath"))
+                    return (string) _config.Values["FolderPath"];
                 return String.Empty;
             }
-            set { Config.Values["FolderPath"] = value; }
+            set { _config.Values["FolderPath"] = value; }
         }
 
         public static string UserName
         {
             get
             {
-                if (Config.Values.ContainsKey("UserName"))
-                    return (string)Config.Values["UserName"];
+                if (_config.Values.ContainsKey("UserName"))
+                    return (string)_config.Values["UserName"];
                 return String.Empty;
             }
-            set { Config.Values["UserName"] = value; }
+            set { _config.Values["UserName"] = value; }
         }
 
         public static string Password
         {
             get
             {
-                if (Config.Values.ContainsKey("Password"))
-                    return (string)Config.Values["Password"];
+                if (_config.Values.ContainsKey("Password"))
+                    return (string)_config.Values["Password"];
                 return String.Empty;
             }
-            set { Config.Values["Password"] = value; }
+            set { _config.Values["Password"] = value; }
+        }
+
+        public static string LastSync
+        {
+            get
+            {
+                if (_config.Values.ContainsKey("LastSync"))
+                    return (string)_config.Values["LastSync"];
+                return DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
+            }
+            set { _config.Values["LastSync"] = value; }
         }
     }
 }

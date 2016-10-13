@@ -9,5 +9,6 @@
         public virtual string ChangeKey { get; set; }//wenn sich changekey ändert changenum erhöhen
         public virtual long ChangeNumber { get; set; }
         public virtual ulong Size { get; set; }
+        public virtual bool SyncPostponed{ get; set; }
     }
 }

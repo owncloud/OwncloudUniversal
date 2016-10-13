@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.Storage.Search;
 
 namespace OwncloudUniversal.Shared.LocalFileSystem
 {
@@ -16,13 +17,40 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
     {
         private async Task _CheckLocalFolderRecursive(StorageFolder folder, long associationId, List<AbstractItem> result)
         {
-            var files = await folder.GetItemsAsync();
-            foreach (IStorageItem sItem in files)
+            var files = new List<IStorageItem>();
+            var options = new QueryOptions();
+            options.FolderDepth = FolderDepth.Deep;
+            options.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
+            //details about filesystem queries
+            //https://msdn.microsoft.com/en-us/magazine/mt620012.aspx
+            string timeFilter = "System.Search.GatherTime:>=" +
+                                Configuration.LastSync;
+            options.ApplicationSearchFilter = timeFilter;
+            if (folder.AreQueryOptionsSupported(options))
             {
-                if (sItem.IsOfType(StorageItemTypes.Folder))
-                    await _CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
-                BasicProperties bp = await sItem.GetBasicPropertiesAsync();
-                var item = new LocalItem(new FolderAssociation { Id = associationId }, sItem, bp);
+                var queryResult = folder.CreateFileQueryWithOptions(options);
+                queryResult.ApplyNewQueryOptions(options);
+                files.AddRange(await queryResult.GetFilesAsync());
+            }
+            else
+            {
+                var items = await folder.GetItemsAsync();
+                files.AddRange(items);
+                foreach (IStorageItem sItem in items)
+                {
+                    if (sItem.IsOfType(StorageItemTypes.Folder))
+                        await _CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
+                }
+            }
+            if (!IsBackgroundSync)
+            {
+                var unsynced = AbstractItemTableModel.GetDefault().GetUnsyncedItems().Where(x => x.EntityId.Contains("\\"));
+                result.AddRange(unsynced.Select(abstractItem => new LocalItem(abstractItem)));
+            }
+            foreach (var file in files)
+            {
+                BasicProperties bp = await file.GetBasicPropertiesAsync();
+                var item = new LocalItem(new FolderAssociation { Id = associationId }, file, bp);
                 result.Add(item);
             }
         }
@@ -129,6 +157,10 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         private AbstractItem GetAssociatedItem(long id)
         {
             return AbstractItemTableModel.GetDefault().GetItem(id);
+        }
+
+        public FileSystemAdapter(bool isBackgroundSync) : base(isBackgroundSync)
+        {
         }
     }
 }
