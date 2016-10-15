@@ -22,7 +22,7 @@
 
         <TextBlock TextWrapping="NoWrap" Text="Settings" VerticalAlignment="Top" OpticalMarginAlignment="None" FontSize="24" FontWeight="Bold" Grid.ColumnSpan="1" Margin="0,0,-10,0" Height="32"/>
         <TextBlock Grid.Row="1" VerticalAlignment="Top" Margin="10,5,-10,0" Height="20" Text="URL:"/>
-        <TextBox x:Name="txtServerUrl" Margin="94,0,10,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Top" Height="32"/>
+        <TextBox x:Name="txtServerUrl" Margin="94,0,10,0" Grid.Row="1" TextWrapping="NoWrap" VerticalAlignment="Top" Height="32" InputScope="Url"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,43,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="79">
         	<Run Text="User:"/>
         </TextBlock>
@@ -34,5 +34,7 @@
         <Button x:Name="btnReset" Content="Reset Sync-Database" HorizontalAlignment="Left" Margin="10,213,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnReset_Click"/>
         <Button x:Name="btnFolderPairs" Content="Manage synchronized Folders" HorizontalAlignment="Left" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnFolderPairs_Click"/>
         <Button x:Name="btnUnsync" Content="Unsyced Items" HorizontalAlignment="Left" Margin="10,250,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216" Click="btnUnsync_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,287,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Don't dowload Files bigger than: " VerticalAlignment="Top"/>
+        <TextBox x:Name="tbMaxDownloadSize" HorizontalAlignment="Left" Margin="225,282,0,0" Grid.Row="1" TextWrapping="Wrap" Text="500" VerticalAlignment="Top" InputScope="Number" Width="27"/>
     </Grid>
 </Page>

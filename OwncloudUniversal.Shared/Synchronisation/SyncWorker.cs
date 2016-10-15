@@ -20,42 +20,42 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
-        private LogHelper logHelper;
-        private bool _isBackgroundTask;
+        private readonly LogHelper _logHelper;
+        private readonly bool _isBackgroundTask;
 
         public ProcessingManager(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
         {
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
             _isBackgroundTask = isBackgroundTask;
-            logHelper = new LogHelper();
+            _logHelper = new LogHelper();
             
         }
 
         public async Task Run()
         {
             var watch = Stopwatch.StartNew();
-            await logHelper.Write("**************************************");
+            await _logHelper.Write("**************************************");
             if (_isBackgroundTask)
-                await logHelper.Write("starting background sync");
+                await _logHelper.Write("starting background sync");
             else
-                await logHelper.Write("starting manual sync");
+                await _logHelper.Write("starting manual sync");
             SQLite.SQLiteClient.Init();
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)
             {
-                await logHelper.Write($"Syncing {item.LocalFolderPath} with {item.RemoteFolderFolderPath}");
+                await _logHelper.Write($"Syncing {item.LocalFolderPath} with {item.RemoteFolderFolderPath}");
                 if (watch.Elapsed.Minutes >= 9)
                     break;
-                await logHelper.Write("scanning remote items");
+                await _logHelper.Write("scanning remote items");
                 _itemIndex = await _targetEntityAdapter.GetAllItems(item);
-                await logHelper.Write("scanning local items");
+                await _logHelper.Write("scanning local items");
                 _itemIndex.AddRange(await _sourceEntityAdapter.GetAllItems(item));
-                await logHelper.Write("updating database");
+                await _logHelper.Write("updating database");
                 _UpdateFileIndexes(item);
                 var model = LinkStatusTableModel.GetDefault();
                 _linkList = model.GetAllItems(item).ToList();
-                await logHelper.Write("processing items");
+                await _logHelper.Write("processing items");
                 foreach (var i in _itemIndex)
                 {
                     try
@@ -65,18 +65,21 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     catch (Exception e)
                     {
                         ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
-                        await logHelper.Write(string.Format("Message: {0}, EntitityId: {1}, \r\n{2}", e.Message, i.EntityId, e.StackTrace));
+                        await _logHelper.Write(string.Format("Message: {0}, EntitityId: {1}, \r\n{2}", e.Message, i.EntityId, e.StackTrace));
                     }
                     //we have 10 Minutes in total for each background task cycle
                     //after 10 minutes windows will terminate the task
                     //so after 9 minutes we stop the sync and just wait for the next cycle
                     if (!_isBackgroundTask || watch.Elapsed.Minutes >= 9) continue;
-                    await logHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
+                    await _logHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
                     break;
                 }
             }
-            await logHelper.Write("Finished synchronization cycle");
-            ToastHelper.SendToast($"{_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded");
+            await _logHelper.Write("Finished synchronization cycle");
+            if(_isBackgroundTask)
+                ToastHelper.SendToast($"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded");
+            else
+                ToastHelper.SendToast($"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded");
             watch.Stop();
             Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
         }
@@ -96,6 +99,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
             var link = _linkList.FirstOrDefault(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id);
             if (link == null)
             {
+#pragma warning disable 4014
+                _logHelper.Write($"Adding {item.EntityId}");
+#pragma warning restore 4014
                 //es ist noch kein link vorhanden, also ein neues Item
                 var result = await Insert(item);
                 AfterInsert(item, result);
@@ -104,6 +110,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 if (item.ChangeNumber > link.ChangeNumber)
                 {
+#pragma warning disable 4014
+                    _logHelper.Write($"Updating {item.EntityId}");
+#pragma warning restore 4014
                     var result = await Update(item);
                     AfterUpdate(item, result);
                 }

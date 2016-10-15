@@ -45,6 +45,7 @@ namespace OwncloudUniversal.UI
             Configuration.ServerUrl = txtServerUrl.Text;
             Configuration.UserName = txtUsername.Text;
             Configuration.Password = pwBox.Password;
+            Configuration.MaxDownloadSize = Convert.ToInt64(tbMaxDownloadSize.Text);
             ConnectionManager.SetUp();
         }
 
@@ -54,12 +55,14 @@ namespace OwncloudUniversal.UI
             txtUsername.Text = Configuration.UserName;
             pwBox.Password = Configuration.Password;
             toggleSwitch.IsOn = taskConfig.Enabled;
+            tbMaxDownloadSize.Text = Convert.ToString(Configuration.MaxDownloadSize);
 
         }
 
         private async void btnReset_Click(object sender, RoutedEventArgs e)
         {
             SQLiteClient.Reset();
+            Configuration.LastSync = DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
             MessageDialog dialog = new MessageDialog("Database reset. Please configure the synced folders again.");
             await dialog.ShowAsync();
         }

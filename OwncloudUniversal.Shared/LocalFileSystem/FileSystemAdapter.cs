@@ -36,11 +36,11 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
             foreach (var file in files)
             {
-                var propertyResult = new Dictionary<string, object>();
+                IDictionary<string, object> propertyResult = null;
                 if (file.IsOfType(StorageItemTypes.File))
-                    propertyResult = (Dictionary<string, object>)await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                    propertyResult = await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                 else if (file.IsOfType(StorageItemTypes.Folder))
-                    propertyResult = (Dictionary<string, object>)await ((StorageFolder)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                    propertyResult = await ((StorageFolder)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                 var item = new LocalItem(new FolderAssociation { Id = associationId }, file, propertyResult);
                 result.Add(item);
             }

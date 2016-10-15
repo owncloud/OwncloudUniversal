@@ -43,7 +43,7 @@ namespace OwncloudUniversal.Shared.WebDav
                         return existingItem;
                     }
                 }
-                catch (Exception)
+                catch
                 {
 
                 }
@@ -102,14 +102,12 @@ namespace OwncloudUniversal.Shared.WebDav
             var folderPath = _BuildRemoteFolderPath(item.Association, file.Path);
             using (var stream = await file.OpenStreamForReadAsync())
             {
+                await CreateFolder(item.Association, item, Path.GetDirectoryName(file.Path));
                 await ConnectionManager.Upload(folderPath, stream, file.Name);
                 var folder = await ConnectionManager.GetFolder(folderPath);
                 targetItem = folder.FirstOrDefault(x => x.DavItem.DisplayName == file.Name);
             }
-
-
             targetItem.Association = item.Association;
-            
             return targetItem;
         }
 
@@ -147,6 +145,8 @@ namespace OwncloudUniversal.Shared.WebDav
                 {
                     await _CheckRemoteFolderRecursive(item, result);
                 }
+                if(item.Size > Convert.ToUInt64(Configuration.MaxDownloadSize *1024 *1024))
+                    continue;
                 result.Add(item);
             }
         }

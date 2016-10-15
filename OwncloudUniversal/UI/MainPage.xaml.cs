@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Windows.ApplicationModel.Background;
+using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.UI.Core;
@@ -173,15 +174,7 @@ namespace OwncloudUniversal.UI
             var result = await dia.ShowAsync();
             if (result.Id.ToString() == "YES")
             {
-                var savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.Downloads;
-                string extension = Path.GetExtension(item.DavItem.DisplayName);
-                if (String.IsNullOrWhiteSpace(extension))
-                    extension = ".txt";
-                savePicker.FileTypeChoices.Add("All Files", new List<string>() { extension });
-                savePicker.SuggestedFileName = item.DavItem.DisplayName;
-                var file = await savePicker.PickSaveFileAsync();
-                
+                var file = await DownloadsFolder.CreateFileAsync(item.DavItem.DisplayName, CreationCollisionOption.ReplaceExisting);
                 var success = await ConnectionManager.Download(item.DavItem.Href, file);
                 if (success)    
                 {
@@ -197,7 +190,16 @@ namespace OwncloudUniversal.UI
             DisplayRequest request = new DisplayRequest();
             request.RequestActive();
             ProcessingManager s = new ProcessingManager(new FileSystemAdapter(false), new WebDavAdapter(false), false);
-            await s.Run();
+            try
+            {
+                Configuration.CurrentlyActive = true;
+                await s.Run();
+                Configuration.CurrentlyActive = false;
+            }
+            catch
+            {
+                Configuration.CurrentlyActive = false;
+            }
             progressBar.IsIndeterminate = false;
             progressBar.Visibility = Visibility.Collapsed;
             request.RequestRelease();
@@ -211,7 +213,7 @@ namespace OwncloudUniversal.UI
         {
             FileOpenPicker picker = new FileOpenPicker();
             picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            //what the hell, no wild cards allowed??????????
+            //what the hell, no wildcards allowed??????????
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
@@ -233,7 +235,7 @@ namespace OwncloudUniversal.UI
             picker.FileTypeFilter.Add(".xlsx");
             picker.FileTypeFilter.Add(".xls");
             picker.FileTypeFilter.Add(".gif");
-            //picker.FileTypeFilter.Add(".tar.gz");
+            picker.FileTypeFilter.Add(".gz");
             picker.FileTypeFilter.Add(".mid");
             picker.FileTypeFilter.Add(".aac");
             var files = await picker.PickMultipleFilesAsync();

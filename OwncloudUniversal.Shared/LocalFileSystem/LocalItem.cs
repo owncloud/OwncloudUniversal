@@ -34,11 +34,12 @@ namespace OwncloudUniversal.Shared.Model
             Size = basicProperties.Size;
         }
 
-        public LocalItem(FolderAssociation association, IStorageItem storageItem, Dictionary<string, object> properties )
+        public LocalItem(FolderAssociation association, IStorageItem storageItem, IDictionary<string, object> properties )
         {
             Association = association;
             IsCollection = storageItem is StorageFolder;
-            ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(((DateTime)properties["System.DateModified"]).ToUniversalTime());
+            var s = properties["System.DateModified"];
+            ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(((DateTimeOffset)properties["System.DateModified"]).UtcDateTime);
             EntityId = storageItem.Path;
             ChangeNumber = 0;
             Size = (ulong)properties["System.Size"];
