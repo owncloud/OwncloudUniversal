@@ -29,7 +29,7 @@ namespace OwncloudUniversal.UI
             this.InitializeComponent();
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
-            listView.ItemsSource = AbstractItemTableModel.GetDefault().GetUnsyncedItems();
+            listView.ItemsSource = AbstractItemTableModel.GetDefault().GetPostponedItems();
         }
         private void BackRequestet(object sender, BackRequestedEventArgs args)
         {

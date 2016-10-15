@@ -135,7 +135,7 @@ namespace OwncloudUniversal.Shared.Model
             return null;
         }
 
-        public ObservableCollection<AbstractItem> GetUnsyncedItems()
+        public ObservableCollection<AbstractItem> GetPostponedItems()
         {
             var items = new ObservableCollection<AbstractItem>();
             using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed from Item i " +

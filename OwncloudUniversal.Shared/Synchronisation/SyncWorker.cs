@@ -60,15 +60,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     try
                     {
-                        //skip files bigger than 50MB, these will have to be synced manually
-                        //otherwise the upload/download could take too long and task would be terminated
-                        //TODO make this configurable
-                        if (_isBackgroundTask && i.Size > (50 * 1024 * 1024))
-                        {
-                            i.SyncPostponed = true;
-                            AbstractItemTableModel.GetDefault().UpdateItem(i,i.Id);
-                            continue;
-                        }
                         await _Process(i);
                     }
                     catch (Exception e)
@@ -87,13 +78,21 @@ namespace OwncloudUniversal.Shared.Synchronisation
             await logHelper.Write("Finished synchronization cycle");
             ToastHelper.SendToast($"{_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded");
             watch.Stop();
-            Configuration.LastSync = DateTime.Now.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
+            Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
         }
 
         
 
         private async Task _Process(AbstractItem item)
         {
+            //skip files bigger than 50MB, these will have to be synced manually
+            //otherwise the upload/download could take too long and task would be terminated
+            //TODO make this configurable
+            if (_isBackgroundTask && item.Size > (50 * 1024 * 1024))
+            {
+                item.SyncPostponed = true;
+                return;
+            }
             var link = _linkList.FirstOrDefault(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id);
             if (link == null)
             {
@@ -116,15 +115,18 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
 
             AbstractItem targetItem = null;
+            item.SyncPostponed = false;
             if (item is LocalItem)
             {
                 targetItem = await _targetEntityAdapter.AddItem(item);
-                _uploadCount++;
+                if(!item.IsCollection)
+                    _uploadCount++;
             }
             else if (item is RemoteItem)
             {
                 targetItem = await _sourceEntityAdapter.AddItem(item);
-                _downloadCount++;
+                if(!item.IsCollection)
+                    _downloadCount++;
             }
             return targetItem;
 
@@ -133,15 +135,18 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private async Task<AbstractItem> Update(AbstractItem item)
         {
             AbstractItem result = null;
+            item.SyncPostponed = false;
             if (item is LocalItem)
             {
                 result = await _targetEntityAdapter.UpdateItem(item);
-                _uploadCount++;
+                if(!item.IsCollection)
+                    _uploadCount++;
             }
             else if(item is RemoteItem)
             {
                 result = await _sourceEntityAdapter.UpdateItem(item);
-                _downloadCount++;
+                if(!item.IsCollection)
+                    _downloadCount++;
             }
             return result;
         }

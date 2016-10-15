@@ -28,10 +28,20 @@ namespace OwncloudUniversal.Shared.Model
         {
             Association = association;
             IsCollection = storageItem is StorageFolder;
-            ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(basicProperties.DateModified.LocalDateTime);
+            ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(basicProperties.DateModified.UtcDateTime);
             EntityId = storageItem.Path;
             ChangeNumber = 0;
             Size = basicProperties.Size;
+        }
+
+        public LocalItem(FolderAssociation association, IStorageItem storageItem, Dictionary<string, object> properties )
+        {
+            Association = association;
+            IsCollection = storageItem is StorageFolder;
+            ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(((DateTime)properties["System.DateModified"]).ToUniversalTime());
+            EntityId = storageItem.Path;
+            ChangeNumber = 0;
+            Size = (ulong)properties["System.Size"];
         }
         public DateTime? LastModified { get; set; }        
         public string Path { get; set; }

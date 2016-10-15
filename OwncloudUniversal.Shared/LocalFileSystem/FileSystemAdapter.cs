@@ -21,37 +21,35 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var options = new QueryOptions();
             options.FolderDepth = FolderDepth.Deep;
             options.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
-            //details about filesystem queries
+            //details about filesystem queries using the indexer
             //https://msdn.microsoft.com/en-us/magazine/mt620012.aspx
-            string timeFilter = "System.Search.GatherTime:>=" +
-                                Configuration.LastSync;
+            string timeFilter = "System.Search.GatherTime:>=" + Configuration.LastSync;
             options.ApplicationSearchFilter = timeFilter;
-            if (folder.AreQueryOptionsSupported(options))
-            {
-                var queryResult = folder.CreateFileQueryWithOptions(options);
-                queryResult.ApplyNewQueryOptions(options);
-                files.AddRange(await queryResult.GetFilesAsync());
-            }
-            else
-            {
-                var items = await folder.GetItemsAsync();
-                files.AddRange(items);
-                foreach (IStorageItem sItem in items)
-                {
-                    if (sItem.IsOfType(StorageItemTypes.Folder))
-                        await _CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
-                }
-            }
-            if (!IsBackgroundSync)
-            {
-                var unsynced = AbstractItemTableModel.GetDefault().GetUnsyncedItems().Where(x => x.EntityId.Contains("\\"));
-                result.AddRange(unsynced.Select(abstractItem => new LocalItem(abstractItem)));
-            }
+            var prefetchedProperties = new List<string> {"System.DateModified", "System.Size"};
+            options.SetPropertyPrefetch(PropertyPrefetchOptions.None, prefetchedProperties);
+            if (!folder.AreQueryOptionsSupported(options))
+                throw new Exception($"Windows Search Index has to be enabled for {folder.Path}");
+
+            var queryResult = folder.CreateFileQueryWithOptions(options);
+            queryResult.ApplyNewQueryOptions(options);
+            files.AddRange(await queryResult.GetFilesAsync());
+
             foreach (var file in files)
             {
-                BasicProperties bp = await file.GetBasicPropertiesAsync();
-                var item = new LocalItem(new FolderAssociation { Id = associationId }, file, bp);
+                var propertyResult = new Dictionary<string, object>();
+                if (file.IsOfType(StorageItemTypes.File))
+                    propertyResult = (Dictionary<string, object>)await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                else if (file.IsOfType(StorageItemTypes.Folder))
+                    propertyResult = (Dictionary<string, object>)await ((StorageFolder)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                var item = new LocalItem(new FolderAssociation { Id = associationId }, file, propertyResult);
                 result.Add(item);
+            }
+
+            if (!IsBackgroundSync)
+            {
+                var unsynced =
+                    AbstractItemTableModel.GetDefault().GetPostponedItems().Where(x => x.EntityId.Contains("\\"));//TODO find a better way
+                result.AddRange(unsynced.Select(abstractItem => new LocalItem(abstractItem) {SyncPostponed = false}));
             }
         }
 
