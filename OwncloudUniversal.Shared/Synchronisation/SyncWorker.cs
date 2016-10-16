@@ -20,7 +20,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
-        private readonly LogHelper _logHelper;
         private readonly bool _isBackgroundTask;
 
         public SyncWorker(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
@@ -28,7 +27,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
             _isBackgroundTask = isBackgroundTask;
-            _logHelper = new LogHelper();
             
         }
 
@@ -37,10 +35,12 @@ namespace OwncloudUniversal.Shared.Synchronisation
             var watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
             ExecutionContext.Init();
+            if(Configuration.CurrentlyActive)
+                return;
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)
             {
-                await _logHelper.Write($"Syncing {item.LocalFolderPath} with {item.RemoteFolderFolderPath}");
+                await LogHelper.Write($"Syncing {item.LocalFolderPath} with {item.RemoteFolderFolderPath}");
                 if (watch.Elapsed.Minutes >= 9)
                     break;
                 _itemIndex = await _targetEntityAdapter.GetAllItems(item);
@@ -60,17 +60,17 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     catch (Exception e)
                     {
                         ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
-                        await _logHelper.Write(string.Format("Message: {0}, EntitityId: {1}, \r\n{2}", e.Message, i.EntityId, e.StackTrace));
+                        await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}, \r\n{2}", e.Message, i.EntityId, e.StackTrace));
                     }
                     //we have 10 Minutes in total for each background task cycle
                     //after 10 minutes windows will terminate the task
                     //so after 9 minutes we stop the sync and just wait for the next cycle
                     if (!_isBackgroundTask || watch.Elapsed.Minutes >= 9) continue;
-                    await _logHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
+                    await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
                     break;
                 }
             }
-            await _logHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed}");
+            await LogHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed}");
             ToastHelper.SendToast(_isBackgroundTask
                 ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}"
                 : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}");
@@ -92,7 +92,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (link == null)
             {
 #pragma warning disable 4014
-                _logHelper.Write($"Adding {item.EntityId}");
+                LogHelper.Write($"Adding {item.EntityId}");
 #pragma warning restore 4014
                 //es ist noch kein link vorhanden, also ein neues Item
                 var result = await Insert(item);
@@ -103,7 +103,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 if (item.ChangeNumber > link.ChangeNumber)
                 {
 #pragma warning disable 4014
-                    _logHelper.Write($"Updating {item.EntityId}");
+                    LogHelper.Write($"Updating {item.EntityId}");
 #pragma warning restore 4014
                     var result = await Update(item);
                     AfterUpdate(item, result);

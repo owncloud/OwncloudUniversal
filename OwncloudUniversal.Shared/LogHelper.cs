@@ -12,9 +12,9 @@ using Windows.UI.Xaml;
 
 namespace OwncloudUniversal.Shared
 {
-    class LogHelper
+    public static class LogHelper
     {
-        public async Task Write(string text)
+        public static async Task Write(string text)
         {
             try
             {
