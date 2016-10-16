@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using OwncloudUniversal.Shared.Synchronisation;
 
 namespace OwncloudUniversal.Shared.WebDav
 {
@@ -129,6 +130,7 @@ namespace OwncloudUniversal.Shared.WebDav
 
         public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
+            ExecutionContext.Status = ExecutionStatus.Scanning;
             List<AbstractItem> items = new List<AbstractItem>();
             var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
             await _CheckRemoteFolderRecursive(remoteFolder, items);

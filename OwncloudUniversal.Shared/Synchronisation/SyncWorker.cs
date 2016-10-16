@@ -11,7 +11,7 @@ using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.Shared.Synchronisation
 {
-    public class ProcessingManager
+    public class SyncWorker
     {       
         private List<AbstractItem> _itemIndex;
         private List<LinkStatus> _linkList;
@@ -23,7 +23,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private readonly LogHelper _logHelper;
         private readonly bool _isBackgroundTask;
 
-        public ProcessingManager(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
+        public SyncWorker(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
         {
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
@@ -35,31 +35,26 @@ namespace OwncloudUniversal.Shared.Synchronisation
         public async Task Run()
         {
             var watch = Stopwatch.StartNew();
-            await _logHelper.Write("**************************************");
-            if (_isBackgroundTask)
-                await _logHelper.Write("starting background sync");
-            else
-                await _logHelper.Write("starting manual sync");
             SQLite.SQLiteClient.Init();
+            ExecutionContext.Init();
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)
             {
                 await _logHelper.Write($"Syncing {item.LocalFolderPath} with {item.RemoteFolderFolderPath}");
                 if (watch.Elapsed.Minutes >= 9)
                     break;
-                await _logHelper.Write("scanning remote items");
                 _itemIndex = await _targetEntityAdapter.GetAllItems(item);
-                await _logHelper.Write("scanning local items");
                 _itemIndex.AddRange(await _sourceEntityAdapter.GetAllItems(item));
-                await _logHelper.Write("updating database");
+                ExecutionContext.TotalFileCount = _itemIndex.Count;
                 _UpdateFileIndexes(item);
                 var model = LinkStatusTableModel.GetDefault();
                 _linkList = model.GetAllItems(item).ToList();
-                await _logHelper.Write("processing items");
                 foreach (var i in _itemIndex)
                 {
                     try
                     {
+                        ExecutionContext.CurrentFileNumber = _itemIndex.IndexOf(i);
+                        ExecutionContext.CurrentFileName = i.EntityId;
                         await _Process(i);
                     }
                     catch (Exception e)
@@ -75,16 +70,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     break;
                 }
             }
-            await _logHelper.Write("Finished synchronization cycle");
-            if(_isBackgroundTask)
-                ToastHelper.SendToast($"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded");
-            else
-                ToastHelper.SendToast($"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded");
+            await _logHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed}");
+            ToastHelper.SendToast(_isBackgroundTask
+                ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}"
+                : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}");
             watch.Stop();
             Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
-        }
-
-        
+        }      
 
         private async Task _Process(AbstractItem item)
         {

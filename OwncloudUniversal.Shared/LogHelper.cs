@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 
 namespace OwncloudUniversal.Shared
 {
@@ -14,13 +16,17 @@ namespace OwncloudUniversal.Shared
     {
         public async Task Write(string text)
         {
-            var folder = await StorageFolder.GetFolderFromPathAsync(@"C:\Data\Users\Public\Documents");
-           
-            var file = await folder.CreateFileAsync("Owncloud-Sync-Log.txt", CreationCollisionOption.OpenIfExists);
-            byte[] buffer = new byte[16 * 1024];
-            text = DateTime.Now + " - " + text + Environment.NewLine;
-            Debug.WriteLine(text);
-            await Task.Run(() => File.AppendAllText(file.Path, text));
+            try
+            {
+                Debug.WriteLine(text);
+                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("log.txt",
+                    CreationCollisionOption.OpenIfExists);
+                text = DateTime.Now + " - " + text + Environment.NewLine;
+                await Task.Run(() => File.AppendAllText(file.Path, text));
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -80,6 +83,12 @@ namespace OwncloudUniversal.UI
         private void btnUnsync_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(UnsyncedItems));
+        }
+
+        private async void btnLog_Click(object sender, RoutedEventArgs e)
+        {
+            var file = await ApplicationData.Current.LocalFolder.GetFileAsync("log.txt");
+            await Launcher.LaunchFileAsync(file);
         }
     }
 }

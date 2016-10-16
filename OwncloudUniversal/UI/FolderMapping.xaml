@@ -14,7 +14,11 @@
     </Page.BottomAppBar>
 
     <Grid>
-        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Mode=OneTime}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="23*"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Mode=OneTime}" Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>

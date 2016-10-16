@@ -39,6 +39,7 @@ namespace OwncloudUniversal.UI
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
+            ExecutionContext.Init();
         }
 
         private Folder _currentFolder;
@@ -183,30 +184,9 @@ namespace OwncloudUniversal.UI
             }
 
         }
-        private async void appBarButton_Click_1(object sender, RoutedEventArgs e)
+        private void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
-            progressBar.IsIndeterminate = true;
-            progressBar.Visibility = Visibility.Visible;
-            DisplayRequest request = new DisplayRequest();
-            request.RequestActive();
-            ProcessingManager s = new ProcessingManager(new FileSystemAdapter(false), new WebDavAdapter(false), false);
-            try
-            {
-                Configuration.CurrentlyActive = true;
-                await s.Run();
-                Configuration.CurrentlyActive = false;
-            }
-            catch
-            {
-                Configuration.CurrentlyActive = false;
-            }
-            progressBar.IsIndeterminate = false;
-            progressBar.Visibility = Visibility.Collapsed;
-            request.RequestRelease();
-            MessageDialog d = new MessageDialog("Synchronization Finished.");
-            await d.ShowAsync();
-
-
+            Frame.Navigate(typeof(SyncMonitor));
         }
 
         private async void btnUpload_Click(object sender, RoutedEventArgs e)
