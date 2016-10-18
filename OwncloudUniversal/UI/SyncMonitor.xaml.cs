@@ -28,14 +28,15 @@ namespace OwncloudUniversal.UI
     /// </summary>
     public sealed partial class SyncMonitor : Page
     {
+        public SyncWorker Worker { get; set; }
+        public ExecutionContext ExecutionContext { get; set; }
         public SyncMonitor()
         {
             this.InitializeComponent();
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
-            tbConntype.DataContext = ExecutionContext.ConnectionProfile;
-            tbFilesToSync.DataContext = ExecutionContext.FileText;
-            //tbStatus.DataContext = ExecutionContext.Status;
+            Worker = new SyncWorker(new FileSystemAdapter(false), new WebDavAdapter(false), false);
+            ExecutionContext = Worker.ExecutionContext;
         }
 
         private void BackRequestet(object sender, BackRequestedEventArgs args)
@@ -55,11 +56,11 @@ namespace OwncloudUniversal.UI
         {
             DisplayRequest request = new DisplayRequest();
             request.RequestActive();
-            SyncWorker s = new SyncWorker(new FileSystemAdapter(false), new WebDavAdapter(false), false);
+            Worker.ExecutionContext.Status = ExecutionStatus.Active;
             try
             {
                 Configuration.CurrentlyActive = true;
-                await s.Run();
+                await Worker.Run();
                 Configuration.CurrentlyActive = false;
             }
             catch (Exception)

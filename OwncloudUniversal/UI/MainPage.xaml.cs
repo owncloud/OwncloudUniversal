@@ -39,7 +39,6 @@ namespace OwncloudUniversal.UI
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
-            ExecutionContext.Init();
         }
 
         private Folder _currentFolder;

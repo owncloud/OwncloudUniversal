@@ -5,20 +5,19 @@
     xmlns:local="using:OwncloudUniversal.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="using:OwncloudUniversal.Shared.Synchronisation"
     mc:Ignorable="d">
 
     <Grid>
         <TextBlock x:Name="title" TextWrapping="Wrap" Text="Sync-Monitor" FontSize="20" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold" />
         <StackPanel Margin="10,30,10,10">
             <TextBlock TextWrapping="Wrap" Height="20" Text="Synchronisation Status" VerticalAlignment="Top" Margin="0,10,0,0"/>
-            <TextBlock x:Name="tbStatus" TextWrapping="Wrap" Text="{x:Bind  }" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBlock x:Name="tbStatus" TextWrapping="Wrap" Text="{x:Bind Path=Worker.ExecutionContext.Status, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" FontWeight="Bold" Margin="10,0,0,0"/>
             <TextBlock TextWrapping="Wrap" Text="Files to sync" Margin="0,10,0,0"/>
-            <TextBlock x:Name="tbFilesToSync" TextWrapping="Wrap" Text="{Binding}" Margin="10,0" FontWeight="Bold"/>
-            <TextBlock x:Name="tbFileName" TextWrapping="Wrap" Text="{Binding}" Margin="10,0"/>
+            <TextBlock x:Name="tbFilesToSync" TextWrapping="Wrap" Text="{x:Bind ExecutionContext.FileText, Mode=OneWay}" Margin="10,0" FontWeight="Bold"/>
+            <TextBlock x:Name="tbFileName" TextWrapping="Wrap" Text="{x:Bind ExecutionContext.CurrentFileName, Mode=OneWay}" Margin="10,0"/>
             <ProgressBar Height="10" VerticalAlignment="Stretch" Margin="10,10, 10,0"/>
             <TextBlock TextWrapping="Wrap" Text="Connection Type" Margin="0,10,0,0"/>
-            <TextBlock x:Name="tbConntype" Text="{Binding}" FontWeight="Bold" Margin="10,0,0,0"/>
+            <TextBlock x:Name="tbConntype" Text="{x:Bind ExecutionContext.ConnectionProfile, Mode=OneWay}" FontWeight="Bold" Margin="10,0,0,0"/>
             <Button x:Name="btnStart" Content="Start!" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20" Click="btnStart_Click"/>
         </StackPanel>
 

@@ -116,7 +116,6 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
-            ExecutionContext.Status = ExecutionStatus.Scanning;
             List<AbstractItem> items = new List<AbstractItem>();
             var item = GetAssociatedItem(association.LocalFolderId);
             StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(item.EntityId);

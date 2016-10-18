@@ -130,7 +130,6 @@ namespace OwncloudUniversal.Shared.WebDav
 
         public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
         {
-            ExecutionContext.Status = ExecutionStatus.Scanning;
             List<AbstractItem> items = new List<AbstractItem>();
             var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
             await _CheckRemoteFolderRecursive(remoteFolder, items);

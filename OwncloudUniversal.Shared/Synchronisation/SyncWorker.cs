@@ -21,12 +21,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
+        public ExecutionContext ExecutionContext;
 
         public SyncWorker(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
         {
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
             _isBackgroundTask = isBackgroundTask;
+            ExecutionContext = new ExecutionContext();
             
         }
 
@@ -34,7 +36,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             var watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
-            ExecutionContext.Init();
             if(Configuration.CurrentlyActive)
                 return;
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
@@ -43,12 +44,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 await LogHelper.Write($"Syncing {item.LocalFolderPath} with {item.RemoteFolderFolderPath}");
                 if (watch.Elapsed.Minutes >= 9)
                     break;
+                ExecutionContext.Status = ExecutionStatus.Scanning;
                 _itemIndex = await _targetEntityAdapter.GetAllItems(item);
                 _itemIndex.AddRange(await _sourceEntityAdapter.GetAllItems(item));
                 ExecutionContext.TotalFileCount = _itemIndex.Count;
                 _UpdateFileIndexes(item);
                 var model = LinkStatusTableModel.GetDefault();
                 _linkList = model.GetAllItems(item).ToList();
+                ExecutionContext.Status = ExecutionStatus.Active;
                 foreach (var i in _itemIndex)
                 {
                     try
@@ -76,6 +79,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}");
             watch.Stop();
             Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
+            ExecutionContext.Status = ExecutionStatus.Finished;
         }      
 
         private async Task _Process(AbstractItem item)
