@@ -36,7 +36,6 @@ namespace OwncloudUniversal.UI
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
             Worker = new SyncWorker(new FileSystemAdapter(false), new WebDavAdapter(false), false);
-            ExecutionContext = Worker.ExecutionContext;
         }
 
         private void BackRequestet(object sender, BackRequestedEventArgs args)
@@ -56,10 +55,8 @@ namespace OwncloudUniversal.UI
         {
             DisplayRequest request = new DisplayRequest();
             request.RequestActive();
-            Worker.ExecutionContext.Status = ExecutionStatus.Active;
             try
             {
-                Configuration.CurrentlyActive = true;
                 await Worker.Run();
                 Configuration.CurrentlyActive = false;
             }

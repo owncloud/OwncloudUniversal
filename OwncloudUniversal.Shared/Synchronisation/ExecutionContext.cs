@@ -30,9 +30,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             get { return _status; }
             set
             {
-                if(value != Status)
-                    OnPropertyChanged(nameof(Status));
                 _status = value;
+                OnPropertyChanged();
             }
         }
 
@@ -41,9 +40,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             get { return _currentFileName; }
             set
             {
-                if(value != _currentFileName)
-                    OnPropertyChanged("CurrentFileName");
                 _currentFileName = value;
+                OnPropertyChanged();
             }
         }
 
@@ -52,12 +50,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             get { return _currentFileNumber; }
             set
             {
-                if (value != _currentFileNumber)
-                {
-                    OnPropertyChanged("FileText");
-                    OnPropertyChanged("CurrentFileNumber");
-                }
                 _currentFileNumber = value;
+                OnPropertyChanged();
             }
         }
 
@@ -66,12 +60,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             get { return _totalFileCount; }
             set
             {
-                if (value != _totalFileCount)
-                {
-                    OnPropertyChanged("TotalFileCount");
-                    OnPropertyChanged("FileText");
-                }
                 _totalFileCount = value;
+                OnPropertyChanged();
             }  
         }
 
@@ -80,20 +70,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
             get { return _connectionProfile; }
             set
             {
-                if(value != _connectionProfile)
-                    OnPropertyChanged("ConnectionProfile");
                 _connectionProfile = value;
+                OnPropertyChanged();
             }
         }
 
         public string FileText => $"{CurrentFileNumber} / {TotalFileCount} Files";
 
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
