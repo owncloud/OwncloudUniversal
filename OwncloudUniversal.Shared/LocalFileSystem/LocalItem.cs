@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.Shared.Model
@@ -72,6 +73,8 @@ namespace OwncloudUniversal.Shared.Model
             {
                 LastModified = Convert.ToDateTime(value);
             }
-        }        
+        }
+
+        public override Type AdapterType => typeof(FileSystemAdapter);
     }
 }

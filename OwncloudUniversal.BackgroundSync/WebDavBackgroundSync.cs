@@ -8,7 +8,7 @@ using Windows.ApplicationModel.Background;
 using Windows.UI.Notifications;
 using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Synchronisation;
-using OwncloudUniversal.Shared.WebDav;
+using OwncloudUniversal.WebDav;
 
 namespace OwncloudUniversal.BackgroundSync
 {
@@ -25,11 +25,14 @@ namespace OwncloudUniversal.BackgroundSync
                 toastElements[0].InnerText = reason.ToString();
                 ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
             };
-            SyncWorker s = new SyncWorker(new FileSystemAdapter(true), new WebDavAdapter(true), true);
+            var fileSystem = new FileSystemAdapter(true, null);
+            var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
+            fileSystem.LinkedAdapter = webDav;
+            var worker = new SyncWorker(fileSystem, webDav, true);
             try
             {
                 Configuration.CurrentlyActive = true;
-                await s.Run();
+                await worker.Run();
                 Configuration.CurrentlyActive = false;
             }
             catch

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -17,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Synchronisation;
-using OwncloudUniversal.Shared.WebDav;
+using OwncloudUniversal.WebDav;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -29,13 +30,16 @@ namespace OwncloudUniversal.UI
     public sealed partial class SyncMonitor : Page
     {
         public SyncWorker Worker { get; set; }
-        public ExecutionContext ExecutionContext { get; set; }
         public SyncMonitor()
         {
             this.InitializeComponent();
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
-            Worker = new SyncWorker(new FileSystemAdapter(false), new WebDavAdapter(false), false);
+
+            var fileSystem = new FileSystemAdapter(false, null);
+            var webDav = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, fileSystem);
+            fileSystem.LinkedAdapter = webDav;
+            Worker = new SyncWorker(fileSystem,webDav, false);
         }
 
         private void BackRequestet(object sender, BackRequestedEventArgs args)

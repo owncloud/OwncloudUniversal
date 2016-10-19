@@ -1,21 +1,26 @@
-﻿using OwncloudUniversal.Model;
-using OwncloudUniversal.Shared.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 using Windows.Storage;
+using OwncloudUniversal.Shared;
+using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Shared.Synchronisation;
 
-namespace OwncloudUniversal.Shared.WebDav
+namespace OwncloudUniversal.WebDav
 {
     public class WebDavAdapter : AbstractAdapter
     {
+        private readonly WebDavClient _davClient;
+        public WebDavAdapter(bool isBackgroundSync, string serverUrl, NetworkCredential credential, AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
+        {
+            _davClient = new WebDavClient(new Uri(serverUrl), credential);
+        }
         public override async Task<AbstractItem> AddItem(AbstractItem localItem)
         {
-            AbstractItem targetItem = null;
+            AbstractItem resultItem = null;
             if (localItem.IsCollection)
             {
                 //build path and folder name
@@ -25,9 +30,9 @@ namespace OwncloudUniversal.Shared.WebDav
                 //create folder and parent folders
                 await CreateFolder(localItem.Association, localItem, folderName);
                 //load the folder again to update the item properties
-                var folder = await ConnectionManager.GetFolder(path);
-                targetItem = folder.FirstOrDefault(x => x.DavItem.DisplayName == folderName);
-                targetItem.Association = localItem.Association;
+                var folder = await _davClient.ListFolder(new Uri(path));
+                resultItem = folder.FirstOrDefault(x => x.DisplayName == folderName);
+                resultItem.Association = localItem.Association;
             }
             else
             {
@@ -36,8 +41,8 @@ namespace OwncloudUniversal.Shared.WebDav
                 try
                 {
                     //if the file already exists dont upload it again
-                    var folder = await ConnectionManager.GetFolder(folderPath);
-                    var existingItem = folder.Where(x => x.DavItem.DisplayName == file.Name).FirstOrDefault();
+                    var folder = await _davClient.ListFolder(new Uri(folderPath));
+                    var existingItem = folder.Where(x => x.DisplayName == file.Name).FirstOrDefault();
                     if (existingItem != null)
                     {
                         existingItem.Association = localItem.Association;
@@ -51,15 +56,55 @@ namespace OwncloudUniversal.Shared.WebDav
                 using (var stream = await file.OpenStreamForReadAsync())
                 {
                     await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(file.Path));
-                    await ConnectionManager.Upload(folderPath, stream, file.Name);
-                    var folder = await ConnectionManager.GetFolder(folderPath);
-                    targetItem = folder.FirstOrDefault(x => x.DavItem.DisplayName == file.Name);
+                    await _davClient.Upload(new Uri(folderPath), stream);
+                    resultItem = await _davClient.Upload(new Uri(folderPath), stream);
                 }
 
 
-                targetItem.Association = localItem.Association;
+                resultItem.Association = localItem.Association;
             }
+            return resultItem;
+        }
+
+        public override async Task<AbstractItem> UpdateItem(AbstractItem item)
+        {
+            if (item.IsCollection)
+                return null;//TODO
+            AbstractItem targetItem = null;
+
+            StorageFile file = await StorageFile.GetFileFromPathAsync(item.EntityId);
+            var folderPath = _BuildRemoteFilePath(item.Association, file.Path);
+            using (var stream = await file.OpenStreamForReadAsync())
+            {
+                await CreateFolder(item.Association, item, Path.GetDirectoryName(file.Path));
+                await _davClient.Upload(new Uri(folderPath), stream);
+                var folder = await _davClient.ListFolder(new Uri(folderPath));
+                targetItem = folder.FirstOrDefault(x => x.DisplayName == file.Name);
+            }
+            targetItem.Association = item.Association;
             return targetItem;
+        }
+
+        public override Task<AbstractItem> GetItem(string entityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task DeleteItem(AbstractItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<AbstractItem>> GetAllItems(Uri url)
+        {
+            List<DavItem> items = new List<DavItem>();
+            items = await _davClient.ListFolder(url);
+            return items.ToList<AbstractItem>();
         }
 
         private async Task CreateFolder(FolderAssociation association, AbstractItem localItem, string name)
@@ -79,10 +124,10 @@ namespace OwncloudUniversal.Shared.WebDav
             {
                 try
                 {
-                    var folderContent = await ConnectionManager.GetFolder(currentFolder);
-                    if (folderContent.Count(x => x.DavItem.DisplayName == folders[i] && x.IsCollection) == 0)
+                    var folderContent = await _davClient.ListFolder( new Uri(currentFolder));
+                    if (folderContent.Count(x => x.DisplayName == folders[i] && x.IsCollection) == 0)
                         if (!string.IsNullOrWhiteSpace(folders[i]))
-                            await ConnectionManager.CreateFolder(currentFolder, folders[i]);
+                            await _davClient.CreateFolder(new Uri(currentFolder + folders[i]));//TODO fix this
                 }
                 catch (Exception e)
                 {
@@ -93,53 +138,10 @@ namespace OwncloudUniversal.Shared.WebDav
             }
         }
 
-        public override async Task<AbstractItem> UpdateItem(AbstractItem item)
-        {
-            if (item.IsCollection)
-                return null;//TODO
-            AbstractItem targetItem = null;
-
-            StorageFile file = await StorageFile.GetFileFromPathAsync(item.EntityId);
-            var folderPath = _BuildRemoteFolderPath(item.Association, file.Path);
-            using (var stream = await file.OpenStreamForReadAsync())
-            {
-                await CreateFolder(item.Association, item, Path.GetDirectoryName(file.Path));
-                await ConnectionManager.Upload(folderPath, stream, file.Name);
-                var folder = await ConnectionManager.GetFolder(folderPath);
-                targetItem = folder.FirstOrDefault(x => x.DavItem.DisplayName == file.Name);
-            }
-            targetItem.Association = item.Association;
-            return targetItem;
-        }
-
-        public override async Task DeleteItem(AbstractItem item)
-        {
-            var _item = (LocalItem) item;
-            if (_item.IsCollection)
-            {
-                string path = _BuildRemoteFolderPath(_item.Association, _item.EntityId);
-                string name = (await StorageFolder.GetFolderFromPathAsync(_item.EntityId)).DisplayName;
-                ConnectionManager.DeleteFolder(_item.EntityId + '/' + name);
-                return;
-            }
-            else
-            {
-                ConnectionManager.DeleteFile(_BuildRemoteFilePath(_item.Association, _item.EntityId));
-            }
-        }
-
-        public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
-        {
-            List<AbstractItem> items = new List<AbstractItem>();
-            var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
-            await _CheckRemoteFolderRecursive(remoteFolder, items);
-            return items;
-        }
-
         private async Task _CheckRemoteFolderRecursive(AbstractItem folder, List<AbstractItem> result)
         {
-            List<RemoteItem> items = await ConnectionManager.GetFolder(folder.EntityId);
-            foreach (RemoteItem item in items)
+            List<DavItem> items = await _davClient.ListFolder(new Uri(folder.EntityId));
+            foreach (DavItem item in items)
             {
                 if (!ChangekeyHasChanged(item)) continue;
                 if (item.IsCollection)
@@ -169,6 +171,7 @@ namespace OwncloudUniversal.Shared.WebDav
             var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
             return remoteFolder.EntityId + relativeString;
         }
+
         private string _BuildRemoteFolderPath(FolderAssociation association, string path)
         {
             var localFolder = GetAssociatedItem(association.LocalFolderId);
@@ -176,18 +179,17 @@ namespace OwncloudUniversal.Shared.WebDav
             Uri fileUri = new Uri(path);
             var relative = fileUri.ToString().Replace(baseUri.ToString(), "");
             relative = relative.Remove(relative.LastIndexOf('/')).TrimStart('/');
-            //var relativeString = uri.Remove(uri.ToString());
             var remoteFolder = GetAssociatedItem(association.RemoteFolderId);
             var result = remoteFolder.EntityId + relative;
             return result;
         }
+
+        
+
         private AbstractItem GetAssociatedItem(long id)
         {
             return AbstractItemTableModel.GetDefault().GetItem(id);
         }
 
-        public WebDavAdapter(bool isBackgroundSync) : base(isBackgroundSync)
-        {
-        }
     }
 }

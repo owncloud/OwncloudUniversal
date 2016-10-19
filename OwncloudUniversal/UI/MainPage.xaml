@@ -28,7 +28,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <SymbolIcon x:Name="Icon" Symbol="{Binding Symbol}" DataContext="{Binding}"/>
-                        <TextBlock Text="{Binding DavItem.DisplayName}" DataContext="{Binding}" Margin="20,0"/>
+                        <TextBlock Text="{Binding DisplayName}" DataContext="{Binding}" Margin="20,0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

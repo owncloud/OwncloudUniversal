@@ -1,6 +1,5 @@
 ﻿using OwncloudUniversal.Model;
 using OwncloudUniversal.Shared.Model;
-using OwncloudUniversal.Shared.WebDav;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -62,56 +61,44 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             displayName = displayName.Substring(displayName.LastIndexOf('\\') +1);
             if (item.IsCollection)
             {
-                storageItem = await folder.CreateFolderAsync(displayName, CreationCollisionOption.OpenIfExists);
+                storageItem = await folder.CreateFolderAsync(displayName, CreationCollisionOption.ReplaceExisting);
             }
             else
             {
                 storageItem = await folder.TryGetItemAsync(displayName);
                 if (storageItem == null)
                 {
-                    storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
-                    await ConnectionManager.Download(item.EntityId, (StorageFile)storageItem);
+                    storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.ReplaceExisting);
+                    byte[] buffer = new byte[16*1024*1024];
+                    using (var stream = await ((StorageFile)storageItem).OpenStreamForWriteAsync())
+                    using (var content = item.ContentStream)
+                    {
+                        while (await content.ReadAsync(buffer, 0, buffer.Length) > 0)
+                        {
+                            await stream.WriteAsync(buffer, 0, buffer.Length);
+                        }
+                    }
                 }
 
             }
-            var targetItem = new LocalItem();
             BasicProperties bp = await storageItem.GetBasicPropertiesAsync();
-            targetItem = new LocalItem(item.Association, storageItem, bp);
+            var targetItem = new LocalItem(item.Association, storageItem, bp);
             return targetItem;
         }
 
         public override async Task<AbstractItem> UpdateItem(AbstractItem item)
         {
-            var folder = await _GetStorageFolder(item);
-            AbstractItem targetItem = null;
-            if (item.IsCollection)
-            {
-                var bp = await folder.GetBasicPropertiesAsync();
-                targetItem = new LocalItem(item.Association, folder, bp);
-            }
-            else
-            {
-                var file = await folder.CreateFileAsync(((RemoteItem)item).DavItem.DisplayName, CreationCollisionOption.ReplaceExisting);
-                await ConnectionManager.Download(item.EntityId, file);
-                var bp = await file.GetBasicPropertiesAsync();
-                targetItem = new LocalItem(item.Association, file, bp);
-            }
-            return targetItem; 
+            return await AddItem(item);
         }
 
-        public override async Task DeleteItem(AbstractItem item)
+        public override Task DeleteItem(AbstractItem item)
         {
-            var _item = (RemoteItem)item;
-            var folder = await _GetStorageFolder(_item);
-            if (_item.IsCollection)
-            {
-                await folder.DeleteAsync(StorageDeleteOption.Default);
-            }
-            else
-            {
-                var file = await folder.GetFileAsync(_item.DavItem.DisplayName);
-                await file.DeleteAsync(StorageDeleteOption.Default);
-            }
+            throw new NotImplementedException();
+        }
+
+        public override Task<AbstractItem> GetItem(string entityId)
+        {
+            throw new NotImplementedException();
         }
 
         public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
@@ -158,7 +145,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             return AbstractItemTableModel.GetDefault().GetItem(id);
         }
 
-        public FileSystemAdapter(bool isBackgroundSync) : base(isBackgroundSync)
+        public FileSystemAdapter(bool isBackgroundSync, AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
         {
         }
     }

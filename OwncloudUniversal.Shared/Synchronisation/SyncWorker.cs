@@ -18,10 +18,10 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private int _uploadCount;
         private int _downloadCount;
 
+        public readonly ExecutionContext ExecutionContext;
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
-        public ExecutionContext ExecutionContext;
 
         public SyncWorker(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
         {
@@ -121,13 +121,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
             AbstractItem targetItem = null;
             item.SyncPostponed = false;
-            if (item is LocalItem)
+            if (item.AdapterType == _targetEntityAdapter.GetType())
             {
                 targetItem = await _targetEntityAdapter.AddItem(item);
                 if(!item.IsCollection)
                     _uploadCount++;
             }
-            else if (item is RemoteItem)
+            else if (item.AdapterType == _sourceEntityAdapter.GetType())
             {
                 targetItem = await _sourceEntityAdapter.AddItem(item);
                 if(!item.IsCollection)
@@ -141,13 +141,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             AbstractItem result = null;
             item.SyncPostponed = false;
-            if (item is LocalItem)
+            if (item.AdapterType == _targetEntityAdapter.GetType())
             {
                 result = await _targetEntityAdapter.UpdateItem(item);
                 if(!item.IsCollection)
                     _uploadCount++;
             }
-            else if(item is RemoteItem)
+            else if(item.AdapterType == _sourceEntityAdapter.GetType())
             {
                 result = await _sourceEntityAdapter.UpdateItem(item);
                 if(!item.IsCollection)
@@ -155,7 +155,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
             return result;
         }
-
 
         private void _UpdateFileIndexes(FolderAssociation association)
         {

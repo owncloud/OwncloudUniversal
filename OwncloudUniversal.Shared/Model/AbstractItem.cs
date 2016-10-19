@@ -1,4 +1,7 @@
-﻿namespace OwncloudUniversal.Shared.Model
+﻿using System;
+using System.IO;
+
+namespace OwncloudUniversal.Shared.Model
 {
     public class AbstractItem
     { 
@@ -10,5 +13,7 @@
         public virtual long ChangeNumber { get; set; }
         public virtual ulong Size { get; set; }
         public virtual bool SyncPostponed{ get; set; }
+        public virtual  Stream ContentStream { get; set; }
+        public virtual Type AdapterType { get;}
     }
 }

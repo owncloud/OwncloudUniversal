@@ -116,6 +116,10 @@
       <Project>{fa10e7b0-ac70-44bd-9446-492bd3ae1119}</Project>
       <Name>OwncloudUniversal.Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OwncloudUniversal.WebDav\OwncloudUniversal.WebDav.csproj">
+      <Project>{a089c0c2-0fbd-4a0f-8cc6-ba5fecbe75f0}</Project>
+      <Name>OwncloudUniversal.WebDav</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

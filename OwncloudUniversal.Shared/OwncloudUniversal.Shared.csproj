@@ -115,7 +115,6 @@
     <Compile Include="Model\AbstractItem.cs" />
     <Compile Include="Model\AbstractItemTableModel.cs" />
     <Compile Include="Model\AbstractTableModelBase.cs" />
-    <Compile Include="Model\Folder.cs" />
     <Compile Include="Model\FolderAssociation.cs" />
     <Compile Include="Model\FolderAssociationTableModel.cs" />
     <Compile Include="Model\LinkStatus.cs" />
@@ -125,17 +124,11 @@
     <Compile Include="Synchronisation\ExecutionContext.cs" />
     <Compile Include="Synchronisation\ExecutionStatus.cs" />
     <Compile Include="ToastHelper.cs" />
-    <Compile Include="WebDav\RemoteItem.cs" />
     <Compile Include="Model\SyncDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite\DateTimeHelper.cs" />
     <Compile Include="SQLite\SQLiteClient.cs" />
     <Compile Include="Synchronisation\SyncWorker.cs" />
-    <Compile Include="WebDav\ConnectionManager.cs" />
-    <Compile Include="WebDav\DavItem.cs" />
-    <Compile Include="WebDav\ResponseParser.cs" />
-    <Compile Include="WebDav\WebDavAdapter.cs" />
-    <Compile Include="WebDav\WebDavClient.cs" />
     <EmbeddedResource Include="Properties\owncloud_universal.shared.rd.xml" />
   </ItemGroup>
   <ItemGroup>
