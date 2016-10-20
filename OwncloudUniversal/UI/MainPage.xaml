@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:OwncloudUniversal"
+    xmlns:dav="using:OwncloudUniversal.WebDav"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Page.BottomAppBar>
@@ -10,10 +11,10 @@
             <CommandBar.Content>
                 <Grid/>
             </CommandBar.Content>
-            <AppBarButton x:Name="ReloadButton" Label="Reload" Click="AppBarButton_Click" Background="{x:Null}" Icon="Refresh"/>
+            <AppBarButton x:Name="ReloadButton" Label="Reload" Click="AppBarButton_Click" Icon="Refresh"/>
             <AppBarButton x:Name="btnUpload" Icon="Upload" Label="Upload" Click="btnUpload_Click"/>
             <AppBarButton x:Name="appBarButton" Icon="Sync" Label="Sync" Click="appBarButton_Click_1"/>
-            <AppBarButton x:Name="SettingsButton" Icon="Setting" Label="Settings" Click="SettingsButton_Click" RenderTransformOrigin="3.064,0.542"/>
+            <AppBarButton x:Name="SettingsButton" Icon="Setting" Label="Settings" Click="SettingsButton_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
 
@@ -23,12 +24,13 @@
             <ColumnDefinition Width="31*"/>
         </Grid.ColumnDefinitions>
         <ProgressBar x:Name="progressBar" IsIndeterminate="False" Height="10" Grid.ColumnSpan="2" Visibility="Collapsed"/>
-        <ListView x:Name="listView" Margin="10,15,19,10" SelectionChanged="listView_SelectionChanged" RightTapped="listView_RightTapped" IsRightTapEnabled="True" Grid.ColumnSpan="2" >
+        <TextBlock x:Name="tbTitle" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" FontWeight="Bold"  Text="{x:Bind _currentFolder.FolderName, Mode=OneWay}" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <ListView x:Name="listView" Margin="10,20,19,10" ItemsSource="{x:Bind _currentFolder.Items, Mode=OneWay}" SelectionChanged="listView_SelectionChanged" RightTapped="listView_RightTapped" IsRightTapEnabled="True" Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="dav:DavItem">
                     <StackPanel Orientation="Horizontal">
-                        <SymbolIcon x:Name="Icon" Symbol="{Binding Symbol}" DataContext="{Binding}"/>
-                        <TextBlock Text="{Binding DisplayName}" DataContext="{Binding}" Margin="20,0"/>
+                        <SymbolIcon x:Name="Icon" Symbol="{x:Bind Symbol, Mode=OneWay}"/>
+                        <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}" Margin="20,0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

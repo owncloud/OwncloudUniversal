@@ -41,7 +41,8 @@ namespace OwncloudUniversal.UI
             SystemNavigationManager.GetForCurrentView().BackRequested += BackRequestet;
         }
 
-        private FolderHelper _currentFolder;
+        private DavFolder _currentFolder;
+        public List<DavItem> FolderContent { get; set; }
 
         private void BackRequestet(object sender, BackRequestedEventArgs args)
         {
@@ -58,23 +59,23 @@ namespace OwncloudUniversal.UI
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateListView(_currentFolder);
+            //just trigger an update ;)
+            _currentFolder.Items = _currentFolder.Items;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string path = Configuration.FolderPath;
-            if (e.Parameter is AbstractItem)
-                path = (e.Parameter as AbstractItem).EntityId;
-            _currentFolder = FolderHelper.GetInstance();
-            _currentFolder.Href = path;
-            CreateListView(_currentFolder);
+            AbstractItem parameterItem = null;
+            if (e.Parameter is DavItem)
+                parameterItem = (e.Parameter as AbstractItem);
+            if(parameterItem == null)
+                parameterItem = new AbstractItem { EntityId = Configuration.ServerUrl};
+            _currentFolder = new DavFolder {Href = new Uri(parameterItem.EntityId, UriKind.RelativeOrAbsolute)};
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            var frame = Window.Current.Content as Frame;
-            frame.Navigate(typeof(Settings));
+            Frame.Navigate(typeof(Settings));
         }
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,8 +86,7 @@ namespace OwncloudUniversal.UI
                 Download(item);
                 return;
             }
-            var frame = Window.Current.Content as Frame;
-            frame.Navigate(typeof(MainPage), item);
+            Frame.Navigate(typeof(MainPage), item);
         }
 
         private async void listView_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -145,42 +145,9 @@ namespace OwncloudUniversal.UI
             FolderAssociationTableModel.GetDefault().UpdateItem(fa, fa.Id);
         }
 
-        private async void CreateListView(FolderHelper folder)
-        {
-            List<AbstractItem> list;
-            try
-            {
-                if (string.IsNullOrWhiteSpace(folder.Href))
-                    folder.Href = Configuration.ServerUrl;
-                list = await folder.LoadItems();
-            }
-            catch (Exception e)
-            {
-                MessageDialog d = new MessageDialog("Failed to load items. Please check connectivity and configuration. " + e.Message);
-                await d.ShowAsync();
-                return;
-            }
-            var orderedList = list.OrderBy(x => !x.IsCollection).ThenBy(x => ((DavItem)x).DisplayName);
-            listView.ItemsSource = orderedList;
-        }
-
         private void Download(AbstractItem item)
         {
             throw new NotImplementedException();
-            //MessageDialog dia = new MessageDialog("Download?");
-            //dia.Commands.Add(new UICommand("yes", null, "YES"));
-            //dia.Commands.Add(new UICommand("no", null, "NO"));
-            //var result = await dia.ShowAsync();
-            //if (result.Id.ToString() == "YES")
-            //{
-            //    var file = await DownloadsFolder.CreateFileAsync(item.DavItem.DisplayName, CreationCollisionOption.ReplaceExisting);
-            //    var success = await ConnectionManager.Download(item.DavItem.Href, file);
-            //    if (success)    
-            //    {
-            //        await Launcher.LaunchFileAsync(file);
-            //    }
-            //}
-
         }
         private void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
@@ -190,56 +157,6 @@ namespace OwncloudUniversal.UI
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
-            //FileOpenPicker picker = new FileOpenPicker();
-            //picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            ////what the hell, no wildcards allowed??????????
-            //picker.FileTypeFilter.Add(".jpg");
-            //picker.FileTypeFilter.Add(".jpeg");
-            //picker.FileTypeFilter.Add(".png");
-            //picker.FileTypeFilter.Add(".odt");
-            //picker.FileTypeFilter.Add(".ods");
-            //picker.FileTypeFilter.Add(".odp");
-            //picker.FileTypeFilter.Add(".doc");
-            //picker.FileTypeFilter.Add(".docx");
-            //picker.FileTypeFilter.Add(".mp4");
-            //picker.FileTypeFilter.Add(".mp3");
-            //picker.FileTypeFilter.Add(".zip");
-            //picker.FileTypeFilter.Add(".rar");
-            //picker.FileTypeFilter.Add(".txt");
-            //picker.FileTypeFilter.Add(".pdf");
-            //picker.FileTypeFilter.Add(".odf");
-            //picker.FileTypeFilter.Add(".kdbx");
-            //picker.FileTypeFilter.Add(".ppt");
-            //picker.FileTypeFilter.Add(".pptx");
-            //picker.FileTypeFilter.Add(".xlsx");
-            //picker.FileTypeFilter.Add(".xls");
-            //picker.FileTypeFilter.Add(".gif");
-            //picker.FileTypeFilter.Add(".gz");
-            //picker.FileTypeFilter.Add(".mid");
-            //picker.FileTypeFilter.Add(".aac");
-            //var files = await picker.PickMultipleFilesAsync();
-            //if (files.Count > 0)
-            //{
-            //    foreach (var file in files)
-            //    {
-            //        StorageApplicationPermissions.FutureAccessList.AddOrReplace("uploadFile", file);
-            //        using (var stream = await file.OpenStreamForReadAsync())
-            //        {
-            //            if (string.IsNullOrWhiteSpace(_currentFolder.Href))
-            //            {
-            //                await ConnectionManager.Upload(Configuration.ServerUrl, stream, file.Name);
-            //            }
-            //            else
-            //            {
-            //                await ConnectionManager.Upload(_currentFolder.Href, stream, file.Name);
-            //            }
-            //        }
-                    
-            //    }
-            //}
-            //MessageDialog dialog = new MessageDialog("Upload Finished");
-            //await dialog.ShowAsync();
-            //CreateListView(_currentFolder);
         }
     }
 }

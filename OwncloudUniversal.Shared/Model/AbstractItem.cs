@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Windows.UI.Xaml.Controls;
 
 namespace OwncloudUniversal.Shared.Model
 {
@@ -15,5 +16,6 @@ namespace OwncloudUniversal.Shared.Model
         public virtual bool SyncPostponed{ get; set; }
         public virtual  Stream ContentStream { get; set; }
         public virtual Type AdapterType { get;}
+        public virtual Symbol Symbol => IsCollection ? Symbol.Folder : Symbol.Document;
     }
 }

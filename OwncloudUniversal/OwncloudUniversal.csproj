@@ -101,7 +101,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Folder.cs" />
+    <Compile Include="DavFolder.cs" />
     <Compile Include="UI\FolderMapping.xaml.cs">
       <DependentUpon>FolderMapping.xaml</DependentUpon>
     </Compile>
