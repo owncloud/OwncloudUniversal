@@ -15,16 +15,6 @@ namespace OwncloudUniversal.Shared.Model
     {
         public LocalItem() { }
 
-        public LocalItem(AbstractItem item)
-        {
-            ChangeKey = item.ChangeKey;
-            EntityId = item.EntityId;
-            Association = item.Association;
-            IsCollection = item.IsCollection;
-            ChangeNumber = item.ChangeNumber;
-            Size = item.Size;
-        }
-
         public LocalItem(FolderAssociation association,IStorageItem storageItem, BasicProperties basicProperties)
         {
             Association = association;
@@ -44,6 +34,18 @@ namespace OwncloudUniversal.Shared.Model
             EntityId = storageItem.Path;
             ChangeNumber = 0;
             Size = (ulong)properties["System.Size"];
+        }
+
+        public static async Task<AbstractItem> CreateAsync(StorageFile file, BasicProperties basicProperties)
+        {
+            var item = new AbstractItem();
+            item.ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(basicProperties.DateModified.UtcDateTime);
+            item.EntityId = file.Path;
+            item.ChangeNumber = 0;
+            item.Size = basicProperties.Size;
+            item.IsCollection = false;
+            item.ContentStream = await file.OpenStreamForReadAsync();
+            return item;
         }
         public DateTime? LastModified { get; set; }        
         public string Path { get; set; }

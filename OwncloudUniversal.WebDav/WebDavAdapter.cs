@@ -71,23 +71,21 @@ namespace OwncloudUniversal.WebDav
             if (item.IsCollection)
                 return null;//TODO
             AbstractItem targetItem = null;
-
-            StorageFile file = await StorageFile.GetFileFromPathAsync(item.EntityId);
-            var folderPath = _BuildRemoteFilePath(item.Association, file.Path);
-            using (var stream = await file.OpenStreamForReadAsync())
+            item = await LinkedAdapter.GetItem(item.EntityId);
+            var folderPath = _BuildRemoteFilePath(item.Association, item.EntityId);
+            using (var stream = item.ContentStream)
             {
-                await CreateFolder(item.Association, item, Path.GetDirectoryName(file.Path));
-                await _davClient.Upload(new Uri(folderPath), stream);
-                var folder = await _davClient.ListFolder(new Uri(folderPath));
-                targetItem = folder.FirstOrDefault(x => x.DisplayName == file.Name);
+                await CreateFolder(item.Association, item, Path.GetDirectoryName(item.EntityId));
+                targetItem = await _davClient.Upload(new Uri(folderPath), stream);
             }
             targetItem.Association = item.Association;
             return targetItem;
         }
 
-        public override Task<AbstractItem> GetItem(string entityId)
+        public override async Task<AbstractItem> GetItem(string entityId)
         {
-            throw new NotImplementedException();
+            var items = await _davClient.ListFolder(new Uri(entityId, UriKind.RelativeOrAbsolute));
+            return items.Count == 1 ? items.FirstOrDefault() : null;
         }
 
         public override Task DeleteItem(AbstractItem item)
@@ -95,9 +93,12 @@ namespace OwncloudUniversal.WebDav
             throw new NotImplementedException();
         }
 
-        public override Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
+        public override async Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association)
         {
-            throw new NotImplementedException();
+            List<AbstractItem> items = new List<AbstractItem>();
+            var folder = AbstractItemTableModel.GetDefault().GetItem(association.RemoteFolderId);
+            await _CheckRemoteFolderRecursive(folder, items);
+            return items;
         }
 
         public async Task<List<AbstractItem>> GetAllItems(Uri url)
@@ -117,8 +118,6 @@ namespace OwncloudUniversal.WebDav
             {
                 folders = (path + "/" + name).Split('/');
             }
-
-
             var currentFolder = remoteBaseFolder.TrimEnd('/');
             for (int i = 0; i < folders.Length; i++)
             {
@@ -140,11 +139,11 @@ namespace OwncloudUniversal.WebDav
 
         private async Task _CheckRemoteFolderRecursive(AbstractItem folder, List<AbstractItem> result)
         {
-            List<DavItem> items = await _davClient.ListFolder(new Uri(folder.EntityId));
+            List<DavItem> items = await _davClient.ListFolder(new Uri(folder.EntityId, UriKind.RelativeOrAbsolute));
             foreach (DavItem item in items)
             {
                 if (!ChangekeyHasChanged(item)) continue;
-                if (item.IsCollection)
+                if (item.IsCollection && item.Href != folder.EntityId)
                 {
                     await _CheckRemoteFolderRecursive(item, result);
                 }

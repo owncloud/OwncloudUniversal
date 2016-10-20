@@ -15,7 +15,7 @@ namespace OwncloudUniversal.Shared.Model
         public virtual ulong Size { get; set; }
         public virtual bool SyncPostponed{ get; set; }
         public virtual  Stream ContentStream { get; set; }
-        public virtual Type AdapterType { get;}
+        public virtual Type AdapterType { get; set; }
         public virtual Symbol Symbol => IsCollection ? Symbol.Folder : Symbol.Document;
     }
 }

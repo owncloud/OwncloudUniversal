@@ -45,10 +45,12 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 if (watch.Elapsed.Minutes >= 9)
                     break;
                 ExecutionContext.Status = ExecutionStatus.Scanning;
-                _itemIndex = await _targetEntityAdapter.GetAllItems(item);
-                _itemIndex.AddRange(await _sourceEntityAdapter.GetAllItems(item));
+                _itemIndex = await _targetEntityAdapter.GetUpdatedItems(item);
+                _itemIndex.AddRange(await _sourceEntityAdapter.GetUpdatedItems(item));
                 ExecutionContext.TotalFileCount = _itemIndex.Count;
                 _UpdateFileIndexes(item);
+                _itemIndex =
+                    AbstractItemTableModel.GetDefault().GetAllItems().Where(x => x.Association.Id == item.Id).ToList();
                 var model = LinkStatusTableModel.GetDefault();
                 _linkList = model.GetAllItems(item).ToList();
                 ExecutionContext.Status = ExecutionStatus.Active;
@@ -95,9 +97,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             var link = _linkList.FirstOrDefault(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id);
             if (link == null)
             {
-#pragma warning disable 4014
-                LogHelper.Write($"Adding {item.EntityId}");
-#pragma warning restore 4014
                 //es ist noch kein link vorhanden, also ein neues Item
                 var result = await Insert(item);
                 AfterInsert(item, result);
@@ -106,9 +105,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 if (item.ChangeNumber > link.ChangeNumber)
                 {
-#pragma warning disable 4014
-                    LogHelper.Write($"Updating {item.EntityId}");
-#pragma warning restore 4014
                     var result = await Update(item);
                     AfterUpdate(item, result);
                 }
@@ -143,13 +139,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
             item.SyncPostponed = false;
             if (item.AdapterType == _targetEntityAdapter.GetType())
             {
-                result = await _targetEntityAdapter.UpdateItem(item);
+                result = await _sourceEntityAdapter.UpdateItem(item);
                 if(!item.IsCollection)
                     _uploadCount++;
             }
             else if(item.AdapterType == _sourceEntityAdapter.GetType())
             {
-                result = await _sourceEntityAdapter.UpdateItem(item);
+                result = await _targetEntityAdapter.UpdateItem(item);
                 if(!item.IsCollection)
                     _downloadCount++;
             }

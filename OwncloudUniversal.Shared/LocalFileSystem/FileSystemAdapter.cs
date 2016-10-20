@@ -49,7 +49,11 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             {
                 var unsynced =
                     AbstractItemTableModel.GetDefault().GetPostponedItems().Where(x => x.EntityId.Contains("\\"));//TODO find a better way
-                result.AddRange(unsynced.Select(abstractItem => new LocalItem(abstractItem) {SyncPostponed = false}));
+                foreach (var abstractItem in unsynced)
+                {
+                    abstractItem.SyncPostponed = false;
+                }
+                result.AddRange(unsynced);
             }
         }
 
@@ -96,12 +100,14 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             throw new NotImplementedException();
         }
 
-        public override Task<AbstractItem> GetItem(string entityId)
+        public override async Task<AbstractItem> GetItem(string entityId)
         {
-            throw new NotImplementedException();
+            var file = await StorageFile.GetFileFromPathAsync(entityId);
+            BasicProperties bp = await file.GetBasicPropertiesAsync();
+            return await LocalItem.CreateAsync(file, bp);
         }
 
-        public override async Task<List<AbstractItem>> GetAllItems(FolderAssociation association)
+        public override async Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association)
         {
             List<AbstractItem> items = new List<AbstractItem>();
             var item = GetAssociatedItem(association.LocalFolderId);

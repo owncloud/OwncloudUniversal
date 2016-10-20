@@ -50,7 +50,7 @@ namespace OwncloudUniversal.Shared.Model
              
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Item (AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed) VALUES(@AssociationId, @EntityId, @iscollection, @changekey, @changenumber, @syncpostponed)";
+            return "INSERT INTO Item (AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType) VALUES(@AssociationId, @EntityId, @iscollection, @changekey, @changenumber, @syncpostponed, @adaptertype)";
         }
 
         protected override string GetLastInsertRowIdQuery()
@@ -60,7 +60,7 @@ namespace OwncloudUniversal.Shared.Model
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed FROM Item";
+            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item";
         }
 
         protected override string GetSelectByPathQuery()
@@ -71,12 +71,12 @@ namespace OwncloudUniversal.Shared.Model
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed FROM Item WHERE Id = ?";
+            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE Item SET EntityId = ?, IsCollection = ?, ChangeKey = ?, ChangeNumber = ?, SyncPostponed = ? WHERE Id = ?";
+            return "UPDATE Item SET EntityId = ?, IsCollection = ?, ChangeKey = ?, ChangeNumber = ?, SyncPostponed = ?, AdapterType=? WHERE Id = ?";
         }
 
         protected override void BindSelectItemQuery(ISQLiteStatement query, string itemId)
@@ -93,6 +93,7 @@ namespace OwncloudUniversal.Shared.Model
             query.Bind(4, item.ChangeKey);
             query.Bind(5, item.ChangeNumber);
             query.Bind(6, item.SyncPostponed ? 1 : 0);
+            query.Bind(7, item.AdapterType.AssemblyQualifiedName);
         }
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, AbstractItem item, long key)
@@ -103,7 +104,8 @@ namespace OwncloudUniversal.Shared.Model
             query.Bind(3, item.ChangeKey);
             query.Bind(4, item.ChangeNumber);
             query.Bind(5, item.SyncPostponed ? 1: 0);
-            query.Bind(6, key);
+            query.Bind(6, item.AdapterType.AssemblyQualifiedName);
+            query.Bind(7, key);
         }
 
         protected override AbstractItem CreateInstance(ISQLiteStatement query)
@@ -118,12 +120,13 @@ namespace OwncloudUniversal.Shared.Model
             item.ChangeKey = (string)query["ChangeKey"];
             item.ChangeNumber = (long)query["ChangeNumber"];
             item.SyncPostponed = (long) query["SyncPostponed"] == 1;
+            item.AdapterType = Type.GetType((string)query["AdapterType"]);
             return item;
         }
 
         public AbstractItem GetItem(AbstractItem item)
         {
-            using (var query = Connection.Prepare("SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed FROM Item WHERE EntityId = ?"))
+            using (var query = Connection.Prepare("SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item WHERE EntityId = ?"))
             {
                 query.Bind(1, item.EntityId);
                 if (query.Step() == SQLiteResult.ROW)
@@ -138,7 +141,7 @@ namespace OwncloudUniversal.Shared.Model
         public ObservableCollection<AbstractItem> GetPostponedItems()
         {
             var items = new ObservableCollection<AbstractItem>();
-            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed from Item i " +
+            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType from Item i " +
                                                   "where i.SyncPostponed = 1"))
             {
                 while (query.Step() == SQLiteResult.ROW)
