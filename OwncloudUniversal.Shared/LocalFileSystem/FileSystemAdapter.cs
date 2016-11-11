@@ -37,6 +37,8 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             foreach (var file in files)
             {
                 IDictionary<string, object> propertyResult = null;
+                if(await Task.Run(()=> !File.Exists(file.Path)))
+                    continue;//for some reason windows seems to return files that dont exist (yet?/anymore?)
                 if (file.IsOfType(StorageItemTypes.File))
                     propertyResult = await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                 else if (file.IsOfType(StorageItemTypes.Folder))
@@ -72,14 +74,16 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 storageItem = await folder.TryGetItemAsync(displayName);
                 if (storageItem == null)
                 {
+                    item = await LinkedAdapter.GetItem(item.EntityId);
                     storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.ReplaceExisting);
                     byte[] buffer = new byte[16*1024*1024];
                     using (var stream = await ((StorageFile)storageItem).OpenStreamForWriteAsync())
                     using (var content = item.ContentStream)
                     {
-                        while (await content.ReadAsync(buffer, 0, buffer.Length) > 0)
+                        int read = 0;
+                        while ((read = await content.ReadAsync(buffer, 0, buffer.Length)) > 0)
                         {
-                            await stream.WriteAsync(buffer, 0, buffer.Length);
+                            await stream.WriteAsync(buffer, 0, read);
                         }
                     }
                 }
@@ -139,7 +143,8 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);
             var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
             var relativefileUri = item.EntityId.Replace(remoteFolder.EntityId, "");
-            relativefileUri = relativefileUri.Remove(relativefileUri.LastIndexOf("/"));
+            if(relativefileUri.Contains('/'))
+                relativefileUri = relativefileUri.Remove(relativefileUri.LastIndexOf("/"));
             string relativePath = Uri.UnescapeDataString(relativefileUri.ToString().Replace('/', '\\'));
             var absoltuePath = folderUri.LocalPath + '\\' + relativePath;
             //var result = absoltuePath.Remove(absoltuePath.LastIndexOf("\\"));

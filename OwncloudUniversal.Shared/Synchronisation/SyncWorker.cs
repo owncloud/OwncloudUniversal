@@ -47,18 +47,19 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 ExecutionContext.Status = ExecutionStatus.Scanning;
                 _itemIndex = await _targetEntityAdapter.GetUpdatedItems(item);
                 _itemIndex.AddRange(await _sourceEntityAdapter.GetUpdatedItems(item));
-                ExecutionContext.TotalFileCount = _itemIndex.Count;
                 _UpdateFileIndexes(item);
                 _itemIndex =
                     AbstractItemTableModel.GetDefault().GetAllItems().Where(x => x.Association.Id == item.Id).ToList();
                 var model = LinkStatusTableModel.GetDefault();
                 _linkList = model.GetAllItems(item).ToList();
                 ExecutionContext.Status = ExecutionStatus.Active;
+                ExecutionContext.TotalFileCount = _itemIndex.Count;
+                int index = 0;
                 foreach (var i in _itemIndex)
                 {
                     try
                     {
-                        ExecutionContext.CurrentFileNumber = _itemIndex.IndexOf(i);
+                        ExecutionContext.CurrentFileNumber = index++;
                         ExecutionContext.CurrentFileName = i.EntityId;
                         await _Process(i);
                     }
@@ -119,13 +120,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
             item.SyncPostponed = false;
             if (item.AdapterType == _targetEntityAdapter.GetType())
             {
-                targetItem = await _targetEntityAdapter.AddItem(item);
+                targetItem = await _sourceEntityAdapter.AddItem(item);
                 if(!item.IsCollection)
                     _uploadCount++;
             }
             else if (item.AdapterType == _sourceEntityAdapter.GetType())
             {
-                targetItem = await _sourceEntityAdapter.AddItem(item);
+                targetItem = await _targetEntityAdapter.AddItem(item);
                 if(!item.IsCollection)
                     _downloadCount++;
             }
@@ -180,6 +181,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private void AfterInsert(AbstractItem sourceItem, AbstractItem targetItem)
         {
+            if (targetItem.Association == null)
+                targetItem.Association = sourceItem.Association;
             //check if item with same path already exists
             var existingItem = AbstractItemTableModel.GetDefault().GetItem(targetItem);
             if (existingItem != null)
@@ -199,6 +202,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private void AfterUpdate(AbstractItem sourceItem, AbstractItem targetItem)
         {
+            if (targetItem.Association == null)
+                targetItem.Association = sourceItem.Association;
             targetItem.ChangeNumber = sourceItem.ChangeNumber;
             AbstractItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
             AbstractItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);

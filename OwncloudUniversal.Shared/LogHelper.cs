@@ -28,5 +28,12 @@ namespace OwncloudUniversal.Shared
             {
             }
         }
+
+        public static async void ResetLog()
+        {
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("log.txt",
+                    CreationCollisionOption.OpenIfExists);
+            await file.DeleteAsync();
+        }
     }
 }

@@ -44,12 +44,12 @@ namespace OwncloudUniversal.WebDav
                 request.Headers.Authorization = new HttpCredentialsHeaderValue("Basic", token);
                 if(_method.Method == "PROPFIND")
                     request.Content = new HttpStringContent(PropfindContent, UnicodeEncoding.Utf8);
-                else
+                else if(_contentStream != null)
                 {
                    request.Content = new HttpStreamContent(_contentStream.AsInputStream()); 
                 }
                 var response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
-                if(!response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                     throw new Exception(response.ReasonPhrase);//TODO better exceptions
                 return response;
             }

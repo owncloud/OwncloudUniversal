@@ -32,6 +32,8 @@ namespace OwncloudUniversal.WebDav
 
         public async Task<Stream> Download(Uri url)
         {
+            if (!url.IsAbsoluteUri)
+                url = new Uri(_serverUrl, url);
             var getRequest = new WebDavRequest(_credential, url, HttpMethod.Get);
             var response = await getRequest.SendAsync();
             var inputStream = await response.Content.ReadAsInputStreamAsync();
@@ -40,6 +42,8 @@ namespace OwncloudUniversal.WebDav
 
         public async Task<DavItem> Upload(Uri url, Stream contentStream)
         {
+            if (!url.IsAbsoluteUri)
+                url = new Uri(_serverUrl, url);
             var postRequest = new WebDavRequest(_credential, url, HttpMethod.Put, contentStream);
             var postResponse = await postRequest.SendAsync();
             var items = await ListFolder(url);
@@ -53,6 +57,8 @@ namespace OwncloudUniversal.WebDav
 
         public async Task<DavItem> CreateFolder(Uri url)
         {
+            if (!url.IsAbsoluteUri)
+                url = new Uri(_serverUrl, url);
             var mkcolRequest = new WebDavRequest(_credential, url, new HttpMethod("MKCOL"));
             var mkcolResponse = await mkcolRequest.SendAsync();
             var inputStream = await mkcolResponse.Content.ReadAsInputStreamAsync();

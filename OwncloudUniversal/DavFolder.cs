@@ -74,7 +74,9 @@ namespace OwncloudUniversal
         }
         private Uri CreateItemUri()
         {
-            var serverUri = new Uri(Configuration.ServerUrl);
+            if (string.IsNullOrWhiteSpace(Configuration.ServerUrl))
+                return null;
+            var serverUri = new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute);
             return new Uri(serverUri, Href);
         }
     }

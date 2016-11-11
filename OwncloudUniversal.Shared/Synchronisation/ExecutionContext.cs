@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         public string CurrentFileName
         {
-            get { return _currentFileName; }
+            get { return WebUtility.UrlDecode(_currentFileName); }
             set
             {
                 _currentFileName = value;
@@ -52,6 +53,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 _currentFileNumber = value;
                 OnPropertyChanged();
+                OnPropertyChanged("FileText");
             }
         }
 
@@ -62,6 +64,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 _totalFileCount = value;
                 OnPropertyChanged();
+                OnPropertyChanged("FileText");
             }  
         }
 

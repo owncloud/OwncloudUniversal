@@ -70,6 +70,8 @@ namespace OwncloudUniversal.UI
                 parameterItem = (e.Parameter as AbstractItem);
             if(parameterItem == null)
                 parameterItem = new AbstractItem { EntityId = Configuration.ServerUrl};
+            if(Configuration.ServerUrl == "")
+                return;
             _currentFolder = new DavFolder {Href = new Uri(parameterItem.EntityId, UriKind.RelativeOrAbsolute)};
         }
 
