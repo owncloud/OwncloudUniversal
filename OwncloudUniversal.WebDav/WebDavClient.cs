@@ -60,9 +60,7 @@ namespace OwncloudUniversal.WebDav
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
             var mkcolRequest = new WebDavRequest(_credential, url, new HttpMethod("MKCOL"));
-            var mkcolResponse = await mkcolRequest.SendAsync();
-            var inputStream = await mkcolResponse.Content.ReadAsInputStreamAsync();
-            var s = XmlParser.ParsePropfind(inputStream.AsStreamForRead());
+            await mkcolRequest.SendAsync();
             var items = await ListFolder(url);
             return items.FirstOrDefault();
         }

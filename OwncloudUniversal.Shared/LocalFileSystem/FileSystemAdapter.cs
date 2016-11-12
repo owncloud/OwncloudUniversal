@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.Storage.Provider;
 using Windows.Storage.Search;
 using OwncloudUniversal.Shared.Synchronisation;
 
@@ -15,7 +16,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 {
     public class FileSystemAdapter : AbstractAdapter
     {
-        private async Task _CheckLocalFolderRecursive(StorageFolder folder, long associationId, List<AbstractItem> result)
+        private async Task _GetChangesFromSearchIndex(StorageFolder folder, long associationId, List<AbstractItem> result)
         {
             var files = new List<IStorageItem>();
             var options = new QueryOptions();
@@ -37,7 +38,10 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             foreach (var file in files)
             {
                 IDictionary<string, object> propertyResult = null;
-                if(await Task.Run(()=> !File.Exists(file.Path)))
+                string folderPath = file.Path.Substring(0, file.Path.LastIndexOf('\\'));
+                var sfolder = await StorageFolder.GetFolderFromPathAsync(folderPath);
+                var sfile = await sfolder.TryGetItemAsync(Path.GetFileName(file.Path)) as StorageFile;
+                if (sfile == null)
                     continue;//for some reason windows seems to return files that dont exist (yet?/anymore?)
                 if (file.IsOfType(StorageItemTypes.File))
                     propertyResult = await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
@@ -56,6 +60,19 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                     abstractItem.SyncPostponed = false;
                 }
                 result.AddRange(unsynced);
+            }
+        }
+
+        private async Task _CheckLocalFolderRecursive(StorageFolder folder, long associationId, List<AbstractItem> result)
+        {
+            var files = await folder.GetItemsAsync();
+            foreach (IStorageItem sItem in files)
+            {
+                if (sItem.IsOfType(StorageItemTypes.Folder))
+                    await _CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
+                BasicProperties bp = await sItem.GetBasicPropertiesAsync();
+                var item = new LocalItem(new FolderAssociation { Id = associationId }, sItem, bp);
+                result.Add(item);
             }
         }
 
@@ -78,13 +95,16 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                     storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.ReplaceExisting);
                     byte[] buffer = new byte[16*1024*1024];
                     using (var stream = await ((StorageFile)storageItem).OpenStreamForWriteAsync())
-                    using (var content = item.ContentStream)
+                    using (item.ContentStream)
                     {
                         int read = 0;
-                        while ((read = await content.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        while ((read = await item.ContentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                         {
                             await stream.WriteAsync(buffer, 0, read);
                         }
+                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync((StorageFile)storageItem);
+                        if(status != FileUpdateStatus.Complete)
+                            throw new Exception("File incomplete: " + status);
                     }
                 }
 
@@ -107,8 +127,9 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         public override async Task<AbstractItem> GetItem(string entityId)
         {
             var file = await StorageFile.GetFileFromPathAsync(entityId);
-            BasicProperties bp = await file.GetBasicPropertiesAsync();
-            return await LocalItem.CreateAsync(file, bp);
+            BasicProperties bp = await file.GetBasicPropertiesAsync(); 
+            var s =  await LocalItem.CreateAsync(file, bp);
+            return s;
         }
 
         public override async Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association)
@@ -116,6 +137,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             List<AbstractItem> items = new List<AbstractItem>();
             var item = GetAssociatedItem(association.LocalFolderId);
             StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(item.EntityId);
+            //await _GetChangesFromSearchIndex(folder, association.Id, items);
             await _CheckLocalFolderRecursive(folder, association.Id, items);
             return items;
         }

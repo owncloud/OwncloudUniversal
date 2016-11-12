@@ -15,9 +15,11 @@ namespace OwncloudUniversal.WebDav
     public class WebDavAdapter : AbstractAdapter
     {
         private readonly WebDavClient _davClient;
+        private List<string> existingFolders;
         public WebDavAdapter(bool isBackgroundSync, string serverUrl, NetworkCredential credential, AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
         {
             _davClient = new WebDavClient(new Uri(serverUrl, UriKind.RelativeOrAbsolute), credential);
+            existingFolders = new List<string>();
         }
         public override async Task<AbstractItem> AddItem(AbstractItem localItem)
         {
@@ -37,18 +39,24 @@ namespace OwncloudUniversal.WebDav
             }
             else
             {
-                localItem = await LinkedAdapter.GetItem(localItem.EntityId);
+                var tmp = await LinkedAdapter.GetItem(localItem.EntityId);
+                localItem.ContentStream = tmp.ContentStream;
+                await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(localItem.EntityId));
+
                 var folderPath = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
                 var filePath = _BuildRemoteFilePath(localItem.Association, localItem.EntityId);
+                
+                if(!existingFolders.Contains(folderPath))
+                    Debug.WriteLine(folderPath);
+
                 //if the file already exists dont upload it again
                 var folder = await _davClient.ListFolder(new Uri(folderPath, UriKind.RelativeOrAbsolute));
                 var existingItem = folder.FirstOrDefault(x => x.DisplayName == Path.GetFileName(localItem.EntityId));
-                if (existingItem != null)
+                if (existingItem != null && existingItem.LastModified > Convert.ToDateTime(localItem.ChangeKey))
                 {
                     existingItem.Association = localItem.Association;
                     return existingItem;
                 }
-                await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(localItem.EntityId));
                 resultItem = await _davClient.Upload(new Uri(filePath, UriKind.RelativeOrAbsolute), localItem.ContentStream);
                 resultItem.Association = localItem.Association;
             }
@@ -115,9 +123,15 @@ namespace OwncloudUniversal.WebDav
             var currentFolder = remoteBaseFolder.TrimEnd('/');
             foreach (string folderName in folders)
             {
+                if (existingFolders.Contains(currentFolder + '/' + folderName))
+                {
+                    currentFolder += '/' + folderName;
+                    continue;
+                }
                 var folderContent = await _davClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
                 if (folderContent.Count(x => x.DisplayName == folderName && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
                         await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
+                existingFolders.Add(currentFolder + '/' + folderName);
                 currentFolder += '/' + folderName;
             }
         }

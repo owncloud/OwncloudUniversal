@@ -35,6 +35,7 @@ namespace OwncloudUniversal.WebDav
         public async Task<HttpResponseMessage> SendAsync()
         {
             using (var request = new HttpRequestMessage(_method, _requestUrl))
+            using (_contentStream)
             {
                 request.Headers.Connection.Add(new HttpConnectionOptionHeaderValue("Keep-Alive"));
                 request.Headers.UserAgent.Add(HttpProductInfoHeaderValue.Parse("Mozilla/5.0"));
@@ -42,11 +43,11 @@ namespace OwncloudUniversal.WebDav
                 var buffer = CryptographicBuffer.ConvertStringToBinary(_networkCredential.UserName + ":" + _networkCredential.Password, BinaryStringEncoding.Utf8);
                 var token = CryptographicBuffer.EncodeToBase64String(buffer);
                 request.Headers.Authorization = new HttpCredentialsHeaderValue("Basic", token);
-                if(_method.Method == "PROPFIND")
+                if (_method.Method == "PROPFIND")
                     request.Content = new HttpStringContent(PropfindContent, UnicodeEncoding.Utf8);
-                else if(_contentStream != null)
+                else if (_contentStream != null)
                 {
-                   request.Content = new HttpStreamContent(_contentStream.AsInputStream()); 
+                    request.Content = new HttpStreamContent(_contentStream.AsInputStream());
                 }
                 var response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 if (!response.IsSuccessStatusCode)
