@@ -41,6 +41,8 @@ namespace OwncloudUniversal.WebDav
             {
                 var tmp = await LinkedAdapter.GetItem(localItem.EntityId);
                 localItem.ContentStream = tmp.ContentStream;
+                localItem.Size = tmp.Size;
+                localItem.ChangeKey = tmp.ChangeKey;
                 await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(localItem.EntityId));
 
                 var folderPath = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
@@ -52,7 +54,9 @@ namespace OwncloudUniversal.WebDav
                 //if the file already exists dont upload it again
                 var folder = await _davClient.ListFolder(new Uri(folderPath, UriKind.RelativeOrAbsolute));
                 var existingItem = folder.FirstOrDefault(x => x.DisplayName == Path.GetFileName(localItem.EntityId));
-                if (existingItem != null && existingItem.LastModified > Convert.ToDateTime(localItem.ChangeKey))
+                if (existingItem != null && 
+                    existingItem.LastModified > Convert.ToDateTime(localItem.ChangeKey) &&
+                    existingItem.Size != localItem.Size)
                 {
                     existingItem.Association = localItem.Association;
                     return existingItem;
@@ -66,7 +70,10 @@ namespace OwncloudUniversal.WebDav
         public override async Task<AbstractItem> UpdateItem(AbstractItem item)
         {
             if (item.IsCollection)
-                return null;//TODO
+            {
+                var path = _BuildRemoteFilePath(item.Association, item.EntityId);
+                return await GetItem(path);
+            }
             AbstractItem targetItem = null;
             item = await LinkedAdapter.GetItem(item.EntityId);
             var folderPath = _BuildRemoteFilePath(item.Association, item.EntityId);
@@ -82,8 +89,8 @@ namespace OwncloudUniversal.WebDav
         public override async Task<AbstractItem> GetItem(string entityId)
         {
             var items = await _davClient.ListFolder(new Uri(entityId, UriKind.RelativeOrAbsolute));
-            var item = items.Count == 1 ? items.FirstOrDefault() : null;
-            if(item != null)
+            var item = items.FirstOrDefault();
+            if(item != null && !item.IsCollection)
                 item.ContentStream = await _davClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
             return item;
 
@@ -147,6 +154,8 @@ namespace OwncloudUniversal.WebDav
                     await _CheckRemoteFolderRecursive(item, result);
                 }
                 if(item.Size > Convert.ToUInt64(Configuration.MaxDownloadSize *1024 *1024))
+                    continue;
+                if(item.EntityId == folder.EntityId)
                     continue;
                 result.Add(item);
             }

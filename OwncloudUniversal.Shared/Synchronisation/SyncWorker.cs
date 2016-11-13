@@ -36,8 +36,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             var watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
-            if(Configuration.CurrentlyActive)
-                return;
             var items = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation item in items)
             {
@@ -48,34 +46,37 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 _itemIndex = await _targetEntityAdapter.GetUpdatedItems(item);
                 _itemIndex.AddRange(await _sourceEntityAdapter.GetUpdatedItems(item));
                 _UpdateFileIndexes(item);
-                _itemIndex =
-                    AbstractItemTableModel.GetDefault().GetAllItems().Where(x => x.Association.Id == item.Id).ToList();
-                var model = LinkStatusTableModel.GetDefault();
-                _linkList = model.GetAllItems(item).ToList();
-                ExecutionContext.Status = ExecutionStatus.Active;
-                ExecutionContext.TotalFileCount = _itemIndex.Count;
-                int index = 0;
-                foreach (var i in _itemIndex)
-                {
-                    try
-                    {
-                        ExecutionContext.CurrentFileNumber = index++;
-                        ExecutionContext.CurrentFileName = i.EntityId;
-                        await _Process(i);
-                    }
-                    catch (Exception e)
-                    {
-                        ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, i.EntityId));
-                        await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}, \r\n{2}", e.Message, i.EntityId, e.StackTrace));
-                    }
-                    //we have 10 Minutes in total for each background task cycle
-                    //after 10 minutes windows will terminate the task
-                    //so after 9 minutes we stop the sync and just wait for the next cycle
-                    if (!_isBackgroundTask || watch.Elapsed.Minutes >= 9) continue;
-                    await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
-                    break;
-                }
+
             }
+            _itemIndex = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
+            var model = LinkStatusTableModel.GetDefault();
+            _linkList = model.GetAllItems().ToList();
+            ExecutionContext.Status = ExecutionStatus.Active;
+            ExecutionContext.TotalFileCount = _itemIndex.Count;
+            int index = 1;
+            foreach (var item in _itemIndex)
+            {
+                try
+                {
+                    ExecutionContext.CurrentFileNumber = index++;
+                    ExecutionContext.CurrentFileName = item.EntityId;
+                    await _Process(item);
+                }
+                catch (Exception e)
+                {
+                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    await
+                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}, \r\n{2}", e.Message, item.EntityId,
+                            e.StackTrace));
+                }
+                //we have 10 Minutes in total for each background task cycle
+                //after 10 minutes windows will terminate the task
+                //so after 9 minutes we stop the sync and just wait for the next cycle
+                if (!_isBackgroundTask || watch.Elapsed.Minutes >= 9) continue;
+                await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
+                break;
+            }
+
             await LogHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed}");
             ToastHelper.SendToast(_isBackgroundTask
                 ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}"
@@ -95,7 +96,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 item.SyncPostponed = true;
                 return;
             }
-            var link = _linkList.FirstOrDefault(x => x.SourceItemId == item.Id || x.TargetItemId == item.Id);
+            var link = _linkList.FirstOrDefault(x => (x.SourceItemId == item.Id || x.TargetItemId == item.Id) && x.AssociationId == item.Association.Id);
             if (link == null)
             {
                 //es ist noch kein link vorhanden, also ein neues Item
@@ -122,13 +123,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 targetItem = await _sourceEntityAdapter.AddItem(item);
                 if(!item.IsCollection)
-                    _uploadCount++;
+                    _downloadCount++;
             }
             else if (item.AdapterType == _sourceEntityAdapter.GetType())
             {
                 targetItem = await _targetEntityAdapter.AddItem(item);
                 if(!item.IsCollection)
-                    _downloadCount++;
+                    _uploadCount++;
             }
             return targetItem;
 
@@ -142,13 +143,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 result = await _sourceEntityAdapter.UpdateItem(item);
                 if(!item.IsCollection)
-                    _uploadCount++;
+                    _downloadCount++;
             }
             else if(item.AdapterType == _sourceEntityAdapter.GetType())
             {
                 result = await _targetEntityAdapter.UpdateItem(item);
                 if(!item.IsCollection)
-                    _downloadCount++;
+                    _uploadCount++;
             }
             return result;
         }
@@ -207,7 +208,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             targetItem.ChangeNumber = sourceItem.ChangeNumber;
             AbstractItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
             AbstractItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
-            var link = _linkList.First(x => x.SourceItemId == sourceItem.Id || x.TargetItemId == targetItem.Id);
+            var link = _linkList.FirstOrDefault(x => (x.SourceItemId == sourceItem.Id || x.TargetItemId == sourceItem.Id) && x.AssociationId == sourceItem.Association.Id);
             link.ChangeNumber = sourceItem.ChangeNumber;
             LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
         }        

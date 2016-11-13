@@ -2,6 +2,7 @@
 using OwncloudUniversal.Shared.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,8 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 {
     public class FileSystemAdapter : AbstractAdapter
     {
-        private async Task _GetChangesFromSearchIndex(StorageFolder folder, long associationId, List<AbstractItem> result)
+        private async Task _GetChangesFromSearchIndex(StorageFolder folder, long associationId,
+            List<AbstractItem> result)
         {
             var files = new List<IStorageItem>();
             var options = new QueryOptions();
@@ -42,19 +44,21 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 var sfolder = await StorageFolder.GetFolderFromPathAsync(folderPath);
                 var sfile = await sfolder.TryGetItemAsync(Path.GetFileName(file.Path)) as StorageFile;
                 if (sfile == null)
-                    continue;//for some reason windows seems to return files that dont exist (yet?/anymore?)
+                    continue; //for some reason windows seems to return files that dont exist (yet?/anymore?)
                 if (file.IsOfType(StorageItemTypes.File))
-                    propertyResult = await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                    propertyResult = await ((StorageFile) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                 else if (file.IsOfType(StorageItemTypes.Folder))
-                    propertyResult = await ((StorageFolder)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
-                var item = new LocalItem(new FolderAssociation { Id = associationId }, file, propertyResult);
+                    propertyResult =
+                        await ((StorageFolder) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                var item = new LocalItem(new FolderAssociation {Id = associationId}, file, propertyResult);
                 result.Add(item);
             }
 
             if (!IsBackgroundSync)
             {
                 var unsynced =
-                    AbstractItemTableModel.GetDefault().GetPostponedItems().Where(x => x.EntityId.Contains("\\"));//TODO find a better way
+                        AbstractItemTableModel.GetDefault().GetPostponedItems().Where(x => x.EntityId.Contains("\\"));
+                    //TODO find a better way
                 foreach (var abstractItem in unsynced)
                 {
                     abstractItem.SyncPostponed = false;
@@ -63,15 +67,16 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             }
         }
 
-        private async Task _CheckLocalFolderRecursive(StorageFolder folder, long associationId, List<AbstractItem> result)
+        private async Task _CheckLocalFolderRecursive(StorageFolder folder, long associationId,
+            List<AbstractItem> result)
         {
             var files = await folder.GetItemsAsync();
             foreach (IStorageItem sItem in files)
             {
                 if (sItem.IsOfType(StorageItemTypes.Folder))
-                    await _CheckLocalFolderRecursive((StorageFolder)sItem, associationId, result);
+                    await _CheckLocalFolderRecursive((StorageFolder) sItem, associationId, result);
                 BasicProperties bp = await sItem.GetBasicPropertiesAsync();
-                var item = new LocalItem(new FolderAssociation { Id = associationId }, sItem, bp);
+                var item = new LocalItem(new FolderAssociation {Id = associationId}, sItem, bp);
                 result.Add(item);
             }
         }
@@ -81,7 +86,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var folder = await _GetStorageFolder(item);
             IStorageItem storageItem;
             var displayName = _BuildFilePath(item).TrimEnd('\\');
-            displayName = displayName.Substring(displayName.LastIndexOf('\\') +1);
+            displayName = displayName.Substring(displayName.LastIndexOf('\\') + 1);
             if (item.IsCollection)
             {
                 storageItem = await folder.CreateFolderAsync(displayName, CreationCollisionOption.ReplaceExisting);
@@ -94,7 +99,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                     item = await LinkedAdapter.GetItem(item.EntityId);
                     storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.ReplaceExisting);
                     byte[] buffer = new byte[16*1024*1024];
-                    using (var stream = await ((StorageFile)storageItem).OpenStreamForWriteAsync())
+                    using (var stream = await ((StorageFile) storageItem).OpenStreamForWriteAsync())
                     using (item.ContentStream)
                     {
                         int read = 0;
@@ -102,8 +107,9 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                         {
                             await stream.WriteAsync(buffer, 0, read);
                         }
-                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync((StorageFile)storageItem);
-                        if(status != FileUpdateStatus.Complete)
+                        FileUpdateStatus status =
+                            await CachedFileManager.CompleteUpdatesAsync((StorageFile) storageItem);
+                        if (status != FileUpdateStatus.Complete)
                             throw new Exception("File incomplete: " + status);
                     }
                 }
@@ -127,8 +133,8 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         public override async Task<AbstractItem> GetItem(string entityId)
         {
             var file = await StorageFile.GetFileFromPathAsync(entityId);
-            BasicProperties bp = await file.GetBasicPropertiesAsync(); 
-            var s =  await LocalItem.CreateAsync(file, bp);
+            BasicProperties bp = await file.GetBasicPropertiesAsync();
+            var s = await LocalItem.CreateAsync(file, bp);
             return s;
         }
 
@@ -137,17 +143,37 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             List<AbstractItem> items = new List<AbstractItem>();
             var item = GetAssociatedItem(association.LocalFolderId);
             StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(item.EntityId);
-            //await _GetChangesFromSearchIndex(folder, association.Id, items);
-            await _CheckLocalFolderRecursive(folder, association.Id, items);
+            await _GetChangesFromSearchIndex(folder, association.Id, items);
+            //await _CheckLocalFolderRecursive(folder, association.Id, items);
             return items;
         }
 
         private async Task<StorageFolder> _GetStorageFolder(AbstractItem item)
         {
-            string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
-            string folderPath = Path.GetDirectoryName(filePath);
-            await Task.Run(() => Directory.CreateDirectory(folderPath));
-            return await StorageFolder.GetFolderFromPathAsync(folderPath);
+            try
+            {
+                string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
+                string folderPath = Path.GetDirectoryName(filePath);
+
+                var currentFolder = await StorageFolder.GetFolderFromPathAsync(item.Association.LocalFolderPath);
+                string[] folders = folderPath.Replace(currentFolder.Path, "").TrimStart('\\').Split('\\');
+
+                foreach (var folder in folders)
+                {
+                    if(string.IsNullOrWhiteSpace(folder))
+                        continue;
+                    IStorageItem tmp = null;
+                    tmp = await currentFolder.TryGetItemAsync(folder) ?? await currentFolder.CreateFolderAsync(folder);
+                    currentFolder = (StorageFolder)tmp;
+                }
+                return currentFolder;
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine(item.EntityId);
+            }
+            
+            return null;
         }
 
         private string _BuildFilePath(AbstractItem item)
