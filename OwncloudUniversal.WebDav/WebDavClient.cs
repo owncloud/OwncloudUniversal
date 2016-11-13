@@ -37,7 +37,7 @@ namespace OwncloudUniversal.WebDav
             var getRequest = new WebDavRequest(_credential, url, HttpMethod.Get);
             var response = await getRequest.SendAsync();
             var inputStream = await response.Content.ReadAsInputStreamAsync();
-            return inputStream.AsStreamForRead();
+            return inputStream.AsStreamForRead(16*1024);
         }
 
         public async Task<DavItem> Upload(Uri url, Stream contentStream)
