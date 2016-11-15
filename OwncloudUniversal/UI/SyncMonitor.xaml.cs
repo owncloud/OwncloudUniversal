@@ -8,6 +8,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System.Display;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -57,19 +58,31 @@ namespace OwncloudUniversal.UI
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            DisplayRequest request = new DisplayRequest();
-            request.RequestActive();
-            try
+            if (!Configuration.CurrentlyActive)
             {
-                await Worker.Run();
-                Configuration.CurrentlyActive = false;
+                DisplayRequest request = new DisplayRequest();
+                request.RequestActive();
+                try
+                {
+                    progressBar.IsIndeterminate = true;
+                    progressBar.Visibility = Visibility.Visible;
+                    Configuration.CurrentlyActive = true;
+                    await Worker.Run();
+                    Configuration.CurrentlyActive = false;
+                }
+                finally
+                {
+                    progressBar.IsIndeterminate = false;
+                    progressBar.Visibility = Visibility.Collapsed;
+                    Configuration.CurrentlyActive = false;
+                    request.RequestRelease();
+                }
             }
-            catch (Exception)
+            else
             {
-                Configuration.CurrentlyActive = false;
-                throw;
+                Worker.ExecutionContext.Status = ExecutionStatus.Stopped;
             }
-            request.RequestRelease();
+            
         }
     }
 }

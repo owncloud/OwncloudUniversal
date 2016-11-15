@@ -17,6 +17,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private List<LinkStatus> _linkList;
         private int _uploadCount;
         private int _downloadCount;
+        private bool _errorsOccured;
 
         public readonly ExecutionContext ExecutionContext;
         private readonly AbstractAdapter _sourceEntityAdapter;
@@ -29,7 +30,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _targetEntityAdapter = targetEntityAdapter;
             _isBackgroundTask = isBackgroundTask;
             ExecutionContext = new ExecutionContext();
-            
+            _errorsOccured = false;
+
         }
 
         public async Task Run()
@@ -60,14 +62,16 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     ExecutionContext.CurrentFileNumber = index++;
                     ExecutionContext.CurrentFileName = item.EntityId;
+                    if(ExecutionContext.Status == ExecutionStatus.Stopped)
+                        break;
                     await _Process(item);
                 }
                 catch (Exception e)
                 {
+                    _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
                     await
-                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}, \r\n{2}", e.Message, item.EntityId,
-                            e.StackTrace));
+                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
                 }
                 //we have 10 Minutes in total for each background task cycle
                 //after 10 minutes windows will terminate the task
@@ -82,7 +86,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}"
                 : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}");
             watch.Stop();
-            Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
+            if(!_errorsOccured)
+                Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
             ExecutionContext.Status = ExecutionStatus.Finished;
         }      
 

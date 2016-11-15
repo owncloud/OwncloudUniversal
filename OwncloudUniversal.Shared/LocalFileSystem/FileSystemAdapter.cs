@@ -89,7 +89,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             displayName = displayName.Substring(displayName.LastIndexOf('\\') + 1);
             if (item.IsCollection)
             {
-                storageItem = await folder.CreateFolderAsync(displayName, CreationCollisionOption.ReplaceExisting);
+                storageItem = await folder.CreateFolderAsync(displayName, CreationCollisionOption.OpenIfExists);
             }
             else
             {
@@ -97,7 +97,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 if (storageItem == null)
                 {
                     item = await LinkedAdapter.GetItem(item.EntityId);
-                    storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.ReplaceExisting);
+                    storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
                     byte[] buffer = new byte[16*1024];
                     using (var stream = await ((StorageFile) storageItem).OpenStreamForWriteAsync())
                     using (item.ContentStream)

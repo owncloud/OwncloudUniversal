@@ -25,20 +25,24 @@ namespace OwncloudUniversal.BackgroundSync
                 toastElements[0].InnerText = reason.ToString();
                 ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
             };
-            var fileSystem = new FileSystemAdapter(true, null);
-            var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
-            fileSystem.LinkedAdapter = webDav;
-            var worker = new SyncWorker(fileSystem, webDav, true);
-            try
+            if (Configuration.CurrentlyActive)
             {
-                Configuration.CurrentlyActive = true;
-                await worker.Run();
-                Configuration.CurrentlyActive = false;
+                var fileSystem = new FileSystemAdapter(true, null);
+                var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
+                fileSystem.LinkedAdapter = webDav;
+                var worker = new SyncWorker(fileSystem, webDav, true);
+                try
+                {
+                    Configuration.CurrentlyActive = true;
+                    await worker.Run();
+                    Configuration.CurrentlyActive = false;
+                }
+                catch
+                {
+                    Configuration.CurrentlyActive = false;
+                }
             }
-            catch
-            {
-                Configuration.CurrentlyActive = false;
-            }
+            
             _deferral.Complete();
         }
     }

@@ -23,6 +23,13 @@ namespace OwncloudUniversal.WebDav
         private readonly Stream _contentStream;
         private const string PropfindContent = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><propfind xmlns=\"DAV:\"><allprop/></propfind>";
 
+        /// <summary>
+        /// Sends a WebDav/Http-Request to the Webdav-Server
+        /// </summary>
+        /// <param name="networkCredential"></param>
+        /// <param name="requestUrl"></param>
+        /// <param name="method"></param>
+        /// <param name="contentStream">contentStream is not needed if sending a PROPFIND</param>
         public WebDavRequest(NetworkCredential networkCredential, Uri requestUrl, HttpMethod method, Stream contentStream = null)
         {
             _networkCredential = networkCredential;
