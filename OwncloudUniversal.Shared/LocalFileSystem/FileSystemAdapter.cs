@@ -40,11 +40,6 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             foreach (var file in files)
             {
                 IDictionary<string, object> propertyResult = null;
-                string folderPath = file.Path.Substring(0, file.Path.LastIndexOf('\\'));
-                var sfolder = await StorageFolder.GetFolderFromPathAsync(folderPath);
-                var sfile = await sfolder.TryGetItemAsync(Path.GetFileName(file.Path)) as StorageFile;
-                if (sfile == null)
-                    continue; //for some reason windows seems to return files that dont exist (yet?/anymore?)
                 if (file.IsOfType(StorageItemTypes.File))
                     propertyResult = await ((StorageFile) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                 else if (file.IsOfType(StorageItemTypes.Folder))

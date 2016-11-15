@@ -75,7 +75,10 @@ namespace OwncloudUniversal.WebDav
                 return await GetItem(path);
             }
             AbstractItem targetItem = null;
-            item = await LinkedAdapter.GetItem(item.EntityId);
+            var tmp = await LinkedAdapter.GetItem(item.EntityId);
+            item.ContentStream = tmp.ContentStream;
+            item.Size = tmp.Size;
+            item.ChangeKey = tmp.ChangeKey;
             var folderPath = _BuildRemoteFilePath(item.Association, item.EntityId);
             using (var stream = item.ContentStream)
             {
@@ -136,7 +139,7 @@ namespace OwncloudUniversal.WebDav
                     continue;
                 }
                 var folderContent = await _davClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
-                if (folderContent.Count(x => x.DisplayName == folderName && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
+                if (folderContent.Count(x => x.DisplayName == WebUtility.UrlDecode(folderName) && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
                         await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
                 existingFolders.Add(currentFolder + '/' + folderName);
                 currentFolder += '/' + folderName;

@@ -37,7 +37,7 @@ namespace OwncloudUniversal.BackgroundSync
                     await worker.Run();
                     Configuration.CurrentlyActive = false;
                 }
-                catch
+                finally 
                 {
                     Configuration.CurrentlyActive = false;
                 }

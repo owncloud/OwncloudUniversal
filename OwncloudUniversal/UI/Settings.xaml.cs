@@ -72,6 +72,11 @@ namespace OwncloudUniversal.UI
         private void toggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             taskConfig.Enabled = toggleSwitch.IsOn;
+            //if necessary reset the ActiveFlag by enabling/disabling the Backgroundtask
+            if (!toggleSwitch.IsOn)
+            {
+                Configuration.CurrentlyActive = false;
+            }
         }
 
         private void btnFolderPairs_Click(object sender, RoutedEventArgs e)
