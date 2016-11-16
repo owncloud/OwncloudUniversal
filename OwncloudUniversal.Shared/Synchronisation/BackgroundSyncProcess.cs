@@ -11,7 +11,7 @@ using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.Shared.Synchronisation
 {
-    public class SyncWorker
+    public class BackgroundSyncProcess
     {       
         private List<AbstractItem> _itemIndex;
         private List<LinkStatus> _linkList;
@@ -24,7 +24,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
 
-        public SyncWorker(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
+        public BackgroundSyncProcess(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
         {
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
@@ -115,7 +115,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     var result = await Update(item);
                     AfterUpdate(item, result);
                 }
-
             }
         }
 

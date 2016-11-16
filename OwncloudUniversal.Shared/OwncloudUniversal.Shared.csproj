@@ -128,7 +128,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite\DateTimeHelper.cs" />
     <Compile Include="SQLite\SQLiteClient.cs" />
-    <Compile Include="Synchronisation\SyncWorker.cs" />
+    <Compile Include="Synchronisation\BackgroundSyncProcess.cs" />
     <EmbeddedResource Include="Properties\owncloud_universal.shared.rd.xml" />
   </ItemGroup>
   <ItemGroup>

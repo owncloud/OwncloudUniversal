@@ -30,7 +30,7 @@ namespace OwncloudUniversal.UI
     /// </summary>
     public sealed partial class SyncMonitor : Page
     {
-        public SyncWorker Worker { get; set; }
+        public BackgroundSyncProcess Worker { get; set; }
         public SyncMonitor()
         {
             this.InitializeComponent();
@@ -40,7 +40,7 @@ namespace OwncloudUniversal.UI
             var fileSystem = new FileSystemAdapter(false, null);
             var webDav = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, fileSystem);
             fileSystem.LinkedAdapter = webDav;
-            Worker = new SyncWorker(fileSystem,webDav, false);
+            Worker = new BackgroundSyncProcess(fileSystem,webDav, false);
         }
 
         private void BackRequestet(object sender, BackRequestedEventArgs args)

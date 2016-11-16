@@ -25,12 +25,12 @@ namespace OwncloudUniversal.BackgroundSync
                 toastElements[0].InnerText = reason.ToString();
                 ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
             };
-            if (Configuration.CurrentlyActive)
+            if (!Configuration.CurrentlyActive)
             {
                 var fileSystem = new FileSystemAdapter(true, null);
                 var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
                 fileSystem.LinkedAdapter = webDav;
-                var worker = new SyncWorker(fileSystem, webDav, true);
+                var worker = new BackgroundSyncProcess(fileSystem, webDav, true);
                 try
                 {
                     Configuration.CurrentlyActive = true;
