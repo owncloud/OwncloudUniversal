@@ -35,6 +35,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             var builder = new BackgroundTaskBuilder();
             builder.Name = TaskName;
             builder.TaskEntryPoint = EntryPoint;
+            builder.AddCondition(new SystemCondition(SystemConditionType.UserNotPresent));
+            builder.CancelOnConditionLoss = true;
             BackgroundExecutionManager.RemoveAccess();
             var promise = await BackgroundExecutionManager.RequestAccessAsync();
 

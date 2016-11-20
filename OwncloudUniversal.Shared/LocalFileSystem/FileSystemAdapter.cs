@@ -29,7 +29,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             string timeFilter = "System.Search.GatherTime:>=" + Configuration.LastSync;
             options.ApplicationSearchFilter = timeFilter;
             var prefetchedProperties = new List<string> {"System.DateModified", "System.Size"};
-            options.SetPropertyPrefetch(PropertyPrefetchOptions.None, prefetchedProperties);
+            options.SetPropertyPrefetch(PropertyPrefetchOptions.BasicProperties, prefetchedProperties);
             if (!folder.AreQueryOptionsSupported(options))
                 throw new Exception($"Windows Search Index has to be enabled for {folder.Path}");
 
@@ -52,8 +52,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             if (!IsBackgroundSync)
             {
                 var unsynced =
-                        AbstractItemTableModel.GetDefault().GetPostponedItems().Where(x => x.EntityId.Contains("\\"));
-                    //TODO find a better way
+                        AbstractItemTableModel.GetDefault().GetPostponedItems().Where(x => x.AdapterType == typeof(FileSystemAdapter));
                 foreach (var abstractItem in unsynced)
                 {
                     abstractItem.SyncPostponed = false;
@@ -202,5 +201,42 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         public FileSystemAdapter(bool isBackgroundSync, AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
         {
         }
+
+        public override async Task<List<AbstractItem>> GetDeletedItemsAsync(FolderAssociation association)
+        {
+            List<AbstractItem> result = new List<AbstractItem>();
+            //get the storagefolder
+            var localFolderItem = GetAssociatedItem(association.LocalFolderId);
+            StorageFolder sFolder = await StorageFolder.GetFolderFromPathAsync(localFolderItem.EntityId);
+
+            var sItems = new List<IStorageItem>();
+            var options = new QueryOptions();
+            options.FolderDepth = FolderDepth.Deep;
+            options.IndexerOption = IndexerOption.OnlyUseIndexer;
+            string timeFilter = "System.Search.GatherTime:>=" + DateTime.MinValue;
+            options.ApplicationSearchFilter = timeFilter;
+            if (!sFolder.AreQueryOptionsSupported(options))
+                throw new Exception($"Windows Search Index has to be enabled for {sFolder.Path}");
+
+            var itemQuery = sFolder.CreateItemQueryWithOptions(options);
+            sItems.AddRange(await itemQuery.GetItemsAsync());
+            
+            //get all the files and folders from the db that were inside the folder at the last time
+            var existingItems =
+                AbstractItemTableModel.GetDefault()
+                    .GetAllItems()
+                    .Where(x => x.EntityId.Contains(localFolderItem.EntityId));
+
+            foreach (var existingItem in existingItems)
+            {
+                if(existingItem.EntityId == sFolder.Path) continue;
+                //if a file with that path is in the list, the file has not been deleted
+                if(sItems.FirstOrDefault(x => x.Path == existingItem.EntityId) != null) continue;
+                result.Add(existingItem);
+            }
+
+            return result;
+        }
+
     }
 }

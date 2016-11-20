@@ -38,17 +38,21 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             var watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
-            var items = FolderAssociationTableModel.GetDefault().GetAllItems();
-            foreach (FolderAssociation item in items)
+            var associations = FolderAssociationTableModel.GetDefault().GetAllItems();
+            foreach (FolderAssociation association in associations)
             {
-                await LogHelper.Write($"Syncing {item.LocalFolderPath} with {item.RemoteFolderFolderPath}");
+                await LogHelper.Write($"Syncing {association.LocalFolderPath} with {association.RemoteFolderFolderPath}");
                 if (watch.Elapsed.Minutes >= 9)
                     break;
                 ExecutionContext.Status = ExecutionStatus.Scanning;
-                _itemIndex = await _targetEntityAdapter.GetUpdatedItems(item);
-                _itemIndex.AddRange(await _sourceEntityAdapter.GetUpdatedItems(item));
-                _UpdateFileIndexes(item);
+                _itemIndex = await _targetEntityAdapter.GetUpdatedItems(association);
+                _itemIndex.AddRange(await _sourceEntityAdapter.GetUpdatedItems(association));
+                _UpdateFileIndexes(association);
 
+
+                var deleted = await _targetEntityAdapter.GetDeletedItemsAsync(association);
+                deleted.AddRange(await _sourceEntityAdapter.GetDeletedItemsAsync(association));
+                DeleteFromIndex(deleted);
             }
             _itemIndex = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
             var model = LinkStatusTableModel.GetDefault();
@@ -181,6 +185,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     t.Id = foundItem.Id;
 
                 }
+            }
+        }
+
+        private void DeleteFromIndex(List<AbstractItem> itemsToDelete)
+        {
+            foreach (var abstractItem in itemsToDelete)
+            {
+                AbstractItemTableModel.GetDefault().DeleteItem(abstractItem.Id);
             }
         }
 

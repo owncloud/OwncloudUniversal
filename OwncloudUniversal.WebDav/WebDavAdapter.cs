@@ -202,5 +202,46 @@ namespace OwncloudUniversal.WebDav
             return AbstractItemTableModel.GetDefault().GetItem(id);
         }
 
+        public override async Task<List<AbstractItem>> GetDeletedItemsAsync(FolderAssociation association)
+        {
+            List<AbstractItem> items = new List<AbstractItem>();
+            var folder = AbstractItemTableModel.GetDefault().GetItem(association.RemoteFolderId);
+            var existingItems = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
+            await _GetDeletedItemsAsync(folder, existingItems, items);
+            return items;
+        }
+
+        private async Task _GetDeletedItemsAsync(AbstractItem folder, List<AbstractItem> itemIndex, List<AbstractItem> result)
+        {
+            List<DavItem> folderItems = await _davClient.ListFolder(new Uri(folder.EntityId, UriKind.RelativeOrAbsolute));
+            //get all items that should be in a specific folder (according to the database)
+            var existingItems = itemIndex.Where(x => x.EntityId.Contains(folder.EntityId));
+            foreach (var item in existingItems)
+            {
+                if (item.EntityId == folder.EntityId) continue;
+                if (GetParentFolderHref(item.EntityId) != folder.EntityId.TrimEnd('/')) continue;
+                //check if the items saved in the db are still in the remote folder
+                var folderItem = folderItems.FirstOrDefault(x => x.EntityId == item.EntityId);
+                if (item.IsCollection && folderItem != null)
+                {
+                    //if a subfolder has changed, search there too
+                    if (ChangekeyHasChanged(folderItem))
+                        await _GetDeletedItemsAsync(folderItem, itemIndex, result);
+                }
+                else if (folderItem == null)
+                {
+                    //if it is not, the file has been deleted on remote side
+                    result.Add(item);
+                }
+            }
+        }
+
+        private string GetParentFolderHref(string href)
+        {
+            href = href.TrimEnd('/');
+            href = href.Substring(0, href.LastIndexOf('/'));
+            return href;
+        }
+
     }
 }

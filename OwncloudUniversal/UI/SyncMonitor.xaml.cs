@@ -58,31 +58,20 @@ namespace OwncloudUniversal.UI
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            if (!Configuration.CurrentlyActive)
+            DisplayRequest request = new DisplayRequest();
+            request.RequestActive();
+            try
             {
-                DisplayRequest request = new DisplayRequest();
-                request.RequestActive();
-                try
-                {
-                    progressBar.IsIndeterminate = true;
-                    progressBar.Visibility = Visibility.Visible;
-                    Configuration.CurrentlyActive = true;
-                    await Worker.Run();
-                    Configuration.CurrentlyActive = false;
-                }
-                finally
-                {
-                    progressBar.IsIndeterminate = false;
-                    progressBar.Visibility = Visibility.Collapsed;
-                    Configuration.CurrentlyActive = false;
-                    request.RequestRelease();
-                }
+                progressBar.IsIndeterminate = true;
+                progressBar.Visibility = Visibility.Visible;
+                await Worker.Run();
             }
-            else
+            finally
             {
-                Worker.ExecutionContext.Status = ExecutionStatus.Stopped;
+                progressBar.IsIndeterminate = false;
+                progressBar.Visibility = Visibility.Collapsed;
+                request.RequestRelease();
             }
-            
         }
     }
 }

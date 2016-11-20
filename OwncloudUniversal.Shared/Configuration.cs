@@ -77,18 +77,6 @@ namespace OwncloudUniversal.Shared
             }
             set { _config.Values["MaxDownloadSize"] = value; }
         }
-
-        public static bool CurrentlyActive
-        {
-            get
-            {
-                if (_config.Values.ContainsKey("CurrentlyActive"))
-                    return (bool)_config.Values["CurrentlyActive"];
-                return false;
-            }
-            set { _config.Values["CurrentlyActive"] = value; }
-        }
-
         public static NetworkCredential Credential => new NetworkCredential(UserName, Password);
     }
 }

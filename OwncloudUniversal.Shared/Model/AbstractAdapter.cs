@@ -33,5 +33,7 @@ namespace OwncloudUniversal.Shared.Model
         public abstract Task<AbstractItem> GetItem(string entityId);
 
         public abstract Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association);
+
+        public abstract Task<List<AbstractItem>> GetDeletedItemsAsync(FolderAssociation association);
     }
 }
