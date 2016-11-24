@@ -41,7 +41,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             var associations = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation association in associations)
             {
-                await LogHelper.Write($"Syncing {association.LocalFolderPath} with {association.RemoteFolderFolderPath}");
+                await LogHelper.Write($"Scanning {association.LocalFolderPath} and {association.RemoteFolderFolderPath} BackgroundTask: {_isBackgroundTask}");
                 if (watch.Elapsed.Minutes >= 9)
                     break;
                 ExecutionContext.Status = ExecutionStatus.Scanning;
@@ -49,14 +49,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 _itemIndex.AddRange(await _sourceEntityAdapter.GetUpdatedItems(association));
                 _UpdateFileIndexes(association);
 
-
                 var deleted = await _targetEntityAdapter.GetDeletedItemsAsync(association);
                 deleted.AddRange(await _sourceEntityAdapter.GetDeletedItemsAsync(association));
                 DeleteFromIndex(deleted);
+                await LogHelper.Write($"Updating: {_itemIndex.Count} Deleting: {deleted.Count} BackgroundTask: {_isBackgroundTask}");
             }
+            await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             _itemIndex = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
-            var model = LinkStatusTableModel.GetDefault();
-            _linkList = model.GetAllItems().ToList();
+            _linkList = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
             ExecutionContext.Status = ExecutionStatus.Active;
             ExecutionContext.TotalFileCount = _itemIndex.Count;
             int index = 1;
@@ -74,18 +74,19 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
-                    await
-                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
                 }
                 //we have 10 Minutes in total for each background task cycle
                 //after 10 minutes windows will terminate the task
                 //so after 9 minutes we stop the sync and just wait for the next cycle
-                if (!_isBackgroundTask || watch.Elapsed.Minutes >= 9) continue;
-                await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
-                break;
+                if (watch.Elapsed.Minutes >= 9 && _isBackgroundTask)
+                {
+                    await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
+                    break;
+                }
             }
 
-            await LogHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed}");
+            await LogHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed} BackgroundTask: {_isBackgroundTask}");
             ToastHelper.SendToast(_isBackgroundTask
                 ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}"
                 : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}");
@@ -100,9 +101,10 @@ namespace OwncloudUniversal.Shared.Synchronisation
             //skip files bigger than 50MB, these will have to be synced manually
             //otherwise the upload/download could take too long and task would be terminated
             //TODO make this configurable
-            if (_isBackgroundTask && item.Size > (50 * 1024 * 1024))
+            if (item.Size > (50 * 1024 * 1024) & _isBackgroundTask)
             {
                 item.SyncPostponed = true;
+                AbstractItemTableModel.GetDefault().UpdateItem(item, item.Id);
                 return;
             }
             var link = _linkList.FirstOrDefault(x => (x.SourceItemId == item.Id || x.TargetItemId == item.Id) && x.AssociationId == item.Association.Id);

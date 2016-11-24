@@ -114,6 +114,28 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             return targetItem;
         }
 
+        public async Task<AbstractItem> AddItem(AbstractItem item, StorageFile targetFile)
+        {
+            item = await LinkedAdapter.GetItem(item.EntityId);
+            byte[] buffer = new byte[16 * 1024];
+            using (var stream = await targetFile.OpenStreamForWriteAsync())
+            using (item.ContentStream)
+            {
+                int read = 0;
+                while ((read = await item.ContentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    await stream.WriteAsync(buffer, 0, read);
+                }
+                FileUpdateStatus status =
+                    await CachedFileManager.CompleteUpdatesAsync(targetFile);
+                if (status != FileUpdateStatus.Complete)
+                    throw new Exception("File incomplete: " + status);
+            }
+            BasicProperties bp = await targetFile.GetBasicPropertiesAsync();
+            var targetItem = new LocalItem(item.Association, targetFile, bp);
+            return targetItem;
+        }
+
         public override async Task<AbstractItem> UpdateItem(AbstractItem item)
         {
             return await AddItem(item);

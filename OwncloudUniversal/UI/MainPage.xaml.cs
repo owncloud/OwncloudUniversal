@@ -80,12 +80,12 @@ namespace OwncloudUniversal.UI
             Frame.Navigate(typeof(Settings));
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = e.AddedItems[0] as AbstractItem;
             if (!item.IsCollection)
             {
-                Download(item);
+                await _currentFolder.Download(item);
                 return;
             }
             Frame.Navigate(typeof(MainPage), item);
@@ -147,18 +147,14 @@ namespace OwncloudUniversal.UI
             FolderAssociationTableModel.GetDefault().UpdateItem(fa, fa.Id);
         }
 
-        private void Download(AbstractItem item)
-        {
-            throw new NotImplementedException();
-        }
         private void appBarButton_Click_1(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SyncMonitor));
         }
 
-        private void btnUpload_Click(object sender, RoutedEventArgs e)
+        private async void btnUpload_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            await _currentFolder.Upload();
         }
     }
 }

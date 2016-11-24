@@ -24,6 +24,7 @@ namespace OwncloudUniversal.BackgroundSync
                 var toastElements = toastXml.GetElementsByTagName("text");
                 toastElements[0].InnerText = reason.ToString();
                 ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                Task.Run(() => LogHelper.Write($"BackgroundTask canceled. Reason: {reason}"));
             };
             var fileSystem = new FileSystemAdapter(true, null);
             var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
@@ -32,9 +33,16 @@ namespace OwncloudUniversal.BackgroundSync
             try
             {
                 await worker.Run();
+                await LogHelper.Write("BackgroundTask finished");
             }
-            finally 
+            catch (Exception e)
             {
+                await LogHelper.Write($"BackgroundTask Exception: {e.Message}");
+            }
+            finally
+            {
+
+                await LogHelper.Write("BackgroundTask finished finally");
                 _deferral.Complete();
             }
             

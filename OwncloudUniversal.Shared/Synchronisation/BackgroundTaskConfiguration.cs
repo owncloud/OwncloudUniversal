@@ -42,6 +42,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
             var maintenanceTrigger = new MaintenanceTrigger(15, false);
             builder.SetTrigger(maintenanceTrigger);
+            builder.IsNetworkRequested = true;
             BackgroundTaskRegistration registration = builder.Register();
             
         }

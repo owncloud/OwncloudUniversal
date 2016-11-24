@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Windows.Storage;
+
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Shared.Synchronisation;
@@ -28,7 +28,7 @@ namespace OwncloudUniversal.WebDav
             {
                 //build path and folder name
                 string path = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
-                var folderName = (await StorageFolder.GetFolderFromPathAsync(localItem.EntityId)).DisplayName;
+                var folderName = Path.GetFileNameWithoutExtension(localItem.EntityId);
 
                 //create folder and parent folders
                 await CreateFolder(localItem.Association, localItem, folderName);
@@ -55,8 +55,7 @@ namespace OwncloudUniversal.WebDav
                 var folder = await _davClient.ListFolder(new Uri(folderPath, UriKind.RelativeOrAbsolute));
                 var existingItem = folder.FirstOrDefault(x => x.DisplayName == Path.GetFileName(localItem.EntityId));
                 if (existingItem != null && 
-                    existingItem.LastModified > Convert.ToDateTime(localItem.ChangeKey) &&
-                    existingItem.Size != localItem.Size)
+                    existingItem.Size == localItem.Size)
                 {
                     existingItem.Association = localItem.Association;
                     return existingItem;
@@ -65,6 +64,16 @@ namespace OwncloudUniversal.WebDav
                 resultItem.Association = localItem.Association;
             }
             return resultItem;
+        }
+
+        public async Task AddItemAsync(AbstractItem localItem, string targetHref)
+        {
+            var tmp = await LinkedAdapter.GetItem(localItem.EntityId);
+            localItem.ContentStream = tmp.ContentStream;
+            localItem.Size = tmp.Size;
+            localItem.ChangeKey = tmp.ChangeKey;
+            var uri = new Uri(targetHref.TrimEnd('/')+'/'+Path.GetFileName(localItem.EntityId));
+            await _davClient.Upload(uri, localItem.ContentStream);
         }
 
         public override async Task<AbstractItem> UpdateItem(AbstractItem item)
