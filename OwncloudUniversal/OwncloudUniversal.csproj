@@ -19,9 +19,9 @@
     <PackageCertificateKeyFile>OwncloudUniversal_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>arm</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-    <PackageCertificateThumbprint>9F1715A4D110EE4903DF05E9C765A9B53CB4AE11</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>DAA13D2B9D63BF471B6ECAC29EC1DCB013F30D7C</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
