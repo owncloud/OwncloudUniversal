@@ -17,6 +17,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private List<LinkStatus> _linkList;
         private int _uploadCount;
         private int _downloadCount;
+        private int _deletedCount;
         private bool _errorsOccured;
 
         public readonly ExecutionContext ExecutionContext;
@@ -52,6 +53,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 var deleted = await _targetEntityAdapter.GetDeletedItemsAsync(association);
                 deleted.AddRange(await _sourceEntityAdapter.GetDeletedItemsAsync(association));
                 DeleteFromIndex(deleted);
+                _deletedCount = deleted.Count;
                 await LogHelper.Write($"Updating: {_itemIndex.Count} Deleting: {deleted.Count} BackgroundTask: {_isBackgroundTask}");
             }
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
@@ -88,8 +90,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
             await LogHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed} BackgroundTask: {_isBackgroundTask}");
             ToastHelper.SendToast(_isBackgroundTask
-                ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}"
-                : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded. Duration: {watch.Elapsed}");
+                ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {watch.Elapsed}"
+                : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {watch.Elapsed}");
             watch.Stop();
             if(!_errorsOccured)
                 Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");

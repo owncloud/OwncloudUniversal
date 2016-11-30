@@ -152,5 +152,20 @@ namespace OwncloudUniversal.Shared.Model
             }
             return items;
         }
+
+        public ObservableCollection<AbstractItem> GetFilesForFolder(FolderAssociation association, Type adapterType)
+        {
+            var items = new ObservableCollection<AbstractItem>();
+            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType from Item i " +
+                                                  $"where i.AssociationId = '{association.Id}' AND i.AdapterType = '{adapterType.AssemblyQualifiedName}'"))
+            {
+                while (query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
     }
 }

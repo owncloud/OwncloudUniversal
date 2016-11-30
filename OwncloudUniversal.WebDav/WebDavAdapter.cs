@@ -148,7 +148,7 @@ namespace OwncloudUniversal.WebDav
                     continue;
                 }
                 var folderContent = await _davClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
-                if (folderContent.Count(x => x.DisplayName == WebUtility.UrlDecode(folderName) && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
+                if (folderContent.Count(x => x.DisplayName == folderName && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
                         await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
                 existingFolders.Add(currentFolder + '/' + folderName);
                 currentFolder += '/' + folderName;
@@ -215,7 +215,7 @@ namespace OwncloudUniversal.WebDav
         {
             List<AbstractItem> items = new List<AbstractItem>();
             var folder = AbstractItemTableModel.GetDefault().GetItem(association.RemoteFolderId);
-            var existingItems = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
+            var existingItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(association, this.GetType()).ToList();
             await _GetDeletedItemsAsync(folder, existingItems, items);
             return items;
         }

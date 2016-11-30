@@ -246,8 +246,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             //get all the files and folders from the db that were inside the folder at the last time
             var existingItems =
                 AbstractItemTableModel.GetDefault()
-                    .GetAllItems()
-                    .Where(x => x.EntityId.Contains(localFolderItem.EntityId));
+                    .GetFilesForFolder(association, this.GetType());
 
             foreach (var existingItem in existingItems)
             {
