@@ -39,10 +39,7 @@ namespace OwncloudUniversal.WebDav
             }
             else
             {
-                var tmp = await LinkedAdapter.GetItem(localItem.EntityId);
-                localItem.ContentStream = tmp.ContentStream;
-                localItem.Size = tmp.Size;
-                localItem.ChangeKey = tmp.ChangeKey;
+                localItem.ContentStream = await LinkedAdapter.GetItemStreamAsync(localItem.EntityId); ;
                 await CreateFolder(localItem.Association, localItem, Path.GetDirectoryName(localItem.EntityId));
 
                 var folderPath = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
@@ -68,10 +65,7 @@ namespace OwncloudUniversal.WebDav
 
         public async Task AddItemAsync(AbstractItem localItem, string targetHref)
         {
-            var tmp = await LinkedAdapter.GetItem(localItem.EntityId);
-            localItem.ContentStream = tmp.ContentStream;
-            localItem.Size = tmp.Size;
-            localItem.ChangeKey = tmp.ChangeKey;
+            localItem.ContentStream = await LinkedAdapter.GetItemStreamAsync(localItem.EntityId);
             var uri = new Uri(targetHref.TrimEnd('/')+'/'+Path.GetFileName(localItem.EntityId));
             await _davClient.Upload(uri, localItem.ContentStream);
         }
@@ -84,10 +78,7 @@ namespace OwncloudUniversal.WebDav
                 return await GetItem(path);
             }
             AbstractItem targetItem = null;
-            var tmp = await LinkedAdapter.GetItem(item.EntityId);
-            item.ContentStream = tmp.ContentStream;
-            item.Size = tmp.Size;
-            item.ChangeKey = tmp.ChangeKey;
+            item.ContentStream = await LinkedAdapter.GetItemStreamAsync(item.EntityId);
             var folderPath = _BuildRemoteFilePath(item.Association, item.EntityId);
             using (var stream = item.ContentStream)
             {
@@ -98,7 +89,7 @@ namespace OwncloudUniversal.WebDav
             return targetItem;
         }
 
-        public override async Task<AbstractItem> GetItem(string entityId)
+        private async Task<AbstractItem> GetItem(string entityId)
         {
             var items = await _davClient.ListFolder(new Uri(entityId, UriKind.RelativeOrAbsolute));
             var item = items.FirstOrDefault();
@@ -106,6 +97,11 @@ namespace OwncloudUniversal.WebDav
                 item.ContentStream = await _davClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
             return item;
 
+        }
+
+        public override async Task<Stream> GetItemStreamAsync(string entityId)
+        {
+            return await _davClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
         }
 
         public override Task DeleteItem(AbstractItem item)
@@ -133,7 +129,7 @@ namespace OwncloudUniversal.WebDav
             //adds the folder and if necessesary the parent folder
             var remoteBaseFolder = GetAssociatedItem(association.RemoteFolderId).EntityId;
             var path = _BuildRemoteFolderPath(association, localItem.EntityId);
-            path = path.Replace(remoteBaseFolder, "").TrimEnd('/');
+            path = WebUtility.UrlDecode(path.Replace(remoteBaseFolder, "").TrimEnd('/'));
             var folders = path.Split('/');
             if (localItem.IsCollection)
             {
@@ -142,7 +138,7 @@ namespace OwncloudUniversal.WebDav
             var currentFolder = remoteBaseFolder.TrimEnd('/');
             foreach (string folderName in folders)
             {
-                if (existingFolders.Contains(currentFolder + '/' + folderName))
+                if (existingFolders.Contains(currentFolder + '/' + folderName))//this should speed up the inital sync
                 {
                     currentFolder += '/' + folderName;
                     continue;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace OwncloudUniversal.Shared.Model
 
         public abstract Task DeleteItem(AbstractItem item);
 
-        public abstract Task<AbstractItem> GetItem(string entityId);
+        public abstract Task<Stream> GetItemStreamAsync(string entityId);
 
         public abstract Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association);
 

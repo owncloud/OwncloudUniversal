@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Security.Credentials;
 using Windows.Storage;
 
 namespace OwncloudUniversal.Shared
@@ -11,6 +12,9 @@ namespace OwncloudUniversal.Shared
     public static class Configuration
     {
         private static Windows.Storage.ApplicationDataContainer _config = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+        private static string _password = "";
+        private static string _username = "";
 
         public static string ServerUrl
         {
@@ -36,24 +40,22 @@ namespace OwncloudUniversal.Shared
 
         public static string UserName
         {
-            get
+            get { return GetCredentialFromLocker()?.UserName ?? String.Empty; }
+            set
             {
-                if (_config.Values.ContainsKey("UserName"))
-                    return (string)_config.Values["UserName"];
-                return String.Empty;
+                _username = value; 
+                AddCredentialToLocker();
             }
-            set { _config.Values["UserName"] = value; }
         }
 
         public static string Password
         {
-            get
+            get { return GetCredentialFromLocker()?.Password ?? String.Empty; }
+            set
             {
-                if (_config.Values.ContainsKey("Password"))
-                    return (string)_config.Values["Password"];
-                return String.Empty;
+                _password = value;
+                AddCredentialToLocker();
             }
-            set { _config.Values["Password"] = value; }
         }
 
         public static string LastSync
@@ -78,5 +80,44 @@ namespace OwncloudUniversal.Shared
             set { _config.Values["MaxDownloadSize"] = value; }
         }
         public static NetworkCredential Credential => new NetworkCredential(UserName, Password);
+
+        private static PasswordCredential GetCredentialFromLocker()
+        {
+            Windows.Security.Credentials.PasswordCredential credential = null;
+
+            var vault = new Windows.Security.Credentials.PasswordVault();
+            var credentialList = vault.RetrieveAll();
+            if (credentialList.Count > 0)
+            {
+                if (credentialList.Count == 1)
+                {
+                    credential = credentialList[0];
+                }
+                else
+                {
+                    credential = vault.RetrieveAll().FirstOrDefault();
+                }
+                credential.RetrievePassword();
+            }
+
+            return credential;
+        }
+
+        private static void AddCredentialToLocker()
+        {
+            if (!(string.IsNullOrWhiteSpace(_username) || string.IsNullOrWhiteSpace(_password)))
+            {
+                var credential = new PasswordCredential("OwncloudUniversal", _username, _password);
+                var vault = new Windows.Security.Credentials.PasswordVault();
+                vault.Add(credential);
+            }
+        }
+
+        public static void RemoveCredentials()
+        {
+            if(GetCredentialFromLocker() == null) return;
+            var vault = new PasswordVault();
+            vault.Remove(GetCredentialFromLocker());
+        }
     }
 }

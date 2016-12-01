@@ -90,7 +90,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 storageItem = await folder.TryGetItemAsync(displayName);
                 if (storageItem == null)
                 {
-                    item = await LinkedAdapter.GetItem(item.EntityId);
+                    item.ContentStream = await LinkedAdapter.GetItemStreamAsync(item.EntityId);
                     storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
                     byte[] buffer = new byte[16*1024];
                     using (var stream = await ((StorageFile) storageItem).OpenStreamForWriteAsync())
@@ -116,7 +116,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         public async Task<AbstractItem> AddItem(AbstractItem item, StorageFile targetFile)
         {
-            item = await LinkedAdapter.GetItem(item.EntityId);
+            item.ContentStream = await LinkedAdapter.GetItemStreamAsync(item.EntityId);
             byte[] buffer = new byte[16 * 1024];
             using (var stream = await targetFile.OpenStreamForWriteAsync())
             using (item.ContentStream)
@@ -145,13 +145,11 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         {
             throw new NotImplementedException();
         }
-
-        public override async Task<AbstractItem> GetItem(string entityId)
+        
+        public override async Task<Stream> GetItemStreamAsync(string entityId)
         {
             var file = await StorageFile.GetFileFromPathAsync(entityId);
-            BasicProperties bp = await file.GetBasicPropertiesAsync();
-            var s = await LocalItem.CreateAsync(file, bp);
-            return s;
+            return await file.OpenStreamForReadAsync();
         }
 
         public override async Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association)

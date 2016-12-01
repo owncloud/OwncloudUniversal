@@ -100,6 +100,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private async Task _Process(AbstractItem item)
         {
+            //the root item of an association should not be created again
+            if(item.Id == item.Association.LocalFolderId || item.Id == item.Association.RemoteFolderId)
+                return;
             //skip files bigger than 50MB, these will have to be synced manually
             //otherwise the upload/download could take too long and task would be terminated
             //TODO make this configurable

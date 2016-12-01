@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.Security.Credentials;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
@@ -64,6 +65,8 @@ namespace OwncloudUniversal.UI
         {
             SQLiteClient.Reset();
             Configuration.LastSync = DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
+            //Configuration.RemoveCredentials();
+            //Configuration.ServerUrl = String.Empty;
             MessageDialog dialog = new MessageDialog("Database reset. Please configure the synced folders again.");
             LogHelper.ResetLog();
             await dialog.ShowAsync();
