@@ -1,121 +1,59 @@
-﻿using OwncloudUniversal.Shared.SQLite;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
+using System.Threading.Tasks;
+using OwncloudUniversal.Services.SettingsServices;
+using Windows.ApplicationModel.Activation;
+using Template10.Controls;
+using Template10.Common;
+using System;
+using System.Linq;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Controls;
+using OwncloudUniversal.Shared.SQLite;
 
 namespace OwncloudUniversal
 {
-    /// <summary>
-    /// Stellt das anwendungsspezifische Verhalten bereit, um die Standardanwendungsklasse zu ergänzen.
-    /// </summary>
-    sealed partial class App : Application
+    /// Documentation on APIs used in this page:
+    /// https://github.com/Windows-XAML/Template10/wiki
+
+    [Bindable]
+    sealed partial class App : BootStrapper
     {
-        /// <summary>
-        /// Initialisiert das Singletonanwendungsobjekt.  Dies ist die erste Zeile von erstelltem Code
-        /// und daher das logische Äquivalent von main() bzw. WinMain().
-        /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
-            this.UnhandledException += OnException;
+            InitializeComponent();
+            SplashFactory = (e) => new Views.Splash(e);
+
+            #region app settings
+
+            // some settings must be set in app.constructor
+            var settings = SettingsService.Instance;
+            RequestedTheme = settings.AppTheme;
+            CacheMaxDuration = settings.CacheMaxDuration;
+            ShowShellBackButton = settings.UseShellBackButton;
+            AutoSuspendAllFrames = true;
+            AutoRestoreAfterTerminated = true;
+            AutoExtendExecutionSession = true;
+
+            #endregion
         }
 
-        /// <summary>
-        /// Wird aufgerufen, wenn die Anwendung durch den Endbenutzer normal gestartet wird. Weitere Einstiegspunkte
-        /// werden z. B. verwendet, wenn die Anwendung gestartet wird, um eine bestimmte Datei zu öffnen.
-        /// </summary>
-        /// <param name="e">Details über Startanforderung und -prozess.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        public override UIElement CreateRootElement(IActivatedEventArgs e)
         {
-
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+            var service = NavigationServiceFactory(BackButton.Attach, ExistingContent.Exclude);
+            return new ModalDialog
             {
-                this.DebugSettings.EnableFrameRateCounter = false;
-            }
-#endif
+                DisableBackButtonWhenModal = true,
+                Content = new Views.Shell(service),
+                //ModalContent = new Views.Busy(),
+            };
+        }
+
+        public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
+        {
+            // TODO: add your long-running task here
             SQLiteClient.Init();
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            // App-Initialisierung nicht wiederholen, wenn das Fenster bereits Inhalte enthält.
-            // Nur sicherstellen, dass das Fenster aktiv ist.
-            if (rootFrame == null)
-            {
-                // Frame erstellen, der als Navigationskontext fungiert und zum Parameter der ersten Seite navigieren
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Zustand von zuvor angehaltener Anwendung laden
-                }
-
-                // Den Frame im aktuellen Fenster platzieren
-                Window.Current.Content = rootFrame;
-            }
-
-            if (rootFrame.Content == null)
-            {
-                // Wenn der Navigationsstapel nicht wiederhergestellt wird, zur ersten Seite navigieren
-                // und die neue Seite konfigurieren, indem die erforderlichen Informationen als Navigationsparameter
-                // übergeben werden
-                rootFrame.Navigate(typeof(OwncloudUniversal.UI.MainPage), e.Arguments);
-            }
-            // Sicherstellen, dass das aktuelle Fenster aktiv ist
-            Window.Current.Activate();
+            await NavigationService.NavigateAsync(typeof(Views.FilesPage));
         }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn die Navigation auf eine bestimmte Seite fehlschlägt
-        /// </summary>
-        /// <param name="sender">Der Rahmen, bei dem die Navigation fehlgeschlagen ist</param>
-        /// <param name="e">Details über den Navigationsfehler</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn die Ausführung der Anwendung angehalten wird.  Der Anwendungszustand wird gespeichert,
-        /// ohne zu wissen, ob die Anwendung beendet oder fortgesetzt wird und die Speicherinhalte dabei
-        /// unbeschädigt bleiben.
-        /// </summary>
-        /// <param name="sender">Die Quelle der Anhalteanforderung.</param>
-        /// <param name="e">Details zur Anhalteanforderung.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Anwendungszustand speichern und alle Hintergrundaktivitäten beenden
-            deferral.Complete();
-        }
-        
-        private void OnException(object sender, UnhandledExceptionEventArgs args)
-        {
-            args.Handled = true;
-            MessageDialog dia = new MessageDialog(args.Message);
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            dia.ShowAsync();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                              //if (global::System.Diagnostics.Debugger.IsAttached) global::System.Diagnostics.Debugger.Break();
-        }
-
-
-
     }
 }
+

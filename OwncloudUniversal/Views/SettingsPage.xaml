@@ -1,0 +1,164 @@
+<Page x:Class="OwncloudUniversal.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:converter="using:Template10.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:OwncloudUniversal.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:OwncloudUniversal.ViewModels"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:SettingsPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <converter:ValueWhenConverter x:Name="FalseWhenTrueConverter">
+            <converter:ValueWhenConverter.When>
+                <x:Boolean>True</x:Boolean>
+            </converter:ValueWhenConverter.When>
+            <converter:ValueWhenConverter.Value>
+                <x:Boolean>False</x:Boolean>
+            </converter:ValueWhenConverter.Value>
+            <converter:ValueWhenConverter.Otherwise>
+                <x:Boolean>True</x:Boolean>
+            </converter:ValueWhenConverter.Otherwise>
+        </converter:ValueWhenConverter>
+    </Page.Resources>
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!--  header  -->
+        <controls:PageHeader x:Name="pageHeader"
+                             Content="Settings"
+                             Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" />
+
+        <!--  content  -->
+        <Pivot x:Name="MyPivot"
+               Grid.Row="1"
+               EntranceNavigationTransitionInfo.IsTargetElement="True"
+               RelativePanel.AlignBottomWithPanel="True"
+               RelativePanel.AlignLeftWithPanel="True"
+               RelativePanel.AlignRightWithPanel="True"
+               RelativePanel.Below="pageHeader">
+
+            <!--  settings  -->
+            <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="Connection">
+                <ScrollViewer Margin="0,12,-12,0"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalScrollBarVisibility="Auto">
+                    <RelativePanel HorizontalAlignment="Left">
+
+                        <TextBox x:Name="ServerUrlTextBox" 
+                                 Header="WebDav-Url" 
+                                 Text="{Binding ServerUrl, Mode=TwoWay}"
+                                 Margin="0,0,0,12"
+                                 RelativePanel.AlignLeftWithPanel="True"
+                                 RelativePanel.AlignTopWithPanel="True" 
+                                 InputScope="Url" 
+                                 PlaceholderText="https://.../remote.php/webdav" />
+                        
+                        <TextBox x:Name="UserNameTextBox" 
+                                 Header="Username" 
+                                 Text="{Binding UserName, Mode=TwoWay}"
+                                 Margin="0,12"
+                                 RelativePanel.AlignLeftWithPanel="True"
+                                 RelativePanel.Below="ServerUrlTextBox" />
+                        
+                        <PasswordBox x:Name="PasswordBox"
+                                     Header="Password"
+                                     Margin="0,12"
+                                     Password="{Binding Password, Mode=TwoWay}"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.Below="UserNameTextBox" />
+
+                        <ToggleSwitch x:Name="BackgroundTaskEnabledToogleSwitch"
+                                      Header="Enable Background Task"
+                                      IsOn="{Binding BackgroundTaskEnabled, Mode=TwoWay}"
+                                      OnContent="Background Task Enabled"
+                                      OffContent="Background Task Disabled"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="PasswordBox" />
+
+                        <ToggleSwitch x:Name="UseShellDrawnBackButtonToggleSwtich"
+                                      Header="Shell-drawn Back Button"
+                                      IsOn="{Binding UseShellBackButton, Mode=TwoWay}"
+                                      OffContent="Back button is in Page Header"
+                                      OnContent="Back button in Title/TaskBar"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="BackgroundTaskEnabledToogleSwitch" />
+
+                        <ToggleSwitch x:Name="UseLightThemeToggleSwitch"
+                                      Header="Requested Application Theme"
+                                      IsOn="{Binding UseLightThemeButton, Mode=TwoWay}"
+                                      OffContent="Current theme is Dark"
+                                      OnContent="Current theme is Light"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="UseShellDrawnBackButtonToggleSwtich" />
+                        
+                        <Button x:Name="ResetButton"
+                                Margin="0,12"
+                                Content="Reset Database"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.Below="UseLightThemeToggleSwitch"
+                                Command="{Binding ResetCommand}"/>
+
+                    </RelativePanel>
+
+                </ScrollViewer>
+            </PivotItem>
+
+            <!--  about  -->
+            <PivotItem Header="About">
+                <RelativePanel DataContext="{Binding AboutPartViewModel}">
+
+                    <Border x:Name="LogoImage"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            BorderBrush="DimGray"
+                            BorderThickness="1"
+                            IsHitTestVisible="False"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.AlignTopWithPanel="True">
+                        <Border.Background>
+                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                        </Border.Background>
+                        <Image Margin="12"
+                               Source="{Binding Logo}"
+                               Stretch="None" />
+                    </Border>
+
+                    <TextBlock x:Name="DisplayNameTextBlock"
+                               Margin="0,0,0,12"
+                               FontSize="24"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.AlignRightWith="LogoImage"
+                               RelativePanel.AlignTopWithPanel="True"
+                               Text="{Binding DisplayName}" />
+
+                    <TextBlock x:Name="PublisherTextBlock"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="DisplayNameTextBlock"
+                               Text="{Binding Publisher}" />
+
+                    <TextBlock x:Name="VersionTextBlock"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="PublisherTextBlock">
+                        <Run>Version</Run>
+                        <Run Text="{Binding Version}" />
+                    </TextBlock>
+
+                </RelativePanel>
+            </PivotItem>
+        </Pivot>
+
+    </RelativePanel>
+
+</Page>
+
