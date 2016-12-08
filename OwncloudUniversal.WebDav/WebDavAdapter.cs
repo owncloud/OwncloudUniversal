@@ -137,15 +137,16 @@ namespace OwncloudUniversal.WebDav
                 folders = (path + "/" + name).Split('/');
             }
             var currentFolder = remoteBaseFolder.TrimEnd('/');
-            foreach (string folderName in folders)
+            foreach (string f in folders)
             {
+                string folderName = Uri.EscapeUriString(f);
                 if (existingFolders.Contains(currentFolder + '/' + folderName))//this should speed up the inital sync
                 {
                     currentFolder += '/' + folderName;
                     continue;
                 }
                 var folderContent = await _davClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
-                if (folderContent.Count(x => x.DisplayName == folderName && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
+                if (folderContent.Count(x => x.DisplayName == WebUtility.UrlDecode(folderName) && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
                         await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
                 existingFolders.Add(currentFolder + '/' + folderName);
                 currentFolder += '/' + folderName;

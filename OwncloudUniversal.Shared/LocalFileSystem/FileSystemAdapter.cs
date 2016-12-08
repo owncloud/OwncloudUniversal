@@ -233,27 +233,29 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var options = new QueryOptions();
             options.FolderDepth = FolderDepth.Deep;
             options.IndexerOption = IndexerOption.OnlyUseIndexer;
-            string timeFilter = "System.Search.GatherTime:>=" + DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
-            options.ApplicationSearchFilter = timeFilter;
             if (!sFolder.AreQueryOptionsSupported(options))
                 throw new Exception($"Windows Search Index has to be enabled for {sFolder.Path}");
 
             var itemQuery = sFolder.CreateItemQueryWithOptions(options);
             sItems.AddRange(await itemQuery.GetItemsAsync());
-            
             //get all the files and folders from the db that were inside the folder at the last time
             var existingItems =
                 AbstractItemTableModel.GetDefault()
                     .GetFilesForFolder(association, this.GetType());
-
             foreach (var existingItem in existingItems)
             {
                 if(existingItem.EntityId == sFolder.Path) continue;
                 //if a file with that path is in the list, the file has not been deleted
-                if(sItems.FirstOrDefault(x => x.Path == existingItem.EntityId) == null)
+                var sitem = sItems.FirstOrDefault(x => x.Path == existingItem.EntityId);
+                if (sitem == null)
+                {
                     result.Add(existingItem);
+                }
+                else
+                {
+                    sItems.Remove(sitem);
+                }
             }
-
             return result;
         }
 

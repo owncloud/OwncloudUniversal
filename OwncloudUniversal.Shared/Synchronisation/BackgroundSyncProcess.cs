@@ -126,6 +126,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     var result = await Update(item);
                     AfterUpdate(item, result);
                 }
+                _linkList.Remove(link);
             }
         }
 
