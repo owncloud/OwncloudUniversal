@@ -63,10 +63,10 @@ namespace OwncloudUniversal.Shared.Model
             return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item";
         }
 
-        protected override string GetSelectByPathQuery()
+        protected override string GetSelectByEntityIdQuery()
         {
-            //throw new NotImplementedException();
-            return null;
+            return
+                "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item WHERE EntityId = ?";
         }
 
         protected override string GetSelectItemQuery()
@@ -126,9 +126,24 @@ namespace OwncloudUniversal.Shared.Model
 
         public AbstractItem GetItem(AbstractItem item)
         {
-            using (var query = Connection.Prepare("SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item WHERE EntityId = ?"))
+            using (var query = Connection.Prepare(GetSelectByEntityIdQuery()))
             {
                 query.Bind(1, item.EntityId);
+                if (query.Step() == SQLiteResult.ROW)
+                {
+                    item = CreateInstance(query);
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public AbstractItem GetItemFromEntityId(string entityId)
+        {
+            var item = new AbstractItem();
+            using (var query = Connection.Prepare(GetSelectByEntityIdQuery()))
+            {
+                query.Bind(1, entityId);
                 if (query.Step() == SQLiteResult.ROW)
                 {
                     item = CreateInstance(query);

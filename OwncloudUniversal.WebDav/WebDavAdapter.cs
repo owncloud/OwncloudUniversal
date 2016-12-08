@@ -66,7 +66,7 @@ namespace OwncloudUniversal.WebDav
         public async Task AddItemAsync(AbstractItem localItem, string targetHref)
         {
             localItem.ContentStream = await LinkedAdapter.GetItemStreamAsync(localItem.EntityId);
-            var uri = new Uri(targetHref.TrimEnd('/')+'/'+Path.GetFileName(localItem.EntityId));
+            var uri = new Uri(targetHref.TrimEnd('/')+'/'+Path.GetFileName(localItem.EntityId), UriKind.RelativeOrAbsolute);
             await _davClient.Upload(uri, localItem.ContentStream);
         }
 
@@ -86,6 +86,7 @@ namespace OwncloudUniversal.WebDav
                 targetItem = await _davClient.Upload(new Uri(folderPath, UriKind.RelativeOrAbsolute), stream);
             }
             targetItem.Association = item.Association;
+            
             return targetItem;
         }
 

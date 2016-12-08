@@ -12,7 +12,7 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
 
-    <Controls:HamburgerMenu x:Name="MyHamburgerMenu">
+    <Controls:HamburgerMenu x:Name="MyHamburgerMenu" VisualStateNarrowDisplayMode="CompactOverlay">
 
         
         <Controls:HamburgerMenu.PrimaryButtons>

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Template10.Controls"
+    xmlns:uicontrol="using:Microsoft.Toolkit.Uwp.UI.Controls"
     DataContext="{Binding SynchronizationPageViewModel, RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d">
 
@@ -22,17 +23,15 @@
         <Pivot Grid.Row="1">
             <PivotItem  Header="Status" Margin="12">
                 <StackPanel>
-                    <TextBlock TextWrapping="Wrap" Height="20" Text="Synchronisation Status" VerticalAlignment="Top" />
-                    <TextBlock x:Name="tbStatus" TextWrapping="Wrap" Text="{Binding ExecutionContext.Status}" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" FontWeight="Bold"/>
-                    <TextBlock TextWrapping="Wrap" Text="Files to sync"/>
-                    <TextBlock x:Name="tbFilesToSync" TextWrapping="Wrap" Text="{Binding ExecutionContext.FileText}" FontWeight="Bold"/>
-                    <TextBlock x:Name="tbFileName" TextWrapping="Wrap" Text="{Binding ExecutionContext.CurrentFileName}"/>
-                    <Button Content="Start Sync" Command="{Binding StartSyncCommand}" Margin="20" HorizontalAlignment="Center"></Button>
+                    <uicontrol:HeaderedTextBlock x:Name="tbStatus" Header="Status" Text="{Binding ExecutionContext.Status}" FontWeight="Bold"/>
+                    <uicontrol:HeaderedTextBlock x:Name="tbFilesToSync" Header="Files to Sync" Text="{Binding ExecutionContext.FileText}" FontWeight="Bold"/>
+                    <uicontrol:HeaderedTextBlock x:Name="tbFileName" Header="Current File" Text="{Binding ExecutionContext.CurrentFileName}" FontWeight="Bold"/>
+                    <Button Content="Start Sync" Command="{Binding StartSyncCommand}"/>
                 </StackPanel>
             </PivotItem>
 
             <PivotItem Header="History">
-
+                <TextBlock Text="Coming soon.. :)"/>
             </PivotItem>
         </Pivot>
     </Grid>

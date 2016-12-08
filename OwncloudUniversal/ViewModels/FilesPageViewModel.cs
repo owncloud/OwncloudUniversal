@@ -79,13 +79,13 @@ namespace OwncloudUniversal.ViewModels
                     NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
             } 
         }
-
+        
         private async Task LoadItems()
         {
             InidcatorService.GetDefault().ShowBar();
             var items = await _davItemService.GetItemsAsync(new Uri(SelectedItem.EntityId, UriKind.RelativeOrAbsolute));
             items.RemoveAt(0);
-            ItemsList = items.Cast<DavItem>().ToObservableCollection();
+            ItemsList = items.OrderBy(x => !x.IsCollection).Cast<DavItem>().ToObservableCollection();
             InidcatorService.GetDefault().HideBar();
         }
 
@@ -104,6 +104,7 @@ namespace OwncloudUniversal.ViewModels
             }
             MessageDialog dia = new MessageDialog("Upload finished.");
             await dia.ShowAsync();
+            await LoadItems();
         }
 
         private async Task<List<AbstractItem>> _BuildRemoteItemsForUploadAsync(List<StorageFile> files)
@@ -131,11 +132,14 @@ namespace OwncloudUniversal.ViewModels
                 if (folder == null)
                     return;
                 await _syncedFolderService.AddFolderToSyncAsync(folder, (DavItem) parameter);
+                await LoadItems();
             }
             else
             {
                 //?
             }
         }
+
+
     }
 }

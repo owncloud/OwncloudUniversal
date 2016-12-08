@@ -99,7 +99,7 @@ namespace OwncloudUniversal.Model
             return "SELECT Id, TargetItemId, SourceItemId, ChangeNumber, AssociationId FROM LinkStatus";
         }
 
-        protected override string GetSelectByPathQuery()
+        protected override string GetSelectByEntityIdQuery()
         {
             throw new NotImplementedException();
         }

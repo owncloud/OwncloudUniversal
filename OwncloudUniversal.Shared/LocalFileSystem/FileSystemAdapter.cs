@@ -233,7 +233,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var options = new QueryOptions();
             options.FolderDepth = FolderDepth.Deep;
             options.IndexerOption = IndexerOption.OnlyUseIndexer;
-            string timeFilter = "System.Search.GatherTime:>=" + DateTime.MinValue;
+            string timeFilter = "System.Search.GatherTime:>=" + DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
             options.ApplicationSearchFilter = timeFilter;
             if (!sFolder.AreQueryOptionsSupported(options))
                 throw new Exception($"Windows Search Index has to be enabled for {sFolder.Path}");
@@ -250,8 +250,8 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             {
                 if(existingItem.EntityId == sFolder.Path) continue;
                 //if a file with that path is in the list, the file has not been deleted
-                if(sItems.FirstOrDefault(x => x.Path == existingItem.EntityId) != null) continue;
-                result.Add(existingItem);
+                if(sItems.FirstOrDefault(x => x.Path == existingItem.EntityId) == null)
+                    result.Add(existingItem);
             }
 
             return result;

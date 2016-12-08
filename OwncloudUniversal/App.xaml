@@ -1,7 +1,8 @@
 <common:BootStrapper x:Class="OwncloudUniversal.App"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:common="using:Template10.Common">
+                     xmlns:common="using:Template10.Common"
+                     xmlns:converters="using:OwncloudUniversal.Converters">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -9,7 +10,9 @@
                 <ResourceDictionary Source="Styles\Custom.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!--  custom resources go here  -->
+            <converters:ItemToSyncStatusConverter x:Key="ItemToSyncStatusConverter"/>
+            <converters:BoolToCollectionSymbolConverter x:Key="BoolToCollectionSymbolConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>

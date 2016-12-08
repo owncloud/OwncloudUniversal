@@ -22,9 +22,15 @@
         <ListView x:Name="listView" Margin="10" ItemsSource="{Binding SyncedFolders}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding RemoteFolderFolderPath}"/>
-                        <TextBlock Text="{Binding LocalFolderPath}" Margin="20,0,0,0" FontStyle="Italic"/>
+                    <StackPanel Margin="12">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Globe"/>
+                            <TextBlock Text="{Binding RemoteFolderFolderPath}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                            <SymbolIcon Symbol="CellPhone"/>
+                            <TextBlock Text="{Binding LocalFolderPath}" Margin="12,0,0,0"/>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

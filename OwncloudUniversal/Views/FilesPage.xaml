@@ -5,13 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Template10.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:converters="using:OwncloudUniversal.Converters"
     DataContext="{Binding FilesPageViewModel, RelativeSource={RelativeSource Self}}"
     x:Name="Page"
     mc:Ignorable="d">
-
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -20,30 +21,53 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
+        
         <controls:PageHeader Content="Files"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
-        
-        <ListView x:Name="ListView" Grid.Row="1" ItemsSource="{Binding ItemsList}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" VerticalAlignment="Stretch">
+
+
+        <ListView x:Name="ListView" 
+                  Grid.Row="1" 
+                  ItemsSource="{Binding ItemsList}" 
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
+                  VerticalAlignment="Stretch">
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <SymbolIcon Symbol="{Binding Symbol}"/>
-                        <TextBlock Text="{Binding DisplayName}" Margin="10,0" HorizontalAlignment="Stretch"/>
-                        <FlyoutBase.AttachedFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Text="Add to synced Folders" Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}" CommandParameter="{Binding}"/>
-                            </MenuFlyout>
-                        </FlyoutBase.AttachedFlyout>
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="RightTapped">
-                                <behaviors:OpenFlyoutAction />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
+                            <!--<SymbolIcon Symbol="{Binding IsCollection, Converter={StaticResource BoolToCollectionSymbolConverter}}"></SymbolIcon>-->
+                            <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" Visibility="{Binding FilesPageViewModel.ShowSynchronisationStatus, Converter={StaticResource BoolToVisibilityConverter}, ElementName=Page}" />
+                            <TextBlock Text="{Binding DisplayName}" Margin="10,0"/>
+                            <FlyoutBase.AttachedFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}" CommandParameter="{Binding}">
+                                        <MenuFlyoutItem.Template>
+                                            <ControlTemplate TargetType="MenuFlyoutItem">
+                                                <StackPanel Margin="12,12,0,0" Orientation="Horizontal">
+                                                    <SymbolIcon Margin="0,0,12,0" Symbol="Sync" />
+                                                    <TextBlock Text="Automatic Sync" />
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </MenuFlyoutItem.Template>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </FlyoutBase.AttachedFlyout>
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="Holding">
+                                    <behaviors:OpenFlyoutAction/>
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            
         </ListView>
 
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom">

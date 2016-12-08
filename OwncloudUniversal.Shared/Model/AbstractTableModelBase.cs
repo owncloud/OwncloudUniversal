@@ -45,20 +45,6 @@ namespace OwncloudUniversal.Shared.Model
             return default(TItem);
         }
 
-        public TItem GetItem(string itemId)
-        {
-            using (var query = Connection.Prepare(GetSelectItemQuery()))
-            {
-                BindSelectItemQuery(query, itemId);
-                if (query.Step() == SQLiteResult.ROW)
-                {
-                    var item = CreateInstance(query);
-                    return item;
-                }
-            }
-            throw new ArgumentOutOfRangeException("Key not found");
-        }
-
         public void InsertItem(TItem item)
         {
             using (var query = Connection.Prepare(GetInsertItemQuery()))
@@ -116,7 +102,7 @@ namespace OwncloudUniversal.Shared.Model
         }
 
         protected abstract string GetLastInsertRowIdQuery();
-        protected abstract string GetSelectByPathQuery();
+        protected abstract string GetSelectByEntityIdQuery();
         protected abstract void BindSelectByPathQuery(ISQLiteStatement query, string path, TKey folderId);
 
 

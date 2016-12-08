@@ -94,7 +94,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {watch.Elapsed}");
             watch.Stop();
             if(!_errorsOccured)
-                Configuration.LastSync = DateTime.Now.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
+                Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
             ExecutionContext.Status = ExecutionStatus.Finished;
         }      
 

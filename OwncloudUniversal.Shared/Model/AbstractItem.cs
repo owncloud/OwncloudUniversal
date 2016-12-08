@@ -16,6 +16,6 @@ namespace OwncloudUniversal.Shared.Model
         public virtual bool SyncPostponed{ get; set; }
         public virtual  Stream ContentStream { get; set; }
         public virtual Type AdapterType { get; set; }
-        public virtual Symbol Symbol => IsCollection ? Symbol.Folder : Symbol.Document;
+        public bool IsSynced => AbstractItemTableModel.GetDefault().GetItemFromEntityId(this.EntityId) != null;
     }
 }

@@ -97,7 +97,7 @@ namespace OwncloudUniversal.Shared.Model
             return "SELECT last_insert_rowid() FROM Association";
         }
 
-        protected override string GetSelectByPathQuery()
+        protected override string GetSelectByEntityIdQuery()
         {
             throw new NotSupportedException();
         }
