@@ -41,10 +41,10 @@
                             <TextBlock Text="{Binding DisplayName}" Margin="10,0"/>
                             <FlyoutBase.AttachedFlyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}" CommandParameter="{Binding}">
+                                    <MenuFlyoutItem Margin="12" Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}" CommandParameter="{Binding}">
                                         <MenuFlyoutItem.Template>
                                             <ControlTemplate TargetType="MenuFlyoutItem">
-                                                <StackPanel Margin="12,12,0,0" Orientation="Horizontal">
+                                                <StackPanel Orientation="Horizontal">
                                                     <SymbolIcon Margin="0,0,12,0" Symbol="Sync" />
                                                     <TextBlock Text="Automatic Sync" />
                                                 </StackPanel>

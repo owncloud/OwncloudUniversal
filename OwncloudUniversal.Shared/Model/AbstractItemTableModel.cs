@@ -182,5 +182,13 @@ namespace OwncloudUniversal.Shared.Model
             }
             return items;
         }
+
+        public void DeleteItemsFromAssociation(FolderAssociation association)
+        {
+            using (var query = Connection.Prepare($"delete from Item where AssociationId='{association.Id}'"))
+            {
+                query.Step();
+            }
+        }
     }
 }
