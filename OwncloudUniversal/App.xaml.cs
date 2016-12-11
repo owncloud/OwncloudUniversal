@@ -9,7 +9,10 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
+using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.SQLite;
+using OwncloudUniversal.Views;
+using OwncloudUniversal.WebDav;
 
 namespace OwncloudUniversal
 {
@@ -53,7 +56,18 @@ namespace OwncloudUniversal
         {
             // TODO: add your long-running task here
             SQLiteClient.Init();
-            await NavigationService.NavigateAsync(typeof(Views.FilesPage));
+            var status = await OcsClient.GetServerStatusAsync(Configuration.ServerUrl);
+            if (status == null)
+                await NavigationService.NavigateAsync(typeof(WelcomePage));
+            else
+            {
+                await NavigationService.NavigateAsync(typeof(Views.FilesPage));
+            }
+        }
+
+        public override void OnResuming(object s, object e, AppExecutionState previousExecutionState)
+        {
+            base.OnResuming(s, e, previousExecutionState);
         }
     }
 }

@@ -68,6 +68,7 @@
                                  Header="Username" 
                                  Text="{Binding UserName, Mode=TwoWay}"
                                  Margin="0,12"
+                                 HorizontalAlignment="Stretch"
                                  RelativePanel.AlignLeftWithPanel="True"
                                  RelativePanel.Below="ServerUrlTextBox" />
                         
@@ -131,7 +132,7 @@
                         </Border.Background>
                         <Image Margin="12"
                                Source="{Binding Logo}"
-                               Stretch="None" />
+                               Stretch="None"/>
                     </Border>
 
                     <TextBlock x:Name="DisplayNameTextBlock"

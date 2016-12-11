@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Shared.Synchronisation;
+using OwncloudUniversal.WebDav.Model;
 
 namespace OwncloudUniversal.WebDav
 {

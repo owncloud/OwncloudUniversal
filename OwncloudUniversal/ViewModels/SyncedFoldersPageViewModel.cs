@@ -43,10 +43,10 @@ namespace OwncloudUniversal.ViewModels
 
         private void RemoveFromSync(object parameter)
         {
-            if (parameter is FolderAssociation)
+            var association = parameter as FolderAssociation;
+            if (association != null)
             {
-                AbstractItemTableModel.GetDefault().DeleteItemsFromAssociation((FolderAssociation)parameter);
-                FolderAssociationTableModel.GetDefault().DeleteItem(((FolderAssociation)parameter).Id);
+                _syncedFoldersService.RemoveFromSyncedFolders(association);
                 LoadFolders();
             }
         }

@@ -17,6 +17,7 @@ using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Views;
 using OwncloudUniversal.WebDav;
+using OwncloudUniversal.WebDav.Model;
 using Template10.Mvvm;
 using Template10.Utils;
 
@@ -31,7 +32,7 @@ namespace OwncloudUniversal.ViewModels
 
         public FilesPageViewModel()
         {
-            _davItemService = new WebDavItemService();
+            _davItemService = WebDavItemService.GetDefault();
             _syncedFolderService = new SyncedFoldersService();
             UploadItemCommand = new DelegateCommand(async () => await UploadItem() );   
             RefreshCommand = new DelegateCommand(async () => await LoadItems());
@@ -82,11 +83,11 @@ namespace OwncloudUniversal.ViewModels
         
         private async Task LoadItems()
         {
-            InidcatorService.GetDefault().ShowBar();
+            IndicatorService.GetDefault().ShowBar();
             var items = await _davItemService.GetItemsAsync(new Uri(SelectedItem.EntityId, UriKind.RelativeOrAbsolute));
             items.RemoveAt(0);
             ItemsList = items.OrderBy(x => !x.IsCollection).Cast<DavItem>().ToObservableCollection();
-            InidcatorService.GetDefault().HideBar();
+            IndicatorService.GetDefault().HideBar();
         }
 
         private async Task UploadItem()

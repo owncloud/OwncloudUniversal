@@ -1,7 +1,7 @@
 ﻿using System;
 using OwncloudUniversal.Shared.Model;
 
-namespace OwncloudUniversal.WebDav
+namespace OwncloudUniversal.WebDav.Model
 {
     public class DavItem : AbstractItem
     {

@@ -107,7 +107,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DavItem.cs" />
+    <Compile Include="Model\DavItem.cs" />
+    <Compile Include="OcsClient.cs" />
+    <Compile Include="Model\ServerStatus.cs" />
     <Compile Include="XmlParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebDavRequest.cs" />

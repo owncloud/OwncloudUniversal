@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.WebDav;
+using OwncloudUniversal.WebDav.Model;
 
 namespace OwncloudUniversal.Converters
 {
@@ -13,7 +15,7 @@ namespace OwncloudUniversal.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var davItem = value as DavItem;
+            var davItem = value as AbstractItem;
             if (davItem != null)
             {
                 if (davItem.IsSynced)

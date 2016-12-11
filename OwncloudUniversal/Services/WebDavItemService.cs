@@ -12,11 +12,17 @@ namespace OwncloudUniversal.Services
 {
     class WebDavItemService
     {
-        public WebDavItemService()
+        private static WebDavItemService _instance;
+        private WebDavItemService()
         {
             FileSystemAdapter = new FileSystemAdapter(false, null);
             DavAdapter = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, FileSystemAdapter);
             FileSystemAdapter.LinkedAdapter = DavAdapter;
+        }
+
+        public static WebDavItemService GetDefault()
+        {
+            return _instance ?? (_instance = new WebDavItemService());
         }
 
         private WebDavAdapter DavAdapter { get; }

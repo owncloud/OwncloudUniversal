@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="OwncloudUniversal.Views.WelcomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OwncloudUniversal.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Template10.Behaviors"
+    mc:Ignorable="d"
+    DataContext="{Binding WelcomePageViewModel, RelativeSource={RelativeSource Self}}">
+
+    <Grid Background="#1D2D44">
+        <StackPanel VerticalAlignment="Center" Margin="20">
+            <TextBox Header="Server address" Text="{Binding ServerUrl, Mode=TwoWay}"/>
+            <TextBlock Text="Server found!" Visibility="{Binding ServerFound, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <TextBox Header="Username" Margin="0,10,0,0" Text="{Binding UserName, Mode=TwoWay}"/>
+            <PasswordBox Header="Password" Margin="0,10,0,0" Password="{Binding Password, Mode=TwoWay}"/>
+            <Button Content="Connect" HorizontalAlignment="Center" Command="{Binding ConnectCommand}" Margin="0, 10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Page>

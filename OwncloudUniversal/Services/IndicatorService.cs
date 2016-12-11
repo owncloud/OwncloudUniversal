@@ -8,15 +8,15 @@ using Windows.UI.ViewManagement;
 
 namespace OwncloudUniversal.Services
 {
-    public class InidcatorService
+    public class IndicatorService
     {
-        private static InidcatorService _instance;
+        private static IndicatorService _instance;
 
-        private InidcatorService() { }
+        private IndicatorService() { }
 
-        public static InidcatorService GetDefault()
+        public static IndicatorService GetDefault()
         {
-            return _instance ?? (_instance = new InidcatorService());
+            return _instance ?? (_instance = new IndicatorService());
         }
 
         public async void ShowBar()

@@ -27,9 +27,9 @@ namespace OwncloudUniversal.Services
 
         public async Task StartSyncProcess()
         {
-            InidcatorService.GetDefault().ShowBar();
+            IndicatorService.GetDefault().ShowBar();
             await Worker.Run();
-            InidcatorService.GetDefault().HideBar();
+            IndicatorService.GetDefault().HideBar();
         }
     }
 }

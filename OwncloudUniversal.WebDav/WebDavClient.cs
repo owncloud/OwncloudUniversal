@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Web.Http;
+using OwncloudUniversal.WebDav.Model;
 
 namespace OwncloudUniversal.WebDav
 {

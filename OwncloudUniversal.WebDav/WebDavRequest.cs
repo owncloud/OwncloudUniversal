@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,11 @@ using Windows.Media.SpeechRecognition;
 using Windows.Security.Cryptography;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
+using HttpClient = Windows.Web.Http.HttpClient;
+using HttpCompletionOption = Windows.Web.Http.HttpCompletionOption;
+using HttpMethod = Windows.Web.Http.HttpMethod;
+using HttpRequestMessage = Windows.Web.Http.HttpRequestMessage;
+using HttpResponseMessage = Windows.Web.Http.HttpResponseMessage;
 using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
 namespace OwncloudUniversal.WebDav
@@ -56,9 +62,7 @@ namespace OwncloudUniversal.WebDav
                 {
                     request.Content = new HttpStreamContent(_contentStream.AsInputStream());
                 }
-                var response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
-                if (!response.IsSuccessStatusCode)
-                    throw new Exception(response.ReasonPhrase);//TODO better exceptions
+                var response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead).AsTask();
                 return response;
             }
         }
