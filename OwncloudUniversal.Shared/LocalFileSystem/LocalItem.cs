@@ -33,7 +33,8 @@ namespace OwncloudUniversal.Shared.Model
             ChangeKey = SQLite.DateTimeHelper.DateTimeSQLite(((DateTimeOffset)properties["System.DateModified"]).UtcDateTime);
             EntityId = storageItem.Path;
             ChangeNumber = 0;
-            Size = (ulong)properties["System.Size"];
+            if(!IsCollection)
+                Size = (ulong)properties["System.Size"];
         }
 
         public DateTime? LastModified { get; set; }        

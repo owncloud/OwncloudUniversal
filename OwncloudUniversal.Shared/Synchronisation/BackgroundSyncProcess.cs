@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
@@ -98,6 +99,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
 
             await LogHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed} BackgroundTask: {_isBackgroundTask}");
+            if (_deletedCount != 0 || _downloadCount != 0 || _uploadCount != 0) 
             ToastHelper.SendToast(_isBackgroundTask
                 ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {watch.Elapsed}"
                 : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {watch.Elapsed}");
@@ -137,7 +139,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     targetEntitiyId = _targetEntityAdapter.BuildEntityId(item);
                 }
 
-                var result = AbstractItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId) ?? await Insert(item);
+                var foundItem = AbstractItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId);
+                var result = foundItem ?? await Insert(item);
                 AfterInsert(item, result);
             }
             if(link  != null)

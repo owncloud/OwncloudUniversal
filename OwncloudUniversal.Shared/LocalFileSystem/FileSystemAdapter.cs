@@ -35,20 +35,28 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             if (!folder.AreQueryOptionsSupported(options))
                 throw new Exception($"Windows Search Index has to be enabled for {folder.Path}");
 
-            var queryResult = folder.CreateFileQueryWithOptions(options);
+            var queryResult = folder.CreateItemQueryWithOptions(options);
             queryResult.ApplyNewQueryOptions(options);
-            files.AddRange(await queryResult.GetFilesAsync());
+            files.AddRange(await queryResult.GetItemsAsync());
 
             foreach (var file in files)
             {
-                IDictionary<string, object> propertyResult = null;
-                if (file.IsOfType(StorageItemTypes.File))
-                    propertyResult = await ((StorageFile) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
-                else if (file.IsOfType(StorageItemTypes.Folder))
-                    propertyResult =
-                        await ((StorageFolder) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
-                var item = new LocalItem(new FolderAssociation {Id = associationId}, file, propertyResult);
-                result.Add(item);
+                try
+                {
+                    IDictionary<string, object> propertyResult = null;
+                    if (file.IsOfType(StorageItemTypes.File))
+                        propertyResult = await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                    else if (file.IsOfType(StorageItemTypes.Folder))
+                        propertyResult =
+                            await ((StorageFolder)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                    var item = new LocalItem(new FolderAssociation { Id = associationId }, file, propertyResult);
+                    result.Add(item);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(file);
+                    throw;
+                }
             }
 
             if (!IsBackgroundSync)
@@ -60,20 +68,6 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                     abstractItem.SyncPostponed = false;
                 }
                 result.AddRange(unsynced);
-            }
-        }
-
-        private async Task _CheckLocalFolderRecursive(StorageFolder folder, long associationId,
-            List<AbstractItem> result)
-        {
-            var files = await folder.GetItemsAsync();
-            foreach (IStorageItem sItem in files)
-            {
-                if (sItem.IsOfType(StorageItemTypes.Folder))
-                    await _CheckLocalFolderRecursive((StorageFolder) sItem, associationId, result);
-                BasicProperties bp = await sItem.GetBasicPropertiesAsync();
-                var item = new LocalItem(new FolderAssociation {Id = associationId}, sItem, bp);
-                result.Add(item);
             }
         }
 

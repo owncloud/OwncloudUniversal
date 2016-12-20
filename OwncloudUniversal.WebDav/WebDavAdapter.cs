@@ -46,9 +46,6 @@ namespace OwncloudUniversal.WebDav
                 var folderPath = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
                 var filePath = _BuildRemoteFilePath(localItem.Association, localItem.EntityId);
                 
-                if(!existingFolders.Contains(folderPath))
-                    Debug.WriteLine(folderPath);
-
                 //if the file already exists dont upload it again
                 var folder = await _davClient.ListFolder(new Uri(folderPath, UriKind.RelativeOrAbsolute));
                 var existingItem = folder.FirstOrDefault(x => x.DisplayName == Path.GetFileName(localItem.EntityId));
@@ -258,9 +255,12 @@ namespace OwncloudUniversal.WebDav
             string entitiyId = "/";
             foreach (var folder in relPath.Split('\\'))
             {
-                if(string.IsNullOrWhiteSpace(folder))
+                if (string.IsNullOrWhiteSpace(folder))
                     continue;
+
                 entitiyId += Uri.EscapeDataString(folder);
+                entitiyId = entitiyId.Replace("%28", "(");
+                entitiyId = entitiyId.Replace("%29", ")");
                 entitiyId += "/";
             }
             var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
