@@ -35,13 +35,14 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                            <!--<SymbolIcon Symbol="{Binding IsCollection, Converter={StaticResource BoolToCollectionSymbolConverter}}"></SymbolIcon>-->
-                            <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" Visibility="{Binding FilesPageViewModel.ShowSynchronisationStatus, Converter={StaticResource BoolToVisibilityConverter}, ElementName=Page}" />
+                    <StackPanel Orientation="Horizontal" Holding="UIElement_OnHolding" RightTapped="UIElement_OnRightTapped">
+                            <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" />
                             <TextBlock Text="{Binding DisplayName}" Margin="10,0"/>
                             <FlyoutBase.AttachedFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Margin="12" Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}" CommandParameter="{Binding}">
+                                <MenuFlyout Placement="Left">
+                                    <MenuFlyoutItem Margin="12"
+                                                    Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}"
+                                                    CommandParameter="{Binding}">
                                         <MenuFlyoutItem.Template>
                                             <ControlTemplate TargetType="MenuFlyoutItem">
                                                 <StackPanel Orientation="Horizontal">
@@ -53,11 +54,6 @@
                                     </MenuFlyoutItem>
                                 </MenuFlyout>
                             </FlyoutBase.AttachedFlyout>
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="Holding">
-                                    <behaviors:OpenFlyoutAction/>
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

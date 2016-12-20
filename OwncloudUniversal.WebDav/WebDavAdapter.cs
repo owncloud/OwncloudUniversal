@@ -140,7 +140,7 @@ namespace OwncloudUniversal.WebDav
             var currentFolder = remoteBaseFolder.TrimEnd('/');
             foreach (string f in folders)
             {
-                string folderName = Uri.EscapeUriString(f);
+                string folderName = Uri.EscapeDataString(f);
                 if (existingFolders.Contains(currentFolder + '/' + folderName))//this should speed up the inital sync
                 {
                     currentFolder += '/' + folderName;
@@ -249,6 +249,23 @@ namespace OwncloudUniversal.WebDav
             href = href.TrimEnd('/');
             href = href.Substring(0, href.LastIndexOf('/'));
             return href;
+        }
+
+        public override string BuildEntityId(AbstractItem item)
+        {
+            var localFolder = GetAssociatedItem(item.Association.LocalFolderId);
+            string relPath = item.EntityId.Replace(localFolder.EntityId, "");
+            string entitiyId = "/";
+            foreach (var folder in relPath.Split('\\'))
+            {
+                if(string.IsNullOrWhiteSpace(folder))
+                    continue;
+                entitiyId += Uri.EscapeDataString(folder);
+                entitiyId += "/";
+            }
+            var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
+            var result = remoteFolder.EntityId.TrimEnd('/') + entitiyId.TrimEnd('/') + (item.IsCollection ? "/" : string.Empty);
+            return result;
         }
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.System.Power;
@@ -46,21 +47,29 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 if (watch.Elapsed.Minutes >= 9)
                     break;
                 ExecutionContext.Status = ExecutionStatus.Scanning;
-                _itemIndex = await _targetEntityAdapter.GetUpdatedItems(association);
-                _itemIndex.AddRange(await _sourceEntityAdapter.GetUpdatedItems(association));
-                _UpdateFileIndexes(association);
+                var getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
+                var getUpdatedSourceTask =  _sourceEntityAdapter.GetUpdatedItems(association);
+                var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
+                var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
 
-                var deleted = await _targetEntityAdapter.GetDeletedItemsAsync(association);
-                deleted.AddRange(await _sourceEntityAdapter.GetDeletedItemsAsync(association));
+                var deleted = await getDeletedTargetTask;
+                deleted.AddRange(await getDeletedSourceTask);
                 DeleteFromIndex(deleted);
                 _deletedCount = deleted.Count;
+
+                _itemIndex = await  getUpdatedSourceTask;
+                _itemIndex.AddRange(await getUpdatedTargetTask);
+                
+                _UpdateFileIndexes(association);
+
+
                 await LogHelper.Write($"Updating: {_itemIndex.Count} Deleting: {deleted.Count} BackgroundTask: {_isBackgroundTask}");
             }
-            await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             _itemIndex = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
             _linkList = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
             ExecutionContext.Status = ExecutionStatus.Active;
             ExecutionContext.TotalFileCount = _itemIndex.Count;
+            await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             int index = 1;
             foreach (var item in _itemIndex)
             {
@@ -112,11 +121,23 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 AbstractItemTableModel.GetDefault().UpdateItem(item, item.Id);
                 return;
             }
+
             var link = _linkList.FirstOrDefault(x => (x.SourceItemId == item.Id || x.TargetItemId == item.Id) && x.AssociationId == item.Association.Id);
             if (link == null)
             {
-                //es ist noch kein link vorhanden, also ein neues Item
-                var result = await Insert(item);
+                string targetEntitiyId = null;
+
+                if (item.AdapterType == _targetEntityAdapter.GetType())
+                {
+                    targetEntitiyId = _sourceEntityAdapter.BuildEntityId(item);
+                }
+
+                if (item.AdapterType == _sourceEntityAdapter.GetType())
+                {
+                    targetEntitiyId = _targetEntityAdapter.BuildEntityId(item);
+                }
+
+                var result = AbstractItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId) ?? await Insert(item);
                 AfterInsert(item, result);
             }
             if(link  != null)

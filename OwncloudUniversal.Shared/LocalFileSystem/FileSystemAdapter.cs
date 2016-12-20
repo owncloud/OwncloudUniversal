@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Provider;
@@ -77,10 +79,24 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         public override async Task<AbstractItem> AddItem(AbstractItem item)
         {
-            var folder = await _GetStorageFolder(item);
+            StorageFolder folder = null;
+            try
+            {
+                folder = await _GetStorageFolder(item);
+            }
+            catch (ArgumentException)
+            {
+                ToastHelper.SendToast($"Path has invalid characters {Uri.EscapeUriString(item.EntityId)}");
+                return item;
+            }
             IStorageItem storageItem;
             var displayName = _BuildFilePath(item).TrimEnd('\\');
             displayName = displayName.Substring(displayName.LastIndexOf('\\') + 1);
+            if (!PathIsValid(displayName))
+            {
+                ToastHelper.SendToast($"Path has invalid characters {Uri.EscapeUriString(item.EntityId)}");
+                return item;
+            }
             if (item.IsCollection)
             {
                 storageItem = await folder.CreateFolderAsync(displayName, CreationCollisionOption.OpenIfExists);
@@ -164,30 +180,23 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         private async Task<StorageFolder> _GetStorageFolder(AbstractItem item)
         {
-            try
-            {
-                string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
-                string folderPath = Path.GetDirectoryName(filePath);
+            string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
+            if (!PathIsValid(filePath))
+                throw new ArgumentException();
+            string folderPath = Path.GetDirectoryName(filePath);
 
-                var currentFolder = await StorageFolder.GetFolderFromPathAsync(item.Association.LocalFolderPath);
-                string[] folders = folderPath.Replace(currentFolder.Path, "").TrimStart('\\').Split('\\');
+            var currentFolder = await StorageFolder.GetFolderFromPathAsync(item.Association.LocalFolderPath);
+            string[] folders = folderPath.Replace(currentFolder.Path, "").TrimStart('\\').Split('\\');
 
-                foreach (var folder in folders)
-                {
-                    if(string.IsNullOrWhiteSpace(folder))
-                        continue;
-                    IStorageItem tmp = null;
-                    tmp = await currentFolder.TryGetItemAsync(folder) ?? await currentFolder.CreateFolderAsync(folder);
-                    currentFolder = (StorageFolder)tmp;
-                }
-                return currentFolder;
-            }
-            catch (Exception)
+            foreach (var folder in folders)
             {
-                Debug.WriteLine(item.EntityId);
+                if(string.IsNullOrWhiteSpace(folder))
+                    continue;
+                IStorageItem tmp = null;
+                tmp = await currentFolder.TryGetItemAsync(folder) ?? await currentFolder.CreateFolderAsync(folder);
+                currentFolder = (StorageFolder)tmp;
             }
-            
-            return null;
+            return currentFolder;
         }
 
         private string _BuildFilePath(AbstractItem item)
@@ -233,18 +242,15 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var options = new QueryOptions();
             options.FolderDepth = FolderDepth.Deep;
             options.IndexerOption = IndexerOption.OnlyUseIndexer;
-            if (!sFolder.AreQueryOptionsSupported(options))
-                throw new Exception($"Windows Search Index has to be enabled for {sFolder.Path}");
-
             var itemQuery = sFolder.CreateItemQueryWithOptions(options);
-            sItems.AddRange(await itemQuery.GetItemsAsync());
+            var queryTask = itemQuery.GetItemsAsync();
+
             //get all the files and folders from the db that were inside the folder at the last time
-            var existingItems =
-                AbstractItemTableModel.GetDefault()
-                    .GetFilesForFolder(association, this.GetType());
+            var existingItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(association, this.GetType());
+            sItems.AddRange(await queryTask);
             foreach (var existingItem in existingItems)
             {
-                if(existingItem.EntityId == sFolder.Path) continue;
+                if (existingItem.EntityId == sFolder.Path) continue;
                 //if a file with that path is in the list, the file has not been deleted
                 var sitem = sItems.FirstOrDefault(x => x.Path == existingItem.EntityId);
                 if (sitem == null)
@@ -256,6 +262,27 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                     sItems.Remove(sitem);
                 }
             }
+            return result;
+        }
+
+        private bool PathIsValid(string path)
+        {
+            string chars = "?*<>|\"";
+            int indexOf = path.IndexOfAny(chars.ToCharArray());
+            if (indexOf == -1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override string BuildEntityId(AbstractItem item)
+        {
+            var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);
+            var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
+            var relativefileUri = item.EntityId.Replace(remoteFolder.EntityId, "");
+            string path = Uri.UnescapeDataString(relativefileUri.ToString().Replace('/', '\\'));
+            var result = folderUri.LocalPath + '\\' + path;
             return result;
         }
 

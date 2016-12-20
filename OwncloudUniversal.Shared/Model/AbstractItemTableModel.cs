@@ -66,7 +66,7 @@ namespace OwncloudUniversal.Shared.Model
         protected override string GetSelectByEntityIdQuery()
         {
             return
-                "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item WHERE EntityId = ?";
+                "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType FROM Item WHERE EntityId = ? COLLATE NOCASE";
         }
 
         protected override string GetSelectItemQuery()
@@ -173,6 +173,21 @@ namespace OwncloudUniversal.Shared.Model
             var items = new ObservableCollection<AbstractItem>();
             using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType from Item i " +
                                                   $"where i.AssociationId = '{association.Id}' AND i.AdapterType = '{adapterType.AssemblyQualifiedName}'"))
+            {
+                while (query.Step() == SQLiteResult.ROW)
+                {
+                    var item = CreateInstance(query);
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
+
+        public ObservableCollection<AbstractItem> GetFilesForFolder(string folderPath)
+        {
+            var items = new ObservableCollection<AbstractItem>();
+            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType from Item i " +
+                                                  $"where i.EntityId like '{folderPath}%' COLLATE NOCASE"))
             {
                 while (query.Step() == SQLiteResult.ROW)
                 {

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.ViewModels;
+using Template10.Services.PopupService;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,6 +29,20 @@ namespace OwncloudUniversal.Views
         public FilesPage()
         {
             this.InitializeComponent();
+        }
+
+        private void UIElement_OnHolding(object sender, HoldingRoutedEventArgs e)
+        {
+            var uiSender = sender as UIElement;
+            var flyout = (FlyoutBase)uiSender.GetValue(FlyoutBase.AttachedFlyoutProperty);  
+            flyout.ShowAt(uiSender as FrameworkElement);
+        }
+
+        private void UIElement_OnRightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            var uiSender = sender as UIElement;
+            var flyout = (FlyoutBase)uiSender.GetValue(FlyoutBase.AttachedFlyoutProperty);
+            flyout.ShowAt(uiSender as FrameworkElement);
         }
     }
 }
