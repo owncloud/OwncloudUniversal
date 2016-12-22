@@ -16,21 +16,21 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <controls:PageHeader Content="Synchronization"
+        <controls:PageHeader x:Uid="Synchronization"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
 
         <Pivot Grid.Row="1">
-            <PivotItem  Header="Status" Margin="12">
+            <PivotItem  x:Uid="Status" Margin="12">
                 <StackPanel>
-                    <uicontrol:HeaderedTextBlock x:Name="tbStatus" Header="Status" Text="{Binding ExecutionContext.Status}" FontWeight="Bold"/>
-                    <uicontrol:HeaderedTextBlock x:Name="tbFilesToSync" Header="Files to Sync" Text="{Binding ExecutionContext.FileText}" FontWeight="Bold"/>
-                    <uicontrol:HeaderedTextBlock x:Name="tbFileName" Header="Current File" Text="{Binding ExecutionContext.CurrentFileName}" FontWeight="Bold"/>
-                    <Button Content="Start Sync" Command="{Binding StartSyncCommand}"/>
+                    <uicontrol:HeaderedTextBlock x:Uid="Status" Text="{Binding ExecutionContext.Status}" FontWeight="Bold"/>
+                    <uicontrol:HeaderedTextBlock x:Uid="FilesToSync" Text="{Binding ExecutionContext.FileText}" FontWeight="Bold"/>
+                    <uicontrol:HeaderedTextBlock x:Uid="CurrentFile" Text="{Binding ExecutionContext.CurrentFileName}" FontWeight="Bold"/>
+                    <Button x:Uid="StartSync" Command="{Binding StartSyncCommand}"/>
                 </StackPanel>
             </PivotItem>
 
-            <PivotItem Header="History">
+            <PivotItem x:Uid="History">
                 <TextBlock Text="Coming soon.. :)"/>
             </PivotItem>
         </Pivot>

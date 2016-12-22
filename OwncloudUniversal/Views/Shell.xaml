@@ -27,7 +27,7 @@
                                 Symbol="Folder" />
                     <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
-                               Text="Files" />
+                               x:Uid="FilesButton"/>
                 </StackPanel>
             </Controls:HamburgerButtonInfo>
 
@@ -41,7 +41,7 @@
                                 Symbol="Sync" />
                     <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
-                               Text="Synchronization" />
+                               x:Uid="SynchronizationButton"/>
                 </StackPanel>
             </Controls:HamburgerButtonInfo>
 
@@ -56,7 +56,7 @@
                                 Symbol="SyncFolder" />
                     <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
-                               Text="Synced Folders" />
+                               x:Uid="SynchedFolders"/>
                 </StackPanel>
             </Controls:HamburgerButtonInfo>
 
@@ -64,7 +64,7 @@
 
         <Controls:HamburgerMenu.SecondaryButtons>
             <!--  profile button  -->
-            <Controls:HamburgerButtonInfo ButtonType="Command">
+            <!--<Controls:HamburgerButtonInfo ButtonType="Command">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="Tapped">
                         <behaviors:MessageDialogAction Title="Show profile" Content="This is an example of a Command-type hamburger button. It does not navigate, only raises the Tapped event for some custom implementation." />
@@ -83,7 +83,7 @@
                                VerticalAlignment="Center"
                                Text="User profile" />
                 </StackPanel>
-            </Controls:HamburgerButtonInfo>
+            </Controls:HamburgerButtonInfo>-->
             <!--  settingspage button  -->
             <Controls:HamburgerButtonInfo x:Name="SettingsButton"
                                           PageParameter="0"
@@ -97,7 +97,7 @@
                                 Symbol="Setting" />
                     <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
-                               Text="Settings" />
+                               x:Uid="SettingsButton"/>
                 </StackPanel>
             </Controls:HamburgerButtonInfo>
         </Controls:HamburgerMenu.SecondaryButtons>

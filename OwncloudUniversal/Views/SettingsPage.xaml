@@ -33,7 +33,7 @@
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <!--  header  -->
         <controls:PageHeader x:Name="pageHeader"
-                             Content="Settings"
+                             x:Uid="Settings"
                              Frame="{x:Bind Frame}"
                              RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
@@ -49,14 +49,14 @@
                RelativePanel.Below="pageHeader">
 
             <!--  settings  -->
-            <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="Connection">
+            <PivotItem DataContext="{Binding SettingsPartViewModel}" x:Uid="Connection">
                 <ScrollViewer Margin="0,12,-12,0"
                               HorizontalContentAlignment="Stretch"
                               VerticalScrollBarVisibility="Auto">
                     <RelativePanel HorizontalAlignment="Left">
 
                         <TextBox x:Name="ServerUrlTextBox" 
-                                 Header="WebDav-Url" 
+                                 x:Uid="WebDavUrl" 
                                  Text="{Binding ServerUrl, Mode=TwoWay}"
                                  Margin="0,0,0,12"
                                  RelativePanel.AlignLeftWithPanel="True"
@@ -65,47 +65,41 @@
                                  PlaceholderText="https://.../remote.php/webdav" />
                         
                         <TextBox x:Name="UserNameTextBox" 
-                                 Header="Username" 
+                                 x:Uid="UserName"
                                  Text="{Binding UserName, Mode=TwoWay}"
-                                 Margin="0,12"
+                                 Margin="0,0,0,12"
                                  HorizontalAlignment="Stretch"
                                  RelativePanel.AlignLeftWithPanel="True"
                                  RelativePanel.Below="ServerUrlTextBox" />
                         
                         <PasswordBox x:Name="PasswordBox"
-                                     Header="Password"
-                                     Margin="0,12"
+                                     x:Uid="Password"
+                                 Margin="0,0,0,12"
                                      Password="{Binding Password, Mode=TwoWay}"
                                      RelativePanel.AlignLeftWithPanel="True"
                                      RelativePanel.Below="UserNameTextBox" />
 
                         <ToggleSwitch x:Name="BackgroundTaskEnabledToogleSwitch"
-                                      Header="Enable Background Task"
+                                      x:Uid="EnableBackgroundTask"
                                       IsOn="{Binding BackgroundTaskEnabled, Mode=TwoWay}"
-                                      OnContent="Background Task Enabled"
-                                      OffContent="Background Task Disabled"
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="PasswordBox" />
 
                         <ToggleSwitch x:Name="UseShellDrawnBackButtonToggleSwtich"
-                                      Header="Shell-drawn Back Button"
+                                      x:Uid="ShellDrawnBackButton"
                                       IsOn="{Binding UseShellBackButton, Mode=TwoWay}"
-                                      OffContent="Back button is in Page Header"
-                                      OnContent="Back button in Title/TaskBar"
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="BackgroundTaskEnabledToogleSwitch" />
 
                         <ToggleSwitch x:Name="UseLightThemeToggleSwitch"
-                                      Header="Requested Application Theme"
+                                      x:Uid="RequestedApplicationTheme"
                                       IsOn="{Binding UseLightThemeButton, Mode=TwoWay}"
-                                      OffContent="Current theme is Dark"
-                                      OnContent="Current theme is Light"
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="UseShellDrawnBackButtonToggleSwtich" />
                         
                         <Button x:Name="ResetButton"
                                 Margin="0,12"
-                                Content="Reset Database"
+                                x:Uid="ResetDatabase"
                                 RelativePanel.AlignLeftWithPanel="True"
                                 RelativePanel.Below="UseLightThemeToggleSwitch"
                                 Command="{Binding ResetCommand}"/>
@@ -116,7 +110,7 @@
             </PivotItem>
 
             <!--  about  -->
-            <PivotItem Header="About">
+            <PivotItem x:Uid="About">
                 <RelativePanel DataContext="{Binding AboutPartViewModel}">
 
                     <Border x:Name="LogoImage"

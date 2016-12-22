@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <controls:PageHeader Content="Files"
+        <controls:PageHeader x:Uid="Files"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
 
@@ -47,7 +47,7 @@
                                             <ControlTemplate TargetType="MenuFlyoutItem">
                                                 <StackPanel Orientation="Horizontal">
                                                     <SymbolIcon Margin="0,0,12,0" Symbol="Sync" />
-                                                    <TextBlock Text="Automatic Sync" />
+                                                    <TextBlock x:Uid="ActivateSync" />
                                                 </StackPanel>
                                             </ControlTemplate>
                                         </MenuFlyoutItem.Template>

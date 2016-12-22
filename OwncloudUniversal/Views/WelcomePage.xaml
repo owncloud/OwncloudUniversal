@@ -15,7 +15,7 @@
         <StackPanel VerticalAlignment="Center" Margin="20">
             <TextBox Header="Server address" Text="{Binding ServerUrl, Mode=TwoWay}"/>
             <TextBlock Text="Server found!" Visibility="{Binding ServerFound, Converter={StaticResource BoolToVisibilityConverter}}"/>
-            <TextBox Header="Username" Margin="0,10,0,0" Text="{Binding UserName, Mode=TwoWay}"/>
+            <TextBox Header="Username" Margin="0,10,0,0" Text="{Binding UserName, Mode=TwoWay}" PlaceholderText="https://.../owncloud"/>
             <PasswordBox Header="Password" Margin="0,10,0,0" Password="{Binding Password, Mode=TwoWay}"/>
             <Button Content="Connect" HorizontalAlignment="Center" Command="{Binding ConnectCommand}" Margin="0, 10,0,0"/>
         </StackPanel>
