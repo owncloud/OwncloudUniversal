@@ -20,7 +20,7 @@ namespace OwncloudUniversal.ViewModels
 
         public SynchronizationPageViewModel()
         {
-            _syncService = new SynchronizationService();
+            _syncService = SynchronizationService.GetInstance();
             StartSyncCommand = new DelegateCommand(async () => await _syncService.StartSyncProcess());
         }
     }

@@ -16,7 +16,16 @@ namespace OwncloudUniversal.Services
     {
         public readonly BackgroundSyncProcess Worker;
 
-        public SynchronizationService()
+        private static SynchronizationService _instance;
+
+        public static SynchronizationService GetInstance()
+        {
+            if(_instance == null)
+                _instance = new SynchronizationService();
+            return _instance;
+        }
+
+        private SynchronizationService()
         {
             var fileSystem = new FileSystemAdapter(false, null);
             var webDav = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, fileSystem);
