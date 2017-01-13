@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 using OwncloudUniversal.WebDav.Model;
+using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
 namespace OwncloudUniversal.WebDav
 {
@@ -51,9 +52,12 @@ namespace OwncloudUniversal.WebDav
             return items.FirstOrDefault();
         }
 
-        public void Delete()
+        public async Task Delete(Uri url)
         {
-            
+            if(!url.IsAbsoluteUri)
+                url = new Uri(_serverUrl, url);
+            var delRequest = new WebDavRequest(_credential, url, HttpMethod.Delete);
+            await delRequest.SendAsync();
         }
 
         public async Task<DavItem> CreateFolder(Uri url)
@@ -66,10 +70,13 @@ namespace OwncloudUniversal.WebDav
             return items.FirstOrDefault();
         }
 
-        public void DeleteFolder()
+        public async Task<bool> Exists(Uri url)
         {
-            
+            if (!url.IsAbsoluteUri)
+                url = new Uri(_serverUrl, url);
+            var delRequest = new WebDavRequest(_credential, url, HttpMethod.Head);
+            var response = await delRequest.SendAsync();
+            return response.StatusCode == HttpStatusCode.Ok;
         }
-        
     }
 }

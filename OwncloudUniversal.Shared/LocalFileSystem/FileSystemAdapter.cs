@@ -45,11 +45,12 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 {
                     IDictionary<string, object> propertyResult = null;
                     if (file.IsOfType(StorageItemTypes.File))
-                        propertyResult = await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                        propertyResult =
+                            await ((StorageFile) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                     else if (file.IsOfType(StorageItemTypes.Folder))
                         propertyResult =
-                            await ((StorageFolder)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
-                    var item = new LocalItem(new FolderAssociation { Id = associationId }, file, propertyResult);
+                            await ((StorageFolder) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                    var item = new LocalItem(new FolderAssociation {Id = associationId}, file, propertyResult);
                     result.Add(item);
                 }
                 catch (Exception e)
@@ -62,7 +63,9 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             if (!IsBackgroundSync)
             {
                 var unsynced =
-                        AbstractItemTableModel.GetDefault().GetPostponedItems().Where(x => x.AdapterType == typeof(FileSystemAdapter));
+                    AbstractItemTableModel.GetDefault()
+                        .GetPostponedItems()
+                        .Where(x => x.AdapterType == typeof(FileSystemAdapter));
                 foreach (var abstractItem in unsynced)
                 {
                     abstractItem.SyncPostponed = false;
@@ -127,7 +130,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         public async Task<AbstractItem> AddItem(AbstractItem item, StorageFile targetFile)
         {
             item.ContentStream = await LinkedAdapter.GetItemStreamAsync(item.EntityId);
-            byte[] buffer = new byte[16 * 1024];
+            byte[] buffer = new byte[16*1024];
             using (var stream = await targetFile.OpenStreamForWriteAsync())
             using (item.ContentStream)
             {
@@ -151,9 +154,28 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             return await AddItem(item);
         }
 
-        public override Task DeleteItem(AbstractItem item)
+        public override async Task DeleteItem(AbstractItem item)
         {
-            throw new NotImplementedException();
+            var fileId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+            var fileItem = AbstractItemTableModel.GetDefault().GetItem(fileId);
+            try
+            {
+                if (item.IsCollection)
+                {
+                    var folder = await StorageFolder.GetFolderFromPathAsync(fileItem.EntityId);
+                    await folder.DeleteAsync(StorageDeleteOption.Default);
+                }
+                else
+                {
+                    var file = await StorageFile.GetFileFromPathAsync(fileItem.EntityId);
+                    await file.DeleteAsync(StorageDeleteOption.Default);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                
+            }
+
         }
         
         public override async Task<Stream> GetItemStreamAsync(string entityId)

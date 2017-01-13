@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-
+using OwncloudUniversal.Model;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Shared.Synchronisation;
@@ -103,9 +103,14 @@ namespace OwncloudUniversal.WebDav
             return await _davClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
         }
 
-        public override Task DeleteItem(AbstractItem item)
+        public override async Task DeleteItem(AbstractItem item)
         {
-            throw new NotImplementedException();
+            var davId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+            var davItem = AbstractItemTableModel.GetDefault().GetItem(davId);
+            if(davItem == null)
+                return;
+            if(await _davClient.Exists(new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute)))
+                await _davClient.Delete(new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute));
         }
 
         public override async Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association)

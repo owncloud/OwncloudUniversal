@@ -119,14 +119,14 @@ namespace OwncloudUniversal.Model
             var statement = "SELECT Id, TargetItemId, SourceItemId, ChangeNumber, AssociationId FROM LinkStatus WHERE SourceItemId = ?";
             using (var query = Connection.Prepare(statement))
             {
-                BindSelectItemQuery(query, sourceItem.EntityId);
+                BindSelectItemQuery(query, sourceItem.Id);
                 if (query.Step() == SQLiteResult.ROW)
                 {
                     var i = CreateInstance(query);
                     return i;
                 }
             }
-            throw new ArgumentOutOfRangeException("Key not found");
+            throw new KeyNotFoundException();
         }
 
         public ObservableCollection<LinkStatus> GetAllItems(FolderAssociation association)

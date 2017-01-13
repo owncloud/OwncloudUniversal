@@ -14,20 +14,23 @@ using OwncloudUniversal.Shared.Model;
 namespace OwncloudUniversal.Shared.Synchronisation
 {
     public class BackgroundSyncProcess
-    {       
+    {
         private List<AbstractItem> _itemIndex;
+        private List<AbstractItem> _deletions;
         private List<LinkStatus> _linkList;
         private int _uploadCount;
         private int _downloadCount;
         private int _deletedCount;
         private bool _errorsOccured;
+        private Stopwatch _watch;
 
         public readonly ExecutionContext ExecutionContext;
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
 
-        public BackgroundSyncProcess(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter, bool isBackgroundTask)
+        public BackgroundSyncProcess(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter,
+            bool isBackgroundTask)
         {
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
@@ -39,36 +42,119 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         public async Task Run()
         {
-            var watch = Stopwatch.StartNew();
+            _watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
+            _itemIndex = null;
+            _deletions = null;
+            _linkList = null;
+            _uploadCount = 0;
+            _downloadCount = 0;
+            _deletedCount = 0;
+            _errorsOccured = false;
+            await GetChanges();
+            ExecutionContext.Status = ExecutionStatus.Active;
+            await ProcessItems();
+            await Finish();
+        }
+
+        private async Task Finish()
+        {
+            await
+                LogHelper.Write(
+                    $"Finished synchronization cycle. Duration: {_watch.Elapsed} BackgroundTask: {_isBackgroundTask}");
+            if (_deletedCount != 0 || _downloadCount != 0 || _uploadCount != 0)
+                ToastHelper.SendToast(_isBackgroundTask
+                    ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}"
+                    : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}");
+            _watch.Stop();
+            if (!_errorsOccured)
+                Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
+            ExecutionContext.Status = ExecutionStatus.Finished;
+        }
+
+        private async Task GetChanges()
+        {
             var associations = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation association in associations)
             {
-                await LogHelper.Write($"Scanning {association.LocalFolderPath} and {association.RemoteFolderFolderPath} BackgroundTask: {_isBackgroundTask}");
-                if (watch.Elapsed.Minutes >= 9)
+                await
+                    LogHelper.Write(
+                        $"Scanning {association.LocalFolderPath} and {association.RemoteFolderFolderPath} BackgroundTask: {_isBackgroundTask}");
+                if (_watch.Elapsed.Minutes >= 9)
                     break;
                 ExecutionContext.Status = ExecutionStatus.Scanning;
                 var getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
-                var getUpdatedSourceTask =  _sourceEntityAdapter.GetUpdatedItems(association);
+                var getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
                 var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
                 var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
 
-                var deleted = await getDeletedTargetTask;
-                deleted.AddRange(await getDeletedSourceTask);
-                DeleteFromIndex(deleted);
-                _deletedCount = deleted.Count;
+                _deletions = await getDeletedTargetTask;
+                _deletions.AddRange(await getDeletedSourceTask);
+                _deletedCount = _deletions.Count;
 
-                _itemIndex = await  getUpdatedSourceTask;
+                _itemIndex = await getUpdatedSourceTask;
                 _itemIndex.AddRange(await getUpdatedTargetTask);
-                
+
+                await ProcessDeletions();
                 _UpdateFileIndexes(association);
-
-
-                await LogHelper.Write($"Updating: {_itemIndex.Count} Deleting: {deleted.Count} BackgroundTask: {_isBackgroundTask}");
+                await
+                    LogHelper.Write(
+                        $"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
             }
             _itemIndex = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
             _linkList = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
-            ExecutionContext.Status = ExecutionStatus.Active;
+        }
+
+        private async Task ProcessDeletions()
+        {
+            foreach (var item in _deletions)
+            {
+                try
+                {
+                    if (item.AdapterType == _targetEntityAdapter.GetType())
+                    {
+                        await _sourceEntityAdapter.DeleteItem(item);
+                    }
+
+                    if (item.AdapterType == _sourceEntityAdapter.GetType())
+                    {
+                        await _targetEntityAdapter.DeleteItem(item);
+                    }
+                }
+                catch (KeyNotFoundException)
+                {
+                    Debug.WriteLine(item.EntityId + ", " + item.Id);
+                }
+                var link = LinkStatusTableModel.GetDefault().GetItem(item);
+                var linkedItem = AbstractItemTableModel.GetDefault().GetItem(link.TargetItemId);
+                if (linkedItem != null)
+                {
+                    if (linkedItem.IsCollection)
+                    {
+                        var childItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                        foreach (var childItem in childItems)
+                        {
+                            AbstractItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                        }
+                    }
+                    AbstractItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
+                }
+
+                if (item.IsCollection)
+                {
+                    var childItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(item.EntityId);
+                    foreach (var childItem in childItems)
+                    {
+                        AbstractItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                    }
+                }
+                AbstractItemTableModel.GetDefault().DeleteItem(item.Id);
+                LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
+            }
+        }
+
+        private async Task ProcessItems()
+        {
             ExecutionContext.TotalFileCount = _itemIndex.Count;
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             int index = 1;
@@ -78,9 +164,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     ExecutionContext.CurrentFileNumber = index++;
                     ExecutionContext.CurrentFileName = item.EntityId;
-                    if(ExecutionContext.Status == ExecutionStatus.Stopped)
+                    if (ExecutionContext.Status == ExecutionStatus.Stopped)
                         break;
-                    await _Process(item);
+                    await _ProcessItem(item);
                 }
                 catch (Exception e)
                 {
@@ -91,25 +177,15 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 //we have 10 Minutes in total for each background task cycle
                 //after 10 minutes windows will terminate the task
                 //so after 9 minutes we stop the sync and just wait for the next cycle
-                if (watch.Elapsed.Minutes >= 9 && _isBackgroundTask)
+                if (_watch.Elapsed.Minutes >= 9 && _isBackgroundTask)
                 {
                     await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
                     break;
                 }
             }
+        }
 
-            await LogHelper.Write($"Finished synchronization cycle. Duration: {watch.Elapsed} BackgroundTask: {_isBackgroundTask}");
-            if (_deletedCount != 0 || _downloadCount != 0 || _uploadCount != 0) 
-            ToastHelper.SendToast(_isBackgroundTask
-                ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {watch.Elapsed}"
-                : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {watch.Elapsed}");
-            watch.Stop();
-            if(!_errorsOccured)
-                Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
-            ExecutionContext.Status = ExecutionStatus.Finished;
-        }      
-
-        private async Task _Process(AbstractItem item)
+        private async Task _ProcessItem(AbstractItem item)
         {
             //the root item of an association should not be created again
             if(item.Id == item.Association.LocalFolderId || item.Id == item.Association.RemoteFolderId)
