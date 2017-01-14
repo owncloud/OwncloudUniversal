@@ -129,6 +129,15 @@
   <data name="CurrentFile.Header" xml:space="preserve">
     <value>CurrentFile</value>
   </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>Disable synchronization</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>Downloading...</value>
+  </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
     <value>Automatic Synchronisation</value>
   </data>
@@ -150,8 +159,17 @@
   <data name="History.Header" xml:space="preserve">
     <value>History</value>
   </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>Open file</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>of</value>
+  </data>
   <data name="Password.Header" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Properties</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
     <value>Application Theme</value>

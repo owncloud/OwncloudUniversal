@@ -13,6 +13,9 @@
             <converters:ItemToSyncStatusConverter x:Key="ItemToSyncStatusConverter"/>
             <converters:BoolToCollectionSymbolConverter x:Key="BoolToCollectionSymbolConverter"/>
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
+            <converters:BytesToSuffixConverter x:Key="BytesToSuffixConverter"/>
+            <converters:UriToNicePathConverter x:Key="UriToNicePathConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>

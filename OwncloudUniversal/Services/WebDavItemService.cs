@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking.BackgroundTransfer;
+using Windows.Security.Credentials;
+using Windows.Security.Cryptography;
+using Windows.Storage;
+using Windows.Web.Http.Headers;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Model;
@@ -44,6 +49,15 @@ namespace OwncloudUniversal.Services
         public async Task UploadItemAsync(AbstractItem itemToUpload, string targetFolderHref)
         {
             await DavAdapter.AddItemAsync(itemToUpload, targetFolderHref);
+        }
+
+        public DownloadOperation CreateDownload(AbstractItem item, StorageFile targetFile)
+        {
+            BackgroundDownloader downloader = new BackgroundDownloader();
+            downloader.ServerCredential = new PasswordCredential(Configuration.ServerUrl, Configuration.UserName, Configuration.Password);
+            var uri = new Uri(item.EntityId, UriKind.RelativeOrAbsolute);
+            DownloadOperation download = downloader.CreateDownload(CreateItemUri(uri), targetFile);
+            return download;
         }
 
     }

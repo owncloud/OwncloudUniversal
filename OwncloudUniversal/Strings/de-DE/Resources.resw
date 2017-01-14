@@ -204,4 +204,22 @@
   <data name="Unsync.Text" xml:space="preserve">
     <value>Synchronisation Stoppen</value>
   </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>Synchronisation deaktivieren</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Eigenschaften</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>Herunterladen...</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>Datei öffnen</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>von</value>
+  </data>
 </root>

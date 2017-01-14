@@ -37,11 +37,16 @@ namespace OwncloudUniversal.ViewModels
             UploadItemCommand = new DelegateCommand(async () => await UploadItem() );   
             RefreshCommand = new DelegateCommand(async () => await LoadItems());
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
+            DownloadCommand = new DelegateCommand<object>(async parameter => await NavigationService.NavigateAsync(typeof(DownloadPage), parameter));
         }
 
         public ICommand UploadItemCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
         public ICommand AddToSyncCommand { get; private set; }
+        public ICommand RemoveFromSyncCommand { get; private set; }
+        public ICommand ShowPropertiesCommand { get; private set; }
+        public ICommand DownloadCommand { get; private set; }
+        public ICommand RenameCommand { get; private set; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
