@@ -14,6 +14,7 @@ namespace OwncloudUniversal.Shared.Model
     public class LocalItem : AbstractItem
     {
         public LocalItem() { }
+        
 
         public LocalItem(FolderAssociation association,IStorageItem storageItem, BasicProperties basicProperties)
         {
@@ -66,6 +67,8 @@ namespace OwncloudUniversal.Shared.Model
                 LastModified = Convert.ToDateTime(value);
             }
         }
+
+        public override string DisplayName => EntityId;
 
         public override Type AdapterType => typeof(FileSystemAdapter);
     }

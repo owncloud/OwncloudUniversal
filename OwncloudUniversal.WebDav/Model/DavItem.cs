@@ -9,7 +9,7 @@ namespace OwncloudUniversal.WebDav.Model
         public string Etag { get; set; }
         public string ContentType { get; set; }
         public DateTime LastModified { get; set; }
-        public string DisplayName { get; set; }
+        public override string DisplayName { get; set; }
         public override string EntityId
         {
             get

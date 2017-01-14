@@ -53,7 +53,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                     var item = new LocalItem(new FolderAssociation {Id = associationId}, file, propertyResult);
                     result.Add(item);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Debug.WriteLine(file);
                     throw;
