@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Services;
@@ -38,6 +43,7 @@ namespace OwncloudUniversal.ViewModels
             RefreshCommand = new DelegateCommand(async () => await LoadItems());
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
             DownloadCommand = new DelegateCommand<object>(async parameter => await NavigationService.NavigateAsync(typeof(DownloadPage), parameter));
+            DeleteCommand = new DelegateCommand<object>(async parameter => await DeleteItem(parameter));
         }
 
         public ICommand UploadItemCommand { get; private set; }
@@ -47,6 +53,7 @@ namespace OwncloudUniversal.ViewModels
         public ICommand ShowPropertiesCommand { get; private set; }
         public ICommand DownloadCommand { get; private set; }
         public ICommand RenameCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -146,6 +153,24 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-
+        private async Task DeleteItem(object parameter)
+        {
+            if (parameter is DavItem)
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = App.ResourceLoader.GetString("deleteFileConfirmation");
+                if (((DavItem)parameter).IsCollection)
+                    dialog.Title = App.ResourceLoader.GetString("deleteFolderConfirmation");
+                dialog.Content = ((DavItem) parameter).DisplayName;
+                dialog.PrimaryButtonText = App.ResourceLoader.GetString("yes");
+                dialog.SecondaryButtonText = App.ResourceLoader.GetString("no");
+                var result = await dialog.ShowAsync();
+                if (result == ContentDialogResult.Primary)
+                {
+                    await WebDavItemService.GetDefault().DeleteItemAsync((DavItem)parameter);
+                    await LoadItems();
+                }
+            }
+        }
     }
 }

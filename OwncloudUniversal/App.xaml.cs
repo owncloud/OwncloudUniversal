@@ -6,6 +6,7 @@ using Template10.Controls;
 using Template10.Common;
 using System;
 using System.Linq;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
@@ -40,6 +41,8 @@ namespace OwncloudUniversal
 
             #endregion
         }
+
+        public static ResourceLoader ResourceLoader = new ResourceLoader();
 
         public override UIElement CreateRootElement(IActivatedEventArgs e)
         {

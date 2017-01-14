@@ -68,7 +68,6 @@
                                                 Command="{Binding DataContext.RemoveFromSyncCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
                                                 Visibility="{Binding IsSynced, Converter={StaticResource BoolToVisibilityConverter}}">
-
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
                                             <StackPanel Orientation="Horizontal">
@@ -87,6 +86,19 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <SymbolIcon Margin="0,0,12,0" Symbol="Download" />
                                                 <TextBlock x:Uid="Download" />
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </MenuFlyoutItem.Template>
+                                </MenuFlyoutItem>
+
+                                <MenuFlyoutItem Margin="12"
+                                                Command="{Binding DataContext.DeleteCommand, ElementName=Page}"
+                                                CommandParameter="{Binding}">
+                                    <MenuFlyoutItem.Template>
+                                        <ControlTemplate TargetType="MenuFlyoutItem">
+                                            <StackPanel Orientation="Horizontal">
+                                                <SymbolIcon Margin="0,0,12,0" Symbol="Delete" />
+                                                <TextBlock x:Uid="Delete" />
                                             </StackPanel>
                                         </ControlTemplate>
                                     </MenuFlyoutItem.Template>
@@ -120,8 +132,8 @@
         
 
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom">
-            <AppBarButton Label="Refresh" Icon="Refresh" Command="{Binding RefreshCommand}"/>
-            <AppBarButton Icon="Upload" Label="Upload File" Command="{Binding UploadItemCommand}"/>
+            <AppBarButton x:Uid="Refresh" Icon="Refresh" Command="{Binding RefreshCommand}"/>
+            <AppBarButton Icon="Upload" x:Uid="Upload" Command="{Binding UploadItemCommand}"/>
         </CommandBar>
     </Grid>
 </Page>

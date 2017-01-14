@@ -11,7 +11,7 @@ using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
 namespace OwncloudUniversal.WebDav
 {
-    internal class WebDavClient
+    public class WebDavClient
     {
         private readonly Uri _serverUrl;
         private readonly NetworkCredential _credential;

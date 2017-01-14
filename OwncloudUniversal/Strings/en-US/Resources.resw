@@ -123,11 +123,23 @@
   <data name="ActivateSync.Text" xml:space="preserve">
     <value>Activate Synchronization</value>
   </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Connection.Header" xml:space="preserve">
     <value>Connection</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
     <value>CurrentFile</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>Delete file?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>Delete folder?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
     <value>Disable synchronization</value>
@@ -137,6 +149,9 @@
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Downloading...</value>
+  </data>
+  <data name="DownloadIsBackgroundTransfer.Text" xml:space="preserve">
+    <value>Download will also complete if the app is in the background!</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
     <value>Automatic Synchronisation</value>
@@ -159,6 +174,9 @@
   <data name="History.Header" xml:space="preserve">
     <value>History</value>
   </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="OpenFile.Content" xml:space="preserve">
     <value>Open file</value>
   </data>
@@ -170,6 +188,9 @@
   </data>
   <data name="Properties.Text" xml:space="preserve">
     <value>Properties</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>Reload</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
     <value>Application Theme</value>
@@ -216,10 +237,16 @@
   <data name="Unsync.Text" xml:space="preserve">
     <value>Stop Synchronization</value>
   </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
   <data name="UserName.Header" xml:space="preserve">
     <value>Username</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

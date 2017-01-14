@@ -12,6 +12,7 @@ using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.WebDav;
+using OwncloudUniversal.WebDav.Model;
 
 namespace OwncloudUniversal.Services
 {
@@ -51,13 +52,18 @@ namespace OwncloudUniversal.Services
             await DavAdapter.AddItemAsync(itemToUpload, targetFolderHref);
         }
 
-        public DownloadOperation CreateDownload(AbstractItem item, StorageFile targetFile)
+        public DownloadOperation CreateDownload(DavItem item, StorageFile targetFile)
         {
             BackgroundDownloader downloader = new BackgroundDownloader();
             downloader.ServerCredential = new PasswordCredential(Configuration.ServerUrl, Configuration.UserName, Configuration.Password);
             var uri = new Uri(item.EntityId, UriKind.RelativeOrAbsolute);
             DownloadOperation download = downloader.CreateDownload(CreateItemUri(uri), targetFile);
             return download;
+        }
+
+        public async Task DeleteItemAsync(DavItem item)
+        {
+            await DavAdapter.DavClient.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
         }
 
     }

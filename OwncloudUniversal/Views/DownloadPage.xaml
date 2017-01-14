@@ -28,6 +28,10 @@
                 <TextBlock Text="-" Margin="10,0"/>
                 <TextBlock Text="{Binding PercentText}" Margin="10, 0"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 20" HorizontalAlignment="Center">
+                <SymbolIcon Symbol="Important" />
+                <TextBlock x:Uid="DownloadIsBackgroundTransfer" FontStyle="Italic" FontWeight="Light" Margin="10, 0"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

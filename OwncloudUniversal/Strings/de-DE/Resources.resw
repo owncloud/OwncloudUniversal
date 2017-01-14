@@ -213,13 +213,40 @@
   <data name="Download.Text" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>Datei löschen?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>Ordner löschen?</value>
+  </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Herunterladen...</value>
+  </data>
+  <data name="DownloadIsBackgroundTransfer.Text" xml:space="preserve">
+    <value>Download wird auch abgeschlossen wenn die App minimiert ist!</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Nein</value>
   </data>
   <data name="OpenFile.Content" xml:space="preserve">
     <value>Datei öffnen</value>
   </data>
   <data name="OutOf.Text" xml:space="preserve">
     <value>von</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>Dateien hochladen</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Ja</value>
   </data>
 </root>
