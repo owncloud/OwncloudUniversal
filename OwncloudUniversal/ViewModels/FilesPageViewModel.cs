@@ -167,8 +167,10 @@ namespace OwncloudUniversal.ViewModels
                 var result = await dialog.ShowAsync();
                 if (result == ContentDialogResult.Primary)
                 {
+                    IndicatorService.GetDefault().ShowBar();
                     await WebDavItemService.GetDefault().DeleteItemAsync((DavItem)parameter);
                     await LoadItems();
+                    IndicatorService.GetDefault().HideBar();
                 }
             }
         }

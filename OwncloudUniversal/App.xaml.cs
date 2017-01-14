@@ -42,35 +42,32 @@ namespace OwncloudUniversal
             #endregion
         }
 
-        public static ResourceLoader ResourceLoader = new ResourceLoader();
+        public static readonly ResourceLoader ResourceLoader = new ResourceLoader();
 
         public override UIElement CreateRootElement(IActivatedEventArgs e)
         {
-            var service = NavigationServiceFactory(BackButton.Attach, ExistingContent.Exclude);
+            var service = NavigationServiceFactory(BackButton.Attach, ExistingContent.Include);
             return new ModalDialog
             {
                 DisableBackButtonWhenModal = true,
                 Content = new Views.Shell(service),
-                //ModalContent = new Views.Busy(),
             };
         }
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // TODO: add your long-running task here
-            SQLiteClient.Init();
-            var status = await OcsClient.GetServerStatusAsync(Configuration.ServerUrl);
-            if (status == null)
-                await NavigationService.NavigateAsync(typeof(WelcomePage));
-            else
+            if (startKind == StartKind.Launch)
             {
-                await NavigationService.NavigateAsync(typeof(Views.FilesPage));
+                SQLiteClient.Init();
+                var status = await OcsClient.GetServerStatusAsync(Configuration.ServerUrl);
+                if (status == null)
+                    await NavigationService.NavigateAsync(typeof(WelcomePage));
+                else
+                {
+                    await NavigationService.NavigateAsync(typeof(FilesPage));
+                }
             }
-        }
-
-        public override void OnResuming(object s, object e, AppExecutionState previousExecutionState)
-        {
-            base.OnResuming(s, e, previousExecutionState);
         }
     }
 }

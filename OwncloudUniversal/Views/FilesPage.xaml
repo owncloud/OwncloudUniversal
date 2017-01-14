@@ -42,7 +42,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="75"/>
                         </Grid.ColumnDefinitions>
                         <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" HorizontalAlignment="Left" Grid.Column="0"/>
                         <TextBlock Grid.Column="1" Text="{Binding DisplayName}" Margin="10,0"  HorizontalAlignment="Stretch"/>
