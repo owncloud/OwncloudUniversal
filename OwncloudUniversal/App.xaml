@@ -23,6 +23,7 @@
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <converters:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
             <converters:ProgressToVisibilityConverter x:Key="ProgressToVisibilityConverter"/>
+            <converters:PathToFolderConverter x:Key="PathToFolderConverter"/>
             
             <t10Converters:ValueWhenConverter x:Key="VisibleInSingleModeConverter">
                 <t10Converters:ValueWhenConverter.When>

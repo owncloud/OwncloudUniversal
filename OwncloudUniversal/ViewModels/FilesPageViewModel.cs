@@ -49,6 +49,7 @@ namespace OwncloudUniversal.ViewModels
             DeleteCommand = new DelegateCommand<DavItem>(async item => await DeleteItems(new List<AbstractItem>() {item}));
             DeleteMultipleCommand = new DelegateCommand(async () => await DeleteItems(FilesPage.GetSelectedItems()));
             SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = ListViewSelectionMode.Single);
+            ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item));
         }
 
         public ICommand UploadItemCommand { get; private set; }

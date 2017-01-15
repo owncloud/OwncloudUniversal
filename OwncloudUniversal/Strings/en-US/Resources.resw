@@ -267,6 +267,30 @@
   <data name="deleteMultipleConfirmation" xml:space="preserve">
     <value>Delete?</value>
   </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>Etag</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>Synchronizationstatus</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>Modifydate</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>Size</value>
+  </data>
   <data name="SelectMode.Label" xml:space="preserve">
     <value>Select mode</value>
   </data>

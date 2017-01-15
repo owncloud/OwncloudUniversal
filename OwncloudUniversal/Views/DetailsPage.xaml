@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Template10.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     DataContext="{Binding DetailsPageViewModel, RelativeSource={RelativeSource Self}}">
 
@@ -13,12 +14,23 @@
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <controls:PageHeader Content="Files"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <controls:PageHeader Content="Properties"
+                             x:Uid="DetailsPageHeader"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
-        <RelativePanel>
-            <TextBlock Text=""/>
-        </RelativePanel>
+        <ListView SelectionMode="None" Grid.Row="1">
+            <toolkit:HeaderedTextBlock Text="{Binding Item.DisplayName}" Header="Name" x:Uid="Filename"/>
+            <toolkit:HeaderedTextBlock Text="{Binding Item.Href, Converter={StaticResource PathToFolderConverter}}" x:Uid="FilePath"/>
+            <toolkit:HeaderedTextBlock Text="{Binding Item.LastModified}" x:Uid="FileModified"/>
+            <toolkit:HeaderedTextBlock Text="{Binding Item.ContentType}" x:Uid="FileContentType"/>
+            <toolkit:HeaderedTextBlock Text="{Binding Item.Size,Converter={StaticResource BytesToSuffixConverter}}" x:Uid="FileSize"/>
+            <toolkit:HeaderedTextBlock Text="{Binding Item.IsSynced}" x:Uid="FileIsSynced"/>
+            <toolkit:HeaderedTextBlock Text="{Binding Item.Etag}" x:Uid="FileEtag"/>
+        </ListView>
     </Grid>
 
 </Page>

@@ -106,6 +106,7 @@
     <Compile Include="Converters\BytesToSuffixConverter.cs" />
     <Compile Include="Converters\InvertedItemToVisibilityConverter.cs" />
     <Compile Include="Converters\ItemToSyncStatusConverter.cs" />
+    <Compile Include="Converters\PathToFolderConverter.cs" />
     <Compile Include="Converters\ProgressToCompletedConverter.cs" />
     <Compile Include="Converters\ProgressToPercentConverter.cs" />
     <Compile Include="Converters\ProgressToTotalConverter.cs" />
@@ -117,14 +118,17 @@
     <Compile Include="Services\SyncedFoldersService.cs" />
     <Compile Include="Services\SynchronizationService.cs" />
     <Compile Include="Services\WebDavItemService.cs" />
+    <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="ViewModels\FileTransferPageViewModel.cs" />
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\SyncedFoldersPageViewModel.cs" />
     <Compile Include="ViewModels\SynchronizationPageViewModel.cs" />
     <Compile Include="ViewModels\WelcomePageViewModel.cs" />
+    <Compile Include="Views\DetailsPage.xaml.cs">
+      <DependentUpon>DetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FileTransferPage.xaml.cs">
       <DependentUpon>FileTransferPage.xaml</DependentUpon>
     </Compile>
@@ -238,6 +242,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\DetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FileTransferPage.xaml">
       <SubType>Designer</SubType>
