@@ -15,12 +15,12 @@ namespace OwncloudUniversal.WebDav
 {
     public class WebDavAdapter : AbstractAdapter
     {
-        public WebDavClient DavClient;
-        private List<string> existingFolders;
+        private readonly WebDavClient _davClient;
+        private readonly List<string> _existingFolders;
         public WebDavAdapter(bool isBackgroundSync, string serverUrl, NetworkCredential credential, AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
         {
-            DavClient = new WebDavClient(new Uri(serverUrl, UriKind.RelativeOrAbsolute), credential);
-            existingFolders = new List<string>();
+            _davClient = new WebDavClient(new Uri(serverUrl, UriKind.RelativeOrAbsolute), credential);
+            _existingFolders = new List<string>();
         }
         public override async Task<AbstractItem> AddItem(AbstractItem localItem)
         {
@@ -34,7 +34,7 @@ namespace OwncloudUniversal.WebDav
                 //create folder and parent folders
                 await CreateFolder(localItem.Association, localItem, folderName);
                 //load the folder again to update the item properties
-                var folder = await DavClient.ListFolder(new Uri(path, UriKind.RelativeOrAbsolute));
+                var folder = await _davClient.ListFolder(new Uri(path, UriKind.RelativeOrAbsolute));
                 resultItem = folder.FirstOrDefault(x => x.DisplayName == folderName);
                 resultItem.Association = localItem.Association;
             }
@@ -47,7 +47,7 @@ namespace OwncloudUniversal.WebDav
                 var filePath = _BuildRemoteFilePath(localItem.Association, localItem.EntityId);
                 
                 //if the file already exists dont upload it again
-                var folder = await DavClient.ListFolder(new Uri(folderPath, UriKind.RelativeOrAbsolute));
+                var folder = await _davClient.ListFolder(new Uri(folderPath, UriKind.RelativeOrAbsolute));
                 var existingItem = folder.FirstOrDefault(x => x.DisplayName == Path.GetFileName(localItem.EntityId));
                 if (existingItem != null && 
                     existingItem.Size == localItem.Size)
@@ -55,7 +55,7 @@ namespace OwncloudUniversal.WebDav
                     existingItem.Association = localItem.Association;
                     return existingItem;
                 }
-                resultItem = await DavClient.Upload(new Uri(filePath, UriKind.RelativeOrAbsolute), localItem.ContentStream);
+                resultItem = await _davClient.Upload(new Uri(filePath, UriKind.RelativeOrAbsolute), localItem.ContentStream);
                 resultItem.Association = localItem.Association;
             }
             return resultItem;
@@ -65,7 +65,7 @@ namespace OwncloudUniversal.WebDav
         {
             localItem.ContentStream = await LinkedAdapter.GetItemStreamAsync(localItem.EntityId);
             var uri = new Uri(targetHref.TrimEnd('/')+'/'+Path.GetFileName(localItem.EntityId), UriKind.RelativeOrAbsolute);
-            await DavClient.Upload(uri, localItem.ContentStream);
+            await _davClient.Upload(uri, localItem.ContentStream);
         }
 
         public override async Task<AbstractItem> UpdateItem(AbstractItem item)
@@ -81,7 +81,7 @@ namespace OwncloudUniversal.WebDav
             using (var stream = item.ContentStream)
             {
                 await CreateFolder(item.Association, item, Path.GetDirectoryName(item.EntityId));
-                targetItem = await DavClient.Upload(new Uri(folderPath, UriKind.RelativeOrAbsolute), stream);
+                targetItem = await _davClient.Upload(new Uri(folderPath, UriKind.RelativeOrAbsolute), stream);
             }
             targetItem.Association = item.Association;
             
@@ -90,17 +90,17 @@ namespace OwncloudUniversal.WebDav
 
         private async Task<AbstractItem> GetItem(string entityId)
         {
-            var items = await DavClient.ListFolder(new Uri(entityId, UriKind.RelativeOrAbsolute));
+            var items = await _davClient.ListFolder(new Uri(entityId, UriKind.RelativeOrAbsolute));
             var item = items.FirstOrDefault();
             if(item != null && !item.IsCollection)
-                item.ContentStream = await DavClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
+                item.ContentStream = await _davClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
             return item;
 
         }
 
         public override async Task<Stream> GetItemStreamAsync(string entityId)
         {
-            return await DavClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
+            return await _davClient.Download(new Uri(entityId, UriKind.RelativeOrAbsolute));
         }
 
         public override async Task DeleteItem(AbstractItem item)
@@ -109,8 +109,8 @@ namespace OwncloudUniversal.WebDav
             var davItem = AbstractItemTableModel.GetDefault().GetItem(davId);
             if(davItem == null)
                 return;
-            if(await DavClient.Exists(new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute)))
-                await DavClient.Delete(new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute));
+            if(await _davClient.Exists(new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute)))
+                await _davClient.Delete(new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute));
         }
 
         public override async Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association)
@@ -124,7 +124,7 @@ namespace OwncloudUniversal.WebDav
         public async Task<List<AbstractItem>> GetAllItems(Uri url)
         {
             List<DavItem> items = new List<DavItem>();
-            items = await DavClient.ListFolder(url);
+            items = await _davClient.ListFolder(url);
             return items.ToList<AbstractItem>();
         }
 
@@ -143,22 +143,22 @@ namespace OwncloudUniversal.WebDav
             foreach (string f in folders)
             {
                 string folderName = Uri.EscapeDataString(f);
-                if (existingFolders.Contains(currentFolder + '/' + folderName))//this should speed up the inital sync
+                if (_existingFolders.Contains(currentFolder + '/' + folderName))//this should speed up the inital sync
                 {
                     currentFolder += '/' + folderName;
                     continue;
                 }
-                var folderContent = await DavClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
+                var folderContent = await _davClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
                 if (folderContent.Count(x => x.DisplayName == WebUtility.UrlDecode(folderName) && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
-                        await DavClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
-                existingFolders.Add(currentFolder + '/' + folderName);
+                        await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
+                _existingFolders.Add(currentFolder + '/' + folderName);
                 currentFolder += '/' + folderName;
             }
         }
 
         private async Task _CheckRemoteFolderRecursive(AbstractItem folder, List<AbstractItem> result)
         {
-            List<DavItem> items = await DavClient.ListFolder(new Uri(folder.EntityId, UriKind.RelativeOrAbsolute));
+            List<DavItem> items = await _davClient.ListFolder(new Uri(folder.EntityId, UriKind.RelativeOrAbsolute));
             foreach (DavItem item in items)
             {
                 if (!ChangekeyHasChanged(item)) continue;
@@ -223,7 +223,7 @@ namespace OwncloudUniversal.WebDav
 
         private async Task _GetDeletedItemsAsync(AbstractItem folder, List<AbstractItem> itemIndex, List<AbstractItem> result)
         {
-            List<DavItem> folderItems = await DavClient.ListFolder(new Uri(folder.EntityId, UriKind.RelativeOrAbsolute));
+            List<DavItem> folderItems = await _davClient.ListFolder(new Uri(folder.EntityId, UriKind.RelativeOrAbsolute));
             //get all items that should be in a specific folder (according to the database)
             var existingItems = itemIndex.Where(x => x.EntityId.Contains(folder.EntityId));
             foreach (var item in existingItems)

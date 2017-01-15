@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http.Headers;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.LocalFileSystem;
@@ -19,9 +21,12 @@ namespace OwncloudUniversal.Services
     class WebDavItemService
     {
         private static WebDavItemService _instance;
+        private readonly WebDavClient _client;
+        private readonly OcsClient _ocsClient;
         private WebDavItemService()
         {
-            DavAdapter = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, null);
+            _client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            _ocsClient = new OcsClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
         }
 
         public static WebDavItemService GetDefault()
@@ -29,11 +34,9 @@ namespace OwncloudUniversal.Services
             return _instance ?? (_instance = new WebDavItemService());
         }
 
-        private WebDavAdapter DavAdapter { get; }
-
-        public async Task<List<AbstractItem>> GetItemsAsync(Uri folderHref)
+        public async Task<List<DavItem>> GetItemsAsync(Uri folderHref)
         {
-            return await DavAdapter.GetAllItems(CreateItemUri(folderHref));
+            return await _client.ListFolder(CreateItemUri(folderHref));
         }
 
         private Uri CreateItemUri(Uri href)
@@ -85,18 +88,17 @@ namespace OwncloudUniversal.Services
         {
             foreach (var item in items)
             {
-                await DavAdapter.DavClient.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
+                await _client.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
             }
         }
 
-
         public async Task CreateFolder(DavItem parentFolder, string folderName)
         {
-            folderName += Uri.EscapeDataString(folderName);
+            folderName = Uri.EscapeDataString(folderName);
             folderName = folderName.Replace("%28", "(");
             folderName = folderName.Replace("%29", ")");
             var uri = new Uri(parentFolder.EntityId.TrimEnd('/') + "/" + folderName, UriKind.RelativeOrAbsolute);
-            await DavAdapter.DavClient.CreateFolder(uri);
+            await _client.CreateFolder(uri);
         }
     }
 }
