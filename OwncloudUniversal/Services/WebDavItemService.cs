@@ -81,9 +81,12 @@ namespace OwncloudUniversal.Services
             return result;
         }
 
-        public async Task DeleteItemAsync(DavItem item)
+        public async Task DeleteItemAsync(List<DavItem> items)
         {
-            await DavAdapter.DavClient.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
+            foreach (var item in items)
+            {
+                await DavAdapter.DavClient.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
+            }
         }
 
 

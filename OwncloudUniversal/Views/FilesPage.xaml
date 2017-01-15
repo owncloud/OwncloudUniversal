@@ -135,10 +135,21 @@
             <AppBarButton x:Uid="DownloadMultiple" Icon="Download"
                           Command="{Binding DownloadMultipleCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
-            <AppBarButton x:Uid="SelectMode" Icon="Bullets" Command="{Binding SwitchSelectionModeCommand}"/>
-            <AppBarButton x:Uid="Refresh" Icon="Refresh" Command="{Binding RefreshCommand}"
+            <AppBarButton x:Uid="DeleteMultiple" Icon="Delete"
+                          Command="{Binding DeleteMultipleCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
+            <AppBarButton x:Uid="CancelSelectMode" Icon="Cancel" 
+                          Command="{Binding SwitchSelectionModeCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
+            
+            <AppBarButton x:Uid="Refresh" Icon="Refresh" 
+                          Command="{Binding RefreshCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
-            <AppBarButton Icon="Upload" x:Uid="Upload" Command="{Binding UploadItemCommand}"
+            <AppBarButton Icon="Upload" x:Uid="Upload" 
+                          Command="{Binding UploadItemCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
+            <AppBarButton x:Uid="SelectMode" Icon="Bullets" 
+                          Command="{Binding SwitchSelectionModeCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
         </CommandBar>
     </Grid>

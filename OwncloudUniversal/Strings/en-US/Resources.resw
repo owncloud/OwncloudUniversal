@@ -258,6 +258,15 @@
   <data name="DownloadMultiple.Label" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>Delete?</value>
+  </data>
   <data name="SelectMode.Label" xml:space="preserve">
     <value>Select mode</value>
   </data>

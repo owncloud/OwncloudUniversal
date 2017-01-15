@@ -46,7 +46,8 @@ namespace OwncloudUniversal.ViewModels
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
             DownloadSingleCommand = new DelegateCommand<AbstractItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), new List<AbstractItem>() {item}));
             DownloadMultipleCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), FilesPage.GetSelectedItems()));
-            DeleteCommand = new DelegateCommand<object>(async parameter => await DeleteItem(parameter));
+            DeleteCommand = new DelegateCommand<DavItem>(async item => await DeleteItems(new List<AbstractItem>() {item}));
+            DeleteMultipleCommand = new DelegateCommand(async () => await DeleteItems(FilesPage.GetSelectedItems()));
             SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = ListViewSelectionMode.Single);
         }
 
@@ -59,6 +60,8 @@ namespace OwncloudUniversal.ViewModels
         public ICommand DownloadMultipleCommand { get; private set; }
         public ICommand RenameCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand DeleteMultipleCommand { get; private set; }
+
         public ICommand SwitchSelectionModeCommand { get; private set; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
@@ -93,10 +96,11 @@ namespace OwncloudUniversal.ViewModels
             get { return _selectedItem; }
             set
             {
-                if(value != null)
+                if (value != null && value.IsCollection)
+                {
                     _selectedItem = value;
-                if(SelectedItem.IsCollection)
                     NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
+                }
             } 
         }
 
@@ -148,26 +152,47 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        private async Task DeleteItem(object parameter)
+        private async Task DeleteItems(List<AbstractItem> items)
         {
-            if (parameter is DavItem)
+            ContentDialog dialog = new ContentDialog();
+            if (items.Count == 1)
             {
-                ContentDialog dialog = new ContentDialog();
+                var item = items.First();
                 dialog.Title = App.ResourceLoader.GetString("deleteFileConfirmation");
-                if (((DavItem)parameter).IsCollection)
+                if (item.IsCollection)
                     dialog.Title = App.ResourceLoader.GetString("deleteFolderConfirmation");
-                dialog.Content = ((DavItem) parameter).DisplayName;
-                dialog.PrimaryButtonText = App.ResourceLoader.GetString("yes");
-                dialog.SecondaryButtonText = App.ResourceLoader.GetString("no");
-                var result = await dialog.ShowAsync();
-                if (result == ContentDialogResult.Primary)
+                dialog.Content = item.DisplayName;
+            }
+            else
+            {
+                dialog.Title = App.ResourceLoader.GetString("deleteMultipleConfirmation");
+                int i = 0;
+                foreach (var item in items)
                 {
-                    IndicatorService.GetDefault().ShowBar();
-                    await WebDavItemService.GetDefault().DeleteItemAsync((DavItem)parameter);
-                    await LoadItems();
-                    IndicatorService.GetDefault().HideBar();
+                    if (i < 3)
+                    {
+                        dialog.Content += item.DisplayName + Environment.NewLine;
+                        i++;
+                    }
+                    else
+                    {
+                        dialog.Content += "...";
+                        break;
+                    }
                 }
             }
+            dialog.PrimaryButtonText = App.ResourceLoader.GetString("yes");
+            dialog.SecondaryButtonText = App.ResourceLoader.GetString("no");
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                IndicatorService.GetDefault().ShowBar();
+                await WebDavItemService.GetDefault().DeleteItemAsync(items.Cast<DavItem>().ToList());
+                SelectionMode = ListViewSelectionMode.Single;
+                await LoadItems();
+                IndicatorService.GetDefault().HideBar();
+            }
+            
         }
     }
 }
