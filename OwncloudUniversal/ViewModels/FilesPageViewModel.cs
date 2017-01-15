@@ -115,7 +115,7 @@ namespace OwncloudUniversal.ViewModels
             IndicatorService.GetDefault().ShowBar();
             var items = await _davItemService.GetItemsAsync(new Uri(SelectedItem.EntityId, UriKind.RelativeOrAbsolute));
             items.RemoveAt(0);
-            ItemsList = items.OrderBy(x => !x.IsCollection).Cast<DavItem>().ToObservableCollection();
+            ItemsList = items.OrderBy(x => !x.IsCollection).ThenBy(x=> x.DisplayName, StringComparer.CurrentCultureIgnoreCase).Cast<DavItem>().ToObservableCollection();
             IndicatorService.GetDefault().HideBar();
         }
 
