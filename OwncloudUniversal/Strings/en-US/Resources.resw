@@ -123,6 +123,9 @@
   <data name="ActivateSync.Text" xml:space="preserve">
     <value>Activate Synchronization</value>
   </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Transfer will also complete if the app is in the background!</value>
+  </data>
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -150,9 +153,6 @@
   <data name="Downloading.Text" xml:space="preserve">
     <value>Downloading...</value>
   </data>
-  <data name="DownloadIsBackgroundTransfer.Text" xml:space="preserve">
-    <value>Download will also complete if the app is in the background!</value>
-  </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
     <value>Automatic Synchronisation</value>
   </data>
@@ -170,6 +170,9 @@
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
     <value>Synced Files</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>File transfer</value>
   </data>
   <data name="History.Header" xml:space="preserve">
     <value>History</value>
@@ -234,6 +237,9 @@
   <data name="SynchronizationButton.Text" xml:space="preserve">
     <value>Synchronization</value>
   </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>Transfer in progress..</value>
+  </data>
   <data name="Unsync.Text" xml:space="preserve">
     <value>Stop Synchronization</value>
   </data>
@@ -248,5 +254,11 @@
   </data>
   <data name="yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>Select mode</value>
   </data>
 </root>

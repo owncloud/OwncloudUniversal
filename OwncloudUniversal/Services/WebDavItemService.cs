@@ -21,9 +21,7 @@ namespace OwncloudUniversal.Services
         private static WebDavItemService _instance;
         private WebDavItemService()
         {
-            FileSystemAdapter = new FileSystemAdapter(false, null);
-            DavAdapter = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, FileSystemAdapter);
-            FileSystemAdapter.LinkedAdapter = DavAdapter;
+            DavAdapter = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, null);
         }
 
         public static WebDavItemService GetDefault()
@@ -32,7 +30,6 @@ namespace OwncloudUniversal.Services
         }
 
         private WebDavAdapter DavAdapter { get; }
-        private FileSystemAdapter FileSystemAdapter { get; }
 
         public async Task<List<AbstractItem>> GetItemsAsync(Uri folderHref)
         {
@@ -47,18 +44,41 @@ namespace OwncloudUniversal.Services
             return new Uri(serverUri, href);
         }
 
-        public async Task UploadItemAsync(AbstractItem itemToUpload, string targetFolderHref)
+        public async Task<List<DownloadOperation>> CreateDownloadAsync(List<AbstractItem> items, StorageFolder folder)
         {
-            await DavAdapter.AddItemAsync(itemToUpload, targetFolderHref);
-        }
-
-        public DownloadOperation CreateDownload(DavItem item, StorageFile targetFile)
-        {
+            List<DownloadOperation> result = new List<DownloadOperation>();
             BackgroundDownloader downloader = new BackgroundDownloader();
             downloader.ServerCredential = new PasswordCredential(Configuration.ServerUrl, Configuration.UserName, Configuration.Password);
-            var uri = new Uri(item.EntityId, UriKind.RelativeOrAbsolute);
-            DownloadOperation download = downloader.CreateDownload(CreateItemUri(uri), targetFile);
-            return download;
+            foreach (var davItem in items)
+            {
+                if(davItem.IsCollection)
+                    continue;
+                var file = await folder.CreateFileAsync(davItem.DisplayName, CreationCollisionOption.OpenIfExists);
+                var uri = new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute);
+                result.Add(downloader.CreateDownload(CreateItemUri(uri), file));
+            }
+            return result;
+        }
+
+        public List<UploadOperation> CreateUpload(DavItem item, List<StorageFile> files)
+        {
+            List<UploadOperation> result = new List<UploadOperation>();
+            BackgroundUploader uploader = new BackgroundUploader();
+            uploader.Method = "PUT";
+            var buffer = CryptographicBuffer.ConvertStringToBinary(Configuration.UserName + ":" + Configuration.Password, BinaryStringEncoding.Utf8);
+            var token = CryptographicBuffer.EncodeToBase64String(buffer);
+            var value = new HttpCredentialsHeaderValue("Basic", token);
+            uploader.SetRequestHeader("Authorization", value.ToString());
+            foreach (var storageFile in files)
+            {
+                var uri = new Uri(item.EntityId.TrimEnd('/'), UriKind.RelativeOrAbsolute);
+                uri = new Uri(uri + "/" + storageFile.Name, UriKind.RelativeOrAbsolute);
+                if (!uri.IsAbsoluteUri)
+                    uri = CreateItemUri(uri);
+                UploadOperation upload = uploader.CreateUpload(uri, storageFile);
+                result.Add(upload);
+            }
+            return result;
         }
 
         public async Task DeleteItemAsync(DavItem item)
@@ -66,5 +86,14 @@ namespace OwncloudUniversal.Services
             await DavAdapter.DavClient.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
         }
 
+
+        public async Task CreateFolder(DavItem parentFolder, string folderName)
+        {
+            folderName += Uri.EscapeDataString(folderName);
+            folderName = folderName.Replace("%28", "(");
+            folderName = folderName.Replace("%29", ")");
+            var uri = new Uri(parentFolder.EntityId.TrimEnd('/') + "/" + folderName, UriKind.RelativeOrAbsolute);
+            await DavAdapter.DavClient.CreateFolder(uri);
+        }
     }
 }

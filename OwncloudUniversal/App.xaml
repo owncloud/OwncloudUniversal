@@ -2,7 +2,8 @@
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:common="using:Template10.Common"
-                     xmlns:converters="using:OwncloudUniversal.Converters">
+                     xmlns:converters="using:OwncloudUniversal.Converters"
+                     xmlns:t10Converters="using:Template10.Converters">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -12,12 +13,105 @@
 
             <converters:ItemToSyncStatusConverter x:Key="ItemToSyncStatusConverter"/>
             <converters:BoolToCollectionSymbolConverter x:Key="BoolToCollectionSymbolConverter"/>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-            <converters:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
+            <converters:ItemToVisibilityConverter x:Key="ItemToVisibilityConverter"/>
+            <converters:InvertedItemToVisibilityConverter x:Key="InvertedItemToVisibilityConverter"/>
             <converters:BytesToSuffixConverter x:Key="BytesToSuffixConverter"/>
             <converters:UriToNicePathConverter x:Key="UriToNicePathConverter"/>
+            <converters:ProgressToCompletedConverter x:Key="ProgressToCompletedConverter"/>
+            <converters:ProgressToPercentConverter x:Key="ProgressToPercentConverter"/>
+            <converters:ProgressToTotalConverter x:Key="ProgressToTotalConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
+            <converters:ProgressToVisibilityConverter x:Key="ProgressToVisibilityConverter"/>
+            
+            <t10Converters:ValueWhenConverter x:Key="VisibleInSingleModeConverter">
+                <t10Converters:ValueWhenConverter.When>
+                    <ListViewSelectionMode>Single</ListViewSelectionMode>
+                </t10Converters:ValueWhenConverter.When>
+                <t10Converters:ValueWhenConverter.Value>
+                    <Visibility>Visible</Visibility>
+                </t10Converters:ValueWhenConverter.Value>
+                <t10Converters:ValueWhenConverter.Otherwise>
+                    <Visibility>Collapsed</Visibility>
+                </t10Converters:ValueWhenConverter.Otherwise>
+            </t10Converters:ValueWhenConverter>
+
+            <t10Converters:ValueWhenConverter x:Key="VisibleInMultiModeConverter">
+                <t10Converters:ValueWhenConverter.When>
+                    <ListViewSelectionMode>Multiple</ListViewSelectionMode>
+                </t10Converters:ValueWhenConverter.When>
+                <t10Converters:ValueWhenConverter.Value>
+                    <Visibility>Visible</Visibility>
+                </t10Converters:ValueWhenConverter.Value>
+                <t10Converters:ValueWhenConverter.Otherwise>
+                    <Visibility>Collapsed</Visibility>
+                </t10Converters:ValueWhenConverter.Otherwise>
+            </t10Converters:ValueWhenConverter>
 
         </ResourceDictionary>
     </Application.Resources>
 
 </common:BootStrapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -213,6 +213,9 @@
   <data name="Download.Text" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Übertragung wird auch im Hintergrund fortgesetzt!</value>
+  </data>
   <data name="cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
@@ -228,8 +231,8 @@
   <data name="Downloading.Text" xml:space="preserve">
     <value>Herunterladen...</value>
   </data>
-  <data name="DownloadIsBackgroundTransfer.Text" xml:space="preserve">
-    <value>Download wird auch abgeschlossen wenn die App minimiert ist!</value>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>Dateiübertragung</value>
   </data>
   <data name="no" xml:space="preserve">
     <value>Nein</value>
@@ -241,12 +244,21 @@
     <value>von</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>Aktualisieren</value>
+    <value>Neu laden</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>Übertragung läuft..</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
     <value>Dateien hochladen</value>
   </data>
   <data name="yes" xml:space="preserve">
     <value>Ja</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>Auswahlmodus</value>
   </data>
 </root>

@@ -100,10 +100,16 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToSymbolConverter.cs" />
-    <Compile Include="Converters\BoolToVisibleConverter.cs" />
-    <Compile Include="Converters\BytesToSuffixConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ItemToVisibilityConverter.cs" />
+    <Compile Include="Converters\BytesToSuffixConverter.cs" />
+    <Compile Include="Converters\InvertedItemToVisibilityConverter.cs" />
     <Compile Include="Converters\ItemToSyncStatusConverter.cs" />
+    <Compile Include="Converters\ProgressToCompletedConverter.cs" />
+    <Compile Include="Converters\ProgressToPercentConverter.cs" />
+    <Compile Include="Converters\ProgressToTotalConverter.cs" />
+    <Compile Include="Converters\ProgressToVisibilityConverter.cs" />
     <Compile Include="Converters\UriToNicePathConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IndicatorService.cs" />
@@ -111,7 +117,7 @@
     <Compile Include="Services\SyncedFoldersService.cs" />
     <Compile Include="Services\SynchronizationService.cs" />
     <Compile Include="Services\WebDavItemService.cs" />
-    <Compile Include="ViewModels\DownloadPageViewModel.cs" />
+    <Compile Include="ViewModels\FileTransferPageViewModel.cs" />
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
@@ -119,8 +125,8 @@
     <Compile Include="ViewModels\SyncedFoldersPageViewModel.cs" />
     <Compile Include="ViewModels\SynchronizationPageViewModel.cs" />
     <Compile Include="ViewModels\WelcomePageViewModel.cs" />
-    <Compile Include="Views\DownloadPage.xaml.cs">
-      <DependentUpon>DownloadPage.xaml</DependentUpon>
+    <Compile Include="Views\FileTransferPage.xaml.cs">
+      <DependentUpon>FileTransferPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FilesPage.xaml.cs">
       <DependentUpon>FilesPage.xaml</DependentUpon>
@@ -233,7 +239,7 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Views\DownloadPage.xaml">
+    <Page Include="Views\FileTransferPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

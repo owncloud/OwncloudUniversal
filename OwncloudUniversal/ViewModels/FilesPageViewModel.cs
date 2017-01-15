@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
@@ -34,16 +35,19 @@ namespace OwncloudUniversal.ViewModels
         private readonly WebDavItemService _davItemService;
         private readonly SyncedFoldersService _syncedFolderService;
         private ObservableCollection<DavItem> _itemsList;
+        private ListViewSelectionMode _selectionMode = ListViewSelectionMode.Single;
 
         public FilesPageViewModel()
         {
             _davItemService = WebDavItemService.GetDefault();
             _syncedFolderService = new SyncedFoldersService();
-            UploadItemCommand = new DelegateCommand(async () => await UploadItem() );   
+            UploadItemCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), SelectedItem) );   
             RefreshCommand = new DelegateCommand(async () => await LoadItems());
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
-            DownloadCommand = new DelegateCommand<object>(async parameter => await NavigationService.NavigateAsync(typeof(DownloadPage), parameter));
+            DownloadSingleCommand = new DelegateCommand<AbstractItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), new List<AbstractItem>() {item}));
+            DownloadMultipleCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), FilesPage.GetSelectedItems()));
             DeleteCommand = new DelegateCommand<object>(async parameter => await DeleteItem(parameter));
+            SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = ListViewSelectionMode.Single);
         }
 
         public ICommand UploadItemCommand { get; private set; }
@@ -51,9 +55,11 @@ namespace OwncloudUniversal.ViewModels
         public ICommand AddToSyncCommand { get; private set; }
         public ICommand RemoveFromSyncCommand { get; private set; }
         public ICommand ShowPropertiesCommand { get; private set; }
-        public ICommand DownloadCommand { get; private set; }
+        public ICommand DownloadSingleCommand { get; private set; }
+        public ICommand DownloadMultipleCommand { get; private set; }
         public ICommand RenameCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand SwitchSelectionModeCommand { get; private set; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -87,12 +93,23 @@ namespace OwncloudUniversal.ViewModels
             get { return _selectedItem; }
             set
             {
-                _selectedItem = value;
+                if(value != null)
+                    _selectedItem = value;
                 if(SelectedItem.IsCollection)
                     NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
             } 
         }
-        
+
+        public ListViewSelectionMode SelectionMode
+        {
+            get { return _selectionMode; }
+            private set
+            {
+                _selectionMode = _selectionMode == value ? ListViewSelectionMode.Multiple : ListViewSelectionMode.Single;
+                RaisePropertyChanged();
+            }
+        }
+
         private async Task LoadItems()
         {
             IndicatorService.GetDefault().ShowBar();
@@ -100,24 +117,6 @@ namespace OwncloudUniversal.ViewModels
             items.RemoveAt(0);
             ItemsList = items.OrderBy(x => !x.IsCollection).Cast<DavItem>().ToObservableCollection();
             IndicatorService.GetDefault().HideBar();
-        }
-
-        private async Task UploadItem()
-        {
-            //TODO move this functionality to new page
-            FileOpenPicker picker = new FileOpenPicker();
-            picker.FileTypeFilter.Add("*");
-            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            var files = await picker.PickMultipleFilesAsync();
-            if (files.Count == 0) return;
-            var itemsToUpload = await _BuildRemoteItemsForUploadAsync(files.ToList());
-            foreach (var item in itemsToUpload)
-            {
-                await _davItemService.UploadItemAsync(item, _selectedItem.Href);
-            }
-            MessageDialog dia = new MessageDialog("Upload finished.");
-            await dia.ShowAsync();
-            await LoadItems();
         }
 
         private async Task<List<AbstractItem>> _BuildRemoteItemsForUploadAsync(List<StorageFile> files)
@@ -146,10 +145,6 @@ namespace OwncloudUniversal.ViewModels
                     return;
                 await _syncedFolderService.AddFolderToSyncAsync(folder, (DavItem) parameter);
                 await LoadItems();
-            }
-            else
-            {
-                //?
             }
         }
 

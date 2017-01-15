@@ -14,25 +14,26 @@
     DataContext="{Binding FilesPageViewModel, RelativeSource={RelativeSource Self}}"
     x:Name="Page"
     mc:Ignorable="d">
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <controls:PageHeader x:Uid="Files"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
 
-
+        
         <ListView x:Name="ListView" 
                   Grid.Row="1" 
                   ItemsSource="{Binding ItemsList}" 
+                  SelectionMode="{Binding SelectionMode}"
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
-                  VerticalAlignment="Stretch">
+                  IsMultiSelectCheckBoxEnabled="True"
+                  VerticalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -46,14 +47,13 @@
                         </Grid.ColumnDefinitions>
                         <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" HorizontalAlignment="Left" Grid.Column="0"/>
                         <TextBlock Grid.Column="1" Text="{Binding DisplayName}" Margin="10,0"  HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Right"/>   
+                        <TextBlock Grid.Column="2" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Right"/>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout Placement="Left">
-
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
-                                                Visibility="{Binding IsSynced, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+                                                Visibility="{Binding Converter={StaticResource InvertedItemToVisibilityConverter}}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
                                             <StackPanel Orientation="Horizontal">
@@ -67,7 +67,7 @@
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.RemoveFromSyncCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
-                                                Visibility="{Binding IsSynced, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                Visibility="{Binding Converter={StaticResource ItemToVisibilityConverter}}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
                                             <StackPanel Orientation="Horizontal">
@@ -78,7 +78,7 @@
                                     </MenuFlyoutItem.Template>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutItem Margin="12"
-                                                Command="{Binding DataContext.DownloadCommand, ElementName=Page}"
+                                                Command="{Binding DataContext.DownloadSingleCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
                                                 Visibility="{Binding IsCollection, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
                                     <MenuFlyoutItem.Template>
@@ -128,12 +128,18 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        
-        
+
+
 
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom">
-            <AppBarButton x:Uid="Refresh" Icon="Refresh" Command="{Binding RefreshCommand}"/>
-            <AppBarButton Icon="Upload" x:Uid="Upload" Command="{Binding UploadItemCommand}"/>
+            <AppBarButton x:Uid="DownloadMultiple" Icon="Download"
+                          Command="{Binding DownloadMultipleCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
+            <AppBarButton x:Uid="SelectMode" Icon="Bullets" Command="{Binding SwitchSelectionModeCommand}"/>
+            <AppBarButton x:Uid="Refresh" Icon="Refresh" Command="{Binding RefreshCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
+            <AppBarButton Icon="Upload" x:Uid="Upload" Command="{Binding UploadItemCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
         </CommandBar>
     </Grid>
 </Page>

@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+using OwncloudUniversal.WebDav.Model;
 
 namespace OwncloudUniversal.Converters
 {
-    class UriToNicePathConverter : IValueConverter
+    class ItemToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string name = "";
-            if (value is Uri)
-            {
-                name = (value as Uri).ToString();
-                if(name.Contains("webdav/"))
-                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase)+7);
-            }
-            return name;
+            if (value is DavItem)
+                if ((value as DavItem).IsCollection)
+                    if ((value as DavItem).IsSynced)
+                        return Visibility.Visible;
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
