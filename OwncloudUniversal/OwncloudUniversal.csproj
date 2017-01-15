@@ -101,7 +101,9 @@
     </Compile>
     <Compile Include="Converters\BoolToSymbolConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ContentTypeToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\InvertedContentTypeToVisibilityConverter.cs" />
     <Compile Include="Converters\ItemToVisibilityConverter.cs" />
     <Compile Include="Converters\BytesToSuffixConverter.cs" />
     <Compile Include="Converters\InvertedItemToVisibilityConverter.cs" />

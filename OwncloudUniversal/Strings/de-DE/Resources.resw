@@ -291,6 +291,9 @@
   <data name="FileSize.Header" xml:space="preserve">
     <value>Größe</value>
   </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>Neuer Ordner</value>
+  </data>
   <data name="SelectMode.Label" xml:space="preserve">
     <value>Auswahlmodus</value>
   </data>

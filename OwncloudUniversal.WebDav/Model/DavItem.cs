@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Xaml.Media.Imaging;
 using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.WebDav.Model
@@ -34,7 +35,7 @@ namespace OwncloudUniversal.WebDav.Model
                 Etag = value;
             }
         }
-
+        public BitmapImage Image { get; set; }
         public override Type AdapterType => typeof(WebDavAdapter);
     }
 }

@@ -41,12 +41,31 @@
                                 RightTapped="UIElement_OnRightTapped" 
                                 HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="75"/>
                         </Grid.ColumnDefinitions>
-                        <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" HorizontalAlignment="Left" Grid.Column="0"/>
-                        <TextBlock Grid.Column="1" Text="{Binding DisplayName}" Margin="10,0"  HorizontalAlignment="Stretch"/>
+                        <toolkit:ImageEx
+                            Grid.Column="0"
+                            IsCacheEnabled="True"
+                            Source="{Binding Image}"
+                            Stretch="UniformToFill"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="0,0,3,0"
+                            Height="40" 
+                            Width="40"
+                            Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}"
+                            />
+                        <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" 
+                                    HorizontalAlignment="Left"
+                                    Grid.Column="0" 
+                                    VerticalAlignment="Center"
+                                    Height="40"
+                                    Width="40"
+                                    Margin="0,0,3,0"
+                                    Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
                         <TextBlock Grid.Column="2" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Right"/>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout Placement="Left">
@@ -56,37 +75,50 @@
                                                 Visibility="{Binding Converter={StaticResource InvertedItemToVisibilityConverter}}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
-                                            <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
                                                 <SymbolIcon Margin="0,0,12,0" Symbol="Sync" />
-                                                <TextBlock x:Uid="ActivateSync" />
-                                            </StackPanel>
+                                                <TextBlock Grid.Column="1" x:Uid="ActivateSync" />
+                                            </Grid>
                                         </ControlTemplate>
                                     </MenuFlyoutItem.Template>
                                 </MenuFlyoutItem>
 
-                                <MenuFlyoutItem Margin="12"
+                                <!--<MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.RemoveFromSyncCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
                                                 Visibility="{Binding Converter={StaticResource ItemToVisibilityConverter}}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
-                                            <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
                                                 <SymbolIcon Margin="0,0,12,0" Symbol="UnSyncFolder" />
-                                                <TextBlock x:Uid="DisableSync" />
-                                            </StackPanel>
+                                                <TextBlock Grid.Column="1" x:Uid="DisableSync" />
+                                            </Grid>
                                         </ControlTemplate>
                                     </MenuFlyoutItem.Template>
-                                </MenuFlyoutItem>
+                                </MenuFlyoutItem>-->
+                                
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.DownloadSingleCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
                                                 Visibility="{Binding IsCollection, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
-                                            <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
                                                 <SymbolIcon Margin="0,0,12,0" Symbol="Download" />
-                                                <TextBlock x:Uid="Download" />
-                                            </StackPanel>
+                                                <TextBlock Grid.Column="1" x:Uid="Download" />
+                                            </Grid>
                                         </ControlTemplate>
                                     </MenuFlyoutItem.Template>
                                 </MenuFlyoutItem>
@@ -96,10 +128,14 @@
                                                 CommandParameter="{Binding}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
-                                            <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
                                                 <SymbolIcon Margin="0,0,12,0" Symbol="Delete" />
-                                                <TextBlock x:Uid="Delete" />
-                                            </StackPanel>
+                                                <TextBlock Grid.Column="1" x:Uid="Delete" />
+                                            </Grid>
                                         </ControlTemplate>
                                     </MenuFlyoutItem.Template>
                                 </MenuFlyoutItem>
@@ -109,10 +145,14 @@
                                                 CommandParameter="{Binding}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
-                                            <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
                                                 <SymbolIcon Margin="0,0,12,0" Symbol="More" />
-                                                <TextBlock x:Uid="Properties" />
-                                            </StackPanel>
+                                                <TextBlock Grid.Column="1" x:Uid="Properties" />
+                                            </Grid>
                                         </ControlTemplate>
                                     </MenuFlyoutItem.Template>
                                 </MenuFlyoutItem>
@@ -145,6 +185,9 @@
             <AppBarButton x:Uid="Refresh" Icon="Refresh" 
                           Command="{Binding RefreshCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
+            <AppBarButton x:Uid="NewFolder" Icon="NewFolder" 
+                          Command="{Binding AddFolderCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
             <AppBarButton Icon="Upload" x:Uid="Upload" 
                           Command="{Binding UploadItemCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
@@ -154,4 +197,6 @@
         </CommandBar>
     </Grid>
 </Page>
+
+
 
