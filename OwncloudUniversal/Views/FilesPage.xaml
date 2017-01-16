@@ -48,7 +48,7 @@
                         <toolkit:ImageEx
                             Grid.Column="0"
                             IsCacheEnabled="True"
-                            Source="{Binding Image}"
+                            Source="{Binding ThumbnailUrl}"
                             Stretch="UniformToFill"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"

@@ -218,7 +218,7 @@ namespace OwncloudUniversal.ViewModels
                     var itemPath = davItem.EntityId.Substring(davItem.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
                     var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 40 + "/" + 40 + itemPath;
                     ImageCache.Instance.PreCacheAsync(new Uri(url), false, true);
-                    davItem.Image = new BitmapImage(new Uri(url));
+                    davItem.ThumbnailUrl = url;
                 }
             }
         }

@@ -35,7 +35,7 @@ namespace OwncloudUniversal.WebDav.Model
                 Etag = value;
             }
         }
-        public BitmapImage Image { get; set; }
+        public string ThumbnailUrl { get; set; }
         public override Type AdapterType => typeof(WebDavAdapter);
     }
 }
