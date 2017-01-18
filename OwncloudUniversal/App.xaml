@@ -26,6 +26,7 @@
             <converters:PathToFolderConverter x:Key="PathToFolderConverter"/>
             <converters:ContentTypeToVisibilityConverter x:Key="ContentTypeToVisibilityConverter"/>
             <converters:InvertedContentTypeToVisibilityConverter x:Key="InvertedContentTypeToVisibilityConverter"/>
+            <converters:ContentTypeToSymbolUriConverter x:Key="ContentTypeToSymbolUriConverter"/>
             
             <t10Converters:ValueWhenConverter x:Key="VisibleInSingleModeConverter">
                 <t10Converters:ValueWhenConverter.When>

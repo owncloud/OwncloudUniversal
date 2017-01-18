@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Converters\BoolToSymbolConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ContentTypeToSymbolConverter.cs" />
     <Compile Include="Converters\ContentTypeToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedContentTypeToVisibilityConverter.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Services\SyncedFoldersService.cs" />
     <Compile Include="Services\SynchronizationService.cs" />
     <Compile Include="Services\WebDavItemService.cs" />
+    <Compile Include="Utils\MimeTypeHelper.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="ViewModels\FileTransferPageViewModel.cs" />
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
@@ -200,6 +202,25 @@
     <Content Include="Assets\Badge\Badge.scale-150.png" />
     <Content Include="Assets\Badge\Badge.scale-200.png" />
     <Content Include="Assets\Badge\Badge.scale-400.png" />
+    <Content Include="Assets\FileTypes\application-pdf.png" />
+    <Content Include="Assets\FileTypes\application.png" />
+    <Content Include="Assets\FileTypes\audio.png" />
+    <Content Include="Assets\FileTypes\file.png" />
+    <Content Include="Assets\FileTypes\folder-external.png" />
+    <Content Include="Assets\FileTypes\folder-public.png" />
+    <Content Include="Assets\FileTypes\folder-shared.png" />
+    <Content Include="Assets\FileTypes\folder-starred.png" />
+    <Content Include="Assets\FileTypes\folder.png" />
+    <Content Include="Assets\FileTypes\package-x-generic.png" />
+    <Content Include="Assets\FileTypes\text-calendar.png" />
+    <Content Include="Assets\FileTypes\text-code.png" />
+    <Content Include="Assets\FileTypes\text-vcard.png" />
+    <Content Include="Assets\FileTypes\text.png" />
+    <Content Include="Assets\FileTypes\video.png" />
+    <Content Include="Assets\FileTypes\x-office-document.png" />
+    <Content Include="Assets\FileTypes\x-office-presentation.png" />
+    <Content Include="Assets\FileTypes\x-office-spreadsheet.png" />
+    <Content Include="Assets\synced.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-100.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-125.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-150.png" />
@@ -210,6 +231,7 @@
     <Content Include="Assets\Medium\Medium150x150Logo.scale-150.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-200.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-400.png" />
+    <Content Include="Assets\FileTypes\image.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-100.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-125.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-150.png" />
@@ -266,8 +288,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Splash.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SyncedFoldersPageView.xaml">
       <SubType>Designer</SubType>

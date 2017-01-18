@@ -26,7 +26,7 @@
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
 
-        
+
         <ListView x:Name="ListView" 
                   Grid.Row="1" 
                   ItemsSource="{Binding ItemsList}" 
@@ -49,7 +49,8 @@
                             Grid.Column="0"
                             IsCacheEnabled="True"
                             Source="{Binding ThumbnailUrl}"
-                            Stretch="UniformToFill"
+                            PlaceholderSource="/Assets/FileTypes/image.png"
+                            PlaceholderStretch="UniformToFill"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="0,0,3,0"
@@ -57,16 +58,25 @@
                             Width="40"
                             Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}"
                             />
-                        <SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" 
+                        <Image Grid.Column="0" 
+                               VerticalAlignment="Center"
+                               Height="40"
+                               Width="40"
+                               Margin="0,0,3,0"
+                               Source="{Binding ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
+                               Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
+                        
+                        <!--<SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" 
                                     HorizontalAlignment="Left"
                                     Grid.Column="0" 
                                     VerticalAlignment="Center"
                                     Height="40"
                                     Width="40"
                                     Margin="0,0,3,0"
-                                    Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Right"/>
+                                    Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>-->
+                        
+                        <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
+                        <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Right"/>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout Placement="Left">
                                 <MenuFlyoutItem Margin="12"
@@ -104,7 +114,7 @@
                                         </ControlTemplate>
                                     </MenuFlyoutItem.Template>
                                 </MenuFlyoutItem>-->
-                                
+
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.DownloadSingleCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
@@ -169,8 +179,6 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-
-
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom">
             <AppBarButton x:Uid="DownloadMultiple" Icon="Download"
                           Command="{Binding DownloadMultipleCommand}"
@@ -181,7 +189,7 @@
             <AppBarButton x:Uid="CancelSelectMode" Icon="Cancel" 
                           Command="{Binding SwitchSelectionModeCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
-            
+
             <AppBarButton x:Uid="Refresh" Icon="Refresh" 
                           Command="{Binding RefreshCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
@@ -197,6 +205,3 @@
         </CommandBar>
     </Grid>
 </Page>
-
-
-

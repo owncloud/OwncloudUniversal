@@ -32,6 +32,8 @@ namespace OwncloudUniversal.WebDav
                 davItem.Size = Convert.ToUInt64(davItem.IsCollection ? xElement.Descendants(namepace + "quota-used-bytes").FirstOrDefault()?.Value : xElement.Descendants(namepace + "getcontentlength").FirstOrDefault()?.Value);
                 string href = xElement.Element(namepace + "href")?.Value.TrimEnd('/');
                 davItem.DisplayName = WebUtility.UrlDecode(href?.Substring(href.LastIndexOf('/') + 1));
+                if (davItem.IsCollection && davItem.ContentType == null)
+                    davItem.ContentType = "text/directory";
                 davItems.Add(davItem);
             }
             return davItems;

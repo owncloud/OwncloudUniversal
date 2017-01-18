@@ -209,7 +209,6 @@ namespace OwncloudUniversal.ViewModels
 
         private void LoadThumbnails()
         {
-            ImageCache.Instance.MaxMemoryCacheCount = 200;
             foreach (var davItem in ItemsList)
             {
                 if (!davItem.IsCollection && davItem.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
@@ -217,7 +216,7 @@ namespace OwncloudUniversal.ViewModels
                     var serverUrl = Configuration.ServerUrl.Substring(0, Configuration.ServerUrl.IndexOf("remote.php", StringComparison.OrdinalIgnoreCase));
                     var itemPath = davItem.EntityId.Substring(davItem.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
                     var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 40 + "/" + 40 + itemPath;
-                    ImageCache.Instance.PreCacheAsync(new Uri(url), false, true);
+                    ImageCache.Instance.PreCacheAsync(new Uri(url), false, true);// no need to await this
                     davItem.ThumbnailUrl = url;
                 }
             }
