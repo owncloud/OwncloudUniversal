@@ -11,7 +11,7 @@ This is the ownCloud app for your Windows 10 device.
 
 ##Screenshots
 
-![Screenshot1](https://github.com/pestotoast/OwncloudUniversal/Screenshots/screenshot1.png)
-![Screenshot2](https://github.com/pestotoast/OwncloudUniversal/Screenshots/screenshot2.png)
-![Screenshot3](https://github.com/pestotoast/OwncloudUniversal/Screenshots/screenshot3.png)
-![Screenshot4](https://github.com/pestotoast/OwncloudUniversal/Screenshots/screenshot4.png)
+<kbd><img src="https://github.com/DeepDiver1975/OwncloudUniversal/blob/master/Screenshots/screenshot1.png" width="250"/></kbd>
+<kbd><img src="https://github.com/DeepDiver1975/OwncloudUniversal/blob/master/Screenshots/screenshot2.png" width="250"/></kbd>
+<kbd><img src="https://github.com/DeepDiver1975/OwncloudUniversal/blob/master/Screenshots/screenshot3.png" width="250"/></kbd>
+<kbd><img src="https://github.com/DeepDiver1975/OwncloudUniversal/blob/master/Screenshots/screenshot4.png" width="250"/></kbd>
