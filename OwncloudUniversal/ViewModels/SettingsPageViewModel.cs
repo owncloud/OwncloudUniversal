@@ -2,13 +2,17 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Foundation.Metadata;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Template10.Mvvm;
 using Template10.Services.SettingsService;
 using Windows.UI.Xaml;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.SQLite;
 using OwncloudUniversal.Shared.Synchronisation;
+using SettingsService = OwncloudUniversal.Services.SettingsServices.SettingsService;
 
 namespace OwncloudUniversal.ViewModels
 {
@@ -72,7 +76,46 @@ namespace OwncloudUniversal.ViewModels
         public bool UseLightThemeButton
         {
             get { return _settings.AppTheme.Equals(ApplicationTheme.Light); }
-            set { _settings.AppTheme = value ? ApplicationTheme.Light : ApplicationTheme.Dark; base.RaisePropertyChanged(); }
+            set
+            {
+                _settings.AppTheme = value ? ApplicationTheme.Light : ApplicationTheme.Dark; base.RaisePropertyChanged();
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                {
+                    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    if (titleBar != null)
+                    {
+                        if (Services.SettingsServices.SettingsService.Instance.AppTheme == ApplicationTheme.Dark)
+                        {
+                            titleBar.BackgroundColor = Colors.Black;
+                            titleBar.ForegroundColor = Colors.White;
+                        }
+                        else
+                        {
+                            titleBar.BackgroundColor = Colors.White;
+                            titleBar.ForegroundColor = Colors.Black;
+                        }
+                    }
+                }
+
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+                {
+
+                    var statusBar = StatusBar.GetForCurrentView();
+                    if (statusBar != null)
+                    {
+                        if (SettingsService.Instance.AppTheme == ApplicationTheme.Dark)
+                        {
+                            statusBar.BackgroundColor = Colors.Black;
+                            statusBar.ForegroundColor = Colors.White;
+                        }
+                        else
+                        {
+                            statusBar.BackgroundColor = Colors.White;
+                            statusBar.ForegroundColor = Colors.Black;
+                        }
+                    }
+                }
+            }
         }
 
         public string ServerUrl

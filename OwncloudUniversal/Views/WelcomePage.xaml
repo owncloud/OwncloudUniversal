@@ -12,10 +12,11 @@
     DataContext="{Binding WelcomePageViewModel, RelativeSource={RelativeSource Self}}">
 
     <Grid Background="#1D2D44">
-        <StackPanel VerticalAlignment="Center" Margin="20">
-            <TextBox Header="Server address" Text="{Binding ServerUrl, Mode=TwoWay}"/>
+        <StackPanel VerticalAlignment="Top" Margin="20">
+            <Image Source="ms-appx:///Assets/SplashScreen/SplashScreen.scale-125.png" MaxHeight="500"/>
+            <TextBox Header="Server address" Text="{Binding ServerUrl, Mode=TwoWay}" PlaceholderText="https://example.com/owncloud"/>
             <TextBlock Text="Server found!" Visibility="{Binding ServerFound, Converter={StaticResource BoolToVisibilityConverter}}"/>
-            <TextBox Header="Username" Margin="0,10,0,0" Text="{Binding UserName, Mode=TwoWay}" PlaceholderText="https://.../owncloud"/>
+            <TextBox Header="Username" Margin="0,10,0,0" Text="{Binding UserName, Mode=TwoWay}"/>
             <PasswordBox Header="Password" Margin="0,10,0,0" Password="{Binding Password, Mode=TwoWay}"/>
             <Button Content="Connect" HorizontalAlignment="Center" Command="{Binding ConnectCommand}" Margin="0, 10,0,0"/>
         </StackPanel>

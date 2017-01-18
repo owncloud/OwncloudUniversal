@@ -7,7 +7,10 @@ using Template10.Common;
 using System;
 using System.Linq;
 using Windows.ApplicationModel.Resources;
+using Windows.Foundation.Metadata;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
 using OwncloudUniversal.Shared;
@@ -46,6 +49,7 @@ namespace OwncloudUniversal
 
         public override UIElement CreateRootElement(IActivatedEventArgs e)
         {
+            SetTitleTheme();
             var service = NavigationServiceFactory(BackButton.Attach, ExistingContent.Include);
             return new ModalDialog
             {
@@ -66,6 +70,46 @@ namespace OwncloudUniversal
                 else
                 {
                     await NavigationService.NavigateAsync(typeof(FilesPage));
+                }
+            }
+        }
+
+        private void SetTitleTheme()
+        {
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+            {
+                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                if (titleBar != null)
+                {
+                    if (SettingsService.Instance.AppTheme == ApplicationTheme.Dark)
+                    {
+                        titleBar.BackgroundColor = Colors.Black;
+                        titleBar.ForegroundColor = Colors.White;
+                    }
+                    else
+                    {
+                        titleBar.BackgroundColor = Colors.White;
+                        titleBar.ForegroundColor = Colors.Black;
+                    }
+                }
+            }
+
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    if (SettingsService.Instance.AppTheme == ApplicationTheme.Dark)
+                    {
+                        statusBar.BackgroundColor = Colors.Black;
+                        statusBar.ForegroundColor = Colors.White;
+                    }
+                    else
+                    {
+                        statusBar.BackgroundColor = Colors.White;
+                        statusBar.ForegroundColor = Colors.Black;
+                    }
                 }
             }
         }
