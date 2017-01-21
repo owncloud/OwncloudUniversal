@@ -122,6 +122,7 @@
     <Compile Include="Services\SynchronizationService.cs" />
     <Compile Include="Services\WebDavItemService.cs" />
     <Compile Include="Utils\MimeTypeHelper.cs" />
+    <Compile Include="Utils\ThemeHelper.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="ViewModels\FileTransferPageViewModel.cs" />
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
