@@ -12,59 +12,63 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
 
-    <Controls:HamburgerMenu x:Name="MyHamburgerMenu" VisualStateNarrowDisplayMode="CompactOverlay">
+    <Grid>
+        <Controls:HamburgerMenu x:Name="MyHamburgerMenu" 
+                            VisualStateNarrowDisplayMode="Overlay" 
+                            VisualStateNormalDisplayMode="CompactOverlay" 
+                            VisualStateWideDisplayMode="CompactInline">
 
-        
-        <Controls:HamburgerMenu.PrimaryButtons>
-            <!--  mainpage button  -->
-            <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:FilesPage">
-                <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                    <SuppressNavigationTransitionInfo />
-                </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Width="48"
+
+            <Controls:HamburgerMenu.PrimaryButtons>
+                <!--  mainpage button  -->
+                <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:FilesPage">
+                    <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                        <SuppressNavigationTransitionInfo />
+                    </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Width="48"
                                 Height="48"
                                 Symbol="Folder" />
-                    <TextBlock Margin="12,0,0,0"
+                        <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                x:Uid="FilesButton"/>
-                </StackPanel>
-            </Controls:HamburgerButtonInfo>
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
 
-            <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:SynchronizationPage">
-                <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                    <SuppressNavigationTransitionInfo/>
-                </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Width="48"
+                <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:SynchronizationPage">
+                    <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                        <SuppressNavigationTransitionInfo/>
+                    </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Width="48"
                                 Height="48"
                                 Symbol="Sync" />
-                    <TextBlock Margin="12,0,0,0"
+                        <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                x:Uid="SynchronizationButton"/>
-                </StackPanel>
-            </Controls:HamburgerButtonInfo>
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
 
 
-            <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:SyncedFoldersPageView">
-                <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                    <SuppressNavigationTransitionInfo />
-                </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Width="48"
+                <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:SyncedFoldersPageView">
+                    <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                        <SuppressNavigationTransitionInfo />
+                    </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Width="48"
                                 Height="48"
                                 Symbol="SyncFolder" />
-                    <TextBlock Margin="12,0,0,0"
+                        <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                x:Uid="SynchedFolders"/>
-                </StackPanel>
-            </Controls:HamburgerButtonInfo>
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
 
-        </Controls:HamburgerMenu.PrimaryButtons>
+            </Controls:HamburgerMenu.PrimaryButtons>
 
-        <Controls:HamburgerMenu.SecondaryButtons>
-            <!--  profile button  -->
-            <!--<Controls:HamburgerButtonInfo ButtonType="Command">
+            <Controls:HamburgerMenu.SecondaryButtons>
+                <!--  profile button  -->
+                <!--<Controls:HamburgerButtonInfo ButtonType="Command">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="Tapped">
                         <behaviors:MessageDialogAction Title="Show profile" Content="This is an example of a Command-type hamburger button. It does not navigate, only raises the Tapped event for some custom implementation." />
@@ -84,25 +88,44 @@
                                Text="User profile" />
                 </StackPanel>
             </Controls:HamburgerButtonInfo>-->
-            <!--  settingspage button  -->
-            <Controls:HamburgerButtonInfo x:Name="SettingsButton"
+                <!--  settingspage button  -->
+                <Controls:HamburgerButtonInfo x:Name="SettingsButton"
                                           PageParameter="0"
                                           PageType="views:SettingsPage">
-                <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                    <SuppressNavigationTransitionInfo />
-                </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Width="48"
+                    <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                        <SuppressNavigationTransitionInfo />
+                    </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Width="48"
                                 Height="48"
                                 Symbol="Setting" />
-                    <TextBlock Margin="12,0,0,0"
+                        <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                x:Uid="SettingsButton"/>
-                </StackPanel>
-            </Controls:HamburgerButtonInfo>
-        </Controls:HamburgerMenu.SecondaryButtons>
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
+            </Controls:HamburgerMenu.SecondaryButtons>
 
-    </Controls:HamburgerMenu>
+        </Controls:HamburgerMenu>
 
+        <Controls:ModalDialog x:Name="WelcomePage">
+            <Controls:ModalDialog.ModalContent>
+                <views:WelcomePage/>
+            </Controls:ModalDialog.ModalContent>
+        </Controls:ModalDialog>
+
+        <Controls:ModalDialog  x:Name="ProgressRing" ModalBackground="Transparent">
+            <Controls:ModalDialog.ModalContent>
+                <ProgressRing IsActive="True" Foreground="{ThemeResource ContrastColorBrush}"
+                      Width="80" 
+                      Height="80" 
+                      MinWidth="80" 
+                      MinHeight="80"/>
+            </Controls:ModalDialog.ModalContent>
+        </Controls:ModalDialog>
+            
+        
+        
+    </Grid>
 </Page>
 

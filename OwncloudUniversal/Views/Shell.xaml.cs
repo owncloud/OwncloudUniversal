@@ -15,6 +15,10 @@ namespace OwncloudUniversal.Views
     {
         public static Shell Instance { get; set; }
         public static HamburgerMenu HamburgerMenu => Instance.MyHamburgerMenu;
+        public static ModalDialog WelcomeDialog => Instance.WelcomePage;
+
+        public static ModalDialog Ring => Instance.ProgressRing;
+
         Services.SettingsServices.SettingsService _settings;
 
         public Shell()
@@ -35,6 +39,8 @@ namespace OwncloudUniversal.Views
             HamburgerMenu.RefreshStyles(_settings.AppTheme, true);
             HamburgerMenu.IsFullScreen = _settings.IsFullScreen;
             HamburgerMenu.HamburgerButtonVisibility = _settings.ShowHamburgerButton ? Visibility.Visible : Visibility.Collapsed;
+            var page = (WelcomePage)WelcomeDialog.ModalContent;
+            page.WelcomePageViewModel.NavigationService = navigationService;
         }
     }
 }
