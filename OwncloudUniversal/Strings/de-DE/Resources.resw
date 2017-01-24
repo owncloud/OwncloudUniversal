@@ -297,4 +297,13 @@
   <data name="SelectMode.Label" xml:space="preserve">
     <value>Auswahlmodus</value>
   </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="ServerAddress.Header" xml:space="preserve">
+    <value>Serveradresse</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>Fehler: Server nicht gefunden</value>
+  </data>
 </root>
