@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
@@ -30,29 +29,24 @@ namespace OwncloudUniversal.WebDav
             var url = _BuildStatusUrl(input);
             if (url == null)
                 return null;
-            WebDavRequest request = new WebDavRequest(new NetworkCredential(string.Empty, string.Empty), url,
-                HttpMethod.Get);
-            try
+            WebDavRequest request = new WebDavRequest(new NetworkCredential(string.Empty, string.Empty), url,HttpMethod.Get);
+            var response = await request.SendAsync();
+            if (response.IsSuccessStatusCode)
             {
-                var response = await request.SendAsync();
                 var content = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"Serverstatus response: {content}");
                 var status = Newtonsoft.Json.JsonConvert.DeserializeObject<ServerStatus>(content);
-                Configuration.ServerUrl = GetWebDavUrl(input);
+                status.ResponseCode = response.StatusCode.ToString();
                 return status;
             }
-            catch (Exception)
-            {
-                return null;
-            }
-            
+            return new ServerStatus() {ResponseCode = response.StatusCode.ToString()};
         }
 
         private static Uri _BuildStatusUrl(string input)
         {
             if (Uri.IsWellFormedUriString(input, UriKind.Absolute))
             {
-                input = input.TrimEnd().ToLower();
+                input = input.TrimEnd('/').ToLower();
                 if (input.EndsWith("owncloud") || input.EndsWith("nextcloud"))
                 {
                     input += "/status.php";
@@ -60,10 +54,6 @@ namespace OwncloudUniversal.WebDav
                 if (input.EndsWith("remote.php/webdav"))
                 {
                     input = input.Replace("remote.php/webdav", "status.php");
-                }
-                if (input.StartsWith("http://"))
-                {
-                    input = input.Replace("http://", "https://");
                 }
                 if (!(input.StartsWith("http://") || input.StartsWith("https://")))
                 {
@@ -73,21 +63,28 @@ namespace OwncloudUniversal.WebDav
                 {
                     return new Uri(input, UriKind.Absolute);
                 }
-                    
+
             }
             return null;
         }
 
-        public async Task<bool> CheckUserLoginAsync()
+        public async Task<HttpStatusCode> CheckUserLoginAsync()
         {
-            var request = new WebDavRequest(_credential, _serverUrl, HttpMethod.Head);
-            var response = await request.SendAsync();
-            if (response.IsSuccessStatusCode)
-                Configuration.ServerUrl = GetWebDavUrl(_serverUrl.ToString());
-            return response.IsSuccessStatusCode;
+            var url = GetWebDavUrl(_serverUrl.ToString());
+            var request = new WebDavRequest(_credential, new Uri(url), HttpMethod.Head);
+            Windows.Web.Http.HttpResponseMessage response;
+            try
+            {
+                response = await request.SendAsync();
+            }
+            catch (Exception)
+            {
+                return HttpStatusCode.SeeOther;
+            }
+            return response.StatusCode;
         }
 
-        private static string GetWebDavUrl(string url)
+        public static string GetWebDavUrl(string url)
         {
             var statusUrl = _BuildStatusUrl(url);
             return statusUrl.ToString().Replace("status.php", "remote.php/webdav");

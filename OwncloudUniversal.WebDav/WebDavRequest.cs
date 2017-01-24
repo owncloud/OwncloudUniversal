@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using Windows.Media.SpeechRecognition;
 using Windows.Security.Cryptography;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
 using HttpClient = Windows.Web.Http.HttpClient;
 using HttpCompletionOption = Windows.Web.Http.HttpCompletionOption;
@@ -42,7 +44,8 @@ namespace OwncloudUniversal.WebDav
             _requestUrl = requestUrl;
             _method = method;
             _contentStream = contentStream;
-            _httpClient = new HttpClient();
+            var filter = new HttpBaseProtocolFilter {AllowUI = false};
+            _httpClient = new HttpClient(filter);
         }
 
         public async Task<HttpResponseMessage> SendAsync()
@@ -53,7 +56,8 @@ namespace OwncloudUniversal.WebDav
                 request.Headers.Connection.Add(new HttpConnectionOptionHeaderValue("Keep-Alive"));
                 request.Headers.UserAgent.Add(HttpProductInfoHeaderValue.Parse("Mozilla/5.0"));
 
-                var buffer = CryptographicBuffer.ConvertStringToBinary(_networkCredential.UserName + ":" + _networkCredential.Password, BinaryStringEncoding.Utf8);
+                var buffer =
+                    CryptographicBuffer.ConvertStringToBinary(_networkCredential.UserName + ":" + _networkCredential.Password, BinaryStringEncoding.Utf8);
                 var token = CryptographicBuffer.EncodeToBase64String(buffer);
                 request.Headers.Authorization = new HttpCredentialsHeaderValue("Basic", token);
                 if (_method.Method == "PROPFIND")
@@ -62,7 +66,16 @@ namespace OwncloudUniversal.WebDav
                 {
                     request.Content = new HttpStreamContent(_contentStream.AsInputStream());
                 }
-                var response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead).AsTask();
+                HttpResponseMessage response;
+                try
+                {
+                    response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead).AsTask();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    throw;
+                }
                 return response;
             }
         }

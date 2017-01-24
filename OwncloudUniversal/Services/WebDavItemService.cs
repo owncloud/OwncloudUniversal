@@ -21,12 +21,8 @@ namespace OwncloudUniversal.Services
     class WebDavItemService
     {
         private static WebDavItemService _instance;
-        private readonly WebDavClient _client;
-        private readonly OcsClient _ocsClient;
         private WebDavItemService()
         {
-            _client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
-            _ocsClient = new OcsClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
         }
 
         public static WebDavItemService GetDefault()
@@ -36,7 +32,9 @@ namespace OwncloudUniversal.Services
 
         public async Task<List<DavItem>> GetItemsAsync(Uri folderHref)
         {
-            return await _client.ListFolder(CreateItemUri(folderHref));
+
+            var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            return await client.ListFolder(CreateItemUri(folderHref));
         }
 
         private Uri CreateItemUri(Uri href)
@@ -86,9 +84,11 @@ namespace OwncloudUniversal.Services
 
         public async Task DeleteItemAsync(List<DavItem> items)
         {
+
+            var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
             foreach (var item in items)
             {
-                await _client.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
+                await client.Delete(new Uri(item.EntityId, UriKind.RelativeOrAbsolute));
             }
         }
 
@@ -98,7 +98,9 @@ namespace OwncloudUniversal.Services
             folderName = folderName.Replace("%28", "(");
             folderName = folderName.Replace("%29", ")");
             var uri = new Uri(parentFolder.EntityId.TrimEnd('/') + "/" + folderName, UriKind.RelativeOrAbsolute);
-            await _client.CreateFolder(uri);
+
+            var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            await client.CreateFolder(uri);
         }
     }
 }
