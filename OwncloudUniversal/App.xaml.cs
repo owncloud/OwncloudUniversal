@@ -1,3 +1,4 @@
+using System;
 using Windows.UI.Xaml;
 using System.Threading.Tasks;
 using OwncloudUniversal.Services.SettingsServices;
@@ -5,7 +6,11 @@ using Windows.ApplicationModel.Activation;
 using Template10.Controls;
 using Template10.Common;
 using Windows.ApplicationModel.Resources;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Data;
+using Windows.Web.Http;
+using Microsoft.Toolkit.Uwp;
+using OwncloudUniversal.Services;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.SQLite;
 using OwncloudUniversal.Utils;
@@ -24,6 +29,19 @@ namespace OwncloudUniversal
         {
             InitializeComponent();
             SplashFactory = (e) => new Views.Splash(e);
+
+            this.UnhandledException += (sender, e) =>
+            {
+                e.Handled = true;
+
+                if ((uint) e.Exception.HResult == 0x80072EE7)
+                {
+                    
+                }
+                IndicatorService.GetDefault().HideBar();
+                MessageDialog dia = new MessageDialog(e.Message);
+                var task = dia.ShowAsync();
+            };
 
             #region app settings
 
@@ -52,20 +70,23 @@ namespace OwncloudUniversal
             };
         }
 
-        public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
+        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // TODO: add your long-running task here
             if (startKind == StartKind.Launch)
             {
                 SQLiteClient.Init();
-                var status = await OcsClient.GetServerStatusAsync(Configuration.ServerUrl);
-                if (status == null)
-                    await NavigationService.NavigateAsync(typeof(WelcomePage));
+                if (Configuration.IsFirstRun)
+                {
+                    Configuration.RemoveCredentials();
+                    Shell.WelcomeDialog.IsModal = true;
+                }
                 else
                 {
-                    await NavigationService.NavigateAsync(typeof(FilesPage));
+                    var task = NavigationService.NavigateAsync(typeof(FilesPage));
                 }
             }
+            return Task.CompletedTask;
         }
     }
 }

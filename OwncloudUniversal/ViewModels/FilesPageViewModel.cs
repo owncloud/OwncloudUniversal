@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 using Microsoft.Toolkit.Uwp.UI;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Shared;
@@ -72,9 +73,13 @@ namespace OwncloudUniversal.ViewModels
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             await base.OnNavigatedToAsync(parameter, mode, state);
+            if(Configuration.IsFirstRun)
+                return;
+            var loginTask = Task.CompletedTask;
             var item = parameter as DavItem;
             if (item == null)
             {
+                loginTask = CheckLoginAsync();
                 item = new DavItem();
                 item.EntityId = Configuration.ServerUrl;
                 item.IsCollection = true;
@@ -84,6 +89,28 @@ namespace OwncloudUniversal.ViewModels
                 _selectedItem = item;
                 await LoadItems();
             }
+            await loginTask;
+        }
+
+        private async Task CheckLoginAsync()
+        {
+            IndicatorService.GetDefault().ShowBar();
+            var status = await OcsClient.GetServerStatusAsync(Configuration.ServerUrl);
+            if (status == null)
+            {
+                Shell.WelcomeDialog.IsModal = true;
+            }
+
+            var ocsClient = new OcsClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            if (await ocsClient.CheckUserLoginAsync() == HttpStatusCode.Ok)
+            {
+                Shell.WelcomeDialog.IsModal = false;
+            }
+            else
+            {
+                Shell.WelcomeDialog.IsModal = true;
+            }
+            IndicatorService.GetDefault().HideBar();
         }
         
         public ObservableCollection<DavItem> ItemsList
@@ -122,10 +149,11 @@ namespace OwncloudUniversal.ViewModels
         private async Task LoadItems()
         {
             IndicatorService.GetDefault().ShowBar();
-            var items = await _davItemService.GetItemsAsync(new Uri(SelectedItem.EntityId, UriKind.RelativeOrAbsolute));
+            var items = await _davItemService.GetItemsAsync(new Uri(_selectedItem.EntityId, UriKind.RelativeOrAbsolute));
             items.RemoveAt(0);
             ItemsList = items.OrderBy(x => !x.IsCollection).ThenBy(x=> x.DisplayName, StringComparer.CurrentCultureIgnoreCase).Cast<DavItem>().ToObservableCollection();
-            LoadThumbnails();
+            //LoadThumbnails();
+            Dispatcher.Dispatch(LoadThumbnails);
             IndicatorService.GetDefault().HideBar();
         }
 

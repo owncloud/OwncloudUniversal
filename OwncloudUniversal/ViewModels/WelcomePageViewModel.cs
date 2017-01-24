@@ -6,92 +6,132 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Views;
 using OwncloudUniversal.WebDav;
+using OwncloudUniversal.WebDav.Model;
 using Template10.Mvvm;
+using Template10.Services.NavigationService;
+using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
 namespace OwncloudUniversal.ViewModels
 {
     public class WelcomePageViewModel : ViewModelBase
     {
         private bool _serverFound;
-
-        public bool ServerFound
-        {
-            get { return _serverFound; }
-            private set
-            {
-                _serverFound = value;
-                RaisePropertyChanged();
-            }  
-        }
+        private string _responseCode;
+        private string _serverUrl;
+        private string _password;
+        private string _userName;
 
         public string ServerUrl
         {
-            get { return Configuration.ServerUrl; }
+            get
+            {
+                _serverUrl = Configuration.ServerUrl;
+                return _serverUrl;
+            }
             set
             {
-                Configuration.ServerUrl = value;
-#pragma warning disable 4014
-                CheckServerStatus();
-#pragma warning restore 4014
+                _serverUrl = value;
+                var task = CheckServerStatus();
             }
         }
 
         public string UserName
         {
-            get { return Configuration.UserName; }
-            set { Configuration.UserName = value; }
+            get
+            {
+                _userName = Configuration.UserName;
+                return _userName;
+            }
+            set { _userName = value; }
         }
 
         public string Password
         {
-            get { return Configuration.Password; }
-            set { Configuration.Password = value; }
+            get
+            {
+                _password = Configuration.Password;
+                return _password;
+            }
+            set { _password = value; }
+        }
+
+        public string ResponseCode
+        {
+            get { return _responseCode; }
+            set
+            {
+                _responseCode = value;
+                RaisePropertyChanged();
+            }
         }
 
         public ICommand ConnectCommand { get; private set; }
 
         public WelcomePageViewModel()
         {
-            ServerFound = false;
-#pragma warning disable 4014
-            CheckServerStatus();
-#pragma warning restore 4014
             ConnectCommand = new DelegateCommand(async () => await Connect());
         }
 
         private async Task CheckServerStatus()
         {
-            var status = await OcsClient.GetServerStatusAsync(ServerUrl);
+            ServerStatus status = null;
+            try
+            {
+                status = await OcsClient.GetServerStatusAsync(_serverUrl);
+                ResponseCode = status?.ResponseCode;
+            }
+            catch (Exception e)
+            {
+                if ((uint) e.HResult == 0x80072EE7)
+                    ResponseCode = App.ResourceLoader.GetString("ServerNotFound");
+                else throw;
+            }
             if (status != null && status.Installed && !status.Maintenance)
-                ServerFound = true;
+                _serverFound = true;
             else
-                ServerFound = false;
+                _serverFound = false;
         }
 
         private async Task Connect()
         {
-            await CheckServerStatus();
-            if (ServerFound)
+            IndicatorService.GetDefault().ShowBar();
+            try
             {
-                IndicatorService.GetDefault().ShowBar();
-                OcsClient client = new OcsClient(new Uri(ServerUrl),new NetworkCredential(UserName, Password));
-                var success = await client.CheckUserLoginAsync();
-                if (success)
+                await CheckServerStatus();
+                if (_serverFound)
                 {
 
-                    NavigationService.Navigate(typeof(FilesPage));
+                    OcsClient client = new OcsClient(new Uri(_serverUrl), new NetworkCredential(_userName, _password));
+                    var status = await client.CheckUserLoginAsync();
+                    if (status == HttpStatusCode.Ok)
+                    {
+                        Configuration.ServerUrl = OcsClient.GetWebDavUrl(_serverUrl);
+                        Configuration.Password = _password;
+                        Configuration.UserName = _userName;
+                        Configuration.IsFirstRun = false;
+                        Shell.WelcomeDialog.IsModal = false;
+                        await NavigationService.NavigateAsync(typeof(FilesPage));
+                    }
+                    else
+                    {
+                        MessageDialog dialog = new MessageDialog(status.ToString());
+                        await dialog.ShowAsync();
+                    }
                 }
-                else
-                {
-                    MessageDialog dialog = new MessageDialog("Login Failed");
-                    await dialog.ShowAsync();
-                }
-                IndicatorService.GetDefault().HideBar();
             }
+            catch (Exception e)
+            {
+                if ((uint)e.HResult == 0x80072EE7)
+                    ResponseCode = App.ResourceLoader.GetString("ServerNotFound");
+                else throw;
+            }
+            IndicatorService.GetDefault().HideBar();
         }
-}
+    }
 }

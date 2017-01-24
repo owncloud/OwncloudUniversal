@@ -11,14 +11,14 @@
     mc:Ignorable="d"
     DataContext="{Binding WelcomePageViewModel, RelativeSource={RelativeSource Self}}">
 
-    <Grid Background="#1D2D44">
+    <Grid Background="{ThemeResource CustomColorBrush}">
         <StackPanel VerticalAlignment="Top" Margin="20">
             <Image Source="ms-appx:///Assets/SplashScreen/SplashScreen.scale-125.png" MaxHeight="500"/>
-            <TextBox Header="Server address" Text="{Binding ServerUrl, Mode=TwoWay}" PlaceholderText="https://example.com/owncloud"/>
-            <TextBlock Text="Server found!" Visibility="{Binding ServerFound, Converter={StaticResource BoolToVisibilityConverter}}"/>
-            <TextBox Header="Username" Margin="0,10,0,0" Text="{Binding UserName, Mode=TwoWay}"/>
-            <PasswordBox Header="Password" Margin="0,10,0,0" Password="{Binding Password, Mode=TwoWay}"/>
-            <Button Content="Connect" HorizontalAlignment="Center" Command="{Binding ConnectCommand}" Margin="0, 10,0,0"/>
+            <TextBox x:Uid="ServerAddress" Text="{Binding ServerUrl, Mode=TwoWay}"  PlaceholderText="https://example.com/owncloud"/>
+            <TextBlock Text="{Binding ResponseCode}"/>
+            <TextBox x:Uid="UserName" Margin="0,10,0,0" Text="{Binding UserName, Mode=TwoWay}"/>
+            <PasswordBox x:Uid="Password" Margin="0,10,0,0" Password="{Binding Password, Mode=TwoWay}"/>
+            <Button x:Uid="Connect" HorizontalAlignment="Center" Command="{Binding ConnectCommand}" Margin="0, 10,0,0"/>
         </StackPanel>
     </Grid>
 </Page>

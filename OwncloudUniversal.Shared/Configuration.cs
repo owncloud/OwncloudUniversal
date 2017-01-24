@@ -15,27 +15,19 @@ namespace OwncloudUniversal.Shared
 
         private static string _password = "";
         private static string _username = "";
+        private static string _serverUrl = "";
 
         public static string ServerUrl
         {
             get
             {
-                if (_config.Values.ContainsKey("ServerUrl"))
-                    return (string)_config.Values["ServerUrl"];
-                return String.Empty;
+                return GetCredentialFromLocker()?.Resource ?? String.Empty;
             }
-            set { _config.Values["ServerUrl"] = value; } 
-        }
-
-        public static string FolderPath
-        {
-            get
+            set
             {
-                if (_config.Values.ContainsKey("FolderPath"))
-                    return (string) _config.Values["FolderPath"];
-                return String.Empty;
-            }
-            set { _config.Values["FolderPath"] = value; }
+                _serverUrl = value;
+                AddCredentialToLocker();
+            } 
         }
 
         public static string UserName
@@ -79,13 +71,25 @@ namespace OwncloudUniversal.Shared
             }
             set { _config.Values["MaxDownloadSize"] = value; }
         }
+
+        public static bool IsFirstRun
+        {
+            get
+            {
+                if (_config.Values.ContainsKey("IsFirstRun"))
+                    return (bool)_config.Values["IsFirstRun"];
+                return true;
+            }
+            set { _config.Values["IsFirstRun"] = value; }
+        }
+
         public static NetworkCredential Credential => new NetworkCredential(UserName, Password);
 
         private static PasswordCredential GetCredentialFromLocker()
         {
-            Windows.Security.Credentials.PasswordCredential credential = null;
+            PasswordCredential credential = null;
 
-            var vault = new Windows.Security.Credentials.PasswordVault();
+            var vault = new PasswordVault();
             var credentialList = vault.RetrieveAll();
             if (credentialList.Count > 0)
             {
@@ -105,9 +109,10 @@ namespace OwncloudUniversal.Shared
 
         private static void AddCredentialToLocker()
         {
-            if (!(string.IsNullOrWhiteSpace(_username) || string.IsNullOrWhiteSpace(_password)))
+            if (!(string.IsNullOrWhiteSpace(_username) || string.IsNullOrWhiteSpace(_password) || string.IsNullOrWhiteSpace(_serverUrl) ))
             {
-                var credential = new PasswordCredential("OwncloudUniversal", _username, _password);
+                RemoveCredentials();
+                var credential = new PasswordCredential(_serverUrl, _username, _password);
                 var vault = new Windows.Security.Credentials.PasswordVault();
                 vault.Add(credential);
             }
