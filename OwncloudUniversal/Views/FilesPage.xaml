@@ -25,8 +25,7 @@
         <controls:PageHeader x:Uid="Files"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
-
-
+        
         <ListView x:Name="ListView" 
                   Grid.Row="1" 
                   ItemsSource="{Binding ItemsList}" 
@@ -37,13 +36,10 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Holding="UIElement_OnHolding"
-                                RightTapped="UIElement_OnRightTapped" 
-                                HorizontalAlignment="Stretch">
+                    <Grid x:Name="ItemGrid" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="75"/>
                         </Grid.ColumnDefinitions>
                         <toolkit:ImageEx
                             Grid.Column="0"
@@ -56,8 +52,7 @@
                             Margin="0,0,3,0"
                             Height="40" 
                             Width="40"
-                            Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}"
-                            />
+                            Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}"/>
                         <Image Grid.Column="0" 
                                VerticalAlignment="Center"
                                Height="40"
@@ -75,8 +70,10 @@
                                     Margin="0,0,3,0"
                                     Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>-->
                         
-                        <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
-                        <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Right"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Left"/>
+                        </StackPanel>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout Placement="Left">
                                 <MenuFlyoutItem Margin="12"
@@ -168,6 +165,17 @@
                                 </MenuFlyoutItem>
                             </MenuFlyout>
                         </FlyoutBase.AttachedFlyout>
+
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Holding">
+                                <behaviors:OpenFlyoutAction />
+                            </core:EventTriggerBehavior>
+
+                            <core:EventTriggerBehavior EventName="RightTapped">
+                                <behaviors:OpenFlyoutAction />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

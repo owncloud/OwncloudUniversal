@@ -33,7 +33,7 @@ namespace OwncloudUniversal.Views
 
         public static List<AbstractItem> GetSelectedItems()
         {
-            //using this dirty workaround because if the selected Items are passed 
+            //workaround because if the selected Items are passed 
             //directly as commandparameter they are always null
             return _selectedItems.Cast<AbstractItem>().ToList();
         }
@@ -43,25 +43,6 @@ namespace OwncloudUniversal.Views
             this.InitializeComponent();
         }
 
-        private void UIElement_OnHolding(object sender, HoldingRoutedEventArgs e)
-        {
-            var uiSender = sender as UIElement;
-            if (ListView.SelectionMode == ListViewSelectionMode.Single)
-            {
-                var flyout = (FlyoutBase)uiSender.GetValue(FlyoutBase.AttachedFlyoutProperty);
-                flyout.ShowAt(uiSender as FrameworkElement);
-            }
-        }
-
-        private void UIElement_OnRightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            var uiSender = sender as UIElement;
-            if (ListView.SelectionMode == ListViewSelectionMode.Single)
-            {
-                var flyout = (FlyoutBase)uiSender.GetValue(FlyoutBase.AttachedFlyoutProperty);
-                flyout.ShowAt(uiSender as FrameworkElement);
-            }
-        }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
