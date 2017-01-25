@@ -18,14 +18,7 @@ namespace OwncloudUniversal.BackgroundSync
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             _deferral = taskInstance.GetDeferral();
-            taskInstance.Canceled += (instance, reason) =>
-            {
-                var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
-                var toastElements = toastXml.GetElementsByTagName("text");
-                toastElements[0].InnerText = reason.ToString();
-                ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
-                Task.Run(() => LogHelper.Write($"BackgroundTask canceled. Reason: {reason}"));
-            };
+            
             var fileSystem = new FileSystemAdapter(true, null);
             var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
             fileSystem.LinkedAdapter = webDav;
@@ -33,20 +26,28 @@ namespace OwncloudUniversal.BackgroundSync
             try
             {
                 await worker.Run();
-                await LogHelper.Write("BackgroundTask finished");
             }
             catch (Exception e)
             {
-                await LogHelper.Write($"BackgroundTask Exception: {e.Message}");
+                await LogHelper.Write($"BackgroundTask Exception: {e.Message}" + Environment.NewLine +
+                                      $"{e.StackTrace}" + Environment.NewLine +
+                                      $"Status:{worker.ExecutionContext.Status.ToString()}" + Environment.NewLine +
+                                      $"File: {worker.ExecutionContext.CurrentFileNumber}" + Environment.NewLine +
+                                      $"of {worker.ExecutionContext.TotalFileCount}");
             }
             finally
             {
 
-                await LogHelper.Write("BackgroundTask finished finally");
+                await LogHelper.Write("BackgroundTask finished");
                 _deferral.Complete();
             }
-            
-            
+
+            taskInstance.Canceled += (instance, reason) =>
+            {
+                Task.Run(() => LogHelper.Write($"BackgroundTask canceled. Reason: {reason}, Status:{worker.ExecutionContext.Status.ToString()} File: {worker.ExecutionContext.CurrentFileNumber} of {worker.ExecutionContext.TotalFileCount}"));
+            };
+
+
         }
     }
 }
