@@ -16,6 +16,7 @@ using OwncloudUniversal.Shared.SQLite;
 using OwncloudUniversal.Utils;
 using OwncloudUniversal.Views;
 using OwncloudUniversal.WebDav;
+using OwncloudUniversal.WebDav.Model;
 
 namespace OwncloudUniversal
 {
@@ -30,18 +31,7 @@ namespace OwncloudUniversal
             InitializeComponent();
             SplashFactory = (e) => new Views.Splash(e);
 
-            this.UnhandledException += (sender, e) =>
-            {
-                e.Handled = true;
-
-                if ((uint) e.Exception.HResult == 0x80072EE7)
-                {
-                    
-                }
-                IndicatorService.GetDefault().HideBar();
-                MessageDialog dia = new MessageDialog(e.Message);
-                var task = dia.ShowAsync();
-            };
+            this.UnhandledException += ExceptionHandlerService.OnUnhandledException;
 
             #region app settings
 

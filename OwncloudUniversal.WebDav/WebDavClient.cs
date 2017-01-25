@@ -28,8 +28,13 @@ namespace OwncloudUniversal.WebDav
                 url = new Uri(_serverUrl, url);
             var propRequest = new WebDavRequest(_credential, url, new HttpMethod("PROPFIND"));
             var response = await propRequest.SendAsync();
-            var inputStream = await response.Content.ReadAsInputStreamAsync();
-            return XmlParser.ParsePropfind(inputStream.AsStreamForRead());
+
+            if (response.IsSuccessStatusCode)
+            {
+                var inputStream = await response.Content.ReadAsInputStreamAsync();
+                return XmlParser.ParsePropfind(inputStream.AsStreamForRead());
+            }
+            throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
         }
 
         public async Task<Stream> Download(Uri url)
@@ -38,8 +43,12 @@ namespace OwncloudUniversal.WebDav
                 url = new Uri(_serverUrl, url);
             var getRequest = new WebDavRequest(_credential, url, HttpMethod.Get);
             var response = await getRequest.SendAsync();
-            var inputStream = await response.Content.ReadAsInputStreamAsync();
-            return inputStream.AsStreamForRead(16*1024);
+            if (response.IsSuccessStatusCode)
+            {
+                var inputStream = await response.Content.ReadAsInputStreamAsync();
+                return inputStream.AsStreamForRead(16*1024);
+            }
+            throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
         }
 
         public async Task<DavItem> Upload(Uri url, Stream contentStream)
@@ -47,17 +56,24 @@ namespace OwncloudUniversal.WebDav
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
             var postRequest = new WebDavRequest(_credential, url, HttpMethod.Put, contentStream);
-            var postResponse = await postRequest.SendAsync();
-            var items = await ListFolder(url);
-            return items.FirstOrDefault();
-        }
+            var response = await postRequest.SendAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                var items = await ListFolder(url);
+                return items.FirstOrDefault();
+            }
+            throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
+    }
 
         public async Task Delete(Uri url)
         {
             if(!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
             var delRequest = new WebDavRequest(_credential, url, HttpMethod.Delete);
-            await delRequest.SendAsync();
+            var response = await delRequest.SendAsync();
+            if(response.IsSuccessStatusCode)
+                return;
+            throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
         }
 
         public async Task<DavItem> CreateFolder(Uri url)
@@ -65,9 +81,13 @@ namespace OwncloudUniversal.WebDav
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
             var mkcolRequest = new WebDavRequest(_credential, url, new HttpMethod("MKCOL"));
-            await mkcolRequest.SendAsync();
-            var items = await ListFolder(url);
-            return items.FirstOrDefault();
+            var response  = await mkcolRequest.SendAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                var items = await ListFolder(url);
+                return items.FirstOrDefault();
+            }
+            throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
         }
 
         public async Task<bool> Exists(Uri url)

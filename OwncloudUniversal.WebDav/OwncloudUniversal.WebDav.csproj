@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DavItem.cs" />
+    <Compile Include="Model\WebDavUnauthorizedException.cs" />
     <Compile Include="OcsClient.cs" />
     <Compile Include="Model\ServerStatus.cs" />
     <Compile Include="XmlParser.cs" />

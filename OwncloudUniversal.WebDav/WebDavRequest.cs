@@ -66,16 +66,7 @@ namespace OwncloudUniversal.WebDav
                 {
                     request.Content = new HttpStreamContent(_contentStream.AsInputStream());
                 }
-                HttpResponseMessage response;
-                try
-                {
-                    response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead).AsTask();
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                    throw;
-                }
+                HttpResponseMessage response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 return response;
             }
         }

@@ -113,6 +113,8 @@ namespace OwncloudUniversal.ViewModels
                 SQLiteClient.Reset();
                 Configuration.LastSync = DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
                 LogHelper.ResetLog();
+                Configuration.RemoveCredentials();
+                Configuration.IsFirstRun = true;
                 MessageDialog dialog = new MessageDialog("Database has been reset. Please reconfigure your synced folders.");
                 await dialog.ShowAsync();
             }

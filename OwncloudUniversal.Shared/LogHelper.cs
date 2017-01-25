@@ -18,10 +18,10 @@ namespace OwncloudUniversal.Shared
         {
             try
             {
-                Debug.WriteLine(text);
                 var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("log.txt",
                     CreationCollisionOption.OpenIfExists);
                 text = DateTime.Now + " - " + text + Environment.NewLine;
+                Debug.WriteLine(text);
                 await Task.Run(() => File.AppendAllText(file.Path, text));
             }
             catch (Exception)
