@@ -22,7 +22,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <controls:PageHeader x:Uid="Files"
+        <controls:PageHeader Content="{Binding SelectedItem.DisplayName}"
+                             Text="{Binding SelectedItem.DisplayName}"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0"/>
         
@@ -72,7 +73,7 @@
                         
                         <StackPanel Grid.Column="1">
                             <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Left"/>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout Placement="Left">

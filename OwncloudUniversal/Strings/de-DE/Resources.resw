@@ -304,6 +304,33 @@
     <value>Serveradresse</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Fehler: Server nicht gefunden</value>
+    <value>Fehler: Server nicht gefunden. Bitte URL prüfen</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>Die angeforderte Ressource konnte nicht gefunden werden</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>Der Server ist zur Zeit leider nicht verfügbar</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>Die Anmeldung am Server ist fehlgeschlagen.</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>Auf dem Server ist ein interner Fehler aufgetreten</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>Neuen Ordner Erstellen</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Ordnername</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>Neuer Ordner</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Ooops" xml:space="preserve">
+    <value>Uuups..</value>
   </data>
 </root>

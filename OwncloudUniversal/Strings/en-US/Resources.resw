@@ -304,6 +304,33 @@
     <value>Serveradresse</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Error: Server not found</value>
+    <value>Error: Server not found. Please check the URL</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>An internal error has occured at the server</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>The requested resource could not be found</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>The service is currently not available</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>Login failed</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>Create new folder</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Foldername</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Ooops" xml:space="preserve">
+    <value>Ooops..</value>
   </data>
 </root>

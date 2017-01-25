@@ -20,9 +20,9 @@ namespace OwncloudUniversal.Utils
                 if (titleBar != null)
                 {
                     titleBar.BackgroundColor = (Color)Application.Current.Resources["CustomColor"];
-                    titleBar.ForegroundColor = (Color)Application.Current.Resources["ContrastColor"];
+                    titleBar.ForegroundColor = Colors.White;
                     titleBar.ButtonBackgroundColor = (Color)Application.Current.Resources["CustomColor"];
-                    titleBar.ButtonForegroundColor = (Color)Application.Current.Resources["ContrastColor"];
+                    titleBar.ButtonForegroundColor = Colors.White;
                 }
             }
 

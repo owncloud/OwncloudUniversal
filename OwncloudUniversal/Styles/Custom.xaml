@@ -8,6 +8,7 @@
 
     <Color x:Key="CustomColor">#1D2D44</Color>
     <Color x:Key="SystemAccentColor">#1D2D44</Color>
+    <SolidColorBrush x:Key="ForegroundMediumBrush" Color="#808080"/>
 
     <ResourceDictionary.ThemeDictionaries>
 
@@ -29,14 +30,15 @@
 
             <Style TargetType="controls:PageHeader">
                 <Setter Property="Background" Value="{ThemeResource CustomColorBrush}" />
-                <Setter Property="Foreground" Value="{ThemeResource ContrastColorBrush}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="VisualStateNarrowMinWidth" Value="{StaticResource NarrowMinWidth}" />
+                <Setter Property="VisualStateNormalMinWidth" Value="{StaticResource NormalMinWidth}" />
             </Style>
 
             <Style TargetType="controls:Resizer">
                 <Setter Property="GrabberBrush" Value="{ThemeResource CustomColorBrush}" />
                 <Setter Property="GrabberVisibility" Value="Visible" />
             </Style>
-
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Default">
@@ -73,7 +75,7 @@
 
             <Style TargetType="controls:PageHeader">
                 <Setter Property="Background" Value="{ThemeResource CustomColorBrush}" />
-                <Setter Property="Foreground" Value="{ThemeResource ContrastColorBrush}" />
+                <Setter Property="Foreground" Value="White" />
                 <Setter Property="VisualStateNarrowMinWidth" Value="{StaticResource NarrowMinWidth}" />
                 <Setter Property="VisualStateNormalMinWidth" Value="{StaticResource NormalMinWidth}" />
             </Style>
@@ -105,7 +107,7 @@
 
             <Style TargetType="controls:PageHeader">
                 <Setter Property="Background" Value="{ThemeResource SystemColorWindowColor}" />
-                <Setter Property="Foreground" Value="{ThemeResource SystemColorWindowTextColor}" />
+                <Setter Property="Foreground" Value="White" />
                 <Setter Property="VisualStateNarrowMinWidth" Value="{ThemeResource NarrowMinWidth}" />
                 <Setter Property="VisualStateNormalMinWidth" Value="{ThemeResource NormalMinWidth}" />
             </Style>

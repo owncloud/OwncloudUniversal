@@ -81,12 +81,14 @@ namespace OwncloudUniversal.ViewModels
             {
                 loginTask = CheckLoginAsync();
                 item = new DavItem();
+                item.DisplayName = "ownCloud";
                 item.EntityId = Configuration.ServerUrl;
                 item.IsCollection = true;
             }
             if (item.IsCollection)
             {
                 _selectedItem = item;
+                RaisePropertyChanged("SelectedItem");
                 await LoadItems();
             }
             await loginTask;
@@ -128,10 +130,12 @@ namespace OwncloudUniversal.ViewModels
             get { return _selectedItem; }
             set
             {
-                if (value != null && value.IsCollection && SelectionMode == ListViewSelectionMode.Single)
+                if (value != null && SelectionMode == ListViewSelectionMode.Single)
                 {
                     _selectedItem = value;
-                    NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
+                    RaisePropertyChanged();
+                    if (value.IsCollection)
+                        NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
                 }
             } 
         }
@@ -150,7 +154,7 @@ namespace OwncloudUniversal.ViewModels
         {
             IndicatorService.GetDefault().ShowBar();
             var items = await _davItemService.GetItemsAsync(new Uri(_selectedItem.EntityId, UriKind.RelativeOrAbsolute));
-            items.RemoveAt(0);
+            if(items.Count > 0) items.RemoveAt(0);
             ItemsList = items.OrderBy(x => !x.IsCollection).ThenBy(x=> x.DisplayName, StringComparer.CurrentCultureIgnoreCase).Cast<DavItem>().ToObservableCollection();
             //LoadThumbnails();
             Dispatcher.Dispatch(LoadThumbnails);
@@ -218,13 +222,16 @@ namespace OwncloudUniversal.ViewModels
         private async Task CreateFolderAsync()
         {
             var dialog = new ContentDialog();
+            dialog.Title = App.ResourceLoader.GetString("CreateNewFolder");
             var box = new TextBox()
             {
-                Header = "Name"
+                Header = App.ResourceLoader.GetString("FolderName"),
+                AcceptsReturn = false,
+                SelectedText = App.ResourceLoader.GetString("NewFolderName")
             };
             dialog.Content = box;
-            dialog.PrimaryButtonText = "OK";
-            dialog.SecondaryButtonText = "Cancel";
+            dialog.PrimaryButtonText = App.ResourceLoader.GetString("OK");
+            dialog.SecondaryButtonText = App.ResourceLoader.GetString("Cancel");
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
