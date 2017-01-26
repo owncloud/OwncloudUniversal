@@ -14,6 +14,7 @@ using OwncloudUniversal.Services;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.SQLite;
 using OwncloudUniversal.Utils;
+using OwncloudUniversal.ViewModels;
 using OwncloudUniversal.Views;
 using OwncloudUniversal.WebDav;
 using OwncloudUniversal.WebDav.Model;
@@ -74,6 +75,12 @@ namespace OwncloudUniversal
                 else
                 {
                     var task = NavigationService.NavigateAsync(typeof(FilesPage));
+                }
+
+                if (Configuration.IsBackgroundTaskEnabled)
+                {
+                    var settings = new SettingsPageViewModel();
+                    settings.SettingsPartViewModel.BackgroundTaskEnabled = true;
                 }
             }
             return Task.CompletedTask;

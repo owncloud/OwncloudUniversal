@@ -123,7 +123,11 @@ namespace OwncloudUniversal.ViewModels
         public bool BackgroundTaskEnabled
         {
             get { return _taskConfig.Enabled; }
-            set { _taskConfig.Enabled = value; }
+            set
+            {
+                _taskConfig.Enabled = value;
+                Configuration.IsBackgroundTaskEnabled = value;
+            }
         }
     }
 

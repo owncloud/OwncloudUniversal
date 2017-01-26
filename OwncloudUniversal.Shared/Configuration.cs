@@ -124,5 +124,19 @@ namespace OwncloudUniversal.Shared
             var vault = new PasswordVault();
             vault.Remove(GetCredentialFromLocker());
         }
+
+        /// <summary>
+        /// Indicates wether the background task is enabled so it can be registered again after an app update
+        /// </summary>
+        public static bool IsBackgroundTaskEnabled
+        {
+            get
+            {
+                if (_config.Values.ContainsKey("IsBackgroundTaskEnabled"))
+                    return (bool)_config.Values["IsBackgroundTaskEnabled"];
+                return true;
+            }
+            set { _config.Values["IsBackgroundTaskEnabled"] = value; }
+        }
     }
 }
