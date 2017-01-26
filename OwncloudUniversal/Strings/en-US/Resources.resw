@@ -333,4 +333,10 @@
   <data name="Ooops" xml:space="preserve">
     <value>Ooops..</value>
   </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>Delete file?</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>Sync Status</value>
+  </data>
 </root>
