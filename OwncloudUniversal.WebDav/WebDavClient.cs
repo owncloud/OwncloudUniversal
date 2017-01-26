@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
+using Windows.Security.Cryptography;
 using Windows.Storage;
 using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.WebDav.Model;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
@@ -37,7 +39,11 @@ namespace OwncloudUniversal.WebDav
 
             _uploader = new BackgroundUploader();
             _uploader.TransferGroup = group;
-            _uploader.ServerCredential = new PasswordCredential(serverUrl.ToString(), credential.UserName, credential.Password);
+            _uploader.Method = "PUT";
+            var buffer = CryptographicBuffer.ConvertStringToBinary(credential.UserName + ":" + credential.Password, BinaryStringEncoding.Utf8);
+            var token = CryptographicBuffer.EncodeToBase64String(buffer);
+            var value = new HttpCredentialsHeaderValue("Basic", token);
+            _uploader.SetRequestHeader("Authorization", value.ToString());
         }
 
         public async Task<List<DavItem>> ListFolder(Uri url)
