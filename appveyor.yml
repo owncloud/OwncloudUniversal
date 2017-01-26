@@ -1,0 +1,2 @@
+install:
+  - ps: .appveyor/install-vsix.ps1
