@@ -172,7 +172,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
-                    await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message, item.EntityId, e.StackTrace));
                 }
                 //we have 10 Minutes in total for each background task cycle
                 //after 10 minutes windows will terminate the task
