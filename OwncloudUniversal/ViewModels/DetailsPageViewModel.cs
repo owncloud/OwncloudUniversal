@@ -33,7 +33,7 @@ namespace OwncloudUniversal.ViewModels
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            var item = parameter as AbstractItem;
+            var item = parameter as BaseItem;
             if (item != null)
                 Item = (DavItem)item;
             return base.OnNavigatedToAsync(parameter, mode, state);

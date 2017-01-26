@@ -45,7 +45,7 @@ namespace OwncloudUniversal.Services
             return new Uri(serverUri, href);
         }
 
-        public async Task<List<DownloadOperation>> CreateDownloadAsync(List<AbstractItem> items, StorageFolder folder)
+        public async Task<List<DownloadOperation>> CreateDownloadAsync(List<BaseItem> items, StorageFolder folder)
         {
             List<DownloadOperation> result = new List<DownloadOperation>();
             BackgroundDownloader downloader = new BackgroundDownloader();

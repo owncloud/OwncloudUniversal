@@ -4,12 +4,11 @@ using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.WebDav.Model
 {
-    public class DavItem : AbstractItem
+    public class DavItem : BaseItem
     {
         public string Href { get; set; }
         public string Etag { get; set; }
         public string ContentType { get; set; }
-        public DateTime LastModified { get; set; }
         public override string DisplayName { get; set; }
         public override string EntityId
         {

@@ -47,7 +47,7 @@ namespace OwncloudUniversal.ViewModels
             IDictionary<string, object> state)
         {
             _token = new CancellationTokenSource();
-            if (parameter is AbstractItem)
+            if (parameter is BaseItem)
             {
                 var files = await PickOpenFile();
                 if (files.Count > 0)
@@ -57,11 +57,11 @@ namespace OwncloudUniversal.ViewModels
                     NavigationService.GoBack();
                 }
             }
-            else if(parameter is List<AbstractItem>)
+            else if(parameter is List<BaseItem>)
             {
                 var folder = await PickFolder();
                 if(folder!=null)
-                    await StartDownload(folder, (List<AbstractItem>)parameter);
+                    await StartDownload(folder, (List<BaseItem>)parameter);
                 else
                 {
                     NavigationService.GoBack();
@@ -118,7 +118,7 @@ namespace OwncloudUniversal.ViewModels
 
         #region Download
 
-        private async Task StartDownload(StorageFolder folder, List<AbstractItem> filesToUpload)
+        private async Task StartDownload(StorageFolder folder, List<BaseItem> filesToUpload)
         {
             OperationsList = (await WebDavItemService.GetDefault().CreateDownloadAsync(filesToUpload, folder)).Cast<IBackgroundTransferOperation>().ToObservableCollection();
 

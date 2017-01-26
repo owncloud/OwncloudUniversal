@@ -15,7 +15,7 @@ namespace OwncloudUniversal.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var davItem = value as AbstractItem;
+            var davItem = value as BaseItem;
             if (davItem != null)
             {
                 if (davItem.IsSynced)

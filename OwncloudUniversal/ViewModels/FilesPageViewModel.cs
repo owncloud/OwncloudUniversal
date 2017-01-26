@@ -47,9 +47,9 @@ namespace OwncloudUniversal.ViewModels
             UploadItemCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), SelectedItem) );   
             RefreshCommand = new DelegateCommand(async () => await LoadItems());
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
-            DownloadSingleCommand = new DelegateCommand<AbstractItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), new List<AbstractItem>() {item}));
+            DownloadSingleCommand = new DelegateCommand<BaseItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), new List<BaseItem>() {item}));
             DownloadMultipleCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), FilesPage.GetSelectedItems()));
-            DeleteCommand = new DelegateCommand<DavItem>(async item => await DeleteItems(new List<AbstractItem>() {item}));
+            DeleteCommand = new DelegateCommand<DavItem>(async item => await DeleteItems(new List<BaseItem>() {item}));
             DeleteMultipleCommand = new DelegateCommand(async () => await DeleteItems(FilesPage.GetSelectedItems()));
             SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = SelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.Single : ListViewSelectionMode.Multiple);
             ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item));
@@ -176,7 +176,7 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        private async Task DeleteItems(List<AbstractItem> items)
+        private async Task DeleteItems(List<BaseItem> items)
         {
             ContentDialog dialog = new ContentDialog();
             if (items.Count == 1)

@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace OwncloudUniversal.Shared.Model
 {
-    public class AbstractItem
+    public class BaseItem
     { 
         public virtual long Id { get; set; }
         public virtual FolderAssociation Association { get; set; }
@@ -17,6 +17,9 @@ namespace OwncloudUniversal.Shared.Model
         public virtual  Stream ContentStream { get; set; }
         public virtual Type AdapterType { get; set; }
         public virtual string DisplayName { get; set; }
+
+        public virtual DateTime? LastModified { get; set; }
+
         public bool IsSynced => AbstractItemTableModel.GetDefault().GetItemFromEntityId(this.EntityId) != null;
     }
 }

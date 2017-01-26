@@ -29,7 +29,7 @@ namespace OwncloudUniversal.Services
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
             fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();
 
-            AbstractItem li = new LocalItem
+            BaseItem li = new LocalItem
             {
                 IsCollection = true,
                 LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime,

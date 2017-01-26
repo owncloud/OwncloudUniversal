@@ -15,8 +15,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
 {
     public class BackgroundSyncProcess
     {
-        private List<AbstractItem> _itemIndex;
-        private List<AbstractItem> _deletions;
+        private List<BaseItem> _itemIndex;
+        private List<BaseItem> _deletions;
         private List<LinkStatus> _linkList;
         private int _uploadCount;
         private int _downloadCount;
@@ -185,7 +185,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
         }
 
-        private async Task _ProcessItem(AbstractItem item)
+        private async Task _ProcessItem(BaseItem item)
         {
             //the root item of an association should not be created again
             if(item.Id == item.Association.LocalFolderId || item.Id == item.Association.RemoteFolderId)
@@ -230,10 +230,10 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
         }
 
-        private async Task<AbstractItem> Insert(AbstractItem item)
+        private async Task<BaseItem> Insert(BaseItem item)
         {
 
-            AbstractItem targetItem = null;
+            BaseItem targetItem = null;
             item.SyncPostponed = false;
             if (item.AdapterType == _targetEntityAdapter.GetType())
             {
@@ -251,9 +251,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         }
 
-        private async Task<AbstractItem> Update(AbstractItem item)
+        private async Task<BaseItem> Update(BaseItem item)
         {
-            AbstractItem result = null;
+            BaseItem result = null;
             item.SyncPostponed = false;
             if (item.AdapterType == _targetEntityAdapter.GetType())
             {
@@ -274,7 +274,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             var itemTableModel = AbstractItemTableModel.GetDefault();
 
-            foreach (AbstractItem t in _itemIndex)
+            foreach (BaseItem t in _itemIndex)
             {
                 t.Association = association;
                 var foundItem = itemTableModel.GetItem(t);
@@ -296,7 +296,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
         }
 
-        private void DeleteFromIndex(List<AbstractItem> itemsToDelete)
+        private void DeleteFromIndex(List<BaseItem> itemsToDelete)
         {
             foreach (var abstractItem in itemsToDelete)
             {
@@ -304,7 +304,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
         }
 
-        private void AfterInsert(AbstractItem sourceItem, AbstractItem targetItem)
+        private void AfterInsert(BaseItem sourceItem, BaseItem targetItem)
         {
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;
@@ -325,7 +325,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             LinkStatusTableModel.GetDefault().InsertItem(link);
         }
 
-        private void AfterUpdate(AbstractItem sourceItem, AbstractItem targetItem)
+        private void AfterUpdate(BaseItem sourceItem, BaseItem targetItem)
         {
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;

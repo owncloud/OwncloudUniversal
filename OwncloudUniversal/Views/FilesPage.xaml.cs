@@ -31,11 +31,11 @@ namespace OwncloudUniversal.Views
         private static List<object> _selectedItems { get; set; }
 
 
-        public static List<AbstractItem> GetSelectedItems()
+        public static List<BaseItem> GetSelectedItems()
         {
             //workaround because if the selected Items are passed 
             //directly as commandparameter they are always null
-            return _selectedItems.Cast<AbstractItem>().ToList();
+            return _selectedItems.Cast<BaseItem>().ToList();
         }
 
         public FilesPage()

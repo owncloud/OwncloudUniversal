@@ -20,7 +20,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
     public class FileSystemAdapter : AbstractAdapter
     {
         private async Task _GetChangesFromSearchIndex(StorageFolder folder, long associationId,
-            List<AbstractItem> result)
+            List<BaseItem> result)
         {
             var files = new List<IStorageItem>();
             var options = new QueryOptions();
@@ -74,7 +74,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             }
         }
 
-        public override async Task<AbstractItem> AddItem(AbstractItem item)
+        public override async Task<BaseItem> AddItem(BaseItem item)
         {
             StorageFolder folder = null;
             try
@@ -100,61 +100,25 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             }
             else
             {
-                storageItem = await folder.TryGetItemAsync(displayName);
-                if (storageItem == null)
+                storageItem = await folder.TryGetItemAsync(displayName) ?? await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
+                var props = await storageItem.GetBasicPropertiesAsync();
+                if (item.LastModified == null || item.LastModified > props.DateModified)//TODO fix modifydate
                 {
-                    item.ContentStream = await LinkedAdapter.GetItemStreamAsync(item.EntityId);
-                    storageItem = await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
-                    byte[] buffer = new byte[16*1024];
-                    using (var stream = await ((StorageFile) storageItem).OpenStreamForWriteAsync())
-                    using (item.ContentStream)
-                    {
-                        int read = 0;
-                        while ((read = await item.ContentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await stream.WriteAsync(buffer, 0, read);
-                        }
-                        FileUpdateStatus status =
-                            await CachedFileManager.CompleteUpdatesAsync((StorageFile) storageItem);
-                        if (status != FileUpdateStatus.Complete)
-                            throw new Exception("File incomplete: " + status);
-                    }
+                    var adapter = (IBackgroundSyncAdapter)LinkedAdapter;
+                    await adapter.CreateDownload(item, storageItem);
                 }
-
             }
             BasicProperties bp = await storageItem.GetBasicPropertiesAsync();
             var targetItem = new LocalItem(item.Association, storageItem, bp);
             return targetItem;
         }
 
-        public async Task<AbstractItem> AddItem(AbstractItem item, StorageFile targetFile)
-        {
-            item.ContentStream = await LinkedAdapter.GetItemStreamAsync(item.EntityId);
-            byte[] buffer = new byte[16*1024];
-            using (var stream = await targetFile.OpenStreamForWriteAsync())
-            using (item.ContentStream)
-            {
-                int read = 0;
-                while ((read = await item.ContentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                {
-                    await stream.WriteAsync(buffer, 0, read);
-                }
-                FileUpdateStatus status =
-                    await CachedFileManager.CompleteUpdatesAsync(targetFile);
-                if (status != FileUpdateStatus.Complete)
-                    throw new Exception("File incomplete: " + status);
-            }
-            BasicProperties bp = await targetFile.GetBasicPropertiesAsync();
-            var targetItem = new LocalItem(item.Association, targetFile, bp);
-            return targetItem;
-        }
-
-        public override async Task<AbstractItem> UpdateItem(AbstractItem item)
+        public override async Task<BaseItem> UpdateItem(BaseItem item)
         {
             return await AddItem(item);
         }
 
-        public override async Task DeleteItem(AbstractItem item)
+        public override async Task DeleteItem(BaseItem item)
         {
             var fileId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
             var fileItem = AbstractItemTableModel.GetDefault().GetItem(fileId);
@@ -178,15 +142,9 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         }
         
-        public override async Task<Stream> GetItemStreamAsync(string entityId)
+        public override async Task<List<BaseItem>> GetUpdatedItems(FolderAssociation association)
         {
-            var file = await StorageFile.GetFileFromPathAsync(entityId);
-            return await file.OpenStreamForReadAsync();
-        }
-
-        public override async Task<List<AbstractItem>> GetUpdatedItems(FolderAssociation association)
-        {
-            List<AbstractItem> items = new List<AbstractItem>();
+            List<BaseItem> items = new List<BaseItem>();
             var item = GetAssociatedItem(association.LocalFolderId);
             StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(item.EntityId);
             await _GetChangesFromSearchIndex(folder, association.Id, items);
@@ -194,7 +152,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             return items;
         }
 
-        private async Task<StorageFolder> _GetStorageFolder(AbstractItem item)
+        private async Task<StorageFolder> _GetStorageFolder(BaseItem item)
         {
             string filePath = item.IsCollection ? _BuildFolderPath(item) : _BuildFilePath(item);
             if (!PathIsValid(filePath))
@@ -215,7 +173,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             return currentFolder;
         }
 
-        private string _BuildFilePath(AbstractItem item)
+        private string _BuildFilePath(BaseItem item)
         {
             var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);          
             var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
@@ -225,7 +183,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             return folderUri.LocalPath + '\\' + path;
         }
 
-        private string _BuildFolderPath(AbstractItem item)
+        private string _BuildFolderPath(BaseItem item)
         {
             var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);
             var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
@@ -238,7 +196,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             return absoltuePath;
         }
 
-        private AbstractItem GetAssociatedItem(long id)
+        private BaseItem GetAssociatedItem(long id)
         {
             return AbstractItemTableModel.GetDefault().GetItem(id);
         }
@@ -247,9 +205,9 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         {
         }
 
-        public override async Task<List<AbstractItem>> GetDeletedItemsAsync(FolderAssociation association)
+        public override async Task<List<BaseItem>> GetDeletedItemsAsync(FolderAssociation association)
         {
-            List<AbstractItem> result = new List<AbstractItem>();
+            List<BaseItem> result = new List<BaseItem>();
             //get the storagefolder
             var localFolderItem = GetAssociatedItem(association.LocalFolderId);
             StorageFolder sFolder = await StorageFolder.GetFolderFromPathAsync(localFolderItem.EntityId);
@@ -280,7 +238,6 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             }
             return result;
         }
-
         private bool PathIsValid(string path)
         {
             string chars = "?*<>|\"";
@@ -291,8 +248,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             }
             return false;
         }
-
-        public override string BuildEntityId(AbstractItem item)
+        public override string BuildEntityId(BaseItem item)
         {
             var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);
             var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);

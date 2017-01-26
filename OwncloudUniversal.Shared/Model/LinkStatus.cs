@@ -10,7 +10,7 @@ namespace OwncloudUniversal.Shared.Model
     public class LinkStatus
     {
         public LinkStatus() { }
-        public LinkStatus(AbstractItem sourceItem, AbstractItem targetItem)
+        public LinkStatus(BaseItem sourceItem, BaseItem targetItem)
         {
             SourceItemId = sourceItem.Id;
             TargetItemId = targetItem.Id;

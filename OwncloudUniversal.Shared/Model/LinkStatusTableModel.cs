@@ -114,7 +114,7 @@ namespace OwncloudUniversal.Model
             return "UPDATE LinkStatus SET TargetItemId = ?, SourceItemId = ?, ChangeNumber = ?, AssociationId = ? WHERE Id = ?";
         }
 
-        public LinkStatus GetItem(AbstractItem sourceItem)
+        public LinkStatus GetItem(BaseItem sourceItem)
         {
             var statement = "SELECT Id, TargetItemId, SourceItemId, ChangeNumber, AssociationId FROM LinkStatus WHERE SourceItemId = ?";
             using (var query = Connection.Prepare(statement))

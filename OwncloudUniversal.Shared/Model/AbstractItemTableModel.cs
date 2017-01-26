@@ -9,7 +9,7 @@ using SQLitePCL;
 
 namespace OwncloudUniversal.Shared.Model
 {
-    public class AbstractItemTableModel : AbstractTableModelBase<AbstractItem, long>
+    public class AbstractItemTableModel : AbstractTableModelBase<BaseItem, long>
     {
         private AbstractItemTableModel() { }
 
@@ -84,7 +84,7 @@ namespace OwncloudUniversal.Shared.Model
             query.Bind(1, itemId);
         }
 
-        protected override void BindInsertItemQuery(ISQLiteStatement query, AbstractItem item)
+        protected override void BindInsertItemQuery(ISQLiteStatement query, BaseItem item)
         {
             //"INSERT INTO Item (AssociationId, ItemId, IsCollection, ChangeKey, ChangeNumber) VALUES(@AssociationId, @itemid, @iscollection, @changekey, @changenumber)";
             query.Bind(1, item.Association.Id);
@@ -96,7 +96,7 @@ namespace OwncloudUniversal.Shared.Model
             query.Bind(7, item.AdapterType.AssemblyQualifiedName);
         }
 
-        protected override void BindUpdateItemQuery(ISQLiteStatement query, AbstractItem item, long key)
+        protected override void BindUpdateItemQuery(ISQLiteStatement query, BaseItem item, long key)
         {
             //"UPDATE Item SET EntityId = ?, IsCollection = ?, ChangeKey = ?, ChangeNumber = ? WHERE Id = ?";
             query.Bind(1, item.EntityId);
@@ -108,10 +108,10 @@ namespace OwncloudUniversal.Shared.Model
             query.Bind(7, key);
         }
 
-        protected override AbstractItem CreateInstance(ISQLiteStatement query)
+        protected override BaseItem CreateInstance(ISQLiteStatement query)
         {
             //SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber FROM Item WHERE Id = ?
-            var item = new AbstractItem();
+            var item = new BaseItem();
             item.Id = (long)query["Id"];
             var associationModel = FolderAssociationTableModel.GetDefault();
             item.Association = associationModel.GetItem((long)query["AssociationId"]);
@@ -124,7 +124,7 @@ namespace OwncloudUniversal.Shared.Model
             return item;
         }
 
-        public AbstractItem GetItem(AbstractItem item)
+        public BaseItem GetItem(BaseItem item)
         {
             using (var query = Connection.Prepare(GetSelectByEntityIdQuery()))
             {
@@ -138,9 +138,9 @@ namespace OwncloudUniversal.Shared.Model
             return null;
         }
 
-        public AbstractItem GetItemFromEntityId(string entityId)
+        public BaseItem GetItemFromEntityId(string entityId)
         {
-            var item = new AbstractItem();
+            var item = new BaseItem();
             using (var query = Connection.Prepare(GetSelectByEntityIdQuery()))
             {
                 query.Bind(1, entityId);
@@ -153,9 +153,9 @@ namespace OwncloudUniversal.Shared.Model
             return null;
         }
 
-        public ObservableCollection<AbstractItem> GetPostponedItems()
+        public ObservableCollection<BaseItem> GetPostponedItems()
         {
-            var items = new ObservableCollection<AbstractItem>();
+            var items = new ObservableCollection<BaseItem>();
             using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType from Item i " +
                                                   "where i.SyncPostponed = 1"))
             {
@@ -168,9 +168,9 @@ namespace OwncloudUniversal.Shared.Model
             return items;
         }
 
-        public ObservableCollection<AbstractItem> GetFilesForFolder(FolderAssociation association, Type adapterType)
+        public ObservableCollection<BaseItem> GetFilesForFolder(FolderAssociation association, Type adapterType)
         {
-            var items = new ObservableCollection<AbstractItem>();
+            var items = new ObservableCollection<BaseItem>();
             using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType from Item i " +
                                                   $"where i.AssociationId = '{association.Id}' AND i.AdapterType = '{adapterType.AssemblyQualifiedName}'"))
             {
@@ -183,9 +183,9 @@ namespace OwncloudUniversal.Shared.Model
             return items;
         }
 
-        public ObservableCollection<AbstractItem> GetFilesForFolder(string folderPath)
+        public ObservableCollection<BaseItem> GetFilesForFolder(string folderPath)
         {
-            var items = new ObservableCollection<AbstractItem>();
+            var items = new ObservableCollection<BaseItem>();
             using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType from Item i " +
                                                   $"where i.EntityId like '{folderPath}%' COLLATE NOCASE"))
             {

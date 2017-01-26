@@ -11,7 +11,7 @@ using OwncloudUniversal.Shared.Model;
 
 namespace OwncloudUniversal.Shared.Model
 {
-    public class LocalItem : AbstractItem
+    public class LocalItem : BaseItem
     {
         public LocalItem() { }
         
@@ -37,9 +37,8 @@ namespace OwncloudUniversal.Shared.Model
             if(!IsCollection)
                 Size = (ulong)properties["System.Size"];
         }
-
-        public DateTime? LastModified { get; set; }        
-        public string Path { get; set; }
+      
+        private string Path { get; set; }
         public override ulong Size { get; set; }
 
         public override string EntityId
