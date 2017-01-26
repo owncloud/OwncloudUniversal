@@ -1,0 +1,14 @@
+platform:
+  - x86
+  - x64
+  - ARM
+  
+configuration:
+  - Release
+
+install:
+  - ps: .appveyor/install-vsix.ps1
+  
+before_build:
+  - nuget restore OwncloudUniversal.sln
+
