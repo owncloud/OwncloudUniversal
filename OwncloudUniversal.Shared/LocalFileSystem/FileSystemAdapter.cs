@@ -63,7 +63,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             if (!IsBackgroundSync)
             {
                 var unsynced =
-                    AbstractItemTableModel.GetDefault()
+                    ItemTableModel.GetDefault()
                         .GetPostponedItems()
                         .Where(x => x.AdapterType == typeof(FileSystemAdapter));
                 foreach (var abstractItem in unsynced)
@@ -121,7 +121,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         public override async Task DeleteItem(BaseItem item)
         {
             var fileId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
-            var fileItem = AbstractItemTableModel.GetDefault().GetItem(fileId);
+            var fileItem = ItemTableModel.GetDefault().GetItem(fileId);
             try
             {
                 if (item.IsCollection)
@@ -198,7 +198,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         private BaseItem GetAssociatedItem(long id)
         {
-            return AbstractItemTableModel.GetDefault().GetItem(id);
+            return ItemTableModel.GetDefault().GetItem(id);
         }
 
         public FileSystemAdapter(bool isBackgroundSync, AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
@@ -220,7 +220,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var queryTask = itemQuery.GetItemsAsync();
 
             //get all the files and folders from the db that were inside the folder at the last time
-            var existingItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(association, this.GetType());
+            var existingItems = ItemTableModel.GetDefault().GetFilesForFolder(association, this.GetType());
             sItems.AddRange(await queryTask);
             foreach (var existingItem in existingItems)
             {

@@ -9,18 +9,18 @@ using SQLitePCL;
 
 namespace OwncloudUniversal.Shared.Model
 {
-    public class AbstractItemTableModel : AbstractTableModelBase<BaseItem, long>
+    public class ItemTableModel : AbstractTableModelBase<BaseItem, long>
     {
-        private AbstractItemTableModel() { }
+        private ItemTableModel() { }
 
-        private static AbstractItemTableModel instance;
-        public static AbstractItemTableModel GetDefault()
+        private static ItemTableModel instance;
+        public static ItemTableModel GetDefault()
         {
-            lock (typeof(AbstractItemTableModel))
+            lock (typeof(ItemTableModel))
             {
                 if (instance == null)
-                    instance = new AbstractItemTableModel();
-                return new AbstractItemTableModel();
+                    instance = new ItemTableModel();
+                return new ItemTableModel();
         }
     }
         protected override void BindDeleteItemQuery(ISQLiteStatement query, long key)

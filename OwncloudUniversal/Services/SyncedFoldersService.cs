@@ -36,12 +36,12 @@ namespace OwncloudUniversal.Services
                 EntityId = folder.Path,
                 Association = fa,
             };
-            AbstractItemTableModel.GetDefault().InsertItem(li);
-            li = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+            ItemTableModel.GetDefault().InsertItem(li);
+            li = ItemTableModel.GetDefault().GetLastInsertItem();
 
             remoteFolderItem.Association = fa;
-            AbstractItemTableModel.GetDefault().InsertItem(remoteFolderItem);
-            var ri = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+            ItemTableModel.GetDefault().InsertItem(remoteFolderItem);
+            var ri = ItemTableModel.GetDefault().GetLastInsertItem();
 
             fa.RemoteFolderId = ri.Id;
             fa.LocalFolderId = li.Id;
@@ -55,7 +55,7 @@ namespace OwncloudUniversal.Services
 
         public void RemoveFromSyncedFolders(FolderAssociation association)
         {
-            AbstractItemTableModel.GetDefault().DeleteItemsFromAssociation(association);
+            ItemTableModel.GetDefault().DeleteItemsFromAssociation(association);
             FolderAssociationTableModel.GetDefault().DeleteItem(association.Id);
         }
     }

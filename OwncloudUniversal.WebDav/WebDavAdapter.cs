@@ -92,7 +92,7 @@ namespace OwncloudUniversal.WebDav
         public override async Task DeleteItem(BaseItem item)
         {
             var davId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
-            var davItem = AbstractItemTableModel.GetDefault().GetItem(davId);
+            var davItem = ItemTableModel.GetDefault().GetItem(davId);
             if(davItem == null)
                 return;
             if(await _davClient.Exists(new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute)))
@@ -102,7 +102,7 @@ namespace OwncloudUniversal.WebDav
         public override async Task<List<BaseItem>> GetUpdatedItems(FolderAssociation association)
         {
             List<BaseItem> items = new List<BaseItem>();
-            var folder = AbstractItemTableModel.GetDefault().GetItem(association.RemoteFolderId);
+            var folder = ItemTableModel.GetDefault().GetItem(association.RemoteFolderId);
             await _CheckRemoteFolderRecursive(folder, items);
             return items;
         }
@@ -162,7 +162,7 @@ namespace OwncloudUniversal.WebDav
 
         private bool ChangekeyHasChanged(BaseItem item)
         {
-            var i = AbstractItemTableModel.GetDefault().GetItem(item);
+            var i = ItemTableModel.GetDefault().GetItem(item);
             return i == null || i.ChangeKey != item.ChangeKey;
         }
 
@@ -193,14 +193,14 @@ namespace OwncloudUniversal.WebDav
 
         private BaseItem GetAssociatedItem(long id)
         {
-            return AbstractItemTableModel.GetDefault().GetItem(id);
+            return ItemTableModel.GetDefault().GetItem(id);
         }
 
         public override async Task<List<BaseItem>> GetDeletedItemsAsync(FolderAssociation association)
         {
             List<BaseItem> items = new List<BaseItem>();
-            var folder = AbstractItemTableModel.GetDefault().GetItem(association.RemoteFolderId);
-            var existingItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(association, this.GetType()).ToList();
+            var folder = ItemTableModel.GetDefault().GetItem(association.RemoteFolderId);
+            var existingItems = ItemTableModel.GetDefault().GetFilesForFolder(association, this.GetType()).ToList();
             await _GetDeletedItemsAsync(folder, existingItems, items);
             return items;
         }

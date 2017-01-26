@@ -101,7 +101,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     LogHelper.Write(
                         $"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
             }
-            _itemIndex = AbstractItemTableModel.GetDefault().GetAllItems().ToList();
+            _itemIndex = ItemTableModel.GetDefault().GetAllItems().ToList();
             _linkList = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
         }
 
@@ -126,29 +126,29 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     Debug.WriteLine(item.EntityId + ", " + item.Id);
                 }
                 var link = LinkStatusTableModel.GetDefault().GetItem(item);
-                var linkedItem = AbstractItemTableModel.GetDefault().GetItem(link.TargetItemId);
+                var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
                 if (linkedItem != null)
                 {
                     if (linkedItem.IsCollection)
                     {
-                        var childItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                        var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
                         foreach (var childItem in childItems)
                         {
-                            AbstractItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                            ItemTableModel.GetDefault().DeleteItem(childItem.Id);
                         }
                     }
-                    AbstractItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
+                    ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
                 }
 
                 if (item.IsCollection)
                 {
-                    var childItems = AbstractItemTableModel.GetDefault().GetFilesForFolder(item.EntityId);
+                    var childItems = ItemTableModel.GetDefault().GetFilesForFolder(item.EntityId);
                     foreach (var childItem in childItems)
                     {
-                        AbstractItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                        ItemTableModel.GetDefault().DeleteItem(childItem.Id);
                     }
                 }
-                AbstractItemTableModel.GetDefault().DeleteItem(item.Id);
+                ItemTableModel.GetDefault().DeleteItem(item.Id);
                 LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
             }
         }
@@ -196,7 +196,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (item.Size > (50 * 1024 * 1024) & _isBackgroundTask)
             {
                 item.SyncPostponed = true;
-                AbstractItemTableModel.GetDefault().UpdateItem(item, item.Id);
+                ItemTableModel.GetDefault().UpdateItem(item, item.Id);
                 return;
             }
 
@@ -215,7 +215,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     targetEntitiyId = _targetEntityAdapter.BuildEntityId(item);
                 }
 
-                var foundItem = AbstractItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId);
+                var foundItem = ItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId);
                 var result = foundItem ?? await Insert(item);
                 AfterInsert(item, result);
             }
@@ -272,7 +272,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private void _UpdateFileIndexes(FolderAssociation association)
         {
-            var itemTableModel = AbstractItemTableModel.GetDefault();
+            var itemTableModel = ItemTableModel.GetDefault();
 
             foreach (BaseItem t in _itemIndex)
             {
@@ -300,7 +300,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             foreach (var abstractItem in itemsToDelete)
             {
-                AbstractItemTableModel.GetDefault().DeleteItem(abstractItem.Id);
+                ItemTableModel.GetDefault().DeleteItem(abstractItem.Id);
             }
         }
 
@@ -309,16 +309,16 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;
             //check if item with same path already exists
-            var existingItem = AbstractItemTableModel.GetDefault().GetItem(targetItem);
+            var existingItem = ItemTableModel.GetDefault().GetItem(targetItem);
             if (existingItem != null)
             {
-                AbstractItemTableModel.GetDefault().UpdateItem(targetItem, existingItem.Id);
+                ItemTableModel.GetDefault().UpdateItem(targetItem, existingItem.Id);
                 targetItem.Id = existingItem.Id;
             }
             else
             {
-                AbstractItemTableModel.GetDefault().InsertItem(targetItem);
-                targetItem = AbstractItemTableModel.GetDefault().GetLastInsertItem();
+                ItemTableModel.GetDefault().InsertItem(targetItem);
+                targetItem = ItemTableModel.GetDefault().GetLastInsertItem();
             }
 
             LinkStatus link = new LinkStatus(sourceItem, targetItem);
@@ -330,8 +330,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;
             targetItem.ChangeNumber = sourceItem.ChangeNumber;
-            AbstractItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
-            AbstractItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
+            ItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
+            ItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
             var link = _linkList.FirstOrDefault(x => (x.SourceItemId == sourceItem.Id || x.TargetItemId == sourceItem.Id) && x.AssociationId == sourceItem.Association.Id);
             link.ChangeNumber = sourceItem.ChangeNumber;
             LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
