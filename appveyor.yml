@@ -1,2 +1,10 @@
+platform:
+  - x86
+  - x64
+  - ARM
+  
+configuration:
+  - Release
+
 install:
   - ps: .appveyor/install-vsix.ps1
