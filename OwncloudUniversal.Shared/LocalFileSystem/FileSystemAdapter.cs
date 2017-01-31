@@ -101,12 +101,9 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             else
             {
                 storageItem = await folder.TryGetItemAsync(displayName) ?? await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
-                var props = await storageItem.GetBasicPropertiesAsync();
-                if (item.LastModified == null || item.LastModified > props.DateModified)//TODO fix modifydate
-                {
-                    var adapter = (IBackgroundSyncAdapter)LinkedAdapter;
-                    await adapter.CreateDownload(item, storageItem);
-                }
+                var adapter = (IBackgroundSyncAdapter)LinkedAdapter;
+                await adapter.CreateDownload(item, storageItem);
+                
             }
             BasicProperties bp = await storageItem.GetBasicPropertiesAsync();
             var targetItem = new LocalItem(item.Association, storageItem, bp);
