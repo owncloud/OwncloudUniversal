@@ -90,7 +90,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
                 _deletions = await getDeletedTargetTask;
                 _deletions.AddRange(await getDeletedSourceTask);
-                _deletedCount = _deletions.Count;
 
                 _itemIndex = await getUpdatedSourceTask;
                 _itemIndex.AddRange(await getUpdatedTargetTask);
@@ -111,45 +110,56 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 try
                 {
-                    if (item.AdapterType == _targetEntityAdapter.GetType())
+                    try
                     {
-                        await _sourceEntityAdapter.DeleteItem(item);
+                        if (item.AdapterType == _targetEntityAdapter.GetType())
+                        {
+                            await _sourceEntityAdapter.DeleteItem(item);
+                        }
+
+                        if (item.AdapterType == _sourceEntityAdapter.GetType())
+                        {
+                            await _targetEntityAdapter.DeleteItem(item);
+                        }
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        Debug.WriteLine(item.EntityId + ", " + item.Id);
+                    }
+                    var link = LinkStatusTableModel.GetDefault().GetItem(item);
+                    var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
+                    if (linkedItem != null)
+                    {
+                        if (linkedItem.IsCollection)
+                        {
+                            var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                            foreach (var childItem in childItems)
+                            {
+                                ItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                            }
+                        }
+                        ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
                     }
 
-                    if (item.AdapterType == _sourceEntityAdapter.GetType())
+                    if (item.IsCollection)
                     {
-                        await _targetEntityAdapter.DeleteItem(item);
-                    }
-                }
-                catch (KeyNotFoundException)
-                {
-                    Debug.WriteLine(item.EntityId + ", " + item.Id);
-                }
-                var link = LinkStatusTableModel.GetDefault().GetItem(item);
-                var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
-                if (linkedItem != null)
-                {
-                    if (linkedItem.IsCollection)
-                    {
-                        var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                        var childItems = ItemTableModel.GetDefault().GetFilesForFolder(item.EntityId);
                         foreach (var childItem in childItems)
                         {
                             ItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                            _deletedCount++;
                         }
                     }
-                    ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
+                    ItemTableModel.GetDefault().DeleteItem(item.Id);
+                    LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
+                    _deletedCount++;
                 }
-
-                if (item.IsCollection)
+                catch (Exception e)
                 {
-                    var childItems = ItemTableModel.GetDefault().GetFilesForFolder(item.EntityId);
-                    foreach (var childItem in childItems)
-                    {
-                        ItemTableModel.GetDefault().DeleteItem(childItem.Id);
-                    }
+                    _errorsOccured = true;
+                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message, item.EntityId, e.StackTrace));
                 }
-                ItemTableModel.GetDefault().DeleteItem(item.Id);
-                LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
             }
         }
 
@@ -330,11 +340,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;
             targetItem.ChangeNumber = sourceItem.ChangeNumber;
-            ItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
-            ItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
             var link = _linkList.FirstOrDefault(x => (x.SourceItemId == sourceItem.Id || x.TargetItemId == sourceItem.Id) && x.AssociationId == sourceItem.Association.Id);
             link.ChangeNumber = sourceItem.ChangeNumber;
             LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
+            targetItem.Id = link.TargetItemId;
+            ItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
+            ItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
+
+            
         }        
     }
 }

@@ -122,6 +122,8 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         {
             var fileId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
             var fileItem = ItemTableModel.GetDefault().GetItem(fileId);
+            if(fileItem == null)
+                return;
             try
             {
                 if (item.IsCollection)
