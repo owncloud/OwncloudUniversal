@@ -184,7 +184,7 @@
     <value>Hell</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Datenbank zurücksetzen</value>
+    <value>App zurücksetzen</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
     <value>Zurück-Taste im Seitenkopf</value>
@@ -332,5 +332,8 @@
   </data>
   <data name="Ooops" xml:space="preserve">
     <value>Uuups..</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>Maximale Dateigröße für Synchronisation (MB)</value>
   </data>
 </root>

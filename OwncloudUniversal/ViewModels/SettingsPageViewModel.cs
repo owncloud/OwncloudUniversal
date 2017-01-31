@@ -129,6 +129,12 @@ namespace OwncloudUniversal.ViewModels
                 Configuration.IsBackgroundTaskEnabled = value;
             }
         }
+
+        public long MaximumDownloadSize
+        {
+            get { return Configuration.MaxDownloadSize; }
+            set { Configuration.MaxDownloadSize = value; }
+        }
     }
 
     public class AboutPartViewModel : ViewModelBase

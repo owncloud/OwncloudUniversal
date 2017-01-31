@@ -97,11 +97,17 @@
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="UseShellDrawnBackButtonToggleSwtich" />
                         
+                        <TextBox x:Name="MaxDownloadSizeBox"
+                                 x:Uid="MaxDownloadSize"
+                                 Text="{Binding MaximumDownloadSize, Mode=TwoWay}"
+                                 RelativePanel.AlignLeftWithPanel="True"
+                                 RelativePanel.Below="UseLightThemeToggleSwitch"/>
+                        
                         <Button x:Name="ResetButton"
                                 Margin="0,12"
                                 x:Uid="ResetDatabase"
                                 RelativePanel.AlignLeftWithPanel="True"
-                                RelativePanel.Below="UseLightThemeToggleSwitch"
+                                RelativePanel.Below="MaxDownloadSizeBox"
                                 Command="{Binding ResetCommand}"/>
 
                     </RelativePanel>

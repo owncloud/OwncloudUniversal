@@ -205,7 +205,7 @@
     <value>Light</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Reset Database</value>
+    <value>Reset App</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
     <value>Settings</value>
@@ -338,5 +338,8 @@
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
     <value>Sync Status</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>Maximum Filesize for synchronisation (MB)</value>
   </data>
 </root>
