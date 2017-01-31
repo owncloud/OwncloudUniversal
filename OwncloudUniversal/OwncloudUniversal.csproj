@@ -18,6 +18,10 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>OwncloudUniversal_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -213,6 +217,7 @@
     <Content Include="Assets\FileTypes\folder-shared.png" />
     <Content Include="Assets\FileTypes\folder-starred.png" />
     <Content Include="Assets\FileTypes\folder.png" />
+    <Content Include="Assets\FileTypes\image.png" />
     <Content Include="Assets\FileTypes\package-x-generic.png" />
     <Content Include="Assets\FileTypes\text-calendar.png" />
     <Content Include="Assets\FileTypes\text-code.png" />
@@ -222,18 +227,17 @@
     <Content Include="Assets\FileTypes\x-office-document.png" />
     <Content Include="Assets\FileTypes\x-office-presentation.png" />
     <Content Include="Assets\FileTypes\x-office-spreadsheet.png" />
-    <Content Include="Assets\synced.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-100.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-125.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-150.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-200.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-400.png" />
+    <Content Include="Assets\logo.svg" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-100.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-125.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-150.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-200.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-400.png" />
-    <Content Include="Assets\FileTypes\image.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-100.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-125.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-150.png" />
@@ -249,6 +253,7 @@
     <Content Include="Assets\Store\StoreLogo.scale-150.png" />
     <Content Include="Assets\Store\StoreLogo.scale-200.png" />
     <Content Include="Assets\Store\StoreLogo.scale-400.png" />
+    <Content Include="Assets\synced.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-150.png" />
