@@ -62,7 +62,8 @@ namespace OwncloudUniversal.Services
 
         public async Task GoBackAsync()
         {
-            FolderStack.RemoveAt(FolderStack.Count-1);
+            if(FolderStack.Count > 1)
+                FolderStack.RemoveAt(FolderStack.Count-1);
             CurrentItem = FolderStack.Last();
             await ReloadAsync();
         }
