@@ -21,24 +21,14 @@ namespace OwncloudUniversal.Services
             return _instance ?? (_instance = new IndicatorService());
         }
 
-        public async void ShowBar()
+        public void ShowBar()
         {
-            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-                await StatusBar.GetForCurrentView().ProgressIndicator.ShowAsync();
-            else
-            {
-                Shell.Ring.IsModal = true;
-            }
+            Shell.Ring.IsModal = true;
         }
 
-        public async void HideBar()
+        public void HideBar()
         {
-            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-                await StatusBar.GetForCurrentView().ProgressIndicator.HideAsync();
-            else
-            {
-                Shell.Ring.IsModal = false;
-            }
+            Shell.Ring.IsModal = false;
         }
     }
 }
