@@ -100,6 +100,8 @@ namespace OwncloudUniversal.ViewModels
         {
             if (args.NavigationMode == NavigationMode.Back)
                 await WebDavNavigationService.GoBackAsync();
+            if (!(args.TargetPageType == typeof(FilesPage) || args.TargetPageType == typeof(FileTransferPage) || args.TargetPageType == typeof(DetailsPage)))
+                await WebDavNavigationService.ClearHistory();//TODO find a way to restore old navigationhistory
             await base.OnNavigatingFromAsync(args);
         }
 

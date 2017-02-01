@@ -14,23 +14,19 @@ namespace OwncloudUniversal.Services
     public class WebDavNavigationService : IWebDavNavigationService, INotifyPropertyChanged
     {
         private static WebDavNavigationService _instance;
-        private WebDavItemService _itemService;
+        private readonly WebDavItemService _itemService;
         private DavItem _currentItem;
         private ObservableCollection<DavItem> _items;
-        private readonly ObservableCollection<DavItem> _folderStack;
 
         private WebDavNavigationService()
         {
             _itemService = WebDavItemService.GetDefault();
-            _folderStack = new ObservableCollection<DavItem>();
+            FolderStack = new ObservableCollection<DavItem>();
             Items = new ObservableCollection<DavItem>();
         }
         public static WebDavNavigationService GetDefault() => _instance ?? (_instance = new WebDavNavigationService());
 
-        public ObservableCollection<DavItem> FolderStack
-        {
-            get { return _folderStack; }
-        }
+        public ObservableCollection<DavItem> FolderStack { get; private set; }
 
         public ObservableCollection<DavItem> Items
         {
@@ -79,9 +75,17 @@ namespace OwncloudUniversal.Services
             IndicatorService.GetDefault().HideBar();
         }
 
+        public Task ClearHistory()
+        {
+            CurrentItem = null;
+            Items = new ObservableCollection<DavItem>();
+            FolderStack = new ObservableCollection<DavItem>();
+            return Task.CompletedTask;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

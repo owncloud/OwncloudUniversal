@@ -18,5 +18,6 @@ namespace OwncloudUniversal.Services
         Task GoForwardAsync();
         Task GoBackAsync();
         Task ReloadAsync();
+        Task ClearHistory();
     }
 }
