@@ -22,10 +22,49 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <controls:PageHeader Content="{Binding SelectedItem.DisplayName}"
-                             Text="{Binding SelectedItem.DisplayName}"
-                             Frame="{x:Bind Frame}"
-                             Grid.Row="0"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="48"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="&#xE110;" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" FontFamily="Segoe UI Symbol"/>
+            <ListBox Grid.Column="1"  ItemsSource="{Binding WebDavNavigationService.FolderStack}" Margin="8,0,0,0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <StackPanel Orientation="Horizontal" Height="48">
+                                        <ContentPresenter VerticalAlignment="Center" Margin="0,0,8,0" />
+                                        <FontIcon Glyph="&#xE26B;" FontSize="8" Margin="0,0,8,0"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.Template>
+                    <ControlTemplate TargetType="ItemsControl">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ListBox.Template>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Column="2" Content="&#xE149;" Command="{Binding RefreshCommand}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" FontFamily="Segoe UI Symbol"/>
+        </Grid>
         
         <ListView x:Name="ListView" 
                   Grid.Row="1" 
@@ -199,9 +238,6 @@
                           Command="{Binding SwitchSelectionModeCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
 
-            <AppBarButton x:Uid="Refresh" Icon="Refresh" 
-                          Command="{Binding RefreshCommand}"
-                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
             <AppBarButton x:Uid="NewFolder" Icon="NewFolder" 
                           Command="{Binding AddFolderCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
