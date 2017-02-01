@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -28,6 +29,7 @@ using OwncloudUniversal.Views;
 using OwncloudUniversal.WebDav;
 using OwncloudUniversal.WebDav.Model;
 using Template10.Mvvm;
+using Template10.Services.NavigationService;
 using Template10.Utils;
 
 namespace OwncloudUniversal.ViewModels
@@ -35,17 +37,15 @@ namespace OwncloudUniversal.ViewModels
     public class FilesPageViewModel : ViewModelBase
     {
         private DavItem _selectedItem;
-        private readonly WebDavItemService _davItemService;
         private readonly SyncedFoldersService _syncedFolderService;
-        private ObservableCollection<DavItem> _itemsList;
         private ListViewSelectionMode _selectionMode = ListViewSelectionMode.Single;
 
         public FilesPageViewModel()
         {
-            _davItemService = WebDavItemService.GetDefault();
             _syncedFolderService = new SyncedFoldersService();
-            UploadItemCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), SelectedItem) );   
-            RefreshCommand = new DelegateCommand(async () => await LoadItems());
+            WebDavNavigationService = WebDavNavigationService.GetDefault();
+            UploadItemCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), WebDavNavigationService.CurrentItem) );   
+            RefreshCommand = new DelegateCommand(async () => await WebDavNavigationService.ReloadAsync());
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
             DownloadSingleCommand = new DelegateCommand<BaseItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), new List<BaseItem>() {item}));
             DownloadMultipleCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), FilesPage.GetSelectedItems()));
@@ -54,6 +54,15 @@ namespace OwncloudUniversal.ViewModels
             SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = SelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.Single : ListViewSelectionMode.Multiple);
             ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item));
             AddFolderCommand = new DelegateCommand(async () => await CreateFolderAsync());
+            WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
+        }
+
+        private void WebDavNavigationServiceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName == "Items")
+            {
+                Task.Run(() => LoadThumbnails());
+            }
         }
 
         public ICommand UploadItemCommand { get; private set; }
@@ -67,31 +76,31 @@ namespace OwncloudUniversal.ViewModels
         public ICommand DeleteCommand { get; private set; }
         public ICommand DeleteMultipleCommand { get; private set; }
         public ICommand AddFolderCommand { get; private set; }
-
         public ICommand SwitchSelectionModeCommand { get; private set; }
+
+        public WebDavNavigationService WebDavNavigationService { get; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             await base.OnNavigatedToAsync(parameter, mode, state);
-            if(Configuration.IsFirstRun)
+            var loginTask = CheckLoginAsync();
+            if (Configuration.IsFirstRun)
                 return;
-            var loginTask = Task.CompletedTask;
-            var item = parameter as DavItem;
-            if (item == null)
-            {
-                loginTask = CheckLoginAsync();
-                item = new DavItem();
-                item.DisplayName = "ownCloud";
-                item.EntityId = Configuration.ServerUrl;
-                item.IsCollection = true;
-            }
-            if (item.IsCollection)
-            {
-                _selectedItem = item;
-                RaisePropertyChanged("SelectedItem");
-                await LoadItems();
-            }
+            if (WebDavNavigationService.CurrentItem == null)
+                await WebDavNavigationService.NavigateAsync(new DavItem
+                {
+                    Href = Configuration.ServerUrl,
+                    IsCollection = true,
+                    DisplayName = "ownCloud"
+                });
             await loginTask;
+        }
+
+        public override async Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        {
+            if (args.NavigationMode == NavigationMode.Back)
+                await WebDavNavigationService.GoBackAsync();
+            await base.OnNavigatingFromAsync(args);
         }
 
         private async Task CheckLoginAsync()
@@ -114,16 +123,6 @@ namespace OwncloudUniversal.ViewModels
             }
             IndicatorService.GetDefault().HideBar();
         }
-        
-        public ObservableCollection<DavItem> ItemsList
-        {
-            get { return _itemsList; }
-            private set
-            {
-                _itemsList = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public DavItem SelectedItem
         {
@@ -135,7 +134,10 @@ namespace OwncloudUniversal.ViewModels
                     _selectedItem = value;
                     RaisePropertyChanged();
                     if (value.IsCollection)
+                    {
                         NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
+                        var task = WebDavNavigationService.NavigateAsync(value);
+                    }
                 }
             } 
         }
@@ -150,17 +152,6 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        private async Task LoadItems()
-        {
-            IndicatorService.GetDefault().ShowBar();
-            var items = await _davItemService.GetItemsAsync(new Uri(_selectedItem.EntityId, UriKind.RelativeOrAbsolute));
-            if(items.Count > 0) items.RemoveAt(0);
-            ItemsList = items.OrderBy(x => !x.IsCollection).ThenBy(x=> x.DisplayName, StringComparer.CurrentCultureIgnoreCase).Cast<DavItem>().ToObservableCollection();
-            //LoadThumbnails();
-            Dispatcher.Dispatch(LoadThumbnails);
-            IndicatorService.GetDefault().HideBar();
-        }
-
         private async Task RegisterFolderForSync(object parameter)
         {
             if (parameter is DavItem)
@@ -172,7 +163,6 @@ namespace OwncloudUniversal.ViewModels
                 if (folder == null)
                     return;
                 await _syncedFolderService.AddFolderToSyncAsync(folder, (DavItem) parameter);
-                await LoadItems();
             }
         }
 
@@ -213,7 +203,7 @@ namespace OwncloudUniversal.ViewModels
                 IndicatorService.GetDefault().ShowBar();
                 await WebDavItemService.GetDefault().DeleteItemAsync(items.Cast<DavItem>().ToList());
                 SelectionMode = ListViewSelectionMode.Single;
-                await LoadItems();
+                await WebDavNavigationService.ReloadAsync();
                 IndicatorService.GetDefault().HideBar();
             }
             
@@ -236,22 +226,24 @@ namespace OwncloudUniversal.ViewModels
             if (result == ContentDialogResult.Primary)
             {
                 IndicatorService.GetDefault().ShowBar();
-                await WebDavItemService.GetDefault().CreateFolder(SelectedItem, box.Text);
-                await LoadItems();
+                await WebDavItemService.GetDefault().CreateFolder(WebDavNavigationService.CurrentItem, box.Text);
+                await WebDavNavigationService.ReloadAsync();
                 IndicatorService.GetDefault().HideBar();
             }
         }
 
         private void LoadThumbnails()
         {
-            foreach (var davItem in ItemsList)
+            if(WebDavNavigationService.Items == null)
+                return;
+
+            var serverUrl = Configuration.ServerUrl.Substring(0, Configuration.ServerUrl.IndexOf("remote.php", StringComparison.OrdinalIgnoreCase));
+            foreach (var davItem in WebDavNavigationService.Items)
             {
                 if (!davItem.IsCollection && davItem.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
                 {
-                    var serverUrl = Configuration.ServerUrl.Substring(0, Configuration.ServerUrl.IndexOf("remote.php", StringComparison.OrdinalIgnoreCase));
                     var itemPath = davItem.EntityId.Substring(davItem.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
                     var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 40 + "/" + 40 + itemPath;
-                    ImageCache.Instance.PreCacheAsync(new Uri(url), false, true);// no need to await this
                     davItem.ThumbnailUrl = url;
                 }
             }

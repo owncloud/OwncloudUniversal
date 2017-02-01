@@ -29,7 +29,7 @@
         
         <ListView x:Name="ListView" 
                   Grid.Row="1" 
-                  ItemsSource="{Binding ItemsList}" 
+                  ItemsSource="{Binding WebDavNavigationService.Items}" 
                   SelectionMode="{Binding SelectionMode}"
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
                   IsMultiSelectCheckBoxEnabled="True"

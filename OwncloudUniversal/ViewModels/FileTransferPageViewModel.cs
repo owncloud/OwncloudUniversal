@@ -70,6 +70,12 @@ namespace OwncloudUniversal.ViewModels
             await base.OnNavigatedToAsync(parameter, mode, state);
         }
 
+        public override async Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
+        {
+            await WebDavNavigationService.GetDefault().ReloadAsync();
+            await base.OnNavigatedFromAsync(pageState, suspending);
+        }
+
         #region Upload
 
         private async Task<List<StorageFile>> PickOpenFile()

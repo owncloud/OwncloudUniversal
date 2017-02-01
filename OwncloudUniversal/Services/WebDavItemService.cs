@@ -32,9 +32,10 @@ namespace OwncloudUniversal.Services
 
         public async Task<List<DavItem>> GetItemsAsync(Uri folderHref)
         {
-
             var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
-            return await client.ListFolder(CreateItemUri(folderHref));
+            var result = await client.ListFolder(CreateItemUri(folderHref));
+            if (result.Count > 0) result.RemoveAt(0);
+            return result.OrderBy(x => !x.IsCollection).ThenBy(x => x.DisplayName, StringComparer.CurrentCultureIgnoreCase).ToList();
         }
 
         private Uri CreateItemUri(Uri href)
