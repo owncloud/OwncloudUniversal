@@ -6,18 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.WebDav.Model;
+using Template10.Services.NavigationService;
 
 namespace OwncloudUniversal.Services
 {
     interface IWebDavNavigationService
     {
-        ObservableCollection<DavItem> FolderStack { get; } 
-        ObservableCollection<DavItem> Items { get; }
+        ObservableCollection<DavItem> BackStack { get; } 
+        ObservableCollection<DavItem> ForwardStack { get; }
         DavItem CurrentItem { get; }
         Task NavigateAsync(DavItem item);
         Task GoForwardAsync();
         Task GoBackAsync();
         Task ReloadAsync();
-        Task ClearHistory();
+        Task Reset();
+        void SetNavigationService(INavigationService service);
     }
 }

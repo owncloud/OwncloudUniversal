@@ -55,6 +55,7 @@ namespace OwncloudUniversal.ViewModels
             ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item));
             AddFolderCommand = new DelegateCommand(async () => await CreateFolderAsync());
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
+            HomeCommand = new DelegateCommand(async () => await WebDavNavigationService.NavigateAsync(WebDavNavigationService.BackStack[0]));
         }
 
         private void WebDavNavigationServiceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -78,31 +79,25 @@ namespace OwncloudUniversal.ViewModels
         public ICommand AddFolderCommand { get; private set; }
         public ICommand SwitchSelectionModeCommand { get; private set; }
 
+        public ICommand HomeCommand { get; private set; }
+
         public WebDavNavigationService WebDavNavigationService { get; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             await base.OnNavigatedToAsync(parameter, mode, state);
-            var loginTask = CheckLoginAsync();
-            if (Configuration.IsFirstRun)
-                return;
-            if (WebDavNavigationService.CurrentItem == null)
-                await WebDavNavigationService.NavigateAsync(new DavItem
-                {
-                    Href = Configuration.ServerUrl,
-                    IsCollection = true,
-                    DisplayName = "ownCloud"
-                });
-            await loginTask;
+            WebDavNavigationService.SetNavigationService(NavigationService);
         }
 
         public override async Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
+            await base.OnNavigatingFromAsync(args);
             if (args.NavigationMode == NavigationMode.Back)
                 await WebDavNavigationService.GoBackAsync();
+            if (args.NavigationMode == NavigationMode.Forward && args.TargetPageParameter is DavItem)
+                await WebDavNavigationService.GoForwardAsync();
             if (!(args.TargetPageType == typeof(FilesPage) || args.TargetPageType == typeof(FileTransferPage) || args.TargetPageType == typeof(DetailsPage)))
-                await WebDavNavigationService.ClearHistory();//TODO find a way to restore old navigationhistory
-            await base.OnNavigatingFromAsync(args);
+                await WebDavNavigationService.Reset();//TODO find a way to restore old navigationhistory for this frame only
         }
 
         private async Task CheckLoginAsync()
@@ -131,6 +126,8 @@ namespace OwncloudUniversal.ViewModels
             get { return _selectedItem; }
             set
             {
+                if(_selectedItem == value)
+                    return;
                 if (value != null && SelectionMode == ListViewSelectionMode.Single)
                 {
                     _selectedItem = value;

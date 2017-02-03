@@ -22,57 +22,55 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="48"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="&#xE110;" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" FontFamily="Segoe UI Symbol"/>
-            <ListBox Grid.Column="1"  ItemsSource="{Binding WebDavNavigationService.FolderStack}" Margin="8,0,0,0">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <StackPanel Orientation="Horizontal" Height="48">
-                                        <ContentPresenter VerticalAlignment="Center" Margin="0,0,8,0" />
-                                        <FontIcon Glyph="&#xE26B;" FontSize="8" Margin="0,0,8,0"/>
-                                    </StackPanel>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.Template>
-                    <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
-                            <ItemsPresenter/>
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ListBox.Template>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding DisplayName}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Grid.Column="2" Content="&#xE149;" Command="{Binding RefreshCommand}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Transparent" FontFamily="Segoe UI Symbol"/>
-        </Grid>
-        
+        <controls:PageHeader Frame="{x:Bind Frame}" Grid.Row="0" BackButtonVisibility="Collapsed">
+            <controls:PageHeader.Content>
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton Width="20" Icon="Home" Command="{Binding HomeCommand}" HorizontalContentAlignment="Center"/>
+                    <ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding WebDavNavigationService.BackStack}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <StackPanel Orientation="Horizontal" Height="48">
+                                                <ContentPresenter Margin="0,0,8,0" />
+                                                <FontIcon Glyph="&#xE26B;" FontSize="8" Margin="0,0,8,0"/>
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Right">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </controls:PageHeader.Content>
+        </controls:PageHeader>
+
         <ListView x:Name="ListView" 
                   Grid.Row="1" 
                   ItemsSource="{Binding WebDavNavigationService.Items}" 
                   SelectionMode="{Binding SelectionMode}"
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
                   IsMultiSelectCheckBoxEnabled="True"
-                  VerticalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged">
+                  VerticalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged" Grid.ColumnSpan="2">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -100,7 +98,7 @@
                                Margin="0,0,3,0"
                                Source="{Binding ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
                                Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
-                        
+
                         <!--<SymbolIcon Symbol="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" 
                                     HorizontalAlignment="Left"
                                     Grid.Column="0" 
@@ -109,7 +107,7 @@
                                     Width="40"
                                     Margin="0,0,3,0"
                                     Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>-->
-                        
+
                         <StackPanel Grid.Column="1">
                             <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
                             <TextBlock VerticalAlignment="Center" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Left"/>
@@ -227,7 +225,7 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-        <CommandBar Grid.Row="2" VerticalAlignment="Bottom">
+        <CommandBar Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
             <AppBarButton x:Uid="DownloadMultiple" Icon="Download"
                           Command="{Binding DownloadMultipleCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
@@ -235,9 +233,11 @@
                           Command="{Binding DeleteMultipleCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
             <AppBarButton x:Uid="CancelSelectMode" Icon="Cancel" 
-                          Command="{Binding SwitchSelectionModeCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
-
+            
+            <AppBarButton x:Uid="Refresh" Icon="Refresh" 
+                          Command="{Binding RefreshCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
             <AppBarButton x:Uid="NewFolder" Icon="NewFolder" 
                           Command="{Binding AddFolderCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
