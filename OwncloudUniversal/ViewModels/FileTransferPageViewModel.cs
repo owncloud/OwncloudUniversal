@@ -161,6 +161,7 @@ namespace OwncloudUniversal.ViewModels
         private async Task<StorageFolder> PickFolder()
         {
             FolderPicker picker = new FolderPicker();
+            picker.FileTypeFilter.Add(".");
             picker.SuggestedStartLocation = PickerLocationId.Downloads;
             return await picker.PickSingleFolderAsync();
         }

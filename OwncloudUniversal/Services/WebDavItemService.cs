@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
@@ -53,10 +54,19 @@ namespace OwncloudUniversal.Services
             downloader.ServerCredential = new PasswordCredential(Configuration.ServerUrl, Configuration.UserName, Configuration.Password);
             foreach (var davItem in items)
             {
-                if(davItem.IsCollection)
-                    continue;
-                var file = await folder.CreateFileAsync(davItem.DisplayName, CreationCollisionOption.OpenIfExists);
-                var uri = new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute);
+                StorageFile file;
+                Uri uri;
+                if (davItem.IsCollection)
+                {
+                    file = await folder.CreateFileAsync(davItem.DisplayName + ".zip", CreationCollisionOption.OpenIfExists);
+                    uri = new Uri(GetZipUrl(davItem.EntityId));
+                }
+                else
+                {
+                    file = await folder.CreateFileAsync(davItem.DisplayName, CreationCollisionOption.OpenIfExists);
+                    uri = new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute);
+                }
+                
                 result.Add(downloader.CreateDownload(CreateItemUri(uri), file));
             }
             return result;
@@ -102,6 +112,18 @@ namespace OwncloudUniversal.Services
 
             var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
             await client.CreateFolder(uri);
+        }
+
+        private string GetZipUrl(string path)
+        {
+            string dirName = path.TrimEnd('/').Substring(path.TrimEnd('/').LastIndexOf('/')+1);
+            int index = path.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase);
+            path = path.Substring(index + 18).Replace(dirName, "");
+            path = WebUtility.UrlEncode(path);
+            var url = Configuration.ServerUrl.Replace("remote.php/webdav", "index.php/apps/files/ajax/download.php?dir="+path+"&files="+dirName);
+            
+            
+            return url;
         }
     }
 }

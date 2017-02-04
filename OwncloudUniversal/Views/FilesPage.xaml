@@ -26,7 +26,7 @@
             <controls:PageHeader.Content>
                 <StackPanel Orientation="Horizontal">
                     <AppBarButton Width="20" Icon="Home" Command="{Binding HomeCommand}" HorizontalContentAlignment="Center"/>
-                    <ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding WebDavNavigationService.BackStack}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
+                    <ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding WebDavNavigationService.BackStack}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="Template">
@@ -34,7 +34,7 @@
                                         <ControlTemplate TargetType="ListBoxItem">
                                             <StackPanel Orientation="Horizontal" Height="48">
                                                 <ContentPresenter Margin="0,0,8,0" />
-                                                <FontIcon Glyph="&#xE26B;" FontSize="8" Margin="0,0,8,0"/>
+                                                <FontIcon Glyph="&#xE26B;" FontSize="8" Margin="0,0,8,0" Foreground="{ThemeResource ForegroundMediumBrush}"/>
                                             </StackPanel>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -49,7 +49,7 @@
                         </ListBox.ItemsPanel>
                         <ListBox.Template>
                             <ControlTemplate TargetType="ItemsControl">
-                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Right">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
                                     <ItemsPresenter/>
                                 </ScrollViewer>
                             </ControlTemplate>
@@ -152,8 +152,7 @@
 
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.DownloadSingleCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}"
-                                                Visibility="{Binding IsCollection, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+                                                CommandParameter="{Binding}">
                                     <MenuFlyoutItem.Template>
                                         <ControlTemplate TargetType="MenuFlyoutItem">
                                             <Grid>
