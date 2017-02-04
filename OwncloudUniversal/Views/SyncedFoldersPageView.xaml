@@ -53,6 +53,9 @@
                             <core:EventTriggerBehavior EventName="Holding">
                                 <behaviors:OpenFlyoutAction/>
                             </core:EventTriggerBehavior>
+                            <core:EventTriggerBehavior EventName="RightTapped">
+                                <behaviors:OpenFlyoutAction/>
+                            </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
                     </StackPanel>
                 </DataTemplate>
