@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Resources;
 using System.Text;
@@ -54,6 +55,7 @@ namespace OwncloudUniversal.ViewModels
             AddFolderCommand = new DelegateCommand(async () => await CreateFolderAsync());
             HomeCommand = new DelegateCommand(() => NavigationService.Navigate(typeof(FilesPage), new DavItem { EntityId = Configuration.ServerUrl}, new SuppressNavigationTransitionInfo()));
             MoveCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(SelectFolderPage), FilesPage.GetSelectedItems(item), new SuppressNavigationTransitionInfo()));
+            RenameCommand = new DelegateCommand<DavItem>(async item => await Rename(item));
         }
 
         private void WebDavNavigationServiceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -92,6 +94,7 @@ namespace OwncloudUniversal.ViewModels
             WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
             WebDavNavigationService.SetNavigationService(NavigationService);
+            await Task.Run(() => LoadThumbnails());
         }
 
         public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
@@ -205,6 +208,8 @@ namespace OwncloudUniversal.ViewModels
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
+                if (string.IsNullOrWhiteSpace(box.Text))
+                    return;
                 IndicatorService.GetDefault().ShowBar();
                 await WebDavItemService.GetDefault().CreateFolder(WebDavNavigationService.CurrentItem, box.Text);
                 await WebDavNavigationService.ReloadAsync();
@@ -226,6 +231,31 @@ namespace OwncloudUniversal.ViewModels
                     var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 40 + "/" + 40 + itemPath;
                     davItem.ThumbnailUrl = url;
                 }
+            }
+        }
+
+        private async Task Rename(DavItem item)
+        {
+            var dialog = new ContentDialog();
+            dialog.Title = App.ResourceLoader.GetString("RenameTitle");
+            var box = new TextBox()
+            {
+                Header = App.ResourceLoader.GetString("NewName"),
+                AcceptsReturn = false,
+                SelectedText = item.DisplayName
+            };
+            dialog.Content = box;
+            dialog.PrimaryButtonText = App.ResourceLoader.GetString("OK");
+            dialog.SecondaryButtonText = App.ResourceLoader.GetString("Cancel");
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                if(string.IsNullOrWhiteSpace(box.Text))
+                    return;
+                IndicatorService.GetDefault().ShowBar();
+                await WebDavItemService.GetDefault().Rename(item, box.Text);
+                await WebDavNavigationService.ReloadAsync();
+                IndicatorService.GetDefault().HideBar();
             }
         }
     }

@@ -121,6 +121,18 @@ namespace OwncloudUniversal.Services
             await client.Move(new Uri(itemToMove.EntityId, UriKind.RelativeOrAbsolute), new Uri(target, UriKind.RelativeOrAbsolute));
         }
 
+        public async Task Rename(DavItem item, string newName)
+        {
+            if (string.IsNullOrWhiteSpace(newName))
+                return;
+            newName = Uri.EscapeDataString(newName);
+            newName = newName.Replace("%28", "(");
+            newName = newName.Replace("%29", ")");
+            newName = item.EntityId.TrimEnd('/').Substring(0, item.EntityId.TrimEnd('/').LastIndexOf('/')+1) + newName;
+            var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            await client.Move(new Uri(item.EntityId, UriKind.RelativeOrAbsolute), new Uri(newName, UriKind.RelativeOrAbsolute));
+        }
+
         private string GetZipUrl(string path)
         {
             string dirName = path.TrimEnd('/').Substring(path.TrimEnd('/').LastIndexOf('/')+1);

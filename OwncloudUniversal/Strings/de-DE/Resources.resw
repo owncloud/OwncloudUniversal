@@ -348,4 +348,13 @@
   <data name="Move.Label" xml:space="preserve">
     <value>Verschieben</value>
   </data>
+  <data name="NewName" xml:space="preserve">
+    <value>Neuer Name:</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>Umbenennen</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>Umbenennen</value>
+  </data>
 </root>
