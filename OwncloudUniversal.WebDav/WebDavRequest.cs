@@ -29,6 +29,7 @@ namespace OwncloudUniversal.WebDav
         private readonly Uri _requestUrl;
         private readonly HttpMethod _method;
         private readonly Stream _contentStream;
+        private readonly Dictionary<string, string> _customHeaders;
         private const string PropfindContent = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><propfind xmlns=\"DAV:\"><allprop/></propfind>";
 
         /// <summary>
@@ -38,12 +39,14 @@ namespace OwncloudUniversal.WebDav
         /// <param name="requestUrl"></param>
         /// <param name="method"></param>
         /// <param name="contentStream">contentStream is not needed if sending a PROPFIND</param>
-        public WebDavRequest(NetworkCredential networkCredential, Uri requestUrl, HttpMethod method, Stream contentStream = null)
+        /// <param name="customHeaders"></param>
+        public WebDavRequest(NetworkCredential networkCredential, Uri requestUrl, HttpMethod method, Stream contentStream = null, Dictionary<string, string> customHeaders = null)
         {
             _networkCredential = networkCredential;
             _requestUrl = requestUrl;
             _method = method;
             _contentStream = contentStream;
+            _customHeaders = customHeaders;
             var filter = new HttpBaseProtocolFilter {AllowUI = false};
             _httpClient = new HttpClient(filter);
         }
@@ -55,6 +58,9 @@ namespace OwncloudUniversal.WebDav
             {
                 request.Headers.Connection.Add(new HttpConnectionOptionHeaderValue("Keep-Alive"));
                 request.Headers.UserAgent.Add(HttpProductInfoHeaderValue.Parse("Mozilla/5.0"));
+                if(_customHeaders != null)
+                    foreach (var header in _customHeaders)
+                        request.Headers.Add(header);
 
                 var buffer =
                     CryptographicBuffer.ConvertStringToBinary(_networkCredential.UserName + ":" + _networkCredential.Password, BinaryStringEncoding.Utf8);

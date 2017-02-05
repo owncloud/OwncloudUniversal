@@ -118,5 +118,19 @@ namespace OwncloudUniversal.WebDav
             var response = await delRequest.SendAsync();
             return response.StatusCode == HttpStatusCode.Ok;
         }
+
+        public async Task Move(Uri sourceUrl, Uri destinationUrl)
+        {
+            if (!sourceUrl.IsAbsoluteUri)
+                sourceUrl = new Uri(_serverUrl, sourceUrl);
+            if (!destinationUrl.IsAbsoluteUri)
+                destinationUrl = new Uri(_serverUrl, destinationUrl);
+            var headers = new Dictionary<string, string> {{ "Destination", destinationUrl.ToString()}};
+            var moveRequest = new WebDavRequest(_credential, sourceUrl, new HttpMethod("MOVE"), Stream.Null, headers);
+            var response = await moveRequest.SendAsync();
+            if(response.IsSuccessStatusCode)
+                return;
+            throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
+        }
     }
 }
