@@ -47,7 +47,7 @@ namespace OwncloudUniversal.ViewModels
             IDictionary<string, object> state)
         {
             _token = new CancellationTokenSource();
-            if (parameter is BaseItem)
+            if (parameter is DavItem)
             {
                 var files = await PickOpenFile();
                 if (files.Count > 0)
@@ -57,11 +57,12 @@ namespace OwncloudUniversal.ViewModels
                     NavigationService.GoBack();
                 }
             }
-            else if(parameter is List<BaseItem>)
+            else if(parameter is List<DavItem>)
             {
+                var items = (List<DavItem>) parameter;
                 var folder = await PickFolder();
                 if(folder!=null)
-                    await StartDownload(folder, (List<BaseItem>)parameter);
+                    await StartDownload(folder, items.Cast<BaseItem>().ToList());
                 else
                 {
                     NavigationService.GoBack();
@@ -72,7 +73,9 @@ namespace OwncloudUniversal.ViewModels
 
         public override async Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
         {
-            await WebDavNavigationService.GetDefault().ReloadAsync();
+            var service = await WebDavNavigationService.InintializeAsync();
+            service.SetNavigationService(NavigationService);
+            await service.ReloadAsync();
             await base.OnNavigatedFromAsync(pageState, suspending);
         }
 

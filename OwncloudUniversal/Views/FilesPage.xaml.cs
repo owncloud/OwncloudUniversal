@@ -31,18 +31,19 @@ namespace OwncloudUniversal.Views
         private static List<object> _selectedItems { get; set; }
 
 
-        public static List<BaseItem> GetSelectedItems()
+        public static List<DavItem> GetSelectedItems(DavItem item)
         {
-            //workaround because if the selected Items are passed 
+            //workaround because if multiple selected Items are passed 
             //directly as commandparameter they are always null
-            return _selectedItems.Cast<BaseItem>().ToList();
+            if (_selectedItems == null || _selectedItems.Count == 0)
+                return new List<DavItem>() {item};
+            return _selectedItems?.Cast<DavItem>().ToList();
         }
 
         public FilesPage()
         {
             this.InitializeComponent();
         }
-
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -39,23 +39,21 @@ namespace OwncloudUniversal.ViewModels
         private DavItem _selectedItem;
         private readonly SyncedFoldersService _syncedFolderService;
         private ListViewSelectionMode _selectionMode = ListViewSelectionMode.Single;
+        private WebDavNavigationService _webDavNavigationService;
 
         public FilesPageViewModel()
         {
             _syncedFolderService = new SyncedFoldersService();
-            WebDavNavigationService = WebDavNavigationService.GetDefault();
-            UploadItemCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), WebDavNavigationService.CurrentItem) );   
+            UploadItemCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), WebDavNavigationService.CurrentItem, new SuppressNavigationTransitionInfo()) );   
             RefreshCommand = new DelegateCommand(async () => await WebDavNavigationService.ReloadAsync());
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
-            DownloadSingleCommand = new DelegateCommand<BaseItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), new List<BaseItem>() {item}));
-            DownloadMultipleCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), FilesPage.GetSelectedItems()));
-            DeleteCommand = new DelegateCommand<DavItem>(async item => await DeleteItems(new List<BaseItem>() {item}));
-            DeleteMultipleCommand = new DelegateCommand(async () => await DeleteItems(FilesPage.GetSelectedItems()));
+            DownloadCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), FilesPage.GetSelectedItems(item), new SuppressNavigationTransitionInfo()));
+            DeleteCommand = new DelegateCommand<DavItem>(async item => await DeleteItems(FilesPage.GetSelectedItems(item)));
             SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = SelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.Single : ListViewSelectionMode.Multiple);
-            ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item));
+            ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item, new SuppressNavigationTransitionInfo()));
             AddFolderCommand = new DelegateCommand(async () => await CreateFolderAsync());
-            WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
-            HomeCommand = new DelegateCommand(async () => await WebDavNavigationService.NavigateAsync(WebDavNavigationService.BackStack[0]));
+            HomeCommand = new DelegateCommand(() => NavigationService.Navigate(typeof(FilesPage), new DavItem { EntityId = Configuration.ServerUrl}, new SuppressNavigationTransitionInfo()));
+            MoveCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(SelectFolderPage), FilesPage.GetSelectedItems(item), new SuppressNavigationTransitionInfo()));
         }
 
         private void WebDavNavigationServiceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -69,56 +67,40 @@ namespace OwncloudUniversal.ViewModels
         public ICommand UploadItemCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
         public ICommand AddToSyncCommand { get; private set; }
-        public ICommand RemoveFromSyncCommand { get; private set; }
         public ICommand ShowPropertiesCommand { get; private set; }
-        public ICommand DownloadSingleCommand { get; private set; }
-        public ICommand DownloadMultipleCommand { get; private set; }
+        public ICommand DownloadCommand { get; private set; }
         public ICommand RenameCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
-        public ICommand DeleteMultipleCommand { get; private set; }
         public ICommand AddFolderCommand { get; private set; }
         public ICommand SwitchSelectionModeCommand { get; private set; }
-
         public ICommand HomeCommand { get; private set; }
+        public ICommand MoveCommand { get; private set; }
 
-        public WebDavNavigationService WebDavNavigationService { get; }
+        public WebDavNavigationService WebDavNavigationService
+        {
+            get { return _webDavNavigationService; }
+            private set
+            {
+                _webDavNavigationService = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             await base.OnNavigatedToAsync(parameter, mode, state);
+            WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
+            WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
             WebDavNavigationService.SetNavigationService(NavigationService);
         }
 
-        public override async Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
-            await base.OnNavigatingFromAsync(args);
-            if (args.NavigationMode == NavigationMode.Back)
-                await WebDavNavigationService.GoBackAsync();
-            if (args.NavigationMode == NavigationMode.Forward && args.TargetPageParameter is DavItem)
-                await WebDavNavigationService.GoForwardAsync();
-            if (!(args.TargetPageType == typeof(FilesPage) || args.TargetPageType == typeof(FileTransferPage) || args.TargetPageType == typeof(DetailsPage)))
-                await WebDavNavigationService.Reset();//TODO find a way to restore old navigationhistory for this frame only
-        }
-
-        private async Task CheckLoginAsync()
-        {
-            IndicatorService.GetDefault().ShowBar();
-            var status = await OcsClient.GetServerStatusAsync(Configuration.ServerUrl);
-            if (status == null)
+            if (args.NavigationMode == NavigationMode.Back && args.TargetPageType == typeof(SelectFolderPage))
             {
-                Shell.WelcomeDialog.IsModal = true;
+                args.Cancel = true;
             }
-
-            var ocsClient = new OcsClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
-            if (await ocsClient.CheckUserLoginAsync() == HttpStatusCode.Ok)
-            {
-                Shell.WelcomeDialog.IsModal = false;
-            }
-            else
-            {
-                Shell.WelcomeDialog.IsModal = true;
-            }
-            IndicatorService.GetDefault().HideBar();
+            return base.OnNavigatingFromAsync(args);
         }
 
         public DavItem SelectedItem
@@ -135,7 +117,6 @@ namespace OwncloudUniversal.ViewModels
                     if (value.IsCollection)
                     {
                         NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
-                        var task = WebDavNavigationService.NavigateAsync(value);
                     }
                 }
             } 
@@ -165,7 +146,7 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        private async Task DeleteItems(List<BaseItem> items)
+        private async Task DeleteItems(List<DavItem> items)
         {
             ContentDialog dialog = new ContentDialog();
             if (items.Count == 1)

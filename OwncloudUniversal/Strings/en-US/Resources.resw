@@ -342,4 +342,13 @@
   <data name="MaxDownloadSize.Header" xml:space="preserve">
     <value>Maximum Filesize for synchronisation (MB)</value>
   </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>Select the target folder</value>
+  </data>
 </root>

@@ -336,4 +336,13 @@
   <data name="MaxDownloadSize.Header" xml:space="preserve">
     <value>Maximale Dateigröße für Synchronisation (MB)</value>
   </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>Akzeptieren</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>Verschieben</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>Zielordner auswählen</value>
+  </data>
 </root>

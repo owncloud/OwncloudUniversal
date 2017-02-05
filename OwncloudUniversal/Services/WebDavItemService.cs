@@ -114,6 +114,13 @@ namespace OwncloudUniversal.Services
             await client.CreateFolder(uri);
         }
 
+        public async Task MoveToFolder(DavItem itemToMove, DavItem targetFolder)
+        {
+            var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            var target = targetFolder.EntityId.TrimEnd('/') + "/" + itemToMove.EntityId.TrimEnd('/').Substring(itemToMove.EntityId.TrimEnd('/').LastIndexOf('/') + 1);
+            await client.Move(new Uri(itemToMove.EntityId, UriKind.RelativeOrAbsolute), new Uri(target, UriKind.RelativeOrAbsolute));
+        }
+
         private string GetZipUrl(string path)
         {
             string dirName = path.TrimEnd('/').Substring(path.TrimEnd('/').LastIndexOf('/')+1);
