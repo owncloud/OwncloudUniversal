@@ -14,3 +14,5 @@ This is the ownCloud app for your Windows 10 device.
 <kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot2.png" width="250"/></kbd>
 <kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot3.png" width="250"/></kbd>
 <kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot4.png" width="250"/></kbd>
+<br>
+<kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot6.png" width="500"/></kbd>
