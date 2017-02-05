@@ -188,7 +188,7 @@ namespace OwncloudUniversal.Services
         public async Task ReloadAsync()
         {
             IndicatorService.GetDefault().ShowBar();
-            Items = null;
+            Items = new ObservableCollection<DavItem>();
             Items = (await _itemService.GetItemsAsync(new Uri(CurrentItem.EntityId, UriKind.RelativeOrAbsolute))).ToObservableCollection();
             IndicatorService.GetDefault().HideBar();
         }

@@ -345,4 +345,7 @@
   <data name="SelectFolder.Text" xml:space="preserve">
     <value>Zielordner auswählen</value>
   </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>Verschieben</value>
+  </data>
 </root>

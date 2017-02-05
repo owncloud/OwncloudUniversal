@@ -351,4 +351,7 @@
   <data name="SelectFolder.Text" xml:space="preserve">
     <value>Select the target folder</value>
   </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>Move</value>
+  </data>
 </root>

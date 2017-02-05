@@ -104,8 +104,8 @@
         </ListView>
 
         <CommandBar Grid.Row="3" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
-            <AppBarButton x:Uid="Accept" Icon="Accept" 
-                          Command="{Binding AcceptCommand}"/>
+            <AppBarButton x:Uid="NewFolder" Icon="NewFolder" Command="{Binding CreateFolderCommand}"/>
+            <AppBarButton x:Uid="Accept" Icon="Accept" Command="{Binding AcceptCommand}"/>
             <AppBarButton x:Uid="CancelSelectMode" Icon="Cancel" Command="{Binding CancelCommand}"/>
         </CommandBar>
 

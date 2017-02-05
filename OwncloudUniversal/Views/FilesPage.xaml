@@ -207,6 +207,9 @@
         </ListView>
 
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+            <AppBarButton x:Uid="Move" Icon="MoveToFolder" 
+                          Command="{Binding MoveCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
             <AppBarButton x:Uid="DownloadMultiple" Icon="Download"
                           Command="{Binding DownloadCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
@@ -216,6 +219,7 @@
             <AppBarButton x:Uid="CancelSelectMode" Icon="Cancel" 
                           Command="{Binding SwitchSelectionModeCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInMultiModeConverter}}"/>
+            
             <AppBarButton x:Uid="Refresh" Icon="Refresh" 
                           Command="{Binding RefreshCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
