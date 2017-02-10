@@ -110,36 +110,39 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 try
                 {
+                    if (item.AdapterType == _targetEntityAdapter.GetType())
+                    {
+                        await _sourceEntityAdapter.DeleteItem(item);
+                    }
+
+                    if (item.AdapterType == _sourceEntityAdapter.GetType())
+                    {
+                        await _targetEntityAdapter.DeleteItem(item);
+                    }
+                   
                     try
                     {
-                        if (item.AdapterType == _targetEntityAdapter.GetType())
+                        var link = LinkStatusTableModel.GetDefault().GetItem(item);
+                        var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
+                        if (linkedItem != null)
                         {
-                            await _sourceEntityAdapter.DeleteItem(item);
+                            if (linkedItem.IsCollection)
+                            {
+                                var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                                foreach (var childItem in childItems)
+                                {
+                                    ItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                                }
+                            }
+                            ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
                         }
-
-                        if (item.AdapterType == _sourceEntityAdapter.GetType())
-                        {
-                            await _targetEntityAdapter.DeleteItem(item);
-                        }
+                        LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
                     }
                     catch (KeyNotFoundException)
                     {
-                        Debug.WriteLine(item.EntityId + ", " + item.Id);
-                    }
-                    var link = LinkStatusTableModel.GetDefault().GetItem(item);
-                    var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
-                    if (linkedItem != null)
-                    {
-                        if (linkedItem.IsCollection)
-                        {
-                            var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
-                            foreach (var childItem in childItems)
-                            {
-                                ItemTableModel.GetDefault().DeleteItem(childItem.Id);
-                            }
-                        }
-                        ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
-                    }
+                        await LogHelper.Write($"LinkStatus could not be found: EntityId: {item.EntityId} Id: {item.Id}");
+                    } 
+
 
                     if (item.IsCollection)
                     {
@@ -151,7 +154,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         }
                     }
                     ItemTableModel.GetDefault().DeleteItem(item.Id);
-                    LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
                     _deletedCount++;
                 }
                 catch (Exception e)
