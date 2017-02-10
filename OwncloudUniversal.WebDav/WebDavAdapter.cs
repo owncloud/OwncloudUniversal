@@ -16,15 +16,18 @@ using OwncloudUniversal.WebDav.Model;
 
 namespace OwncloudUniversal.WebDav
 {
-    public class WebDavAdapter : AbstractAdapter , IBackgroundSyncAdapter
+    public class WebDavAdapter : AbstractAdapter, IBackgroundSyncAdapter
     {
         private readonly WebDavClient _davClient;
         private readonly List<string> _existingFolders;
-        public WebDavAdapter(bool isBackgroundSync, string serverUrl, NetworkCredential credential, AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
+
+        public WebDavAdapter(bool isBackgroundSync, string serverUrl, NetworkCredential credential,
+            AbstractAdapter linkedAdapter) : base(isBackgroundSync, linkedAdapter)
         {
             _davClient = new WebDavClient(new Uri(serverUrl, UriKind.RelativeOrAbsolute), credential);
             _existingFolders = new List<string>();
         }
+
         public override async Task<BaseItem> AddItem(BaseItem localItem)
         {
             BaseItem resultItem = null;
@@ -47,11 +50,11 @@ namespace OwncloudUniversal.WebDav
 
                 var folderPath = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
                 var filePath = _BuildRemoteFilePath(localItem.Association, localItem.EntityId);
-                
+
                 //if the file already exists dont upload it again
                 var folder = await _davClient.ListFolder(new Uri(folderPath, UriKind.RelativeOrAbsolute));
                 var existingItem = folder.FirstOrDefault(x => x.DisplayName == Path.GetFileName(localItem.EntityId));
-                if (existingItem != null && 
+                if (existingItem != null &&
                     existingItem.Size == localItem.Size)
                 {
                     existingItem.Association = localItem.Association;
@@ -63,7 +66,7 @@ namespace OwncloudUniversal.WebDav
             }
             return resultItem;
         }
-        
+
         public override async Task<BaseItem> UpdateItem(BaseItem item)
         {
             if (item.IsCollection)
@@ -77,7 +80,7 @@ namespace OwncloudUniversal.WebDav
             var file = await StorageFile.GetFileFromPathAsync(item.EntityId);
             targetItem = await _davClient.Upload(new Uri(folderPath, UriKind.RelativeOrAbsolute), file);
             targetItem.Association = item.Association;
-            
+
             return targetItem;
         }
 
@@ -91,7 +94,16 @@ namespace OwncloudUniversal.WebDav
 
         public override async Task DeleteItem(BaseItem item)
         {
-            var davId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+            long davId;
+            try
+            {
+                davId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+            }
+            catch (KeyNotFoundException)
+            {
+                await LogHelper.Write($"LinkStatus could not be found: EntityId: {item.EntityId} Id: {item.Id}");
+                return;
+            }
             var davItem = ItemTableModel.GetDefault().GetItem(davId);
             if(davItem == null)
                 return;

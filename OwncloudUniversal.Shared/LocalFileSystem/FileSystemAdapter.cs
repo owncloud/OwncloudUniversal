@@ -103,7 +103,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 storageItem = await folder.TryGetItemAsync(displayName) ?? await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
                 var adapter = (IBackgroundSyncAdapter)LinkedAdapter;
                 await adapter.CreateDownload(item, storageItem);
-                
+
             }
             BasicProperties bp = await storageItem.GetBasicPropertiesAsync();
             var targetItem = new LocalItem(item.Association, storageItem, bp);
@@ -117,7 +117,16 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         public override async Task DeleteItem(BaseItem item)
         {
-            var fileId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+            long fileId;
+            try
+            {
+                fileId= LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+            }
+            catch (KeyNotFoundException)
+            {
+                await LogHelper.Write($"LinkStatus could not be found: EntityId: {item.EntityId} Id: {item.Id}");
+                return;
+            }
             var fileItem = ItemTableModel.GetDefault().GetItem(fileId);
             if(fileItem == null)
                 return;
