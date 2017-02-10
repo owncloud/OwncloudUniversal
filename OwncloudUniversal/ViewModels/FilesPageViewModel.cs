@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -238,12 +239,20 @@ namespace OwncloudUniversal.ViewModels
         {
             var dialog = new ContentDialog();
             dialog.Title = App.ResourceLoader.GetString("RenameTitle");
-            var box = new TextBox()
+            var box = new TextBox();
+            box.Header = App.ResourceLoader.GetString("NewName");
+            box.AcceptsReturn = false;
+            try
             {
-                Header = App.ResourceLoader.GetString("NewName"),
-                AcceptsReturn = false,
-                SelectedText = item.DisplayName
-            };
+                box.Text = Path.GetExtension(item.DisplayName);
+                box.SelectedText = Path.GetFileNameWithoutExtension(item.DisplayName);
+
+            }
+            catch (ArgumentException)
+            {
+                box.Text = item.DisplayName;
+            }
+
             dialog.Content = box;
             dialog.PrimaryButtonText = App.ResourceLoader.GetString("OK");
             dialog.SecondaryButtonText = App.ResourceLoader.GetString("Cancel");
