@@ -22,13 +22,14 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         private async Task _GetChangesFromSearchIndex(StorageFolder folder, long associationId,
             List<BaseItem> result)
         {
+            var association = FolderAssociationTableModel.GetDefault().GetItem(associationId);
             var files = new List<IStorageItem>();
             var options = new QueryOptions();
             options.FolderDepth = FolderDepth.Deep;
             options.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
             //details about filesystem queries using the indexer
             //https://msdn.microsoft.com/en-us/magazine/mt620012.aspx
-            string timeFilter = "System.Search.GatherTime:>=" + Configuration.LastSync;
+            string timeFilter = "System.Search.GatherTime:>=" + association.LastSync;
             options.ApplicationSearchFilter = timeFilter;
             var prefetchedProperties = new List<string> {"System.DateModified", "System.Size"};
             options.SetPropertyPrefetch(PropertyPrefetchOptions.BasicProperties, prefetchedProperties);
