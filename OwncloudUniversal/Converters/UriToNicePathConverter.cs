@@ -18,6 +18,12 @@ namespace OwncloudUniversal.Converters
                 if(name.Contains("webdav/"))
                     name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase)+7);
             }
+            if (value is string)
+            {
+                name = (value as string);
+                if (name.Contains("webdav/"))
+                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase) + 7);
+            }
             return name;
         }
 

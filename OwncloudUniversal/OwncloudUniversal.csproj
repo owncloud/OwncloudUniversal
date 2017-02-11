@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
     <Compile Include="ViewModels\SelectFolderPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\SyncedFolderConfigurationPageViewModel.cs" />
     <Compile Include="ViewModels\SyncedFoldersPageViewModel.cs" />
     <Compile Include="ViewModels\SynchronizationPageViewModel.cs" />
     <Compile Include="ViewModels\WelcomePageViewModel.cs" />
@@ -157,6 +158,9 @@
     </Compile>
     <Compile Include="Views\Splash.xaml.cs">
       <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SyncedFolderConfigurationPage.xaml.cs">
+      <DependentUpon>SyncedFolderConfigurationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SyncedFoldersPageView.xaml.cs">
       <DependentUpon>SyncedFoldersPageView.xaml</DependentUpon>
@@ -305,6 +309,10 @@
     <Page Include="Views\Splash.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SyncedFolderConfigurationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SyncedFoldersPageView.xaml">
       <SubType>Designer</SubType>

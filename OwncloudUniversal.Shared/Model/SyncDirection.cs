@@ -10,6 +10,6 @@ namespace OwncloudUniversal.Shared.Model
     {
         DownloadOnly = 0,
         UploadOnly = 1,
-        TwoWay = 2
+        FullSync = 2
     }
 }

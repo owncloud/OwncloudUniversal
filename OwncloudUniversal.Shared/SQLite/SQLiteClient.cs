@@ -47,7 +47,8 @@ namespace OwncloudUniversal.Shared.SQLite
                         [LocalItemId] INTEGER  NULL,
                         [RemoteItemId] INTEGER  NULL,
                         [IsActive] BOOLEAN  NULL,
-                        [SyncDirection] NVARCHAR(32)
+                        [SyncDirection] NVARCHAR(32),
+                        [LastSync] NVARCHAR(32)
                     );";
             using (var statement = Connection.Prepare(query))
             {

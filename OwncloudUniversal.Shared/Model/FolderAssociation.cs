@@ -15,7 +15,7 @@ namespace OwncloudUniversal.Shared.Model
         public SyncDirection SyncDirection { get; set; }
         public long LocalFolderId { get; set; }
         public long RemoteFolderId { get; set; }
-
+        public DateTime LastSync { get; set; }
         public string LocalFolderPath => ItemTableModel.GetDefault().GetItem(LocalFolderId).EntityId;
         public string RemoteFolderFolderPath => ItemTableModel.GetDefault().GetItem(RemoteFolderId).EntityId;
     }

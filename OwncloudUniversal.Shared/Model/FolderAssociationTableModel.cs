@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLitePCL;
 using OwncloudUniversal.Model;
+using OwncloudUniversal.Shared.SQLite;
 
 namespace OwncloudUniversal.Shared.Model
 {
@@ -35,6 +36,7 @@ namespace OwncloudUniversal.Shared.Model
             query.Bind(2, item.RemoteFolderId);
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (long)item.SyncDirection);
+            query.Bind(5, DateTimeHelper.DateTimeSQLite(item.LastSync));
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -53,7 +55,8 @@ namespace OwncloudUniversal.Shared.Model
             query.Bind(2, item.RemoteFolderId);
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (long)item.SyncDirection);
-            query.Bind(5, item.Id);
+            query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.LastSync));
+            query.Bind(6, item.Id);
         }
 
         protected override FolderAssociation CreateInstance(ISQLiteStatement query)
@@ -64,6 +67,10 @@ namespace OwncloudUniversal.Shared.Model
             fa.RemoteFolderId = (long)query[2];
             fa.IsActive = (long)query[3] == 1;
             fa.SyncDirection = (SyncDirection)Enum.Parse(typeof(SyncDirection), (string)query[4]);
+            DateTime date;
+            if(!DateTime.TryParse((string)query[5], out date))
+                date = DateTime.MinValue;
+            fa.LastSync = date;
             return fa;
         }
 
@@ -74,22 +81,22 @@ namespace OwncloudUniversal.Shared.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Association (LocalItemId, RemoteItemId, IsActive, SyncDirection) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection)";
+            return "INSERT INTO Association (LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection, @lastsync)";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection FROM Association";
+            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync FROM Association";
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection FROM Association WHERE Id = ?";
+            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync FROM Association WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE Association  SET LocalItemId = ?, RemoteItemId = ?, IsActive = ?, SyncDirection = ? WHERE Id = ?";
+            return "UPDATE Association  SET LocalItemId = ?, RemoteItemId = ?, IsActive = ?, SyncDirection = ?, LastSync= ? WHERE Id = ?";
         }
 
         protected override string GetLastInsertRowIdQuery()

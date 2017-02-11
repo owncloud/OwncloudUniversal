@@ -83,10 +83,24 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 if (_watch.Elapsed.Minutes >= 9)
                     break;
                 ExecutionContext.Status = ExecutionStatus.Scanning;
-                var getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
-                var getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
-                var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
-                var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
+
+                Task<List<BaseItem>> getDeletedTargetTask = Task.FromResult(new List<BaseItem>());
+                Task<List<BaseItem>> getDeletedSourceTask = Task.FromResult(new List<BaseItem>());
+                Task<List<BaseItem>> getUpdatedTargetTask = Task.FromResult(new List<BaseItem>());
+                Task<List<BaseItem>> getUpdatedSourceTask = Task.FromResult(new List<BaseItem>());
+
+
+                if (association.SyncDirection == SyncDirection.FullSync || association.SyncDirection == SyncDirection.DownloadOnly)
+                    getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
+                if (association.SyncDirection == SyncDirection.FullSync || association.SyncDirection == SyncDirection.UploadOnly)
+                    getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
+
+                if (association.SyncDirection == SyncDirection.FullSync)
+                {
+                    getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
+                    getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
+                }
+
 
                 _deletions = await getDeletedTargetTask;
                 _deletions.AddRange(await getDeletedSourceTask);

@@ -24,7 +24,8 @@ namespace OwncloudUniversal.Services
                 IsActive = true,
                 LocalFolderId = 0,
                 RemoteFolderId = 0,
-                SyncDirection = SyncDirection.TwoWay
+                SyncDirection = SyncDirection.FullSync,
+                LastSync = DateTime.MinValue
             };
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
             fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();

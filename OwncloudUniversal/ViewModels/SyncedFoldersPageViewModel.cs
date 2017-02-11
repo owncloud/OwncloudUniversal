@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Views;
 using Template10.Mvvm;
 
 namespace OwncloudUniversal.ViewModels
@@ -15,7 +17,18 @@ namespace OwncloudUniversal.ViewModels
     {
         private readonly SyncedFoldersService _syncedFoldersService;
         private List<FolderAssociation> _syncedFolders;
-        public FolderAssociation SelectedItem { get; set; }
+        private FolderAssociation _selectedItem;
+
+        public FolderAssociation SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                NavigationService.Navigate(typeof(SyncedFolderConfigurationPage), _selectedItem, new SuppressNavigationTransitionInfo());
+            }
+        }
+
         public ICommand RemoveFromSyncCommand { get; private set; }
 
         public SyncedFoldersPageViewModel()
