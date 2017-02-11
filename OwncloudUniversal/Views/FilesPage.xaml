@@ -142,11 +142,11 @@
 
                         <StackPanel Grid.Column="1">
                             <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Left"/>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Stretch"/>
                         </StackPanel>
 
                         <FlyoutBase.AttachedFlyout>
-                            <MenuFlyout Placement="Left">
+                            <MenuFlyout>
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
