@@ -36,9 +36,7 @@ namespace OwncloudUniversal.Services
 
         public async Task StartSyncProcess()
         {
-            IndicatorService.GetDefault().ShowBar();
             await Worker.Run();
-            IndicatorService.GetDefault().HideBar();
         }
     }
 }
