@@ -121,7 +121,7 @@
     <value>About</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>Activate Synchronization</value>
+    <value>Enable Synchronization</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
     <value>Transfer will also complete if the app is in the background!</value>
