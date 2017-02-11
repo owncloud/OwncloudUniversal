@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Shared.Model;
 using Template10.Mvvm;
+using Template10.Services.NavigationService;
 
 namespace OwncloudUniversal.ViewModels
 {
@@ -14,13 +15,7 @@ namespace OwncloudUniversal.ViewModels
     {
         private FolderAssociation _association;
 
-        public IEnumerable<SyncDirection> SyncDirections
-        {
-            get
-            {
-                return Enum.GetValues(typeof(SyncDirection)).Cast<SyncDirection>();
-            }
-        }
+        public IEnumerable<SyncDirection> SyncDirections => Enum.GetValues(typeof(SyncDirection)).Cast<SyncDirection>();
 
         public FolderAssociation Association
         {
@@ -32,18 +27,17 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        public ICommand SaveCommand { get; private set; }
-
-        public SyncedFolderConfigurationPageViewModel()
-        {
-            SaveCommand = new DelegateCommand(() => FolderAssociationTableModel.GetDefault().UpdateItem(Association, Association.Id));
-        }
-
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             if (parameter is FolderAssociation)
                 Association = (FolderAssociation) parameter;
             await base.OnNavigatedToAsync(parameter, mode, state);
+        }
+
+        public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        {
+            FolderAssociationTableModel.GetDefault().UpdateItem(Association, Association.Id);
+            return base.OnNavigatingFromAsync(args);
         }
     }
 }

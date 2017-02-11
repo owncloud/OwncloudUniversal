@@ -357,4 +357,13 @@
   <data name="RenameTitle" xml:space="preserve">
     <value>Umbenennen</value>
   </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>Lokaler Ordner</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>ownCloud Ordner</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>Konfiguration</value>
+  </data>
 </root>

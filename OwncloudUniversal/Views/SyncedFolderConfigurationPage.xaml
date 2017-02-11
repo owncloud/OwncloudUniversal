@@ -21,9 +21,5 @@
             <tk:HeaderedTextBlock x:Uid="RemoteFolderHeader" Header="ownCloud Folder" Text="{Binding Association.RemoteFolderFolderPath, Converter={StaticResource UriToNicePathConverter}}"/>
             <ComboBox SelectedItem="{Binding Association.SyncDirection, Mode=TwoWay}" ItemsSource="{Binding SyncDirections}"/>
         </ListView>
-        <CommandBar Grid.Row="2" VerticalAlignment="Bottom">
-            <AppBarButton Icon="Save" Command="{Binding SaveCommand}"/>
-            <AppBarButton Icon="Delete"/>
-        </CommandBar>
     </Grid>
 </Page>
