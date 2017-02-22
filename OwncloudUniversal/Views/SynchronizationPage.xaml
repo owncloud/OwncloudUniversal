@@ -24,10 +24,18 @@
             <PivotItem  x:Uid="Status" Margin="12">
                 <StackPanel>
                     <uicontrol:HeaderedTextBlock x:Uid="Status" Text="{Binding ExecutionContext.Status}" FontWeight="Bold"/>
-                    <ProgressBar x:Name="Bar" IsIndeterminate="{Binding IsActive}" Margin="0,4"/>
+                    <ProgressBar x:Name="Bar" IsIndeterminate="{Binding IsActive}" Visibility="{Binding IsActive, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,4" Foreground="{ThemeResource ContrastColorBrush}"/>
                     <uicontrol:HeaderedTextBlock x:Uid="FilesToSync" Text="{Binding ExecutionContext.FileText}" FontWeight="Bold"/>
                     <uicontrol:HeaderedTextBlock x:Uid="CurrentFile" Text="{Binding ExecutionContext.CurrentFileName}" FontWeight="Bold"/>
                     <Button x:Uid="StartSync" Command="{Binding StartSyncCommand}"/>
+                    
+                    <ToggleSwitch x:Uid="EnableBackgroundTask" IsOn="{Binding BackgroundTaskEnabled, Mode=TwoWay}" Margin="0,12,0,0">
+                        <ToggleSwitch.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Uid="EnableBackgroundTaskHeader" FontWeight="Bold"/>
+                            </DataTemplate>
+                        </ToggleSwitch.HeaderTemplate>
+                    </ToggleSwitch>
                 </StackPanel>
             </PivotItem>
 

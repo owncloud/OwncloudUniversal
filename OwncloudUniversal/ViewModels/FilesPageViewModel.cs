@@ -146,7 +146,8 @@ namespace OwncloudUniversal.ViewModels
                 var folder = await folderPicker.PickSingleFolderAsync();
                 if (folder == null)
                     return;
-                await _syncedFolderService.AddFolderToSyncAsync(folder, (DavItem) parameter);
+                var fa = await _syncedFolderService.AddFolderToSyncAsync(folder, (DavItem) parameter);
+                NavigationService.Navigate(typeof(SyncedFolderConfigurationPage), fa, new SuppressNavigationTransitionInfo());
             }
         }
 

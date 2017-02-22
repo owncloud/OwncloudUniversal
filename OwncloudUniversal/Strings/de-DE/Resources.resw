@@ -304,7 +304,7 @@
     <value>Serveradresse</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Fehler: Server nicht gefunden. Bitte URL prüfen</value>
+    <value>Der Server wurde nicht gefunden. Bitte URL und  Internetverbindung prüfen.</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
     <value>Die angeforderte Ressource konnte nicht gefunden werden</value>
@@ -365,5 +365,26 @@
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
     <value>Konfiguration</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>Autmatische Synchronisation</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>Verbindung hergestellt! ACHTUNG: Verbindung ist nicht verschlüsselt!</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Benutzername oder Kennwort falsch.</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>Der Server befindet sich im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuchen Sie es später erneut oder kontaktieren Sie Ihren Systemadministrator.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>Möchten Sie diese App wirklich zurücksetzen?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>Bitte starten Sie die App neu.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>Sichere Verbindung hergestellt!</value>
   </data>
 </root>

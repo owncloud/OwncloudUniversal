@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Foundation.Metadata;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
@@ -13,6 +14,7 @@ using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.SQLite;
 using OwncloudUniversal.Shared.Synchronisation;
 using OwncloudUniversal.Utils;
+using Template10.Common;
 using SettingsService = OwncloudUniversal.Services.SettingsServices.SettingsService;
 
 namespace OwncloudUniversal.ViewModels
@@ -104,9 +106,9 @@ namespace OwncloudUniversal.ViewModels
 
         private async Task ResetDataBaseAsync()
         {
-            MessageDialog areYouSure = new MessageDialog("Do you really want to reset the Synchronization-Database?");
-            areYouSure.Commands.Add(new UICommand("Yes", null, "YES"));
-            areYouSure.Commands.Add(new UICommand("No", null, "NO"));
+            MessageDialog areYouSure = new MessageDialog(App.ResourceLoader.GetString("ResetQuestion"));
+            areYouSure.Commands.Add(new UICommand(App.ResourceLoader.GetString("yes"), null, "YES"));
+            areYouSure.Commands.Add(new UICommand(App.ResourceLoader.GetString("yes"), null, "NO"));
             var result = await areYouSure.ShowAsync();
             if (result.Id.ToString() == "YES")
             {
@@ -115,8 +117,9 @@ namespace OwncloudUniversal.ViewModels
                 LogHelper.ResetLog();
                 Configuration.RemoveCredentials();
                 Configuration.IsFirstRun = true;
-                MessageDialog dialog = new MessageDialog("Database has been reset. Please reconfigure your synced folders.");
+                MessageDialog dialog = new MessageDialog(App.ResourceLoader.GetString("RestartMessage"));
                 await dialog.ShowAsync();
+                BootStrapper.Current.Exit();
             }
         }
 

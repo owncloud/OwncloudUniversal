@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using OwncloudUniversal.Services;
+using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.Synchronisation;
 using Template10.Mvvm;
 
@@ -43,6 +44,15 @@ namespace OwncloudUniversal.ViewModels
                     IsActive = false;
                 }
             });
+        }
+
+        public bool BackgroundTaskEnabled
+        {
+            get { return Configuration.IsBackgroundTaskEnabled; }
+            set
+            { 
+                Configuration.IsBackgroundTaskEnabled = value;
+            }
         }
     }
 }

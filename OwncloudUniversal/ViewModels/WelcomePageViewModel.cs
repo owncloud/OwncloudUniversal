@@ -26,7 +26,7 @@ namespace OwncloudUniversal.ViewModels
         private string _serverUrl;
         private string _password;
         private string _userName;
-
+        private ServerStatus _status;
         public string ServerUrl
         {
             get
@@ -80,22 +80,27 @@ namespace OwncloudUniversal.ViewModels
 
         private async Task CheckServerStatus()
         {
-            ServerStatus status = null;
             try
             {
-                status = await OcsClient.GetServerStatusAsync(_serverUrl);
-                ResponseCode = status?.ResponseCode;
+                _status = await OcsClient.GetServerStatusAsync(_serverUrl);
+                ResponseCode = _status?.ResponseCode ?? App.ResourceLoader.GetString("ServerNotFound");
+                if (_status?.ResponseCode?.ToLower() == "ok")
+                    ResponseCode = _serverUrl.ToLower().Contains("https://") ? App.ResourceLoader.GetString("SecureConnectionSuccessful") : App.ResourceLoader.GetString("InSecureConnectionSuccessful");
             }
             catch (Exception e)
             {
-                if ((uint) e.HResult == 0x80072EE7)
+                if ((uint)e.HResult == 0x80072EE7)
                     ResponseCode = App.ResourceLoader.GetString("ServerNotFound");
                 else throw;
             }
-            if (status != null && status.Installed && !status.Maintenance)
+            if (_status != null && _status.Installed && !_status.Maintenance)
                 _serverFound = true;
             else
                 _serverFound = false;
+            if (_status != null && (_status.Maintenance || !_status.Installed))
+            {
+                ResponseCode = App.ResourceLoader.GetString("MaintenanceIsEnabled");
+            }
         }
 
         private async Task Connect()
@@ -106,7 +111,6 @@ namespace OwncloudUniversal.ViewModels
                 await CheckServerStatus();
                 if (_serverFound)
                 {
-
                     OcsClient client = new OcsClient(new Uri(_serverUrl), new NetworkCredential(_userName, _password));
                     var status = await client.CheckUserLoginAsync();
                     if (status == HttpStatusCode.Ok)
@@ -120,16 +124,32 @@ namespace OwncloudUniversal.ViewModels
                     }
                     else
                     {
-                        MessageDialog dialog = new MessageDialog(status.ToString());
+                        string message = status.ToString();
+                        if (status == HttpStatusCode.Unauthorized)
+                            message = App.ResourceLoader.GetString("LoginFailed");
+
+                        MessageDialog dialog = new MessageDialog(message);
+                        dialog.Title = "ownCloud";
                         await dialog.ShowAsync();
                     }
+                }
+                else
+                {
+                    ResponseCode = App.ResourceLoader.GetString("ServerNotFound");
+                    MessageDialog dialog = new MessageDialog(ResponseCode);
+                    await dialog.ShowAsync();
                 }
             }
             catch (Exception e)
             {
-                if ((uint)e.HResult == 0x80072EE7)
+                if ((uint) e.HResult == 0x80072EE7)
                     ResponseCode = App.ResourceLoader.GetString("ServerNotFound");
-                else throw;
+                else
+                {
+                    MessageDialog dialog = new MessageDialog(e.Message);
+                    dialog.Title = "ownCloud";
+                    await dialog.ShowAsync();
+                }
             }
             IndicatorService.GetDefault().HideBar();
         }

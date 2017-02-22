@@ -86,14 +86,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
                 Task<List<BaseItem>> getDeletedTargetTask = Task.FromResult(new List<BaseItem>());
                 Task<List<BaseItem>> getDeletedSourceTask = Task.FromResult(new List<BaseItem>());
-                Task<List<BaseItem>> getUpdatedTargetTask = Task.FromResult(new List<BaseItem>());
-                Task<List<BaseItem>> getUpdatedSourceTask = Task.FromResult(new List<BaseItem>());
 
-
-                if (association.SyncDirection == SyncDirection.FullSync || association.SyncDirection == SyncDirection.DownloadOnly)
-                    getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
-                if (association.SyncDirection == SyncDirection.FullSync || association.SyncDirection == SyncDirection.UploadOnly)
-                    getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
+                var getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
+                var getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
 
                 if (association.SyncDirection == SyncDirection.FullSync)
                 {
@@ -181,6 +176,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private async Task ProcessItems()
         {
+            
             ExecutionContext.TotalFileCount = _itemIndex.Count;
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             int index = 1;
@@ -188,6 +184,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 try
                 {
+                    if (item.Association.SyncDirection == SyncDirection.UploadOnly &&
+                        item.AdapterType == _targetEntityAdapter.GetType())
+                        continue;
+
+                    if (item.Association.SyncDirection == SyncDirection.DownloadOnly &&
+                        item.AdapterType == _sourceEntityAdapter.GetType())
+                        continue;
+
                     ExecutionContext.CurrentFileNumber = index++;
                     ExecutionContext.CurrentFileName = item.EntityId;
                     if (ExecutionContext.Status == ExecutionStatus.Stopped)

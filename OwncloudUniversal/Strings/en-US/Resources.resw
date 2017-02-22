@@ -304,7 +304,7 @@
     <value>Serveradresse</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Error: Server not found. Please check the URL</value>
+    <value>The server could not be found. Please check the URL and your internet connection.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
     <value>An internal error has occured at the server</value>
@@ -371,5 +371,26 @@
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
     <value>Configuration</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>Automatic synchronisation</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>Connection successful! WARNING: The connection is not encrypted!</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Wrong username or password.</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>The server is in maintenance mode or the installation is incomplete. Please try again later or contact your system administrator.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>Do you really want to reset this app?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>Please restart the app.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>Secure connection successful!</value>
   </data>
 </root>

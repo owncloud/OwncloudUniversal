@@ -14,7 +14,7 @@ namespace OwncloudUniversal.Services
     public class SyncedFoldersService
     {
 
-        public async Task AddFolderToSyncAsync (StorageFolder folder, DavItem remoteFolderItem)
+        public async Task<FolderAssociation> AddFolderToSyncAsync (StorageFolder folder, DavItem remoteFolderItem)
         {
             StorageApplicationPermissions.FutureAccessList.Add(folder);
             var properties = await folder.Properties.RetrievePropertiesAsync(new List<string> { "System.DateModified" });
@@ -47,6 +47,7 @@ namespace OwncloudUniversal.Services
             fa.RemoteFolderId = ri.Id;
             fa.LocalFolderId = li.Id;
             FolderAssociationTableModel.GetDefault().UpdateItem(fa, fa.Id);
+            return fa;
         }
 
         public List<FolderAssociation> GetAllSyncedFolders()
