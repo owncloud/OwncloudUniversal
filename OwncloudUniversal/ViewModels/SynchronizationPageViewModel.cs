@@ -16,7 +16,7 @@ namespace OwncloudUniversal.ViewModels
         private readonly SynchronizationService _syncService;
         private bool _isActive;
 
-        public ExecutionContext ExecutionContext => _syncService.Worker.ExecutionContext;
+        public ExecutionContext ExecutionContext => ExecutionContext.Instance;
         public ICommand StartSyncCommand { get; private set; }
 
         public bool IsActive

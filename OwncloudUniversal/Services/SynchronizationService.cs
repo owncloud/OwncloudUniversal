@@ -36,7 +36,7 @@ namespace OwncloudUniversal.Services
 
         public async Task StartSyncProcess()
         {
-            await Worker.Run();
+            await Task.Factory.StartNew(async () => await Worker.Run());
         }
     }
 }

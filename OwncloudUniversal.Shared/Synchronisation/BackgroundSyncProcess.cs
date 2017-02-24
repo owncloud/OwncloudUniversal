@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.System.Power;
+using Windows.UI.Core;
 using Windows.UI.Notifications;
 using OwncloudUniversal.Model;
 using OwncloudUniversal.Shared.Model;
@@ -22,8 +23,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private int _deletedCount;
         private bool _errorsOccured;
         private Stopwatch _watch;
-
-        public readonly ExecutionContext ExecutionContext;
+        
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
@@ -34,7 +34,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
             _isBackgroundTask = isBackgroundTask;
-            ExecutionContext = new ExecutionContext();
             _errorsOccured = false;
 
         }
@@ -50,7 +49,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _deletedCount = 0;
             _errorsOccured = false;
             await GetChanges();
-            ExecutionContext.Status = ExecutionStatus.Active;
+            await SetExecutionStatus(ExecutionStatus.Active);
             await ProcessItems();
             await Finish();
         }
@@ -67,7 +66,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _watch.Stop();
             if (!_errorsOccured)
                 Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
-            ExecutionContext.Status = ExecutionStatus.Finished;
+            await SetExecutionStatus(ExecutionStatus.Finished);
         }
 
         private async Task GetChanges()
@@ -80,7 +79,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         $"Scanning {association.LocalFolderPath} and {association.RemoteFolderFolderPath} BackgroundTask: {_isBackgroundTask}");
                 if (_watch.Elapsed.Minutes >= 9)
                     break;
-                ExecutionContext.Status = ExecutionStatus.Scanning;
+                await SetExecutionStatus(ExecutionStatus.Scanning);
 
                 var getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
                 var getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
@@ -95,6 +94,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 _itemIndex = await getUpdatedSourceTask;
                 _itemIndex.AddRange(await getUpdatedTargetTask);
 
+                await SetExecutionStatus(ExecutionStatus.Active);
                 await ProcessDeletions();
                 _UpdateFileIndexes(association);
                 await
@@ -168,23 +168,39 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
-                    await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message, item.EntityId, e.StackTrace));
+                    await
+                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
+                            item.EntityId, e.StackTrace));
                 }
             }
         }
 
         private async Task ProcessItems()
         {
-
-            ExecutionContext.TotalFileCount = _itemIndex.Count;
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             int index = 1;
             foreach (var item in _itemIndex)
             {
                 try
                 {
-                    ExecutionContext.CurrentFileNumber = index++;
-                    ExecutionContext.CurrentFileName = item.EntityId;
+                    if (!_isBackgroundTask)
+                    {
+                        try
+                        {
+                            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            {
+                                ExecutionContext.Instance.TotalFileCount = _itemIndex.Count;
+                                ExecutionContext.Instance.CurrentFileNumber = index++;
+                                ExecutionContext.Instance.CurrentFileName = item.EntityId;
+                            });
+                        }
+                        catch (Exception)
+                        {
+                            //supress all errors here
+                        }
+
+                    }
+                    
                     if (item.Association.SyncDirection == SyncDirection.UploadOnly &&
                         item.AdapterType == _targetEntityAdapter.GetType())
                         continue;
@@ -193,7 +209,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         item.AdapterType == _sourceEntityAdapter.GetType())
                         continue;
 
-                    if (ExecutionContext.Status == ExecutionStatus.Stopped)
+                    if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
                         break;
                     await _ProcessItem(item);
                 }
@@ -329,7 +345,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             association.LastSync = DateTime.UtcNow;
             FolderAssociationTableModel.GetDefault().UpdateItem(association, association.Id);
         }
-        
+
         private void AfterInsert(BaseItem sourceItem, BaseItem targetItem)
         {
             if (targetItem.Association == null)
@@ -363,14 +379,31 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;
             targetItem.ChangeNumber = sourceItem.ChangeNumber;
-            var link = LinkStatusTableModel.GetDefault().GetItem(sourceItem);//should throw an Exception if the link is not found
+            //should throw an Exception if the link is not found
+            var link = LinkStatusTableModel.GetDefault().GetItem(sourceItem);
             link.ChangeNumber = sourceItem.ChangeNumber;
             LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
             targetItem.Id = link.TargetItemId;
             ItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
             ItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
+        }
 
-            
-        }        
+        private async Task SetExecutionStatus(ExecutionStatus status)
+        {
+            try
+            {
+                if(_isBackgroundTask)
+                    return;
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    ExecutionContext.Instance.Status = status;
+                });
+            }
+            catch (Exception)
+            {
+                //supress all errors here
+            }
+        }
     }
 }

@@ -34,9 +34,9 @@ namespace OwncloudUniversal.BackgroundSync
             {
                 await LogHelper.Write($"BackgroundTask Exception: {e.Message}" + Environment.NewLine +
                                       $"{e.StackTrace}" + Environment.NewLine +
-                                      $"Status:{_worker.ExecutionContext.Status.ToString()}" + Environment.NewLine +
-                                      $"File: {_worker.ExecutionContext.CurrentFileNumber}" + Environment.NewLine +
-                                      $"of {_worker.ExecutionContext.TotalFileCount}");
+                                      $"Status:{ExecutionContext.Instance.Status.ToString()}" + Environment.NewLine +
+                                      $"File: {ExecutionContext.Instance.CurrentFileNumber}" + Environment.NewLine +
+                                      $"of {ExecutionContext.Instance.TotalFileCount}");
             }
             finally
             {
@@ -50,8 +50,8 @@ namespace OwncloudUniversal.BackgroundSync
         {
             if (_worker != null)
             {
-                _worker.ExecutionContext.Status = ExecutionStatus.Stopped;
-                Task.Run(() =>LogHelper.Write($"BackgroundTask canceled. Reason: {reason}, Status:{_worker.ExecutionContext.Status.ToString()} File: {_worker.ExecutionContext.CurrentFileNumber} of {_worker.ExecutionContext.TotalFileCount}"));
+                ExecutionContext.Instance.Status = ExecutionStatus.Stopped;
+                Task.Run(() =>LogHelper.Write($"BackgroundTask canceled. Reason: {reason}, Status:{ExecutionContext.Instance.Status.ToString()} File: {ExecutionContext.Instance.CurrentFileNumber} of {ExecutionContext.Instance.TotalFileCount}"));
             }
         }
 

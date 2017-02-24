@@ -16,8 +16,11 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private string _currentFileName;
         private ExecutionStatus _status;
         private ConnectionProfile _connectionProfile;
+        private static ExecutionContext _instance;
 
-        public ExecutionContext()
+        public static ExecutionContext Instance => _instance ?? (_instance = new ExecutionContext());
+
+        private ExecutionContext()
         {
             Status = ExecutionStatus.Stopped;
             CurrentFileName = string.Empty;
