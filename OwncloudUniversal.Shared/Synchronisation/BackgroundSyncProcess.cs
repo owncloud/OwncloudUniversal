@@ -84,17 +84,11 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     break;
                 ExecutionContext.Status = ExecutionStatus.Scanning;
 
-                Task<List<BaseItem>> getDeletedTargetTask = Task.FromResult(new List<BaseItem>());
-                Task<List<BaseItem>> getDeletedSourceTask = Task.FromResult(new List<BaseItem>());
-
                 var getUpdatedTargetTask = _targetEntityAdapter.GetUpdatedItems(association);
                 var getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
-
-                if (association.SyncDirection == SyncDirection.FullSync)
-                {
-                    getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
-                    getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
-                }
+                var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
+                var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
+                
 
 
                 _deletions = await getDeletedTargetTask;
@@ -119,12 +113,12 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 try
                 {
-                    if (item.AdapterType == _targetEntityAdapter.GetType())
+                    if (item.AdapterType == _targetEntityAdapter.GetType() && item.Association.SyncDirection == SyncDirection.FullSync)
                     {
                         await _sourceEntityAdapter.DeleteItem(item);
                     }
 
-                    if (item.AdapterType == _sourceEntityAdapter.GetType())
+                    if (item.AdapterType == _sourceEntityAdapter.GetType() && item.Association.SyncDirection == SyncDirection.FullSync)
                     {
                         await _targetEntityAdapter.DeleteItem(item);
                     }
@@ -184,6 +178,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 try
                 {
+                    ExecutionContext.CurrentFileNumber = index++;
+                    ExecutionContext.CurrentFileName = item.EntityId;
                     if (item.Association.SyncDirection == SyncDirection.UploadOnly &&
                         item.AdapterType == _targetEntityAdapter.GetType())
                         continue;
@@ -192,8 +188,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         item.AdapterType == _sourceEntityAdapter.GetType())
                         continue;
 
-                    ExecutionContext.CurrentFileNumber = index++;
-                    ExecutionContext.CurrentFileName = item.EntityId;
                     if (ExecutionContext.Status == ExecutionStatus.Stopped)
                         break;
                     await _ProcessItem(item);
@@ -324,6 +318,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
                 }
             }
+            association.LastSync = DateTime.UtcNow;
+            FolderAssociationTableModel.GetDefault().UpdateItem(association, association.Id);
         }
 
         private void DeleteFromIndex(List<BaseItem> itemsToDelete)
