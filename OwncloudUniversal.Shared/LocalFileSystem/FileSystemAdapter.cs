@@ -121,7 +121,8 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             long fileId;
             try
             {
-                fileId= LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+                var link= LinkStatusTableModel.GetDefault().GetItem(item);
+                fileId = item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId;
             }
             catch (KeyNotFoundException)
             {

@@ -97,7 +97,8 @@ namespace OwncloudUniversal.WebDav
             long davId;
             try
             {
-                davId = LinkStatusTableModel.GetDefault().GetItem(item).TargetItemId;
+                var link = LinkStatusTableModel.GetDefault().GetItem(item);
+                davId = item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId;
             }
             catch (KeyNotFoundException)
             {

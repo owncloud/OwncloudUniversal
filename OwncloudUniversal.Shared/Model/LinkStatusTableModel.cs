@@ -114,12 +114,13 @@ namespace OwncloudUniversal.Model
             return "UPDATE LinkStatus SET TargetItemId = ?, SourceItemId = ?, ChangeNumber = ?, AssociationId = ? WHERE Id = ?";
         }
 
-        public LinkStatus GetItem(BaseItem sourceItem)
+        public LinkStatus GetItem(BaseItem item)
         {
-            var statement = "SELECT Id, TargetItemId, SourceItemId, ChangeNumber, AssociationId FROM LinkStatus WHERE SourceItemId = ?";
+            var statement = "SELECT Id, TargetItemId, SourceItemId, ChangeNumber, AssociationId FROM LinkStatus WHERE SourceItemId = ? or TargetItemId = ?";
             using (var query = Connection.Prepare(statement))
             {
-                BindSelectItemQuery(query, sourceItem.Id);
+                query.Bind(1, item.Id);
+                query.Bind(2, item.Id);
                 if (query.Step() == SQLiteResult.ROW)
                 {
                     var i = CreateInstance(query);

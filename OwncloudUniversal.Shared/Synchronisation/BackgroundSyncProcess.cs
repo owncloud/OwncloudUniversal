@@ -17,7 +17,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
     {
         private List<BaseItem> _itemIndex;
         private List<BaseItem> _deletions;
-        private List<LinkStatus> _linkList;
         private int _uploadCount;
         private int _downloadCount;
         private int _deletedCount;
@@ -46,7 +45,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             SQLite.SQLiteClient.Init();
             _itemIndex = null;
             _deletions = null;
-            _linkList = null;
             _uploadCount = 0;
             _downloadCount = 0;
             _deletedCount = 0;
@@ -88,7 +86,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 var getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
                 var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
                 var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
-                
+
 
 
                 _deletions = await getDeletedTargetTask;
@@ -104,7 +102,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         $"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
             }
             _itemIndex = ItemTableModel.GetDefault().GetAllItems().ToList();
-            _linkList = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
         }
 
         private async Task ProcessDeletions()
@@ -113,38 +110,46 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 try
                 {
-                    if (item.AdapterType == _targetEntityAdapter.GetType() && item.Association.SyncDirection == SyncDirection.FullSync)
+                    if (item.AdapterType == _targetEntityAdapter.GetType() &&
+                        item.Association.SyncDirection == SyncDirection.FullSync)
                     {
                         await _sourceEntityAdapter.DeleteItem(item);
                     }
 
-                    if (item.AdapterType == _sourceEntityAdapter.GetType() && item.Association.SyncDirection == SyncDirection.FullSync)
+                    if (item.AdapterType == _sourceEntityAdapter.GetType() &&
+                        item.Association.SyncDirection == SyncDirection.FullSync)
                     {
                         await _targetEntityAdapter.DeleteItem(item);
                     }
-                   
+
                     try
                     {
                         var link = LinkStatusTableModel.GetDefault().GetItem(item);
-                        var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
-                        if (linkedItem != null)
+                        if (item.Association.SyncDirection == SyncDirection.FullSync)
                         {
-                            if (linkedItem.IsCollection)
+                            //the linked item should only be deleted from the database if its a full sync
+                            //otherwise changes might not be tracked anymore if the user makes changes to the sync direction
+                            var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
+                            if (linkedItem != null)
                             {
-                                var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
-                                foreach (var childItem in childItems)
+                                if (linkedItem.IsCollection)
                                 {
-                                    ItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                                    var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                                    foreach (var childItem in childItems)
+                                    {
+                                        ItemTableModel.GetDefault().DeleteItem(childItem.Id);
+                                    }
                                 }
+                                ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
                             }
-                            ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
                         }
+
                         LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
                     }
                     catch (KeyNotFoundException)
                     {
                         await LogHelper.Write($"LinkStatus could not be found: EntityId: {item.EntityId} Id: {item.Id}");
-                    } 
+                    }
 
 
                     if (item.IsCollection)
@@ -170,7 +175,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private async Task ProcessItems()
         {
-            
+
             ExecutionContext.TotalFileCount = _itemIndex.Count;
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             int index = 1;
@@ -196,7 +201,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 {
                     _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
-                    await LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message, item.EntityId, e.StackTrace));
+                    await
+                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
+                            item.EntityId, e.StackTrace));
                 }
                 //we have 10 Minutes in total for each background task cycle
                 //after 10 minutes windows will terminate the task
@@ -212,20 +219,24 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private async Task _ProcessItem(BaseItem item)
         {
             //the root item of an association should not be created again
-            if(item.Id == item.Association.LocalFolderId || item.Id == item.Association.RemoteFolderId)
+            if (item.Id == item.Association.LocalFolderId || item.Id == item.Association.RemoteFolderId)
                 return;
             //skip files bigger than 50MB, these will have to be synced manually
             //otherwise the upload/download could take too long and task would be terminated
             //TODO make this configurable
-            if (item.Size > (50 * 1024 * 1024) & _isBackgroundTask)
+            if (item.Size > (50*1024*1024) & _isBackgroundTask)
             {
                 item.SyncPostponed = true;
                 ItemTableModel.GetDefault().UpdateItem(item, item.Id);
                 return;
             }
 
-            var link = _linkList.FirstOrDefault(x => (x.SourceItemId == item.Id || x.TargetItemId == item.Id) && x.AssociationId == item.Association.Id);
-            if (link == null)
+            LinkStatus link = null;
+            try
+            {
+                link = LinkStatusTableModel.GetDefault().GetItem(item);
+            }
+            catch (Exception)
             {
                 string targetEntitiyId = null;
 
@@ -243,14 +254,11 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 var result = foundItem ?? await Insert(item);
                 AfterInsert(item, result);
             }
-            if(link  != null)
+
+            if (item.ChangeNumber > link?.ChangeNumber)
             {
-                if (item.ChangeNumber > link.ChangeNumber)
-                {
-                    var result = await Update(item);
-                    AfterUpdate(item, result);
-                }
-                _linkList.Remove(link);
+                var result = await Update(item);
+                AfterUpdate(item, result);
             }
         }
 
@@ -262,13 +270,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (item.AdapterType == _targetEntityAdapter.GetType())
             {
                 targetItem = await _sourceEntityAdapter.AddItem(item);
-                if(!item.IsCollection)
+                if (!item.IsCollection)
                     _downloadCount++;
             }
             else if (item.AdapterType == _sourceEntityAdapter.GetType())
             {
                 targetItem = await _targetEntityAdapter.AddItem(item);
-                if(!item.IsCollection)
+                if (!item.IsCollection)
                     _uploadCount++;
             }
             return targetItem;
@@ -282,13 +290,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (item.AdapterType == _targetEntityAdapter.GetType())
             {
                 result = await _sourceEntityAdapter.UpdateItem(item);
-                if(!item.IsCollection)
+                if (!item.IsCollection)
                     _downloadCount++;
             }
-            else if(item.AdapterType == _sourceEntityAdapter.GetType())
+            else if (item.AdapterType == _sourceEntityAdapter.GetType())
             {
                 result = await _targetEntityAdapter.UpdateItem(item);
-                if(!item.IsCollection)
+                if (!item.IsCollection)
                     _uploadCount++;
             }
             return result;
@@ -321,15 +329,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             association.LastSync = DateTime.UtcNow;
             FolderAssociationTableModel.GetDefault().UpdateItem(association, association.Id);
         }
-
-        private void DeleteFromIndex(List<BaseItem> itemsToDelete)
-        {
-            foreach (var abstractItem in itemsToDelete)
-            {
-                ItemTableModel.GetDefault().DeleteItem(abstractItem.Id);
-            }
-        }
-
+        
         private void AfterInsert(BaseItem sourceItem, BaseItem targetItem)
         {
             if (targetItem.Association == null)
@@ -347,8 +347,15 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 targetItem = ItemTableModel.GetDefault().GetLastInsertItem();
             }
 
-            LinkStatus link = new LinkStatus(sourceItem, targetItem);
-            LinkStatusTableModel.GetDefault().InsertItem(link);
+            try
+            {
+                LinkStatusTableModel.GetDefault().GetItem(sourceItem);
+            }
+            catch (KeyNotFoundException)
+            {
+                var link = new LinkStatus(sourceItem, targetItem);
+                LinkStatusTableModel.GetDefault().InsertItem(link);
+            }
         }
 
         private void AfterUpdate(BaseItem sourceItem, BaseItem targetItem)
@@ -356,7 +363,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;
             targetItem.ChangeNumber = sourceItem.ChangeNumber;
-            var link = _linkList.FirstOrDefault(x => (x.SourceItemId == sourceItem.Id || x.TargetItemId == sourceItem.Id) && x.AssociationId == sourceItem.Association.Id);
+            var link = LinkStatusTableModel.GetDefault().GetItem(sourceItem);//should throw an Exception if the link is not found
             link.ChangeNumber = sourceItem.ChangeNumber;
             LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
             targetItem.Id = link.TargetItemId;
