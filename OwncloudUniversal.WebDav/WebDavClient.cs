@@ -10,6 +10,7 @@ using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Storage;
+using Windows.UI.Notifications;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using OwncloudUniversal.Shared;
@@ -22,28 +23,11 @@ namespace OwncloudUniversal.WebDav
     {
         private readonly Uri _serverUrl;
         private readonly NetworkCredential _credential;
-        private readonly BackgroundDownloader _downloader;
-        private readonly BackgroundUploader _uploader;
 
         public WebDavClient(Uri serverUrl, NetworkCredential credential)
         {
             _serverUrl = serverUrl;
             _credential = credential;
-
-            BackgroundTransferGroup group = BackgroundTransferGroup.CreateGroup("owncloud-webdav-sync");
-            group.TransferBehavior = BackgroundTransferBehavior.Serialized;
-
-            _downloader = new BackgroundDownloader();
-            _downloader.TransferGroup = group;
-            _downloader.ServerCredential = new PasswordCredential(serverUrl.ToString(), credential.UserName, credential.Password);
-
-            _uploader = new BackgroundUploader();
-            _uploader.TransferGroup = group;
-            _uploader.Method = "PUT";
-            var buffer = CryptographicBuffer.ConvertStringToBinary(credential.UserName + ":" + credential.Password, BinaryStringEncoding.Utf8);
-            var token = CryptographicBuffer.EncodeToBase64String(buffer);
-            var value = new HttpCredentialsHeaderValue("Basic", token);
-            _uploader.SetRequestHeader("Authorization", value.ToString());
         }
 
         public async Task<List<DavItem>> ListFolder(Uri url)
@@ -65,7 +49,9 @@ namespace OwncloudUniversal.WebDav
         {
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
-            var download = _downloader.CreateDownload(url, targetFile);
+            var downloader = new BackgroundDownloader();
+            downloader.ServerCredential = new PasswordCredential(_serverUrl.ToString(), _credential.UserName, _credential.Password);
+            var download = downloader.CreateDownload(url, targetFile);
             await download.StartAsync();
         }
 
@@ -73,10 +59,24 @@ namespace OwncloudUniversal.WebDav
         {
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
-            var upload = _uploader.CreateUpload(url, file);
-            var task = upload.StartAsync().AsTask();
+
+            BackgroundUploader uploader = new BackgroundUploader();
+            uploader.Method = "PUT";
+            var buffer = CryptographicBuffer.ConvertStringToBinary(_credential.UserName + ":" + _credential.Password, BinaryStringEncoding.Utf8);
+            var token = CryptographicBuffer.EncodeToBase64String(buffer);
+            var value = new HttpCredentialsHeaderValue("Basic", token);
+            uploader.SetRequestHeader("Authorization", value.ToString());
+
+            var upload = uploader.CreateUpload(url, file);
+            Progress<UploadOperation> progressCallback = new Progress<UploadOperation>(OnUploadProgressChanged);
+            var task = upload.StartAsync().AsTask(progressCallback);
             var task2 = await task.ContinueWith(OnUploadCompleted);
             return await task2;
+        }
+
+        private void OnUploadProgressChanged(UploadOperation obj)
+        {
+            Debug.WriteLine(obj.Progress.Status);
         }
 
         private async Task<DavItem> OnUploadCompleted(Task<UploadOperation> task)

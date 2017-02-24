@@ -64,9 +64,9 @@ namespace OwncloudUniversal
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // TODO: add your long-running task here
+            SQLiteClient.Init();
             if (startKind == StartKind.Launch)
             {
-                SQLiteClient.Init();
                 if (Configuration.IsFirstRun)
                 {
                     Configuration.RemoveCredentials();
