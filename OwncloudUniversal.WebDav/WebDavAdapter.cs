@@ -35,7 +35,7 @@ namespace OwncloudUniversal.WebDav
             {
                 //build path and folder name
                 string path = _BuildRemoteFolderPath(localItem.Association, localItem.EntityId);
-                var folderName = Path.GetFileNameWithoutExtension(localItem.EntityId);
+                var folderName = localItem.EntityId.Substring(localItem.EntityId.LastIndexOf('\\')+1);
 
                 //create folder and parent folders
                 await CreateFolder(localItem.Association, localItem, folderName);
