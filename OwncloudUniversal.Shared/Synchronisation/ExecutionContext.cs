@@ -6,6 +6,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 
 namespace OwncloudUniversal.Shared.Synchronisation
 {
@@ -81,7 +82,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
         }
 
-        public string FileText => $"{CurrentFileNumber} / {TotalFileCount} Files";
+        public string FileText => $"{CurrentFileNumber} / {TotalFileCount} {ResourceLoader.GetForCurrentView("OwncloudUniversal.Shared/Resources").GetString("Files")}";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
