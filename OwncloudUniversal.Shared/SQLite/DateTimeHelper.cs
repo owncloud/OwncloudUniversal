@@ -11,7 +11,7 @@ namespace OwncloudUniversal.Shared.SQLite
         public static string DateTimeSQLite(DateTime? datetime)
         {
             string dateTimeFormat = "{0}-{1}-{2} {3}:{4}:{5}.{6}";
-            return string.Format(dateTimeFormat, datetime.Value.Year, datetime.Value.Month, datetime.Value.Day, datetime.Value.Hour, datetime.Value.Minute, datetime.Value.Second, datetime.Value.Millisecond);
+            return string.Format(dateTimeFormat, datetime?.Year, datetime?.Month, datetime?.Day, datetime?.Hour, datetime?.Minute, datetime?.Second, datetime?.Millisecond);
         }
     }
 }

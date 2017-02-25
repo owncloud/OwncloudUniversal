@@ -116,7 +116,7 @@
     <Compile Include="LocalFileSystem\FileSystemAdapter.cs" />
     <Compile Include="Model\AbstractAdapter.cs" />
     <Compile Include="Model\BaseItem.cs" />
-    <Compile Include="Model\AbstractItemTableModel.cs" />
+    <Compile Include="Model\ItemTableModel.cs" />
     <Compile Include="Model\AbstractTableModelBase.cs" />
     <Compile Include="Model\FolderAssociation.cs" />
     <Compile Include="Model\FolderAssociationTableModel.cs" />

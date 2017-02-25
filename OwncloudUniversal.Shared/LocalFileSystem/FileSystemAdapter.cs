@@ -225,7 +225,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var sItems = new List<IStorageItem>();
             var options = new QueryOptions();
             options.FolderDepth = FolderDepth.Deep;
-            options.IndexerOption = IndexerOption.OnlyUseIndexer;
+            options.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
             var itemQuery = sFolder.CreateItemQueryWithOptions(options);
             var queryTask = itemQuery.GetItemsAsync();
 

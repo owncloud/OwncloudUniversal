@@ -266,6 +266,10 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     targetEntitiyId = _targetEntityAdapter.BuildEntityId(item);
                 }
 
+                //if a new item is added which already exists on the other side we just assume
+                //that they both have the same content
+                //this the could be the case at the initial sync. The initial sync should never update 
+                //items on one side because we can not compare the contents
                 var foundItem = ItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId);
                 var result = foundItem ?? await Insert(item);
                 AfterInsert(item, result);
@@ -273,8 +277,28 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
             if (item.ChangeNumber > link?.ChangeNumber)
             {
-                var result = await Update(item);
-                AfterUpdate(item, result);
+                //get the linked item
+                var linkedItem = ItemTableModel.GetDefault().GetItem(item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId);
+                //if both (item and the linkedItem) have a higher changenum than the link we have a conflict.
+                //That means both item have been updated since the last time we checked.
+                //so we check which one has the latest change and if it is the current item we update it.
+                if (linkedItem != null && item.ChangeNumber > link.ChangeNumber && linkedItem.ChangeNumber > link.ChangeNumber)
+                {
+                    if (item.LastModified > linkedItem.LastModified)
+                    {
+                        var result = await Update(item);
+                        AfterUpdate(item, result);
+                    }
+                }
+                else
+                {
+                    var result = await Update(item);
+                    AfterUpdate(item, result);
+                }
+
+
+
+
             }
         }
 
