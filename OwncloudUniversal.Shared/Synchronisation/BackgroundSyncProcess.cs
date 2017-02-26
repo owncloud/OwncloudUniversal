@@ -200,9 +200,16 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private async Task ProcessUpdates(IEnumerable<dynamic> itemsToUpdate)
         {
-            if(itemsToUpdate == null)
+            List<dynamic> items;
+            try
+            {
+                items = itemsToUpdate.ToList();
+            }
+            catch (NullReferenceException)
+            {
                 return;
-            foreach (var item in itemsToUpdate)
+            }
+            foreach (var item in items)
             {
                 try
                 {
@@ -238,10 +245,10 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 catch (Exception e)
                 {
                     _errorsOccured = true;
-                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.BaseItem.EntityId));
                     await
                         LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
-                            item.EntityId, e.StackTrace));
+                            item.BaseItem.EntityId, e.StackTrace));
                 }
             }
         }
