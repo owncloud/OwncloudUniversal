@@ -227,31 +227,28 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             //get all the files and folders from the db that were inside the folder at the last time
             var existingItems = ItemTableModel.GetDefault().GetFilesForFolder(association, this.GetType());
             sItems.AddRange(await queryTask);
-            foreach (var existingItem in existingItems)
+
+            var missingItems = (from baseItem in existingItems
+                from storageItem in sItems.Where(item => item.Path == baseItem.EntityId).DefaultIfEmpty()
+                select new {BaseItem = baseItem, IStorageItem = storageItem}).Where(item => item.IStorageItem == null).Select(i=>i.BaseItem);
+
+
+            foreach (var missingItem in missingItems)
             {
-                if (existingItem.EntityId == sFolder.Path) continue;
-                //if a file with that path is in the list, the file has not been deleted
-                var sitem = sItems.FirstOrDefault(x => x.Path == existingItem.EntityId);
-                if (sitem == null)
+                if (missingItem.EntityId == sFolder.Path) continue;
+                //additional check if the file really does not exist
+                //for some reason the query seems to return wrong results sometimes
+                if (!missingItem.IsCollection)
                 {
-                    //additional check if the file really does not exist
-                    //for some reason the query seems to return wrong results sometimes
-                    if (!existingItem.IsCollection)
-                    {
-                        FileInfo fInfo = new FileInfo(existingItem.EntityId);
-                        if (!fInfo.Exists)
-                            result.Add(existingItem);
-                    }
-                    else
-                    {
-                        DirectoryInfo dInfo = new DirectoryInfo(existingItem.EntityId);
-                        if (!dInfo.Exists)
-                            result.Add(existingItem);
-                    }
+                    FileInfo fInfo = new FileInfo(missingItem.EntityId);
+                    if (!fInfo.Exists)
+                        result.Add(missingItem);
                 }
                 else
                 {
-                    sItems.Remove(sitem);
+                    DirectoryInfo dInfo = new DirectoryInfo(missingItem.EntityId);
+                    if (!dInfo.Exists)
+                        result.Add(missingItem);
                 }
             }
             return result;
