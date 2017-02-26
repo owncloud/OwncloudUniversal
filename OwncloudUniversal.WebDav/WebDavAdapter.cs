@@ -147,10 +147,12 @@ namespace OwncloudUniversal.WebDav
                     currentFolder += '/' + folderName;
                     continue;
                 }
-                var folderContent = await _davClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
-                if (folderContent.Count(x => x.DisplayName == WebUtility.UrlDecode(folderName) && x.IsCollection) == 0 && !string.IsNullOrWhiteSpace(folderName))
-                        await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
-                _existingFolders.Add(currentFolder + '/' + folderName);
+                //var folderContent = await _davClient.ListFolder(new Uri(currentFolder, UriKind.RelativeOrAbsolute));
+                if (!await _davClient.Exists(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute)))
+                {
+                    await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
+                    _existingFolders.Add(currentFolder + '/' + folderName);
+                }
                 currentFolder += '/' + folderName;
             }
         }
