@@ -66,7 +66,7 @@ namespace OwncloudUniversal.Shared.Model
         protected override string GetSelectByEntityIdQuery()
         {
             return
-                "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified FROM Item WHERE EntityId = ? COLLATE NOCASE";
+                "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified FROM Item WHERE EntityId = ?";
         }
 
         protected override string GetSelectItemQuery()

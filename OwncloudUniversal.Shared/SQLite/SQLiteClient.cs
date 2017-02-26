@@ -9,19 +9,18 @@ namespace OwncloudUniversal.Shared.SQLite
 {
     public static class SQLiteClient
     {
-        public static SQLiteConnection Connection;
+        private static SQLiteConnection _connection;
+        public static SQLiteConnection Connection => _connection ?? (_connection = new SQLiteConnection("webdav-sync.db"));
         public static void Init()
         {
-            Connection = new SQLiteConnection("webdav-sync.db");
             string query = "";
-
             query = @"CREATE TABLE IF NOT EXISTS [Item] (
                         [Id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
                         [AssociationId] INTEGER NULL,
                         [IsCollection] BOOLEAN  NULL,
                         [ChangeNumber] INTEGER NULL,
                         [ChangeKey] NVARCHAR(510)  NULL,
-                        [EntityId] NVARCHAR(510) NULL,
+                        [EntityId] NVARCHAR(510) NOT NULL UNIQUE,
                         [SyncPostponed] BOOLEAN NULL,
                         [AdapterType] NVARCHAR(128) NULL,
                         [LastModified] NVARCHAR(32) NULL

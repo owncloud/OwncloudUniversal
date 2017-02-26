@@ -137,6 +137,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                                     var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
                                     foreach (var childItem in childItems)
                                     {
+                                        var childLink = LinkStatusTableModel.GetDefault().GetItem(childItem);
+                                        LinkStatusTableModel.GetDefault().DeleteItem(childLink.Id);
                                         ItemTableModel.GetDefault().DeleteItem(childItem.Id);
                                     }
                                 }
