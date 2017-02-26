@@ -367,7 +367,7 @@
     <value>Konfiguration</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>Autmatische Synchronisation</value>
+    <value>Automatische Synchronisation</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
     <value>Verbindung hergestellt! ACHTUNG: Verbindung ist nicht verschlüsselt!</value>

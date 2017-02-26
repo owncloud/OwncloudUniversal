@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Active" xml:space="preserve">
+    <value>Verarbeite Änderungen</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>Verarbeite gelöschte Dateien</value>
+  </data>
   <data name="Files" xml:space="preserve">
     <value>Dateien</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Abgeschlossen</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Suche nach Änderungen</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Abgebrochen</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>Aktualisiere Datenbank</value>
   </data>
 </root>

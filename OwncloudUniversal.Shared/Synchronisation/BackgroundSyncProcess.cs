@@ -93,10 +93,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
                 _itemIndex = await getUpdatedSourceTask;
                 _itemIndex.AddRange(await getUpdatedTargetTask);
-
-                await SetExecutionStatus(ExecutionStatus.Active);
+                
                 await ProcessDeletions();
-                _UpdateFileIndexes(association);
+                await _UpdateFileIndexes(association);
                 await
                     LogHelper.Write(
                         $"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
@@ -106,6 +105,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private async Task ProcessDeletions()
         {
+            await SetExecutionStatus(ExecutionStatus.Deletions);
             foreach (var item in _deletions)
             {
                 try
@@ -174,6 +174,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             int index = 1;
+            await SetExecutionStatus(ExecutionStatus.Active);
             foreach (var item in _itemIndex)
             {
                 try
@@ -334,10 +335,11 @@ namespace OwncloudUniversal.Shared.Synchronisation
             return result;
         }
 
-        private void _UpdateFileIndexes(FolderAssociation association)
+        private async Task _UpdateFileIndexes(FolderAssociation association)
         {
+            await SetExecutionStatus(ExecutionStatus.UpdatingIndex);
             var itemTableModel = ItemTableModel.GetDefault();
-
+            
             foreach (BaseItem t in _itemIndex)
             {
                 t.Association = association;

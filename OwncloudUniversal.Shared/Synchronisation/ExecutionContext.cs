@@ -16,7 +16,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private int _currentFileNumber;
         private string _currentFileName;
         private ExecutionStatus _status;
-        private ConnectionProfile _connectionProfile;
         private static ExecutionContext _instance;
 
         public static ExecutionContext Instance => _instance ?? (_instance = new ExecutionContext());
@@ -27,8 +26,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
             CurrentFileName = string.Empty;
             CurrentFileNumber = 0;
             TotalFileCount = 0;
-            ConnectionProfile = ConnectionProfile.WiFi;
         }
+
+        public string StatusMessage => ResourceLoader.GetForCurrentView("OwncloudUniversal.Shared/Resources").GetString(_status.ToString());
 
         public ExecutionStatus Status
         {
@@ -37,6 +37,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 _status = value;
                 OnPropertyChanged();
+                OnPropertyChanged("StatusMessage");
             }
         }
 
@@ -72,15 +73,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }  
         }
 
-        public ConnectionProfile ConnectionProfile
-        {
-            get { return _connectionProfile; }
-            set
-            {
-                _connectionProfile = value;
-                OnPropertyChanged();
-            }
-        }
+
 
         public string FileText => $"{CurrentFileNumber} / {TotalFileCount} {ResourceLoader.GetForCurrentView("OwncloudUniversal.Shared/Resources").GetString("Files")}";
 
