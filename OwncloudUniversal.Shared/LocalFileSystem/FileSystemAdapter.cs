@@ -104,7 +104,6 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 storageItem = await folder.TryGetItemAsync(displayName) ?? await folder.CreateFileAsync(displayName, CreationCollisionOption.OpenIfExists);
                 var adapter = (IBackgroundSyncAdapter)LinkedAdapter;
                 await adapter.CreateDownload(item, storageItem);
-
             }
             BasicProperties bp = await storageItem.GetBasicPropertiesAsync();
             var targetItem = new LocalItem(item.Association, storageItem, bp);
@@ -132,26 +131,25 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             var fileItem = ItemTableModel.GetDefault().GetItem(fileId);
             if(fileItem == null)
                 return;
-            try
+
+            if (item.IsCollection)
             {
-                if (item.IsCollection)
+                if (new DirectoryInfo(fileItem.EntityId).Exists)
                 {
                     var folder = await StorageFolder.GetFolderFromPathAsync(fileItem.EntityId);
-                    await folder.DeleteAsync(StorageDeleteOption.Default);
+                    await folder.DeleteAsync(StorageDeleteOption.PermanentDelete);
                 }
-                else
+            }
+            else
+            {
+                if (new FileInfo(fileItem.EntityId).Exists)
                 {
                     var file = await StorageFile.GetFileFromPathAsync(fileItem.EntityId);
-                    await file.DeleteAsync(StorageDeleteOption.Default);
+                    await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
                 }
             }
-            catch (FileNotFoundException)
-            {
-                
-            }
-
         }
-        
+
         public override async Task<List<BaseItem>> GetUpdatedItems(FolderAssociation association)
         {
             List<BaseItem> items = new List<BaseItem>();
@@ -185,9 +183,9 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
 
         private string _BuildFilePath(BaseItem item)
         {
-            var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);          
+            var folderUri = new Uri(GetAssociatedItem(item.Association.LocalFolderId).EntityId);
             var remoteFolder = GetAssociatedItem(item.Association.RemoteFolderId);
-            var relativefileUri = item.EntityId.Replace(remoteFolder.EntityId, ""); 
+            var relativefileUri = item.EntityId.Replace(remoteFolder.EntityId, "");
             string path = Uri.UnescapeDataString(relativefileUri.ToString().Replace('/', '\\'));
             var result = folderUri.LocalPath + '\\' + path;
             return folderUri.LocalPath + '\\' + path;
@@ -239,7 +237,20 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                 var sitem = sItems.FirstOrDefault(x => x.Path == existingItem.EntityId);
                 if (sitem == null)
                 {
-                    result.Add(existingItem);
+                    //additional check if the file really does not exist
+                    //for some reason the query seems to return wrong results sometimes
+                    if (!existingItem.IsCollection)
+                    {
+                        FileInfo fInfo = new FileInfo(existingItem.EntityId);
+                        if (!fInfo.Exists)
+                            result.Add(existingItem);
+                    }
+                    else
+                    {
+                        DirectoryInfo dInfo = new DirectoryInfo(existingItem.EntityId);
+                        if (!dInfo.Exists)
+                            result.Add(existingItem);
+                    }
                 }
                 else
                 {
