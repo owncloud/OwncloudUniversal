@@ -94,17 +94,14 @@ namespace OwncloudUniversal.WebDav
 
         public override async Task DeleteItem(BaseItem item)
         {
-            long davId;
-            try
-            {
-                var link = LinkStatusTableModel.GetDefault().GetItem(item);
-                davId = item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId;
-            }
-            catch (KeyNotFoundException)
+            var link = LinkStatusTableModel.GetDefault().GetItem(item);
+            if (link == null)
             {
                 await LogHelper.Write($"LinkStatus could not be found: EntityId: {item.EntityId} Id: {item.Id}");
                 return;
             }
+            var davId = item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId;
+
             var davItem = ItemTableModel.GetDefault().GetItem(davId);
             if(davItem == null)
                 return;

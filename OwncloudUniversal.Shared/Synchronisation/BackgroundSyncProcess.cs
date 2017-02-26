@@ -121,38 +121,31 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     {
                         await _targetEntityAdapter.DeleteItem(item);
                     }
-
-                    try
+                    
+                    var link = LinkStatusTableModel.GetDefault().GetItem(item);
+                    if (link != null && item.Association.SyncDirection == SyncDirection.FullSync)
                     {
-                        var link = LinkStatusTableModel.GetDefault().GetItem(item);
-                        if (item.Association.SyncDirection == SyncDirection.FullSync)
+                        //the linked item should only be deleted from the database if its a full sync
+                        //otherwise changes might not be tracked anymore if the user makes changes to the sync direction
+                        var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
+                        if (linkedItem != null)
                         {
-                            //the linked item should only be deleted from the database if its a full sync
-                            //otherwise changes might not be tracked anymore if the user makes changes to the sync direction
-                            var linkedItem = ItemTableModel.GetDefault().GetItem(link.TargetItemId);
-                            if (linkedItem != null)
+                            if (linkedItem.IsCollection)
                             {
-                                if (linkedItem.IsCollection)
+                                var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                                foreach (var childItem in childItems)
                                 {
-                                    var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
-                                    foreach (var childItem in childItems)
-                                    {
-                                        var childLink = LinkStatusTableModel.GetDefault().GetItem(childItem);
+                                    var childLink = LinkStatusTableModel.GetDefault().GetItem(childItem);
+                                    if(childLink != null)
                                         LinkStatusTableModel.GetDefault().DeleteItem(childLink.Id);
-                                        ItemTableModel.GetDefault().DeleteItem(childItem.Id);
-                                    }
+                                    ItemTableModel.GetDefault().DeleteItem(childItem.Id);
                                 }
-                                ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
                             }
+                            ItemTableModel.GetDefault().DeleteItem(linkedItem.Id);
                         }
-
-                        LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        await LogHelper.Write($"LinkStatus could not be found: EntityId: {item.EntityId} Id: {item.Id}");
                     }
 
+                    LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
 
                     if (item.IsCollection)
                     {
@@ -249,12 +242,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 return;
             }
 
-            LinkStatus link = null;
-            try
-            {
-                link = LinkStatusTableModel.GetDefault().GetItem(item);
-            }
-            catch (Exception)
+            var link = LinkStatusTableModel.GetDefault().GetItem(item);
+            if (link == null)
             {
                 string targetEntitiyId = null;
 
@@ -276,6 +265,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 var result = foundItem ?? await Insert(item);
                 AfterInsert(item, result);
             }
+            
 
             if (item.ChangeNumber > link?.ChangeNumber)
             {
@@ -389,11 +379,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 targetItem = ItemTableModel.GetDefault().GetLastInsertItem();
             }
 
-            try
-            {
-                LinkStatusTableModel.GetDefault().GetItem(sourceItem);
-            }
-            catch (KeyNotFoundException)
+            if (LinkStatusTableModel.GetDefault().GetItem(sourceItem) == null)
             {
                 var link = new LinkStatus(sourceItem, targetItem);
                 LinkStatusTableModel.GetDefault().InsertItem(link);
@@ -405,13 +391,15 @@ namespace OwncloudUniversal.Shared.Synchronisation
             if (targetItem.Association == null)
                 targetItem.Association = sourceItem.Association;
             targetItem.ChangeNumber = sourceItem.ChangeNumber;
-            //should throw an Exception if the link is not found
             var link = LinkStatusTableModel.GetDefault().GetItem(sourceItem);
-            link.ChangeNumber = sourceItem.ChangeNumber;
-            LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
-            targetItem.Id = link.TargetItemId;
-            ItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
-            ItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
+            if (link != null)
+            {
+                link.ChangeNumber = sourceItem.ChangeNumber;
+                LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
+                targetItem.Id = link.TargetItemId;
+                ItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
+                ItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
+            }
         }
 
         private async Task SetExecutionStatus(ExecutionStatus status)

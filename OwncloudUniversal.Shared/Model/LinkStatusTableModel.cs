@@ -127,7 +127,7 @@ namespace OwncloudUniversal.Model
                     return i;
                 }
             }
-            throw new KeyNotFoundException();
+            return null;
         }
 
         public ObservableCollection<LinkStatus> GetAllItems(FolderAssociation association)

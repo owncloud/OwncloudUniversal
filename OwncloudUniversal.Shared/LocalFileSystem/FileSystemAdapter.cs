@@ -118,16 +118,13 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
         public override async Task DeleteItem(BaseItem item)
         {
             long fileId;
-            try
-            {
-                var link= LinkStatusTableModel.GetDefault().GetItem(item);
-                fileId = item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId;
-            }
-            catch (KeyNotFoundException)
+            var link = LinkStatusTableModel.GetDefault().GetItem(item);
+            if (link == null)
             {
                 await LogHelper.Write($"LinkStatus could not be found: EntityId: {item.EntityId} Id: {item.Id}");
                 return;
             }
+            fileId = item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId;
             var fileItem = ItemTableModel.GetDefault().GetItem(fileId);
             if(fileItem == null)
                 return;
