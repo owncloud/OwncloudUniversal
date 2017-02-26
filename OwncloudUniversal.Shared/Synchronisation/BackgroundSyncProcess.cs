@@ -23,7 +23,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private int _deletedCount;
         private bool _errorsOccured;
         private Stopwatch _watch;
-        
+
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
@@ -49,7 +49,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _deletedCount = 0;
             _errorsOccured = false;
             await GetChanges();
-            await SetExecutionStatus(ExecutionStatus.Active);
             await ProcessItems();
             await Finish();
         }
@@ -86,21 +85,16 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
                 var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
 
-
-
                 _deletions = await getDeletedTargetTask;
                 _deletions.AddRange(await getDeletedSourceTask);
 
                 _itemIndex = await getUpdatedSourceTask;
                 _itemIndex.AddRange(await getUpdatedTargetTask);
-                
+
                 await ProcessDeletions();
                 await _UpdateFileIndexes(association);
-                await
-                    LogHelper.Write(
-                        $"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
+                await LogHelper.Write($"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
             }
-            _itemIndex = ItemTableModel.GetDefault().GetAllItems().ToList();
         }
 
         private async Task ProcessDeletions()
@@ -121,7 +115,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     {
                         await _targetEntityAdapter.DeleteItem(item);
                     }
-                    
+
                     var link = LinkStatusTableModel.GetDefault().GetItem(item);
                     if (link != null && item.Association.SyncDirection == SyncDirection.FullSync)
                     {
@@ -136,7 +130,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
                                 foreach (var childItem in childItems)
                                 {
                                     var childLink = LinkStatusTableModel.GetDefault().GetItem(childItem);
-                                    if(childLink != null)
+                                    if (childLink != null)
                                         LinkStatusTableModel.GetDefault().DeleteItem(childLink.Id);
                                     ItemTableModel.GetDefault().DeleteItem(childItem.Id);
                                 }
@@ -173,41 +167,73 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private async Task ProcessItems()
         {
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
-            int index = 1;
             await SetExecutionStatus(ExecutionStatus.Active);
-            foreach (var item in _itemIndex)
+            _itemIndex = ItemTableModel.GetDefault().GetAllItems().ToList();
+            var links = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
+
+            var itemsToProcess = 
+                from baseItem in _itemIndex
+                        .Where(i =>
+                         i.Association.SyncDirection == SyncDirection.DownloadOnly &&
+                         i.AdapterType == _targetEntityAdapter.GetType() ||
+                         i.Association.SyncDirection == SyncDirection.UploadOnly &&
+                         i.AdapterType == _sourceEntityAdapter.GetType() ||
+                         i.Association.SyncDirection == SyncDirection.FullSync)
+                from link in links
+                    .Where(x => x.SourceItemId == baseItem.Id || x.TargetItemId == baseItem.Id)
+                    .DefaultIfEmpty()
+                select new {LinkStatus = link, BaseItem = baseItem};
+
+            var itemsToAdd = 
+                from item in itemsToProcess
+                where item.LinkStatus == null
+                select item.BaseItem;
+
+            var itemsToUpdate = 
+                from item in itemsToProcess
+                where item.BaseItem.ChangeNumber > item.LinkStatus.ChangeNumber
+                select item;
+
+            await ProcessAdds(itemsToAdd);
+            await ProcessUpdates(itemsToUpdate);
+        }
+
+        private async Task ProcessUpdates(IEnumerable<dynamic> itemsToUpdate)
+        {
+            if(itemsToUpdate == null)
+                return;
+            foreach (var item in itemsToUpdate)
             {
                 try
                 {
-                    if (!_isBackgroundTask)
-                    {
-                        try
-                        {
-                            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                            {
-                                ExecutionContext.Instance.TotalFileCount = _itemIndex.Count;
-                                ExecutionContext.Instance.CurrentFileNumber = index++;
-                                ExecutionContext.Instance.CurrentFileName = item.EntityId;
-                            });
-                        }
-                        catch (Exception)
-                        {
-                            //supress all errors here
-                        }
-
-                    }
-                    
-                    if (item.Association.SyncDirection == SyncDirection.UploadOnly &&
-                        item.AdapterType == _targetEntityAdapter.GetType())
-                        continue;
-
-                    if (item.Association.SyncDirection == SyncDirection.DownloadOnly &&
-                        item.AdapterType == _sourceEntityAdapter.GetType())
-                        continue;
-
                     if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
                         break;
-                    await _ProcessItem(item);
+                    await SetExectuingFileName(item.BaseItem.EntityId);
+                    //get the linked item
+                    var linkedItem =
+                        ItemTableModel.GetDefault()
+                            .GetItem(item.BaseItem.Id == item.LinkStatus.SourceItemId
+                                ? item.LinkStatus.TargetItemId
+                                : item.LinkStatus.SourceItemId);
+                    //if both (item and the linkedItem) have a higher changenum than the link we have a conflict.
+                    //That means both item have been updated since the last time we checked.
+                    //so we check which one has the latest change and if it is the current item we update ititem.LinkStatus
+                    if (linkedItem != null && item.BaseItem.ChangeNumber > item.LinkStatus.ChangeNumber &&
+                        linkedItem.ChangeNumber > item.LinkStatus.ChangeNumber)
+                    {
+                        if (item.BaseItem.LastModified > linkedItem.LastModified)
+                        {
+                            var result = await Update(item.BaseItem);
+                            AfterUpdate(item.BaseItem, result);
+                        }
+                    }
+                    else
+                    {
+                        var result = await Update(item.BaseItem);
+                        AfterUpdate(item.BaseItem, result);
+                    }
+                    if (await TimeIsOver())
+                        break;
                 }
                 catch (Exception e)
                 {
@@ -217,81 +243,49 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
                             item.EntityId, e.StackTrace));
                 }
-                //we have 10 Minutes in total for each background task cycle
-                //after 10 minutes windows will terminate the task
-                //so after 9 minutes we stop the sync and just wait for the next cycle
-                if (_watch.Elapsed.Minutes >= 9 && _isBackgroundTask)
-                {
-                    await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
-                    break;
-                }
             }
         }
 
-        private async Task _ProcessItem(BaseItem item)
+        private async Task ProcessAdds(IEnumerable<BaseItem> itemsToAdd)
         {
-            //the root item of an association should not be created again
-            if (item.Id == item.Association.LocalFolderId || item.Id == item.Association.RemoteFolderId)
-                return;
-            //skip files bigger than 50MB, these will have to be synced manually
-            //otherwise the upload/download could take too long and task would be terminated
-            //TODO make this configurable
-            if (item.Size > (50*1024*1024) & _isBackgroundTask)
+
+            foreach (var item in itemsToAdd)
             {
-                item.SyncPostponed = true;
-                ItemTableModel.GetDefault().UpdateItem(item, item.Id);
-                return;
-            }
-
-            var link = LinkStatusTableModel.GetDefault().GetItem(item);
-            if (link == null)
-            {
-                string targetEntitiyId = null;
-
-                if (item.AdapterType == _targetEntityAdapter.GetType())
+                try
                 {
-                    targetEntitiyId = _sourceEntityAdapter.BuildEntityId(item);
-                }
+                    if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
+                        break;
+                    await SetExectuingFileName(item.EntityId);
+                    string targetEntitiyId = null;
 
-                if (item.AdapterType == _sourceEntityAdapter.GetType())
-                {
-                    targetEntitiyId = _targetEntityAdapter.BuildEntityId(item);
-                }
-
-                //if a new item is added which already exists on the other side we just assume
-                //that they both have the same content
-                //this the could be the case at the initial sync. The initial sync should never update 
-                //items on one side because we can not compare the contents
-                var foundItem = ItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId);
-                var result = foundItem ?? await Insert(item);
-                AfterInsert(item, result);
-            }
-            
-
-            if (item.ChangeNumber > link?.ChangeNumber)
-            {
-                //get the linked item
-                var linkedItem = ItemTableModel.GetDefault().GetItem(item.Id == link.SourceItemId ? link.TargetItemId : link.SourceItemId);
-                //if both (item and the linkedItem) have a higher changenum than the link we have a conflict.
-                //That means both item have been updated since the last time we checked.
-                //so we check which one has the latest change and if it is the current item we update it.
-                if (linkedItem != null && item.ChangeNumber > link.ChangeNumber && linkedItem.ChangeNumber > link.ChangeNumber)
-                {
-                    if (item.LastModified > linkedItem.LastModified)
+                    if (item.AdapterType == _targetEntityAdapter.GetType())
                     {
-                        var result = await Update(item);
-                        AfterUpdate(item, result);
+                        targetEntitiyId = _sourceEntityAdapter.BuildEntityId(item);
                     }
+
+                    if (item.AdapterType == _sourceEntityAdapter.GetType())
+                    {
+                        targetEntitiyId = _targetEntityAdapter.BuildEntityId(item);
+                    }
+
+                    //if a new item is added which already exists on the other side we just assume
+                    //that they both have the same content and just create a link but do not upload/download anything
+                    //this the could be the case at the initial sync. The initial sync should never update 
+                    //items on one side because we can not compare the contents of files
+                    var foundItem = ItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId);
+                    var result = foundItem ?? await Insert(item);
+                    AfterInsert(item, result);
+                    if (await TimeIsOver())
+                        break;
                 }
-                else
+                catch (Exception e)
                 {
-                    var result = await Update(item);
-                    AfterUpdate(item, result);
+                    _errorsOccured = true;
+                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    await
+                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
+                            item.EntityId, e.StackTrace));
                 }
-
-
-
-
             }
         }
 
@@ -420,6 +414,40 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 //supress all errors here
             }
+        }
+
+        private async Task SetExectuingFileName(string entityId)
+        {
+            if (!_isBackgroundTask)
+            {
+                try
+                {
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        ExecutionContext.Instance.TotalFileCount = _itemIndex.Count;
+                        ExecutionContext.Instance.CurrentFileNumber++;
+                        ExecutionContext.Instance.CurrentFileName = entityId;
+                    });
+                }
+                catch (Exception)
+                {
+                    //supress all errors here
+                }
+
+            }
+        }
+
+        private async Task<bool> TimeIsOver()
+        {
+            //we have 10 Minutes in total for each background task cycle
+            //after 10 minutes windows will terminate the task
+            //so after 9 minutes we stop the sync and just wait for the next cycle
+            if (_watch.Elapsed.Minutes >= 9 && _isBackgroundTask)
+            {
+                await LogHelper.Write("Stopping sync-cycle. Please wait for the next cycle to complete the sync");
+                return true;
+            }
+            return false;
         }
     }
 }
