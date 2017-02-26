@@ -340,7 +340,7 @@
     <value>Sync Status</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>Maximum Filesize for synchronisation (MB)</value>
+    <value>Do not download large files. Limit (MB):</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
     <value>Accept</value>

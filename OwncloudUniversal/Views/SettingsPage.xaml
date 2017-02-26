@@ -101,7 +101,8 @@
                                  x:Uid="MaxDownloadSize"
                                  Text="{Binding MaximumDownloadSize, Mode=TwoWay}"
                                  RelativePanel.AlignLeftWithPanel="True"
-                                 RelativePanel.Below="UseLightThemeToggleSwitch"/>
+                                 RelativePanel.Below="UseLightThemeToggleSwitch"
+                                 InputScope="Number"/>
                         
                         <Button x:Name="ResetButton"
                                 Margin="0,12"

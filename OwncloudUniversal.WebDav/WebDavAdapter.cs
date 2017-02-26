@@ -164,7 +164,7 @@ namespace OwncloudUniversal.WebDav
                 {
                     await _CheckRemoteFolderRecursive(item, result);
                 }
-                if(item.Size > Convert.ToUInt64(Configuration.MaxDownloadSize *1024 *1024))
+                if(!item.IsCollection && item.Size > Convert.ToUInt64(Configuration.MaxDownloadSize *1024 *1024))
                     continue;
                 if(item.EntityId == folder.EntityId)
                     continue;

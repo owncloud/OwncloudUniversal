@@ -334,7 +334,7 @@
     <value>Uuups..</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>Maximale Dateigröße für Synchronisation (MB)</value>
+    <value>Große Dateien nicht herunterladen. Grenze in MB:</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
     <value>Akzeptieren</value>
