@@ -14,20 +14,6 @@ namespace OwncloudUniversal.Services.SettingsServices
             _helper = new Template10.Services.SettingsService.SettingsHelper();
         }
 
-        public bool UseShellBackButton
-        {
-            get { return _helper.Read<bool>(nameof(UseShellBackButton), true); }
-            set
-            {
-                _helper.Write(nameof(UseShellBackButton), value);
-                BootStrapper.Current.NavigationService.GetDispatcherWrapper().Dispatch(() =>
-                {
-                    BootStrapper.Current.ShowShellBackButton = value;
-                    BootStrapper.Current.UpdateShellBackButton();
-                });
-            }
-        }
-
         public ApplicationTheme AppTheme
         {
             get

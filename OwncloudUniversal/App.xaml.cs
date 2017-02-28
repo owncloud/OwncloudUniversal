@@ -40,7 +40,6 @@ namespace OwncloudUniversal
             var settings = SettingsService.Instance;
             RequestedTheme = settings.AppTheme;
             CacheMaxDuration = settings.CacheMaxDuration;
-            ShowShellBackButton = settings.UseShellBackButton;
             AutoSuspendAllFrames = true;
             AutoRestoreAfterTerminated = true;
             AutoExtendExecutionSession = true;

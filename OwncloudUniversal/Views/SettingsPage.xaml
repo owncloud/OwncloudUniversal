@@ -85,17 +85,11 @@
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="PasswordBox" />
 
-                        <ToggleSwitch x:Name="UseShellDrawnBackButtonToggleSwtich"
-                                      x:Uid="ShellDrawnBackButton"
-                                      IsOn="{Binding UseShellBackButton, Mode=TwoWay}"
-                                      RelativePanel.AlignLeftWithPanel="True"
-                                      RelativePanel.Below="BackgroundTaskEnabledToogleSwitch" />
-
                         <ToggleSwitch x:Name="UseLightThemeToggleSwitch"
                                       x:Uid="RequestedApplicationTheme"
                                       IsOn="{Binding UseLightThemeButton, Mode=TwoWay}"
                                       RelativePanel.AlignLeftWithPanel="True"
-                                      RelativePanel.Below="UseShellDrawnBackButtonToggleSwtich" />
+                                      RelativePanel.Below="BackgroundTaskEnabledToogleSwitch" />
                         
                         <TextBox x:Name="MaxDownloadSizeBox"
                                  x:Uid="MaxDownloadSize"
