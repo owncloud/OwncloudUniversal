@@ -204,15 +204,31 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }
             catch (NullReferenceException)
             {
+                await LogHelper.Write($"0 items to update");
                 return;
             }
+            await LogHelper.Write($"{items.Count} items to update");
             foreach (var item in items)
             {
                 try
                 {
+                    await SetExectuingFileName(item.BaseItem.EntityId);
                     if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
                         break;
-                    await SetExectuingFileName(item.BaseItem.EntityId);
+
+                    //the root item of an association should not be created again
+                    if (item.BaseItem.Id == item.BaseItem.Association.LocalFolderId || item.BaseItem.Id == item.BaseItem.Association.RemoteFolderId)
+                        continue;
+                    //skip files bigger than 50MB, these will have to be synced manually
+                    //otherwise the upload/download could take too long and task would be terminated
+                    //TODO make this configurable
+                    if (item.BaseItem.Size > (50 * 1024 * 1024) & _isBackgroundTask)
+                    {
+                        item.BaseItem.SyncPostponed = true;
+                        ItemTableModel.GetDefault().UpdateItem(item.BaseItem, item.BaseItem.Id);
+                        continue;
+                    }
+
                     //get the linked item
                     var linkedItem =
                         ItemTableModel.GetDefault()
@@ -251,14 +267,29 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private async Task ProcessAdds(IEnumerable<BaseItem> itemsToAdd)
         {
-
-            foreach (var item in itemsToAdd)
+            var baseItems = itemsToAdd as IList<BaseItem> ?? itemsToAdd.ToList();
+            foreach (var item in baseItems)
             {
                 try
                 {
+                    await LogHelper.Write($"{baseItems.Count()} items to add");
+                    await SetExectuingFileName(item.EntityId);
                     if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
                         break;
-                    await SetExectuingFileName(item.EntityId);
+
+                    //the root item of an association should not be created again
+                    if (item.Id == item.Association.LocalFolderId || item.Id == item.Association.RemoteFolderId)
+                        continue;
+                    //skip files bigger than 50MB, these will have to be synced manually
+                    //otherwise the upload/download could take too long and task would be terminated
+                    //TODO make this configurable
+                    if (item.Size > (50 * 1024 * 1024) & _isBackgroundTask)
+                    {
+                        item.SyncPostponed = true;
+                        ItemTableModel.GetDefault().UpdateItem(item, item.Id);
+                        continue;
+                    }
+
                     string targetEntitiyId = null;
 
                     if (item.AdapterType == _targetEntityAdapter.GetType())
