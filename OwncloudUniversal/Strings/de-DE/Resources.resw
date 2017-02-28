@@ -387,4 +387,7 @@
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>Sichere Verbindung hergestellt!</value>
   </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>Byte</value>
+  </data>
 </root>

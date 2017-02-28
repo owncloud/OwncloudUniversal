@@ -22,12 +22,12 @@ namespace OwncloudUniversal.Converters
         }
 
         static readonly string[] SizeSuffixes =
-                   { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+                   {App.ResourceLoader.GetString("Bytes") , "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
         static string SizeSuffix(Int64 value)
         {
             if (value < 0) { return "-" + SizeSuffix(-value); }
-            if (value == 0) { return "0.0 bytes"; }
+            if (value == 0) { return "0.0 " + App.ResourceLoader.GetString("Bytes"); }
 
             int mag = (int)Math.Log(value, 1024);
             decimal adjustedSize = (decimal)value / (1L << (mag * 10));

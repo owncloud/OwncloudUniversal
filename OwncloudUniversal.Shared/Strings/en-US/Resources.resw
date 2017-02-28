@@ -129,6 +129,9 @@
   <data name="Finished" xml:space="preserve">
     <value>Finished</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
   <data name="Scanning" xml:space="preserve">
     <value>Looking for changes</value>
   </data>
