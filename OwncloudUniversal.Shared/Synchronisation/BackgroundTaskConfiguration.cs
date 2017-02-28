@@ -24,7 +24,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
         }
 
         private async void Register()
-        { 
+        {
+            BackgroundExecutionManager.RemoveAccess();
+            var promise = await BackgroundExecutionManager.RequestAccessAsync();
+            if (promise == BackgroundAccessStatus.DeniedByUser || promise == BackgroundAccessStatus.DeniedBySystemPolicy)
+            {
+                return;
+            }
+
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
                 if (task.Value.Name == TaskName)
@@ -39,15 +46,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 builder.AddCondition(new SystemCondition(SystemConditionType.UserNotPresent));
                 builder.CancelOnConditionLoss = true;
+                builder.AddCondition(new SystemCondition(SystemConditionType.FreeNetworkAvailable));
             }
-            BackgroundExecutionManager.RemoveAccess();
-            var promise = await BackgroundExecutionManager.RequestAccessAsync();
 
             var maintenanceTrigger = new MaintenanceTrigger(15, false);
             builder.SetTrigger(maintenanceTrigger);
             builder.IsNetworkRequested = true;
+            builder.CancelOnConditionLoss = true;
             BackgroundTaskRegistration registration = builder.Register();
-            
         }
 
         private void Deregister()
