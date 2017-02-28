@@ -11,11 +11,12 @@ namespace OwncloudUniversal.Shared
 {
     public static class Configuration
     {
-        private static Windows.Storage.ApplicationDataContainer _config = Windows.Storage.ApplicationData.Current.LocalSettings;
+        private static readonly Windows.Storage.ApplicationDataContainer Config = ApplicationData.Current.LocalSettings.CreateContainer(ContainerName, ApplicationDataCreateDisposition.Always);
 
         private static string _password = "";
         private static string _username = "";
         private static string _serverUrl = "";
+        private const string ContainerName = "ownCloud";
 
         public static string ServerUrl
         {
@@ -49,38 +50,28 @@ namespace OwncloudUniversal.Shared
                 AddCredentialToLocker();
             }
         }
-
-        public static string LastSync
-        {
-            get
-            {
-                if (_config.Values.ContainsKey("LastSync"))
-                    return (string)_config.Values["LastSync"];
-                return DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
-            }
-            set { _config.Values["LastSync"] = value; }
-        }
+        
 
         public static long MaxDownloadSize
         {
             get
             {
-                if (_config.Values.ContainsKey("MaxDownloadSize"))
-                    return (long)_config.Values["MaxDownloadSize"];
+                if (Config.Values.ContainsKey("MaxDownloadSize"))
+                    return (long)Config.Values["MaxDownloadSize"];
                 return 500;
             }
-            set { _config.Values["MaxDownloadSize"] = value; }
+            set { Config.Values["MaxDownloadSize"] = value; }
         }
 
         public static bool IsFirstRun
         {
             get
             {
-                if (_config.Values.ContainsKey("IsFirstRun"))
-                    return (bool)_config.Values["IsFirstRun"];
+                if (Config.Values.ContainsKey("IsFirstRun"))
+                    return (bool)Config.Values["IsFirstRun"];
                 return true;
             }
-            set { _config.Values["IsFirstRun"] = value; }
+            set { Config.Values["IsFirstRun"] = value; }
         }
 
         public static NetworkCredential Credential => new NetworkCredential(UserName, Password);
@@ -132,11 +123,16 @@ namespace OwncloudUniversal.Shared
         {
             get
             {
-                if (_config.Values.ContainsKey("IsBackgroundTaskEnabled"))
-                    return (bool)_config.Values["IsBackgroundTaskEnabled"];
+                if (Config.Values.ContainsKey("IsBackgroundTaskEnabled"))
+                    return (bool)Config.Values["IsBackgroundTaskEnabled"];
                 return true;
             }
-            set { _config.Values["IsBackgroundTaskEnabled"] = value; }
+            set { Config.Values["IsBackgroundTaskEnabled"] = value; }
+        }
+
+        public static void Reset()
+        {
+            ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);
         }
     }
 }

@@ -113,10 +113,8 @@ namespace OwncloudUniversal.ViewModels
             if (result.Id.ToString() == "YES")
             {
                 SQLiteClient.Reset();
-                Configuration.LastSync = DateTime.MinValue.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
                 LogHelper.ResetLog();
-                Configuration.RemoveCredentials();
-                Configuration.IsFirstRun = true;
+                Configuration.Reset();
                 MessageDialog dialog = new MessageDialog(App.ResourceLoader.GetString("RestartMessage"));
                 await dialog.ShowAsync();
                 BootStrapper.Current.Exit();
@@ -130,6 +128,7 @@ namespace OwncloudUniversal.ViewModels
             {
                 _taskConfig.Enabled = value;
                 Configuration.IsBackgroundTaskEnabled = value;
+                RaisePropertyChanged();
             }
         }
 
