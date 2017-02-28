@@ -14,35 +14,17 @@ namespace OwncloudUniversal.ViewModels
     public class SynchronizationPageViewModel : ViewModelBase
     {
         private readonly SynchronizationService _syncService;
-        private bool _isActive;
 
         public ExecutionContext ExecutionContext => ExecutionContext.Instance;
         public ICommand StartSyncCommand { get; private set; }
-
-        public bool IsActive
-        {
-            get { return _isActive; }
-            private set
-            {
-                _isActive = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public SynchronizationPageViewModel()
         {
             _syncService = SynchronizationService.GetInstance();
             StartSyncCommand = new DelegateCommand(async () =>
             {
-                try
-                {
-                    IsActive = true;
-                    await _syncService.StartSyncProcess();
-                }
-                finally
-                {
-                    IsActive = false;
-                }
+
+                await _syncService.StartSyncProcess();
             });
         }
 

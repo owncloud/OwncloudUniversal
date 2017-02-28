@@ -10,10 +10,12 @@ using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using OwncloudUniversal.Shared;
+using OwncloudUniversal.Shared.Synchronisation;
 using OwncloudUniversal.WebDav.Model;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
@@ -51,8 +53,21 @@ namespace OwncloudUniversal.WebDav
                 url = new Uri(_serverUrl, url);
             var downloader = new BackgroundDownloader();
             downloader.ServerCredential = new PasswordCredential(_serverUrl.ToString(), _credential.UserName, _credential.Password);
+            Progress<DownloadOperation> progressCallback = new Progress<DownloadOperation>(async operation => await OnDownloadProgressChanged(operation));
             var download = downloader.CreateDownload(url, targetFile);
-            await download.StartAsync();
+            await download.StartAsync().AsTask(progressCallback);
+        }
+
+        private async Task OnDownloadProgressChanged(DownloadOperation obj)
+        {
+            if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,() =>
+                {
+                    ExecutionContext.Instance.BackgroundTransferOperation = obj;
+                    ExecutionContext.Instance.Status = ExecutionStatus.Receiving;
+                });
+            }
         }
 
         public async Task<DavItem> Upload(Uri url, StorageFile file)
@@ -68,15 +83,22 @@ namespace OwncloudUniversal.WebDav
             uploader.SetRequestHeader("Authorization", value.ToString());
 
             var upload = uploader.CreateUpload(url, file);
-            Progress<UploadOperation> progressCallback = new Progress<UploadOperation>(OnUploadProgressChanged);
+            Progress<UploadOperation> progressCallback = new Progress<UploadOperation>(async operation => await OnUploadProgressChanged(operation));
             var task = upload.StartAsync().AsTask(progressCallback);
             var task2 = await task.ContinueWith(OnUploadCompleted);
             return await task2;
         }
 
-        private void OnUploadProgressChanged(UploadOperation obj)
+        private async Task OnUploadProgressChanged(UploadOperation obj)
         {
-            Debug.WriteLine(obj.Progress.Status);
+            if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ExecutionContext.Instance.BackgroundTransferOperation = obj;
+                    ExecutionContext.Instance.Status = ExecutionStatus.Sending;
+                });
+            }
         }
 
         private async Task<DavItem> OnUploadCompleted(Task<UploadOperation> task)

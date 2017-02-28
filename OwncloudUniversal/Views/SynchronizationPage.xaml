@@ -24,11 +24,35 @@
             <PivotItem  x:Uid="Status" Margin="12">
                 <StackPanel>
                     <uicontrol:HeaderedTextBlock x:Uid="Status" Text="{Binding ExecutionContext.StatusMessage}" FontWeight="Bold"/>
-                    <ProgressBar x:Name="Bar" IsIndeterminate="{Binding IsActive}" Visibility="{Binding IsActive, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,4" Foreground="{ThemeResource ContrastColorBrush}"/>
                     <uicontrol:HeaderedTextBlock x:Uid="FilesToSync" Text="{Binding ExecutionContext.FileText}" FontWeight="Bold"/>
-                    <uicontrol:HeaderedTextBlock x:Uid="CurrentFile" Text="{Binding ExecutionContext.CurrentFileName}" FontWeight="Bold"/>
-                    <Button x:Uid="StartSync" Command="{Binding StartSyncCommand}"/>
+                    <uicontrol:HeaderedTextBlock x:Uid="CurrentFile" Text="{Binding ExecutionContext.CurrentFileName, Converter={StaticResource UriToNicePathConverter}}" FontWeight="Bold"/>
                     
+                    <Grid Margin="0,0,8,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"
+                                    Visibility="{Binding ExecutionContext.ShowProgress, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <TextBlock Text="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToCompletedConverter}}" />
+                            <TextBlock x:Uid="OutOf" Margin="8, 0" />
+                            <TextBlock Text="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToTotalConverter}}" />
+                        </StackPanel>
+                        
+                        <TextBlock Grid.Column="1" Text="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToPercentConverter}}" 
+                                   HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <ProgressBar Minimum="0" Maximum="100"
+                                 Value="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToPercentConverter}}"
+                                 IsIndeterminate="{Binding ExecutionContext.IsActive}"
+                                 Visibility="{Binding ExecutionContext.IsActive, Converter={StaticResource BoolToVisibilityConverter}}"
+                                 Foreground="{ThemeResource ContrastColorBrush}"
+                                 Margin="0, 8"
+                                 />
+                    
+                    <Button x:Uid="StartSync" Command="{Binding StartSyncCommand}" IsEnabled="{Binding ExecutionContext.IsActive, Converter={StaticResource BoolConverter}}"/>
                     <ToggleSwitch x:Uid="EnableBackgroundTask" IsOn="{Binding BackgroundTaskEnabled, Mode=TwoWay}" Margin="0,12,0,0">
                         <ToggleSwitch.HeaderTemplate>
                             <DataTemplate>
@@ -39,9 +63,9 @@
                 </StackPanel>
             </PivotItem>
 
-            <PivotItem x:Uid="History">
+            <!--<PivotItem x:Uid="History">
                 <TextBlock Text="Coming soon.. :)"/>
-            </PivotItem>
+            </PivotItem>-->
         </Pivot>
     </Grid>
 </Page>

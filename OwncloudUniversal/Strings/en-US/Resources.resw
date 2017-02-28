@@ -169,7 +169,7 @@
     <value>Files</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>Synced Files</value>
+    <value>Pending files</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
     <value>File transfer</value>

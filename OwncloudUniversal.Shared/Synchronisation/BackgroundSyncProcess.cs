@@ -21,12 +21,12 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private int _uploadCount;
         private int _downloadCount;
         private int _deletedCount;
-        private bool _errorsOccured;
         private Stopwatch _watch;
 
         private readonly AbstractAdapter _sourceEntityAdapter;
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
+        private int _totalCount;
 
         public BackgroundSyncProcess(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter,
             bool isBackgroundTask)
@@ -34,7 +34,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _sourceEntityAdapter = sourceEntityAdapter;
             _targetEntityAdapter = targetEntityAdapter;
             _isBackgroundTask = isBackgroundTask;
-            _errorsOccured = false;
 
         }
 
@@ -47,7 +46,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _uploadCount = 0;
             _downloadCount = 0;
             _deletedCount = 0;
-            _errorsOccured = false;
             await GetChanges();
             await ProcessItems();
             await Finish();
@@ -58,13 +56,10 @@ namespace OwncloudUniversal.Shared.Synchronisation
             await
                 LogHelper.Write(
                     $"Finished synchronization cycle. Duration: {_watch.Elapsed} BackgroundTask: {_isBackgroundTask}");
-            if (_deletedCount != 0 || _downloadCount != 0 || _uploadCount != 0)
-                ToastHelper.SendToast(_isBackgroundTask
-                    ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}"
-                    : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}");
+            ToastHelper.SendToast(_isBackgroundTask
+                ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}"
+                : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}");
             _watch.Stop();
-            if (!_errorsOccured)
-                Configuration.LastSync = DateTime.UtcNow.ToString("yyyy\\-MM\\-dd\\THH\\:mm\\:ss\\Z");
             await SetExecutionStatus(ExecutionStatus.Finished);
         }
 
@@ -155,7 +150,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 }
                 catch (Exception e)
                 {
-                    _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
                     await
                         LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
@@ -193,6 +187,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 from item in itemsToProcess
                 where item.BaseItem.ChangeNumber > item.LinkStatus.ChangeNumber
                 select item;
+
+            try { _totalCount += itemsToUpdate.Count() + itemsToAdd.Count(); }
+            catch (NullReferenceException) { _totalCount += itemsToAdd.Count(); }
 
             await ProcessAdds(itemsToAdd);
             await ProcessUpdates(itemsToUpdate);
@@ -244,7 +241,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 }
                 catch (Exception e)
                 {
-                    _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.BaseItem.EntityId));
                     await
                         LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
@@ -287,7 +283,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 }
                 catch (Exception e)
                 {
-                    _errorsOccured = true;
                     ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
                     await
                         LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
@@ -407,19 +402,13 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         private async Task SetExecutionStatus(ExecutionStatus status)
         {
-            try
+            if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
             {
-                if(_isBackgroundTask)
-                    return;
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     ExecutionContext.Instance.Status = status;
                 });
-            }
-            catch (Exception)
-            {
-                //supress all errors here
+
             }
         }
 
@@ -427,20 +416,15 @@ namespace OwncloudUniversal.Shared.Synchronisation
         {
             if (!_isBackgroundTask)
             {
-                try
+                if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
                 {
                     await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        ExecutionContext.Instance.TotalFileCount = _itemIndex.Count;
+                        ExecutionContext.Instance.TotalFileCount = _totalCount;
                         ExecutionContext.Instance.CurrentFileNumber++;
                         ExecutionContext.Instance.CurrentFileName = entityId;
                     });
                 }
-                catch (Exception)
-                {
-                    //supress all errors here
-                }
-
             }
         }
 

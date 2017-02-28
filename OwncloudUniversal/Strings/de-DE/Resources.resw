@@ -130,7 +130,7 @@
     <value>Dateien</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>Synchronisierte Dateien</value>
+    <value>Ausstehende Dateien</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>Kennwort</value>

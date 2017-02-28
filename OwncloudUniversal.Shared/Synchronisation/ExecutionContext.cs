@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
+using Windows.Networking.BackgroundTransfer;
 
 namespace OwncloudUniversal.Shared.Synchronisation
 {
@@ -16,13 +17,14 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private int _currentFileNumber;
         private string _currentFileName;
         private ExecutionStatus _status;
+        private IBackgroundTransferOperation _backgroundTransferOperation;
         private static ExecutionContext _instance;
 
         public static ExecutionContext Instance => _instance ?? (_instance = new ExecutionContext());
 
         private ExecutionContext()
         {
-            Status = ExecutionStatus.Stopped;
+            Status = ExecutionStatus.Ready;
             CurrentFileName = string.Empty;
             CurrentFileNumber = 0;
             TotalFileCount = 0;
@@ -38,6 +40,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 _status = value;
                 OnPropertyChanged();
                 OnPropertyChanged("StatusMessage");
+                OnPropertyChanged("IsActive");
+                OnPropertyChanged("ShowProgress");
             }
         }
 
@@ -73,7 +77,19 @@ namespace OwncloudUniversal.Shared.Synchronisation
             }  
         }
 
+        public IBackgroundTransferOperation BackgroundTransferOperation
+        {
+            get { return _backgroundTransferOperation; }
+            set
+            {
+                _backgroundTransferOperation = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public bool IsActive => !(Status == ExecutionStatus.Finished || Status == ExecutionStatus.Ready || Status == ExecutionStatus.Stopped);
+
+        public bool ShowProgress => Status == ExecutionStatus.Sending || Status == ExecutionStatus.Receiving;
 
         public string FileText => $"{CurrentFileNumber} / {TotalFileCount} {ResourceLoader.GetForCurrentView("OwncloudUniversal.Shared/Resources").GetString("Files")}";
 

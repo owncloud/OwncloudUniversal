@@ -132,8 +132,14 @@
   <data name="Ready" xml:space="preserve">
     <value>Bereit</value>
   </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>Empfangen</value>
+  </data>
   <data name="Scanning" xml:space="preserve">
     <value>Suche nach Änderungen</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Senden</value>
   </data>
   <data name="Stopped" xml:space="preserve">
     <value>Abgebrochen</value>
