@@ -93,6 +93,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         public string FileText => $"{CurrentFileNumber} / {TotalFileCount} {ResourceLoader.GetForCurrentView("OwncloudUniversal.Shared/Resources").GetString("Files")}";
 
+        public bool IsBackgroundTask { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

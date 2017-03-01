@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Notifications;
 using OwncloudUniversal.Shared.LocalFileSystem;
 using OwncloudUniversal.Shared.Synchronisation;
@@ -51,6 +52,10 @@ namespace OwncloudUniversal.BackgroundSync
             if (_worker != null)
             {
                 ExecutionContext.Instance.Status = ExecutionStatus.Stopped;
+                var downloadOperation = ExecutionContext.Instance.BackgroundTransferOperation as DownloadOperation;
+                downloadOperation?.AttachAsync().Cancel();
+                var operation = ExecutionContext.Instance.BackgroundTransferOperation as UploadOperation;
+                operation?.AttachAsync().Cancel();
                 Task.Run(() =>LogHelper.Write($"BackgroundTask canceled. Reason: {reason}, Status:{ExecutionContext.Instance.Status.ToString()} File: {ExecutionContext.Instance.CurrentFileNumber} of {ExecutionContext.Instance.TotalFileCount}"));
             }
         }
