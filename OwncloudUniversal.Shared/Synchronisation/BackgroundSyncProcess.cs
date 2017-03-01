@@ -27,6 +27,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
         private readonly AbstractAdapter _targetEntityAdapter;
         private readonly bool _isBackgroundTask;
         private int _totalCount;
+        private int _current;
 
         public BackgroundSyncProcess(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter,
             bool isBackgroundTask)
@@ -39,6 +40,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         public async Task Run()
         {
+            LogHelper.ResetLog();
             _watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
             _itemIndex = null;
@@ -46,6 +48,9 @@ namespace OwncloudUniversal.Shared.Synchronisation
             _uploadCount = 0;
             _downloadCount = 0;
             _deletedCount = 0;
+            _totalCount = 0;
+            _current = -1;
+            await SetExectuingFileName("");
             await GetChanges();
             await ProcessItems();
             await Finish();
@@ -452,7 +457,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                     await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         ExecutionContext.Instance.TotalFileCount = _totalCount;
-                        ExecutionContext.Instance.CurrentFileNumber++;
+                        _current++;
+                        ExecutionContext.Instance.CurrentFileNumber = _current;
                         ExecutionContext.Instance.CurrentFileName = entityId;
                     });
                 }

@@ -69,6 +69,7 @@ namespace OwncloudUniversal
                 if (Configuration.IsFirstRun)
                 {
                     Configuration.RemoveCredentials();
+                    Configuration.IsBackgroundTaskEnabled = false;
                     Shell.WelcomeDialog.IsModal = true;
                 }
                 else

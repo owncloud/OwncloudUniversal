@@ -33,7 +33,10 @@ namespace OwncloudUniversal.Shared
         {
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("log.txt",
                     CreationCollisionOption.OpenIfExists);
-            await file.DeleteAsync();
+
+            var prop = await file.GetBasicPropertiesAsync();
+            if(prop.Size > 1 * 1024 * 1024)
+                await file.DeleteAsync();
         }
     }
 }

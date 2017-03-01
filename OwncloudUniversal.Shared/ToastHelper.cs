@@ -12,16 +12,16 @@ namespace OwncloudUniversal.Shared
     {
         public static void SendToast(string message)
         {
+#if DEBUG
             var xmlToastTemplate = "<toast launch=\"app-defined-string\">" +
-                                   "<visual>" +
-                                   "<binding template =\"ToastGeneric\">" +
-                                   "<text>OwncloudUniversal</text>" +
-                                   "<text>" +
-                                   message +
-                                   "</text>" +
-                                   "</binding>" +
-                                   "</visual>" +
-                                   "</toast>";
+                       "<visual>" +
+                       "<binding template =\"ToastGeneric\">" +
+                       "<text>" +
+                       message +
+                       "</text>" +
+                       "</binding>" +
+                       "</visual>" +
+                       "</toast>";
 
             // load the template as XML document
             var xmlDocument = new XmlDocument();
@@ -30,7 +30,7 @@ namespace OwncloudUniversal.Shared
             var toastNotification = new ToastNotification(xmlDocument);
             var notification = ToastNotificationManager.CreateToastNotifier();
             notification.Show(toastNotification);
-        
+#endif
         }
     }
 }
