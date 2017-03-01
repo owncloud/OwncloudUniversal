@@ -390,4 +390,7 @@
   <data name="Bytes" xml:space="preserve">
     <value>Byte</value>
   </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>Ein Fehler ist aufgetreten. Bitte schließen Sie das Programm und versuchen Sie es danach erneut.</value>
+  </data>
 </root>

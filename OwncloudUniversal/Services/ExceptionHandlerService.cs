@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,43 +16,37 @@ namespace OwncloudUniversal.Services
     {
         public static  async void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            e.Handled = true;
 
-            MessageDialog dia = new MessageDialog(e.Message);
+            var exception = e.Exception;
+            Debug.WriteLine(exception.GetType());
+            e.Handled = true;
+            MessageDialog dia = new MessageDialog(App.ResourceLoader.GetString("UnhandledExceptionMessage"));
             dia.Title = App.ResourceLoader.GetString("Ooops");
-            if ((uint)e.Exception.HResult == 0x80072EE7)//server not found
+            if ((uint)exception.HResult == 0x80072EE7)//server not found
             {
                 dia.Content = App.ResourceLoader.GetString("ServerNotFound");
             }
 
-            else if (e.Exception.GetType() == typeof(WebDavException))//-2146233088
+            else if (exception.GetType() == typeof(WebDavException))//-2146233088
             {
-                var ex = (WebDavException)e.Exception;
-                if (ex.HttpStatusCode == HttpStatusCode.Unauthorized)
+                var ex = (WebDavException)exception;
+                switch (ex.HttpStatusCode)
                 {
-                    dia.Content = App.ResourceLoader.GetString("UnauthorizedMessage");
+                    case HttpStatusCode.Unauthorized:
+                        dia.Content = App.ResourceLoader.GetString("UnauthorizedMessage");
+                        break;
+                    case HttpStatusCode.NotFound:
+                        dia.Content = App.ResourceLoader.GetString("NotFoundMessage");
+                        break;
+                    case HttpStatusCode.InternalServerError:
+                        dia.Content = App.ResourceLoader.GetString("InternalServerErrorMessage");
+                        break;
+                    default:
+                        dia.Content = App.ResourceLoader.GetString("ServiceUnavailableMessage");
+                        break;
                 }
-
-                if (ex.HttpStatusCode == HttpStatusCode.NotFound)
-                {
-                    dia.Content = App.ResourceLoader.GetString("NotFoundMessage");
-                }
-
-                if (ex.HttpStatusCode == HttpStatusCode.ServiceUnavailable)
-                {
-                    dia.Content = App.ResourceLoader.GetString("ServiceUnavailableMessage");
-                }
-
-                if (ex.HttpStatusCode == HttpStatusCode.InternalServerError)
-                {
-                    dia.Content = App.ResourceLoader.GetString("InternalServerErrorMessage");
-                }
-
             }
-            else
-            {
-                await LogHelper.Write($"{e.Exception.GetType()}: {e.Message} \r\n{e.Exception.StackTrace}");
-            }
+            await LogHelper.Write($"{e.Exception.GetType()}: {e.Message} \r\n{exception.StackTrace}");
             IndicatorService.GetDefault().HideBar();
             await dia.ShowAsync();
         }

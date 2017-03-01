@@ -396,4 +396,7 @@
   <data name="Bytes" xml:space="preserve">
     <value>bytes</value>
   </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>An error occured. Please restart the application and try again.</value>
+  </data>
 </root>
