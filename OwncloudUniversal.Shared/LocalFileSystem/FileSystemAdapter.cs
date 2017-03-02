@@ -52,6 +52,20 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
                         propertyResult =
                             await ((StorageFolder) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                     var item = new LocalItem(new FolderAssociation {Id = associationId}, file, propertyResult);
+
+                    var existingItem = ItemTableModel.GetDefault().GetItem(item);
+                    if (existingItem != null)
+                    {
+                        if (!item.IsCollection)
+                        {
+                            //additional check if the file has changed:
+                            //even though the size not the best way to make sure if a file has changed
+                            //its very unlikely that after a change they have the exact same byte count
+                            //so its the best option we have
+                            if ((ulong)propertyResult["System.Size"] == existingItem.Size)
+                                continue;
+                        }
+                    }
                     result.Add(item);
                 }
                 catch (Exception)
