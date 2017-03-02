@@ -171,7 +171,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             var links = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
 
             var itemsToProcess = 
-                from baseItem in _itemIndex
+                (from baseItem in _itemIndex
                         .Where(i =>
                          i.Association.SyncDirection == SyncDirection.DownloadOnly &&
                          i.AdapterType == _targetEntityAdapter.GetType() ||
@@ -181,39 +181,28 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 from link in links
                     .Where(x => x.SourceItemId == baseItem.Id || x.TargetItemId == baseItem.Id)
                     .DefaultIfEmpty()
-                select new {LinkStatus = link, BaseItem = baseItem};
+                select new {LinkStatus = link, BaseItem = baseItem}).ToList();
 
             var itemsToAdd = 
-                from item in itemsToProcess
+                (from item in itemsToProcess
                 where item.LinkStatus == null
-                select item.BaseItem;
+                select item.BaseItem).ToList();
 
             var itemsToUpdate = 
-                from item in itemsToProcess
-                where item.BaseItem.ChangeNumber > item.LinkStatus.ChangeNumber
-                select item;
+                (from item in itemsToProcess
+                where item.BaseItem.ChangeNumber > item.LinkStatus?.ChangeNumber
+                select item).ToList();
 
-            try { _totalCount += itemsToUpdate.Count() + itemsToAdd.Count(); }
-            catch (NullReferenceException) { _totalCount += itemsToAdd.Count(); }
-
+            _totalCount += itemsToUpdate.Count + itemsToAdd.Count; 
             await ProcessAdds(itemsToAdd);
             await ProcessUpdates(itemsToUpdate);
         }
 
         private async Task ProcessUpdates(IEnumerable<dynamic> itemsToUpdate)
         {
-            List<dynamic> items;
-            try
-            {
-                items = itemsToUpdate.ToList();
-            }
-            catch (NullReferenceException)
-            {
-                await LogHelper.Write($"0 items to update");
-                return;
-            }
-            await LogHelper.Write($"{items.Count} items to update");
-            foreach (var item in items)
+            var toUpdate = itemsToUpdate as IList<dynamic> ?? itemsToUpdate.ToList();
+            await LogHelper.Write($"{toUpdate.Count} items to update");
+            foreach (var item in toUpdate)
             {
                 try
                 {
