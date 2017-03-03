@@ -12,14 +12,30 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
         <t10:PageHeader x:Uid="SyncConfigurationPageHeader" Content="Folder configuration" Grid.Row="0"/>
-        <ListView Grid.Row="1">
+        <t10:PageHeader x:Uid="FolderConfigurationHeader" Grid.Row="1" BackButtonVisibility="Collapsed" Background="#FF194A8F" FontSize="15"/>
+        <ListView Grid.Row="2" SelectionMode="None" Margin="0,8,0,0">
             <tk:HeaderedTextBlock x:Uid="LocalFolderHeader" Header="LocalFolder" Text="{Binding Association.LocalFolderPath}"/>
             <tk:HeaderedTextBlock x:Uid="RemoteFolderHeader" Header="ownCloud Folder" Text="{Binding Association.RemoteFolderFolderPath, Converter={StaticResource UriToNicePathConverter}}"/>
-            <ComboBox SelectedItem="{Binding Association.SyncDirection, Mode=TwoWay}" ItemsSource="{Binding SyncDirections}"/>
+            <ComboBox x:Uid="SyncDirection" SelectedItem="{Binding Association.SyncDirection, Mode=TwoWay}" 
+                      ItemsSource="{Binding SyncDirections}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumToResourceStringConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock x:Uid="RunSyncMessage" Text="Please make sure that you manually start the first sync!" TextWrapping="WrapWholeWords" Margin="0,12,0,0"/>
+            <Button x:Uid="StartFirstSync" Command="{Binding StartSyncCommand}" IsEnabled="{Binding ExecutionContext.IsActive, Converter={StaticResource BoolConverter}}" Margin="0,12,0,0"/>
         </ListView>
+        <CommandBar Grid.Row="3">
+            <AppBarButton x:Uid="SaveFolderConfiguration" Icon="Save" Command="{Binding SaveCommand}"/>
+            <AppBarButton x:Uid="DeleteFolderConfiguration" Icon="Delete" Command="{Binding DeleteCommand}"/>
+        </CommandBar>
     </Grid>
 </Page>

@@ -16,47 +16,26 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <controls:PageHeader x:Uid="SynchedFolders"
                              Frame="{x:Bind Frame}"
                              Grid.Row="0" />
-
-        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding SyncedFolders}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" Grid.Row="1">
+        <controls:PageHeader x:Uid="FolderConfigurationHeader" Grid.Row="1" BackButtonVisibility="Collapsed" Background="#FF194A8F" FontSize="15"/>
+        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding SyncedFolders}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" Grid.Row="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="12">
                         <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Globe"/>
+                            <SymbolIcon Symbol="World"/>
                             <TextBlock Text="{Binding RemoteFolderFolderPath, Converter={StaticResource UriToNicePathConverter}}" Margin="12,0,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
                             <SymbolIcon Symbol="CellPhone"/>
                             <TextBlock Text="{Binding LocalFolderPath}" Margin="12,0,0,0"/>
                         </StackPanel>
-                        <FlyoutBase.AttachedFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Margin="12" Command="{Binding DataContext.RemoveFromSyncCommand, ElementName=Page}" CommandParameter="{Binding}">
-                                    <MenuFlyoutItem.Template>
-                                        <ControlTemplate TargetType="MenuFlyoutItem">
-                                            <StackPanel Orientation="Horizontal">
-                                                <SymbolIcon Margin="0,0,12,0" Symbol="UnSyncFolder" />
-                                                <TextBlock x:Uid="Unsync" />
-                                            </StackPanel>
-                                        </ControlTemplate>
-                                    </MenuFlyoutItem.Template>
-                                </MenuFlyoutItem>
-                            </MenuFlyout>
-                        </FlyoutBase.AttachedFlyout>
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Holding">
-                                <behaviors:OpenFlyoutAction/>
-                            </core:EventTriggerBehavior>
-                            <core:EventTriggerBehavior EventName="RightTapped">
-                                <behaviors:OpenFlyoutAction/>
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

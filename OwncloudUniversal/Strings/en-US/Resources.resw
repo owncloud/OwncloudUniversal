@@ -223,7 +223,7 @@
     <value>Back button in Title/TaskBar</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>Start Synchronization</value>
+    <value>Start synchronization</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
     <value>Status</value>
@@ -439,12 +439,18 @@
     <value>Mode</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>Delete</value>
+    <value>Remove</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>Save</value>
+    <value>Save changes</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>The contents of the following folders will be synchronized:</value>
+    <value>The content of the following folders will be synchronized:</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>Please start they first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>Start synchronization</value>
   </data>
 </root>

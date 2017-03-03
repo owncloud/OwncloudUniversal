@@ -148,7 +148,7 @@
     <value>Zurück Taste</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>Starte Synchronisation</value>
+    <value>Synchronisation jetzt starten</value>
   </data>
   <data name="SynchedFolders.Text" xml:space="preserve">
     <value>Synchronisierte Ordner</value>
@@ -295,7 +295,7 @@
     <value>Neuer Ordner</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>Auswahlmodus</value>
+    <value>Auswahl</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
     <value>Verbinden</value>
@@ -433,12 +433,18 @@
     <value>Modus</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Entfernen</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>Speichern</value>
+    <value>Änderung speichern</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>Die Inhalter folgender Ordner werden synchronisiert:</value>
+    <value>Die Inhalte folgender Ordner werden synchronisiert:</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>Bitte starten Sie die erste Synchronisation manuell wenn Sie eine WiFi-Verbindung haben und das Gerät mit dem Ladegerät verbunden ist. Der erste Durchlauf kann unter Umständen sehr lange dauern.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>Synchronisation jetzt starten</value>
   </data>
 </root>

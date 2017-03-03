@@ -16,13 +16,13 @@ namespace OwncloudUniversal.Converters
             {
                 name = (value as Uri).ToString();
                 if(name.Contains("webdav/"))
-                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase)+7);
+                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase)+6);
             }
             if (value is string)
             {
                 name = (value as string);
                 if (name.Contains("webdav/"))
-                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase) + 7);
+                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase) + 6);
             }
             return name;
         }
