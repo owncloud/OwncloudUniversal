@@ -453,4 +453,8 @@
   <data name="StartFirstSync.Content" xml:space="preserve">
     <value>Start synchronization</value>
   </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>It is recommended to connect the device with a WiFi network and a charger because the synchronization could take very long and the display will stay active.
+Are you sure you want to start the synchronization now?</value>
+  </data>
 </root>
