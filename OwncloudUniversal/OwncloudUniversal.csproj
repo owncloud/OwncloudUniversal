@@ -108,6 +108,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ContentTypeToSymbolConverter.cs" />
     <Compile Include="Converters\ContentTypeToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumToResourceStringConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedContentTypeToVisibilityConverter.cs" />
     <Compile Include="Converters\ItemToVisibilityConverter.cs" />

@@ -6,7 +6,6 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources;
 using Windows.Networking.BackgroundTransfer;
 
 namespace OwncloudUniversal.Shared.Synchronisation
@@ -29,9 +28,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
             CurrentFileNumber = 0;
             TotalFileCount = 0;
         }
-
-        public string StatusMessage => ResourceLoader.GetForCurrentView("OwncloudUniversal.Shared/Resources").GetString(_status.ToString());
-
+        
         public ExecutionStatus Status
         {
             get { return _status; }
@@ -91,7 +88,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
         public bool ShowProgress => Status == ExecutionStatus.Sending || Status == ExecutionStatus.Receiving;
 
-        public string FileText => $"{CurrentFileNumber} / {TotalFileCount} {ResourceLoader.GetForCurrentView("OwncloudUniversal.Shared/Resources").GetString("Files")}";
+        public string FileText => $"{CurrentFileNumber} / {TotalFileCount}";
 
         public bool IsBackgroundTask { get; set; }
 
