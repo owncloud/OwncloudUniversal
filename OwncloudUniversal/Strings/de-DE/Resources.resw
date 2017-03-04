@@ -330,8 +330,8 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Ooops" xml:space="preserve">
-    <value>Uuups..</value>
+  <data name="Oops" xml:space="preserve">
+    <value>Hoppla</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
     <value>Große Dateien nicht herunterladen. Grenze in MB:</value>
@@ -427,7 +427,7 @@
     <value>Normal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>Nur Herunterladen</value>
+    <value>Nur Hochladen</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
     <value>Modus</value>
@@ -450,5 +450,8 @@
   <data name="SyncWarning" xml:space="preserve">
     <value>Es wird empfohlen das Gerät mit einem Ladegerät und einem WiFi-Netzwerk zu verbinden, da die Synchronisation lange dauern kann und das Display aktiviert bleibt.
 Sind Sie sicher, dass Sie die Synchronisation trotzdem starten möchten?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>Der Server erlaubt diesen Vorgang nicht.</value>
   </data>
 </root>

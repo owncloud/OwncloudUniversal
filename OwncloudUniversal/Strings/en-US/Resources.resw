@@ -121,7 +121,7 @@
     <value>About</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>Enable Synchronization</value>
+    <value>Enable synchronization</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
     <value>Transfer will also complete if the app is in the background!</value>
@@ -133,16 +133,16 @@
     <value>Connection</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
-    <value>CurrentFile</value>
+    <value>Current File</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>Delete file?</value>
+    <value>Delete File?</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>Delete folder?</value>
+    <value>Delete Folder?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
     <value>Disable synchronization</value>
@@ -154,13 +154,13 @@
     <value>Downloading...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
-    <value>Automatic Synchronisation</value>
+    <value>Automatic synchronization</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>Background Task Disabled</value>
+    <value>Background task disabled</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>Background Task Enabled</value>
+    <value>Background task enabled</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
     <value>Files</value>
@@ -232,7 +232,7 @@
     <value>Synced Folders</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Synchronization (Beta)</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
     <value>Synchronization (Beta)</value>
@@ -313,7 +313,7 @@
     <value>The requested resource could not be found</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>The service is currently not available</value>
+    <value>The service is currently not available.</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
     <value>Login failed</value>
@@ -330,11 +330,11 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Ooops" xml:space="preserve">
-    <value>Ooops..</value>
+  <data name="Oops" xml:space="preserve">
+    <value>Oops</value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
-    <value>Delete file?</value>
+    <value>Delete File?</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
     <value>Sync Status</value>
@@ -355,7 +355,7 @@
     <value>Move</value>
   </data>
   <data name="NewName" xml:space="preserve">
-    <value>New name:</value>
+    <value>New Name:</value>
   </data>
   <data name="Rename.Text" xml:space="preserve">
     <value>Rename</value>
@@ -373,10 +373,10 @@
     <value>Configuration</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>Automatic synchronisation</value>
+    <value>Automatic synchronization</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>Connection successful! WARNING: The connection is not encrypted!</value>
+    <value>Connection successful! Warning: The connection is not encrypted!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
     <value>Wrong username or password.</value>
@@ -456,5 +456,8 @@
   <data name="SyncWarning" xml:space="preserve">
     <value>It is recommended to connect the device with a WiFi network and a charger because the synchronization could take very long and the display will stay active.
 Are you sure you want to start the synchronization now?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>The server does not allow this operation.</value>
   </data>
 </root>
