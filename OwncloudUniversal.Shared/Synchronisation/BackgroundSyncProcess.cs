@@ -139,7 +139,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                         }
                     }
 
-                    LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
+                    if(link != null)
+                        LinkStatusTableModel.GetDefault().DeleteItem(link.Id);
 
                     if (item.IsCollection)
                     {
