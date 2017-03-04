@@ -44,7 +44,12 @@ namespace OwncloudUniversal.ViewModels
         {
             HomeCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(SelectFolderPage), new DavItem{EntityId = Configuration.ServerUrl}, new SuppressNavigationTransitionInfo()));
             AcceptCommand = new DelegateCommand(async () => await Move());
-            CancelCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FilesPage), SelectedItem, new SuppressNavigationTransitionInfo()));
+            CancelCommand = new DelegateCommand(async () =>
+            {
+
+                await WebDavNavigationService.ReloadAsync();
+                await NavigationService.NavigateAsync(typeof(FilesPage), SelectedItem, new SuppressNavigationTransitionInfo());
+            });
             CreateFolderCommand = new DelegateCommand(async () => await CreateFolderAsync());
         }
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
