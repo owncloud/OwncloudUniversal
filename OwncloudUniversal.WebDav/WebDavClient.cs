@@ -54,7 +54,7 @@ namespace OwncloudUniversal.WebDav
             var downloader = new BackgroundDownloader();
             downloader.CostPolicy = ExecutionContext.Instance.IsBackgroundTask
                 ? BackgroundTransferCostPolicy.UnrestrictedOnly
-                : BackgroundTransferCostPolicy.Default;
+                : BackgroundTransferCostPolicy.Always;
             downloader.ServerCredential = new PasswordCredential(_serverUrl.ToString(), _credential.UserName, _credential.Password);
             Progress<DownloadOperation> progressCallback = new Progress<DownloadOperation>(async operation => await OnDownloadProgressChanged(operation));
             var download = downloader.CreateDownload(url, targetFile);
@@ -81,7 +81,7 @@ namespace OwncloudUniversal.WebDav
             BackgroundUploader uploader = new BackgroundUploader();
             uploader.CostPolicy = ExecutionContext.Instance.IsBackgroundTask
                 ? BackgroundTransferCostPolicy.UnrestrictedOnly
-                : BackgroundTransferCostPolicy.Default;
+                : BackgroundTransferCostPolicy.Always;
             uploader.Method = "PUT";
             var buffer = CryptographicBuffer.ConvertStringToBinary(_credential.UserName + ":" + _credential.Password, BinaryStringEncoding.Utf8);
             var token = CryptographicBuffer.EncodeToBase64String(buffer);

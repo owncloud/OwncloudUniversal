@@ -90,7 +90,7 @@ namespace OwncloudUniversal.Services
             if (battery.Status == BatteryStatus.Discharging)
                 result = false;
             var connectionCost = NetworkInformation.GetInternetConnectionProfile()?.GetConnectionCost();
-            if (connectionCost?.NetworkCostType != NetworkCostType.Unknown || connectionCost?.NetworkCostType != NetworkCostType.Unrestricted)
+            if (!(connectionCost?.NetworkCostType == NetworkCostType.Unknown || connectionCost?.NetworkCostType == NetworkCostType.Unrestricted))
             {
                 result = false;
             }
