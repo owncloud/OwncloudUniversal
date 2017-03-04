@@ -454,4 +454,16 @@ Sind Sie sicher, dass Sie die Synchronisation trotzdem starten möchten?</value>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
     <value>Der Server erlaubt diesen Vorgang nicht.</value>
   </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>Achtung: Der gewählte Ordner ist nicht von der Windows-Suche indiziert. 
+
+Dies kann zu unerwartetem Verhalten führen.
+Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>Achtung: Der gewählte Ordner ist nur teilweise von der Windows-Suche indiziert. 
+
+Dies kann zu unerwartetem Verhalten führen.
+Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
+  </data>
 </root>

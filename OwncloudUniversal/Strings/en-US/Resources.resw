@@ -460,4 +460,16 @@ Are you sure you want to start the synchronization now?</value>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
     <value>The server does not allow this operation.</value>
   </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>Attention: The chosen folder is not indexed by Windows search. 
+
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>Attention: The chosen folder is just partially indexed by Windows search. 
+
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
+  </data>
 </root>

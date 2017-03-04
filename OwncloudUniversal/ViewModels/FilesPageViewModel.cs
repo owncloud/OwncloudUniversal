@@ -15,6 +15,7 @@ using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
+using Windows.Storage.Search;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
@@ -146,6 +147,17 @@ namespace OwncloudUniversal.ViewModels
                 var folder = await folderPicker.PickSingleFolderAsync();
                 if (folder == null)
                     return;
+                var state = await folder.GetIndexedStateAsync();
+                if (state == IndexedState.NotIndexed || state == IndexedState.PartiallyIndexed)
+                {
+                    ContentDialog dialog = new ContentDialog();
+                    dialog.Content = state == IndexedState.NotIndexed ? App.ResourceLoader.GetString("NotIndexedError") : App.ResourceLoader.GetString("PartiallyIndexedError");
+                    dialog.PrimaryButtonText = App.ResourceLoader.GetString("yes");
+                    dialog.SecondaryButtonText = App.ResourceLoader.GetString("no");
+                    var result = await dialog.ShowAsync();
+                    if(result == ContentDialogResult.Secondary)
+                        return;
+                }
                 var fa = await _syncedFolderService.AddFolderToSyncAsync(folder, (DavItem) parameter);
                 NavigationService.Navigate(typeof(SyncedFolderConfigurationPage), fa, new SuppressNavigationTransitionInfo());
             }
