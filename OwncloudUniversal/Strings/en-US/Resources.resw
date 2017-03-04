@@ -445,7 +445,7 @@
     <value>Save changes</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>The content of the following folders will be synchronized:</value>
+    <value>The content of the following folders will be synced:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
     <value>Please start they first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>

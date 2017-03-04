@@ -190,6 +190,7 @@ namespace OwncloudUniversal.Services
             IndicatorService.GetDefault().ShowBar();
             Items.Clear();
             Items.AddRange(await _itemService.GetItemsAsync(new Uri(CurrentItem.EntityId, UriKind.RelativeOrAbsolute)));
+            OnPropertyChanged("Items");
             IndicatorService.GetDefault().HideBar();
         }
 
