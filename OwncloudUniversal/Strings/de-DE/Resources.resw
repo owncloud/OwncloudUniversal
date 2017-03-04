@@ -132,7 +132,7 @@
   <data name="FilesToSync.Header" xml:space="preserve">
     <value>Ausstehende Dateien</value>
   </data>
-  <data name="Password.Header" xml:space="preserve">
+  <data name="PasswordHeader.Text" xml:space="preserve">
     <value>Kennwort</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
@@ -159,7 +159,7 @@
   <data name="SyncStatus.Header" xml:space="preserve">
     <value>Sync Status</value>
   </data>
-  <data name="UserName.Header" xml:space="preserve">
+  <data name="UserNameHeader.Text" xml:space="preserve">
     <value>Benutzername</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
@@ -300,7 +300,7 @@
   <data name="Connect.Content" xml:space="preserve">
     <value>Verbinden</value>
   </data>
-  <data name="ServerAddress.Header" xml:space="preserve">
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
     <value>Serveradresse</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
