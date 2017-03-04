@@ -120,25 +120,25 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <toolkit:ImageEx
-                            Grid.Column="0"
+                        <Canvas Grid.Column="0" Height="44" Width="44">
+                            <toolkit:ImageEx
                             IsCacheEnabled="True"
                             Source="{Binding ThumbnailUrl}"
                             PlaceholderSource="/Assets/FileTypes/image.png"
                             PlaceholderStretch="UniformToFill"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
-                            Margin="0,0,3,0"
                             Height="40" 
                             Width="40"
                             Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}"/>
-                        <Image Grid.Column="0" 
+                            <Image 
                                VerticalAlignment="Center"
                                Height="40"
                                Width="40"
-                               Margin="0,0,3,0"
                                Source="{Binding ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
                                Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
+                            <Image Source="{Binding Converter={StaticResource ItemToSyncStatusConverter}}" Stretch="Uniform" Width="32" Canvas.Top="2" Canvas.Left="12"/>
+                        </Canvas>
 
                         <StackPanel Grid.Column="1">
                             <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
