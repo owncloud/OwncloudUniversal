@@ -186,7 +186,7 @@
   <data name="OutOf.Text" xml:space="preserve">
     <value>of</value>
   </data>
-  <data name="Password.Header" xml:space="preserve">
+  <data name="PasswordHeader.Text" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
@@ -246,7 +246,7 @@
   <data name="Upload.Label" xml:space="preserve">
     <value>Upload files</value>
   </data>
-  <data name="UserName.Header" xml:space="preserve">
+  <data name="UserNameHeader.Text" xml:space="preserve">
     <value>Username</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
@@ -300,8 +300,8 @@
   <data name="Connect.Content" xml:space="preserve">
     <value>Verbinden</value>
   </data>
-  <data name="ServerAddress.Header" xml:space="preserve">
-    <value>Serveradresse</value>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>Serveraddress</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
     <value>The server could not be found. Please check the URL and your internet connection.</value>

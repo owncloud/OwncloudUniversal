@@ -7,6 +7,7 @@
     <x:Double x:Key="WideMinWidth">1200</x:Double>
 
     <Color x:Key="CustomColor">#1D2D44</Color>
+    <Color x:Key="CustomColorContrast">White</Color>
     <Color x:Key="SystemAccentColor">#1D2D44</Color>
     <SolidColorBrush x:Key="ForegroundMediumBrush" Color="#808080"/>
 
@@ -15,6 +16,7 @@
         <ResourceDictionary x:Key="Light">
 
             <SolidColorBrush x:Key="CustomColorBrush" Color="{StaticResource CustomColor}" />
+            <SolidColorBrush x:Key="CustomColorContrastBrush" Color="{StaticResource CustomColorContrast}" />
             <SolidColorBrush x:Key="ContrastColorBrush" Color="{StaticResource ContrastColor}" />
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="{StaticResource ContrastColor}" />
@@ -44,6 +46,7 @@
         <ResourceDictionary x:Key="Default">
 
             <SolidColorBrush x:Key="CustomColorBrush" Color="{StaticResource CustomColor}" />
+            <SolidColorBrush x:Key="CustomColorContrastBrush" Color="{StaticResource CustomColorContrast}" />
             <SolidColorBrush x:Key="ContrastColorBrush" Color="{StaticResource ContrastColor}" />
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="{StaticResource ContrastColor}" />
