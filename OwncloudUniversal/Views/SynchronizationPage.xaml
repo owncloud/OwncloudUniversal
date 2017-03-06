@@ -63,9 +63,9 @@
                 </StackPanel>
             </PivotItem>
 
-            <!--<PivotItem x:Uid="History">
+            <PivotItem x:Uid="History">
                 <TextBlock Text="Coming soon.. :)"/>
-            </PivotItem>-->
+            </PivotItem>
         </Pivot>
     </Grid>
 </Page>

@@ -91,8 +91,8 @@ namespace OwncloudUniversal.Shared.Synchronisation
                 _itemIndex = await getUpdatedSourceTask;
                 _itemIndex.AddRange(await getUpdatedTargetTask);
 
-                await ProcessDeletions();
                 await _UpdateFileIndexes(association);
+                await ProcessDeletions();
                 await LogHelper.Write($"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
             }
         }

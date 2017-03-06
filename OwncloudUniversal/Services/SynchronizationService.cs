@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Devices.Power;
 using Windows.Networking.Connectivity;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.System;
 using Windows.System.Display;
 using Windows.System.Power;
 using Windows.UI.Core;
@@ -22,7 +25,7 @@ namespace OwncloudUniversal.Services
 {
     class SynchronizationService
     {
-        public readonly BackgroundSyncProcess Worker;
+        private BackgroundSyncProcess _worker;
 
         private static SynchronizationService _instance;
 
@@ -35,10 +38,15 @@ namespace OwncloudUniversal.Services
 
         private SynchronizationService()
         {
+            _Initialize();
+        }
+
+        private void _Initialize()
+        {
             var fileSystem = new FileSystemAdapter(false, null);
             var webDav = new WebDavAdapter(false, Configuration.ServerUrl, Configuration.Credential, fileSystem);
             fileSystem.LinkedAdapter = webDav;
-            Worker = new BackgroundSyncProcess(fileSystem, webDav, false);
+            _worker = new BackgroundSyncProcess(fileSystem, webDav, false);
         }
 
         public async Task StartSyncProcess()
@@ -70,7 +78,8 @@ namespace OwncloudUniversal.Services
                             displayRequest = new DisplayRequest();
                             displayRequest.RequestActive();
                         });
-                        await Worker.Run();
+                        _Initialize();
+                        await _worker.Run();
                     }
                     finally
                     {

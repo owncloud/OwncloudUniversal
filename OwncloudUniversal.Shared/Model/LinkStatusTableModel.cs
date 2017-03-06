@@ -144,5 +144,13 @@ namespace OwncloudUniversal.Model
             }
             return items;
         }
+
+        public void DeleteLinksFromAssociation(FolderAssociation association)
+        {
+            using (var query = Connection.Prepare($"delete from LinkStatus where AssociationId='{association.Id}'"))
+            {
+                query.Step();
+            }
+        }
     }
 }

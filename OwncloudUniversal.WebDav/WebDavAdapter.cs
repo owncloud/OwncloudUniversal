@@ -148,8 +148,8 @@ namespace OwncloudUniversal.WebDav
                 if (!await _davClient.Exists(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute)))
                 {
                     await _davClient.CreateFolder(new Uri(currentFolder + '/' + folderName, UriKind.RelativeOrAbsolute));
-                    _existingFolders.Add(currentFolder + '/' + folderName);
                 }
+                _existingFolders.Add(currentFolder + '/' + folderName);
                 currentFolder += '/' + folderName;
             }
         }

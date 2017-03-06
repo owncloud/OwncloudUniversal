@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
+using OwncloudUniversal.Model;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.WebDav;
 using OwncloudUniversal.WebDav.Model;
@@ -58,6 +59,7 @@ namespace OwncloudUniversal.Services
         public void RemoveFromSyncedFolders(FolderAssociation association)
         {
             ItemTableModel.GetDefault().DeleteItemsFromAssociation(association);
+            LinkStatusTableModel.GetDefault().DeleteLinksFromAssociation(association);
             FolderAssociationTableModel.GetDefault().DeleteItem(association.Id);
         }
     }

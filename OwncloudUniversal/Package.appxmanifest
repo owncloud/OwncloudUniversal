@@ -36,7 +36,7 @@
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="internetClientServer" />
+    <Capability Name="internetClient" />
     <Capability Name="privateNetworkClientServer" />
   </Capabilities>
 </Package>
