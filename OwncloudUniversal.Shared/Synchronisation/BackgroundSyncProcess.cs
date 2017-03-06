@@ -267,7 +267,6 @@ namespace OwncloudUniversal.Shared.Synchronisation
             {
                 try
                 {
-                    await LogHelper.Write($"{baseItems.Count()} items to add");
                     await SetExectuingFileName(item.EntityId);
                     if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
                         break;
@@ -382,7 +381,7 @@ namespace OwncloudUniversal.Shared.Synchronisation
 
                 }
             }
-            association.LastSync = DateTime.UtcNow;
+            association.LastSync = DateTime.Now;
             FolderAssociationTableModel.GetDefault().UpdateItem(association, association.Id);
         }
 

@@ -48,6 +48,8 @@ namespace OwncloudUniversal.Services
             fa.RemoteFolderId = ri.Id;
             fa.LocalFolderId = li.Id;
             FolderAssociationTableModel.GetDefault().UpdateItem(fa, fa.Id);
+            var link = new LinkStatus(li,ri);
+            LinkStatusTableModel.GetDefault().InsertItem(link);
             return fa;
         }
 

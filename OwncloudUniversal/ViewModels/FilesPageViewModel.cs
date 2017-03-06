@@ -103,7 +103,7 @@ namespace OwncloudUniversal.ViewModels
         {
             if (args.NavigationMode == NavigationMode.Back && args.TargetPageType == typeof(SelectFolderPage))
             {
-                args.TargetPageType = this.GetType();
+                args.TargetPageType = typeof(FilesPage);
             }
             return base.OnNavigatingFromAsync(args);
         }
