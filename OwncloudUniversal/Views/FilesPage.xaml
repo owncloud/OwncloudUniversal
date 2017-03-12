@@ -147,11 +147,11 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
                                 <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
-
-                                <TextBlock  Foreground="{ThemeResource ForegroundMediumBrush}" Text="{Binding LastModified, Converter={StaticResource DateTimeToDaysAgoConverter}}" 
-                                       HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                <TextBlock VerticalAlignment="Center"  Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Left"/>
                             </StackPanel>
-                            <TextBlock Grid.Column="1" VerticalAlignment="Center"  Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Right"/>
+
+                            <TextBlock Grid.Column="1" Foreground="{ThemeResource ForegroundMediumBrush}" Text="{Binding LastModified, Converter={StaticResource DateTimeToDaysAgoConverter}}" 
+                                       HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 
                         </Grid>
 
