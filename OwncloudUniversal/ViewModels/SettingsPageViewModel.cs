@@ -149,8 +149,8 @@ namespace OwncloudUniversal.ViewModels
                 return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
             }
         }
-
-        public Uri RateMe => new Uri("http://aka.ms/template10");
+        
+        public ICommand GenerateReportCommand => new DelegateCommand(DiagnosticReportHelper.GenerateReport);
     }
 }
 

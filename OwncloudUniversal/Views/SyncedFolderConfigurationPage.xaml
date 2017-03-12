@@ -18,7 +18,14 @@
         </Grid.RowDefinitions>
 
         <t10:PageHeader x:Uid="SyncConfigurationPageHeader" Content="Folder configuration" Grid.Row="0"/>
-        <t10:PageHeader x:Uid="FolderConfigurationHeader" Grid.Row="1" BackButtonVisibility="Collapsed" Background="#FF194A8F" FontSize="15"/>
+        <Border  Grid.Row="1" Background="#FF194A8F" Height="48" HorizontalAlignment="Stretch">
+            <TextBlock x:Uid="FolderConfigurationHeader" 
+                       Foreground="{ThemeResource CustomColorContrastBrush}" 
+                       TextWrapping="WrapWholeWords" 
+                       Text="The following folders will be synced"
+                       FontSize="15"
+                       Margin="12"/>
+        </Border> 
         <ListView Grid.Row="2" SelectionMode="None" Margin="0,8,0,0">
             <tk:HeaderedTextBlock x:Uid="LocalFolderHeader" Header="LocalFolder" Text="{Binding Association.LocalFolderPath}"/>
             <tk:HeaderedTextBlock x:Uid="RemoteFolderHeader" Header="ownCloud Folder" Text="{Binding Association.RemoteFolderFolderPath, Converter={StaticResource UriToNicePathConverter}}"/>

@@ -10,6 +10,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Data;
 using Windows.Web.Http;
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.UI;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.SQLite;
@@ -64,6 +65,7 @@ namespace OwncloudUniversal
         {
             // TODO: add your long-running task here
             SQLiteClient.Init();
+            ImageCache.Instance.MaxMemoryCacheCount = Int32.MaxValue;
             if (startKind == StartKind.Launch)
             {
                 if (Configuration.IsFirstRun)

@@ -10,6 +10,7 @@
       xmlns:local="using:OwncloudUniversal.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:OwncloudUniversal.ViewModels"
+      xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d">
 
     <Page.DataContext>
@@ -127,7 +128,8 @@
                         </Border.Background>
                         <Image Margin="12"
                                Source="{Binding Logo}"
-                               Stretch="None"/>
+                               Stretch="Uniform"
+                               MaxWidth="128"/>
                     </Border>
 
                     <TextBlock x:Name="DisplayNameTextBlock"
@@ -138,18 +140,39 @@
                                RelativePanel.AlignTopWithPanel="True"
                                Text="{Binding DisplayName}" />
 
-                    <TextBlock x:Name="PublisherTextBlock"
-                               RelativePanel.AlignLeftWithPanel="True"
-                               RelativePanel.Below="DisplayNameTextBlock"
-                               Text="{Binding Publisher}" />
+                    <toolkit:HeaderedTextBlock x:Name="PublisherTextBlock"
+                                               x:Uid="Publisher"
+                                               RelativePanel.AlignLeftWithPanel="True"
+                                               RelativePanel.Below="DisplayNameTextBlock"
+                                               Text="{Binding Publisher}" />
 
-                    <TextBlock x:Name="VersionTextBlock"
-                               RelativePanel.AlignLeftWithPanel="True"
-                               RelativePanel.Below="PublisherTextBlock">
-                        <Run>Version</Run>
-                        <Run Text="{Binding Version}" />
-                    </TextBlock>
+                    <toolkit:HeaderedTextBlock x:Name="VersionTextBlock"
+                                               x:Uid="Version"
+                                               RelativePanel.AlignLeftWithPanel="True"
+                                               RelativePanel.Below="PublisherTextBlock"
+                                               Text="{Binding Version}"/>
 
+                    <HyperlinkButton x:Name="ProjectUrl"
+
+                                     x:Uid="ProjectUrl" NavigateUri="https://github.com/owncloud/OwncloudUniversal"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.Below="VersionTextBlock"
+                                     Foreground="{ThemeResource ContrastColorBrush}"/>
+
+
+                    <HyperlinkButton x:Name="SupportUrl"
+                                     x:Uid="SupportUrl" NavigateUri="https://github.com/owncloud/OwncloudUniversal/issues"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.Below="ProjectUrl"
+                                     Foreground="{ThemeResource ContrastColorBrush}"/>
+
+                    <Button x:Uid="ReportButton"
+                            x:Name="ReportButton"
+                            Command="{Binding GenerateReportCommand}"
+                            RelativePanel.AlignLeftWithPanel="True"
+                            RelativePanel.Below="SupportUrl"
+                            Content="Genereate diagnostic report"/>
+                    
                 </RelativePanel>
             </PivotItem>
         </Pivot>
