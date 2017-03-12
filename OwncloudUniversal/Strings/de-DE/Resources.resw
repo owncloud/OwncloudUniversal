@@ -482,9 +482,9 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
     <value>Diagnosebericht per E-Mail senden</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>Vorraussetzungen:
-- Das Ladegerät muss verbunden sein.
-- WiFi-Verbindung hergestellt
+    <value>Die Synchronisation startet nach einiger Zeit automatisch wenn folgende Bedingungen erfüllt sind:
+- Das Ladegerät muss angeschlossen sein.
+- Eine WiFi-Verbindung ist möglich.
 - Das Gerät wird nicht genutzt. (nur bei mobilen Geräten)</value>
   </data>
   <data name="day" xml:space="preserve">

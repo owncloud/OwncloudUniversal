@@ -60,7 +60,7 @@
                             </DataTemplate>
                         </ToggleSwitch.HeaderTemplate>
                     </ToggleSwitch>
-                    <TextBlock x:Uid="SyncConditions" Visibility="{Binding BackgroundTaskEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <TextBlock x:Uid="SyncConditions" Visibility="{Binding BackgroundTaskEnabled, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
             </PivotItem>
 

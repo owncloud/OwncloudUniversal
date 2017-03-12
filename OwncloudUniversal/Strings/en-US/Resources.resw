@@ -488,10 +488,10 @@ Are you sure you want to use this folder?</value>
     <value>Send diagnostic report via email</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>Conditions:
-- The device has to be connected to a charger
-- WiFi-Connection established
-- The device is not in use</value>
+    <value>The synchronisation will start in the background if the following conditions are met:
+- The device is connected to a charger.
+- A WiFi-Connection is established.
+- The device is not in use.</value>
   </data>
   <data name="day" xml:space="preserve">
     <value>day</value>
