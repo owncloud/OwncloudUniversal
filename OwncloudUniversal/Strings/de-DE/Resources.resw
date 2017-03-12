@@ -481,4 +481,10 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
   <data name="ReportButton.Content" xml:space="preserve">
     <value>Diagnosebericht per E-Mail senden</value>
   </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>Vorraussetzungen:
+- Das Ladegerät muss verbunden sein.
+- WiFi-Verbindung hergestellt
+- Das Gerät wird nicht genutzt. (nur bei mobilen Geräten)</value>
+  </data>
 </root>

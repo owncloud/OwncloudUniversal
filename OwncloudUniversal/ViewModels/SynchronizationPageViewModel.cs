@@ -34,6 +34,7 @@ namespace OwncloudUniversal.ViewModels
             set
             { 
                 Configuration.IsBackgroundTaskEnabled = value;
+                RaisePropertyChanged();
             }
         }
     }

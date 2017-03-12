@@ -487,4 +487,10 @@ Are you sure you want to use this folder?</value>
   <data name="ReportButton.Content" xml:space="preserve">
     <value>Send diagnostic report via email</value>
   </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>Conditions:
+- The device has to be connected to a charger
+- WiFi-Connection established
+- The device is not in use</value>
+  </data>
 </root>
