@@ -65,7 +65,13 @@
                 </StackPanel>
             </controls1:PageHeader.Content>
         </controls1:PageHeader>
-        <controls1:PageHeader x:Uid="SelectFolder" Grid.Row="1" BackButtonVisibility="Collapsed" Background="#FF194A8F"/>
+        <Border  Grid.Row="1" Background="#FF194A8F" Height="48" HorizontalAlignment="Stretch">
+            <TextBlock x:Uid="SelectFolder"
+                       Foreground="{ThemeResource CustomColorContrastBrush}" 
+                       TextWrapping="WrapWholeWords" 
+                       FontSize="15"
+                       Margin="12"/>
+        </Border>
         <ListView x:Name="ListView" 
                   Grid.Row="2" 
                   ItemsSource="{Binding WebDavNavigationService.Items}" 
