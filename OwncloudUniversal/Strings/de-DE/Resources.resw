@@ -421,7 +421,7 @@
     <value>Aktualisiere Datenbank</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
-    <value>Nur Hochladen</value>
+    <value>Nur Herunterladen</value>
   </data>
   <data name="FullSync" xml:space="preserve">
     <value>Normal</value>
@@ -439,7 +439,7 @@
     <value>Änderung speichern</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>Die Inhalte folgender Ordner werden synchronisiert:</value>
+    <value>Die Inhalte dieser Ordner werden synchronisiert:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
     <value>Bitte starten Sie die erste Synchronisation manuell wenn Sie eine WiFi-Verbindung haben und das Gerät mit dem Ladegerät verbunden ist. Der erste Durchlauf kann unter Umständen sehr lange dauern.</value>
@@ -465,5 +465,20 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
 
 Dies kann zu unerwartetem Verhalten führen.
 Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>Quelltext anzeigen</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>Support kontaktieren</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>Veröffentlicht von</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>Diagnosebericht per E-Mail senden</value>
   </data>
 </root>

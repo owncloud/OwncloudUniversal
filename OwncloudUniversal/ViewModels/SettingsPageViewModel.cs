@@ -150,7 +150,7 @@ namespace OwncloudUniversal.ViewModels
             }
         }
         
-        public ICommand GenerateReportCommand => new DelegateCommand(DiagnosticReportHelper.GenerateReport);
+        public ICommand GenerateReportCommand => new DelegateCommand(async ()=> await DiagnosticReportHelper.GenerateReport());
     }
 }
 

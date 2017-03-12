@@ -205,7 +205,7 @@
     <value>Light</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Reset App</value>
+    <value>Reset this App</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
     <value>Settings</value>
@@ -298,7 +298,7 @@
     <value>Select mode</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
-    <value>Verbinden</value>
+    <value>Connect</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
     <value>Serveraddress</value>
@@ -445,10 +445,10 @@
     <value>Save changes</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>The content of the following folders will be synced:</value>
+    <value>The content of these folders will be synced:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Please start they first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>
+    <value>Please start the first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
     <value>Start synchronization</value>
@@ -471,5 +471,20 @@ Are you sure you want to use this folder?</value>
 
 This can lead to unexpected behaviour.
 Are you sure you want to use this folder?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>View source code</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>Contact support</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>Send diagnostic report via email</value>
   </data>
 </root>

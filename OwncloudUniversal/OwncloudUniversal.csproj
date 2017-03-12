@@ -129,6 +129,7 @@
     <Compile Include="Services\SyncedFoldersService.cs" />
     <Compile Include="Services\SynchronizationService.cs" />
     <Compile Include="Services\WebDavItemService.cs" />
+    <Compile Include="Utils\DiagnosticReportHelper.cs" />
     <Compile Include="Utils\MimeTypeHelper.cs" />
     <Compile Include="Utils\ThemeHelper.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />

@@ -129,7 +129,7 @@
                         <Image Margin="12"
                                Source="{Binding Logo}"
                                Stretch="Uniform"
-                               MaxWidth="128"/>
+                               MaxWidth="64"/>
                     </Border>
 
                     <TextBlock x:Name="DisplayNameTextBlock"
@@ -168,6 +168,7 @@
 
                     <Button x:Uid="ReportButton"
                             x:Name="ReportButton"
+                            Margin="0,12,0,0"
                             Command="{Binding GenerateReportCommand}"
                             RelativePanel.AlignLeftWithPanel="True"
                             RelativePanel.Below="SupportUrl"
