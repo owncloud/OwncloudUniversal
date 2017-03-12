@@ -25,8 +25,8 @@
             <toolkit:HeaderedTextBlock Text="{Binding Item.LastModified}" x:Uid="FileModified"/>
             <toolkit:HeaderedTextBlock Text="{Binding Item.ContentType}" x:Uid="FileContentType"/>
             <toolkit:HeaderedTextBlock Text="{Binding Item.Size,Converter={StaticResource BytesToSuffixConverter}}" x:Uid="FileSize"/>
-            <toolkit:HeaderedTextBlock Text="{Binding Item.IsSynced}" x:Uid="FileIsSynced"/>
-            <toolkit:HeaderedTextBlock Text="{Binding Item.Etag}" x:Uid="FileEtag"/>
+            <!--<toolkit:HeaderedTextBlock Text="{Binding Item.IsSynced}" x:Uid="FileIsSynced"/>
+            <toolkit:HeaderedTextBlock Text="{Binding Item.Etag}" x:Uid="FileEtag"/>-->
         </ListView>
     </Grid>
 

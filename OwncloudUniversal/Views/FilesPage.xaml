@@ -140,10 +140,20 @@
                                Source="{Binding ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
                                Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
 
-                        <StackPanel Grid.Column="1">
-                            <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Stretch"/>
-                        </StackPanel>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
+
+                                <TextBlock  Foreground="{ThemeResource ForegroundMediumBrush}" Text="{Binding LastModified, Converter={StaticResource DateTimeToDaysAgoConverter}}" 
+                                       HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Center"  Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Right"/>
+
+                        </Grid>
 
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>

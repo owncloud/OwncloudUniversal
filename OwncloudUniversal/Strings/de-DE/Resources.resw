@@ -487,4 +487,49 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
 - WiFi-Verbindung hergestellt
 - Das Gerät wird nicht genutzt. (nur bei mobilen Geräten)</value>
   </data>
+  <data name="day" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="days" xml:space="preserve">
+    <value>Tagen</value>
+  </data>
+  <data name="hour" xml:space="preserve">
+    <value>Stunde</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>Stunden</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>gerade eben</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="minutes" xml:space="preserve">
+    <value>Minuten</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>Monat</value>
+  </data>
+  <data name="months" xml:space="preserve">
+    <value>Monaten</value>
+  </data>
+  <data name="second" xml:space="preserve">
+    <value>Sekunde</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>Sekunden</value>
+  </data>
+  <data name="TimeSpanPrefix" xml:space="preserve">
+    <value>vor</value>
+  </data>
+  <data name="TimeSpanSuffix" xml:space="preserve">
+    <value />
+  </data>
+  <data name="year" xml:space="preserve">
+    <value>Jahr</value>
+  </data>
+  <data name="years" xml:space="preserve">
+    <value>Jahren</value>
+  </data>
 </root>
