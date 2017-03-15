@@ -382,7 +382,7 @@
     <value>Wrong username or password.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>The server is in maintenance mode or the installation is incomplete. Please try again later or contact your system administrator.</value>
+    <value>An error occured. Maybe the server is in maintenance mode or the installation is incomplete. Please try again later or contact your system administrator.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
     <value>Do you really want to reset this app?</value>

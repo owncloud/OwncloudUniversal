@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using Newtonsoft.Json;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.WebDav.Model;
 using HttpMethod = Windows.Web.Http.HttpMethod;
@@ -29,15 +30,22 @@ namespace OwncloudUniversal.WebDav
             var url = _BuildStatusUrl(input);
             if (url == null)
                 return null;
-            WebDavRequest request = new WebDavRequest(new NetworkCredential(string.Empty, string.Empty), url,HttpMethod.Get);
+            WebDavRequest request = new WebDavRequest(new NetworkCredential(string.Empty, string.Empty), url, HttpMethod.Get);
             var response = await request.SendAsync();
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"Serverstatus response: {content}");
-                var status = Newtonsoft.Json.JsonConvert.DeserializeObject<ServerStatus>(content);
-                status.ResponseCode = response.StatusCode.ToString();
-                return status;
+                try
+                {
+                    var status = Newtonsoft.Json.JsonConvert.DeserializeObject<ServerStatus>(content);
+                    status.ResponseCode = response.StatusCode.ToString();
+                    return status;
+                }
+                catch (JsonException)
+                {
+                    return new ServerStatus() {ResponseCode = HttpStatusCode.NotFound.ToString()};
+                }
             }
             return new ServerStatus() {ResponseCode = response.StatusCode.ToString()};
         }
@@ -51,13 +59,17 @@ namespace OwncloudUniversal.WebDav
                 {
                     input += "/status.php";
                 }
-                if (input.EndsWith("remote.php/webdav"))
+                else if (input.EndsWith("remote.php/webdav"))
                 {
                     input = input.Replace("remote.php/webdav", "status.php");
                 }
+                else
+                {
+                    input += "/status.php";
+                }
                 if (!(input.StartsWith("http://") || input.StartsWith("https://")))
                 {
-                    input = "https://" + input;
+                    input = "http://" + input;
                 }
                 if (Uri.IsWellFormedUriString(input, UriKind.Absolute))
                 {

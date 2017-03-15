@@ -375,9 +375,6 @@
   <data name="LoginFailed" xml:space="preserve">
     <value>Benutzername oder Kennwort falsch.</value>
   </data>
-  <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>Der Server befindet sich im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuchen Sie es später erneut oder kontaktieren Sie Ihren Systemadministrator.</value>
-  </data>
   <data name="ResetQuestion" xml:space="preserve">
     <value>Möchten Sie diese App wirklich zurücksetzen?</value>
   </data>
@@ -531,5 +528,8 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
   </data>
   <data name="years" xml:space="preserve">
     <value>Jahren</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>Ein Fehler is aufgetreten. Eventuell befindet sich der Server im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuchen Sie es später erneut oder kontaktieren Sie Ihren Systemadministrator.</value>
   </data>
 </root>

@@ -7,6 +7,7 @@ using Template10.Controls;
 using Template10.Common;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Data;
 using Windows.Web.Http;
 using Microsoft.Toolkit.Uwp;
@@ -53,6 +54,8 @@ namespace OwncloudUniversal
         public override UIElement CreateRootElement(IActivatedEventArgs e)
         {
             ThemeHelper.UpdateTitleBar();
+            var view = ApplicationView.GetForCurrentView();
+            view.ShowStandardSystemOverlays();
             var service = NavigationServiceFactory(BackButton.Attach, ExistingContent.Include);
             return new ModalDialog
             {
