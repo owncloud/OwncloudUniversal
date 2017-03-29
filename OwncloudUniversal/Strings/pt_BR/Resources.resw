@@ -118,424 +118,422 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.Header" xml:space="preserve">
-    <value>Über</value>
+    <value>Sobre</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>Synchronisation aktivieren</value>
+    <value>Habilitar sincronização</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>Übertragung wird auch im Hintergrund fortgesetzt!</value>
+    <value>A transferência também será concluída se o aplicativo estiver no segundo plano!</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>Cancelar</value>
   </data>
   <data name="Connection.Header" xml:space="preserve">
-    <value>Verbindung</value>
+    <value>Conexão</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
-    <value>Aktuelle Datei</value>
+    <value>Arquivo atual</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Excluir</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>Datei löschen?</value>
+    <value>Excluir arquivo?</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>Ordner löschen?</value>
+    <value>Excluir Diretório?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
-    <value>Synchronisation deaktivieren</value>
+    <value>Desabilitar sincronização</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Download</value>
+    <value>Baixar</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>Herunterladen...</value>
+    <value>Baixando...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
-    <value>Automatische Synchronisation</value>
+    <value>Sincronização automática</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>Deaktiviert</value>
+    <value>Tarefa em segundo plano desabilitada</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>Aktiviert</value>
+    <value>Tarefa em segundo plano habilitada</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
-    <value>Dateien</value>
+    <value>Arquivos</value>
   </data>
   <data name="FilesButton.Text" xml:space="preserve">
-    <value>Dateien</value>
+    <value>Arquivos</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>Ausstehende Dateien</value>
+    <value>Arquivos pendentes</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
-    <value>Dateiübertragung</value>
+    <value>Transferir arquivo</value>
   </data>
   <data name="History.Header" xml:space="preserve">
-    <value>Historie</value>
+    <value>Histórico</value>
   </data>
   <data name="no" xml:space="preserve">
-    <value>Nein</value>
+    <value>Não</value>
   </data>
   <data name="OpenFile.Content" xml:space="preserve">
-    <value>Datei öffnen</value>
+    <value>Abrir arquivo</value>
   </data>
   <data name="OutOf.Text" xml:space="preserve">
-    <value>von</value>
+    <value>de</value>
   </data>
   <data name="PasswordHeader.Text" xml:space="preserve">
-    <value>Kennwort</value>
+    <value>Senha</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
-    <value>Eigenschaften</value>
+    <value>Propriedades</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>Neu laden</value>
+    <value>Recarregar</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>App Design</value>
+    <value>Aplicar tema</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
-    <value>Dunkel</value>
+    <value>Escuro</value>
   </data>
   <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
-    <value>Hell</value>
+    <value>Claro</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>App zurücksetzen</value>
+    <value>Restaurar este Aplicativo</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Configurações</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Configurações</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>Zurück-Taste</value>
+    <value>Botão Voltar</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
-    <value>Zurück-Taste im Seitenkopf</value>
+    <value>O botão voltar está no cabeçalho da página</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>Zurück-Taste in Titelleiste</value>
+    <value>Botão voltar no Título / Barra de Tarefas</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>Synchronisation jetzt starten</value>
+    <value>Iniciar sincronização</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="SynchedFolders.Text" xml:space="preserve">
-    <value>Synchronisierte Ordner</value>
+    <value>Diretórios sincronizadas</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Sincronização (Beta)</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Sincronização (Beta)</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>Übertragung läuft..</value>
+    <value>Transferência em andamento ..</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
-    <value>Synchronisation Stoppen</value>
+    <value>Parar sincornização</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>Dateien hochladen</value>
+    <value>Carregar arquivos</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
-    <value>Benutzername</value>
+    <value>Nome do Usuário</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
   </data>
   <data name="yes" xml:space="preserve">
-    <value>Ja</value>
+    <value>Sim</value>
   </data>
   <data name="DownloadMultiple.Label" xml:space="preserve">
-    <value>Download</value>
+    <value>Baixar</value>
   </data>
   <data name="CancelSelectMode.Label" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>Cancelar</value>
   </data>
   <data name="DeleteMultiple.Label" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Excluir</value>
   </data>
   <data name="deleteMultipleConfirmation" xml:space="preserve">
-    <value>Löschen?</value>
+    <value>Excluir?</value>
   </data>
   <data name="DetailsPageHeader.Content" xml:space="preserve">
-    <value>Eigenschaften</value>
+    <value>Propriedades</value>
   </data>
   <data name="FileContentType.Header" xml:space="preserve">
-    <value>Typ</value>
+    <value>Digite</value>
   </data>
   <data name="FileEtag.Header" xml:space="preserve">
-    <value>Etag</value>
+    <value>Etiqueta eletrônica</value>
   </data>
   <data name="FileIsSynced.Header" xml:space="preserve">
-    <value>Synchronisationsstatus</value>
+    <value>Estado da sincronização</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>Änderungsdatum</value>
+    <value>Modificar data</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
-    <value>Name</value>
+    <value>Nome</value>
   </data>
   <data name="FilePath.Header" xml:space="preserve">
-    <value>Pfad</value>
+    <value>Caminho</value>
   </data>
   <data name="FileSize.Header" xml:space="preserve">
-    <value>Größe</value>
+    <value>Tamanho</value>
   </data>
   <data name="NewFolder.Label" xml:space="preserve">
-    <value>Neuer Ordner</value>
+    <value>Nova Pasta</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>Auswahl</value>
+    <value>Selecionar modo</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
-    <value>Verbinden</value>
+    <value>Conectar</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
-    <value>Serveradresse</value>
+    <value>Endereço do servidor</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Der Server wurde nicht gefunden. Bitte URL und  Internetverbindung prüfen.</value>
+    <value>Não foi possível encontrar o servidor. Verifique o URL e sua conexão à Internet.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>Auf dem Server ist ein interner Fehler aufgetreten</value>
+    <value>Ocorreu um erro interno no servidor</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>Die angeforderte Ressource konnte nicht gefunden werden</value>
+    <value>O recurso solicitado não pôde ser encontrado</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>Der Server ist zur Zeit leider nicht verfügbar</value>
+    <value>O serviço não está disponível no momento.</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
-    <value>Die Anmeldung am Server ist fehlgeschlagen.</value>
+    <value>Falha no login</value>
   </data>
   <data name="CreateNewFolder" xml:space="preserve">
-    <value>Neuen Ordner Erstellen</value>
+    <value>Criar novo diretório</value>
   </data>
   <data name="FolderName" xml:space="preserve">
-    <value>Ordnername</value>
+    <value>Nome do diretório</value>
   </data>
   <data name="NewFolderName" xml:space="preserve">
-    <value>Neuer Ordner</value>
+    <value>Nova Pasta</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Oops" xml:space="preserve">
-    <value>Hoppla</value>
+    <value>Oops</value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
-    <value>Datei löschen?</value>
+    <value>Apagar arquivo?</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
-    <value>Sync Status</value>
+    <value>Sinconizar Status</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>Große Dateien nicht herunterladen. Grenze in MB:</value>
+    <value>Não faça o download de arquivos grandes. Limite (MB):</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
-    <value>Akzeptieren</value>
+    <value>Aceitar</value>
   </data>
   <data name="MoveToFolder.Text" xml:space="preserve">
-    <value>Verschieben</value>
+    <value>Mover</value>
   </data>
   <data name="SelectFolder.Text" xml:space="preserve">
-    <value>Zielordner auswählen</value>
+    <value>Selecione a pasta destino</value>
   </data>
   <data name="Move.Label" xml:space="preserve">
-    <value>Verschieben</value>
+    <value>Mover</value>
   </data>
   <data name="NewName" xml:space="preserve">
-    <value>Neuer Name:</value>
+    <value>Novo Nome:</value>
   </data>
   <data name="Rename.Text" xml:space="preserve">
-    <value>Umbenennen</value>
+    <value>Renomear</value>
   </data>
   <data name="RenameTitle" xml:space="preserve">
-    <value>Umbenennen</value>
+    <value>Renomear</value>
   </data>
   <data name="LocalFolderHeader.Header" xml:space="preserve">
-    <value>Lokaler Ordner</value>
+    <value>Diretório atual</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
-    <value>ownCloud Ordner</value>
+    <value>Diretório ownCloud</value>
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
-    <value>Konfiguration</value>
+    <value>Configuração</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>Automatische Synchronisation</value>
+    <value>Sincronização automática</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>Verbindung hergestellt! ACHTUNG: Verbindung ist nicht verschlüsselt!</value>
+    <value>Conexão bem-sucedida! Aviso: A conexão não é criptografada!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>Benutzername oder Kennwort falsch.</value>
+    <value>Nome de usuário ou senha incorretos.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>Ein Fehler is aufgetreten. Eventuell befindet sich der Server im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuche es später erneut oder kontaktiere deinen Systemadministrator.</value>
+    <value>Um erro ocorreu. Talvez o servidor esteja em modo de manutenção ou a instalação esteja incompleta. Tente novamente mais tarde ou entre em contato com o administrador do sistema.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Möchtest du diese App wirklich zurücksetzen?</value>
+    <value>Deseja realmente redefinir este aplicativo?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Bitte starte die App neu.</value>
+    <value>Reinicie o aplicativo.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
-    <value>Sichere Verbindung hergestellt!</value>
+    <value>Conexão segura bem-sucedida!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
-    <value>Byte</value>
+    <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Ein Fehler ist aufgetreten. Bitte schließe das Programm und versuche es danach erneut.</value>
+    <value>Um erro ocorreu. Reinicie o aplicativo e tente novamente.</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Verarbeite Änderungen</value>
+    <value>Processando alterações</value>
   </data>
   <data name="Deletions" xml:space="preserve">
-    <value>Verarbeite gelöschte Dateien</value>
+    <value>Processando exclusões</value>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Abgeschlossen</value>
+    <value>Finalizado</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>Bereit</value>
+    <value>Pronto</value>
   </data>
   <data name="Receiving" xml:space="preserve">
-    <value>Empfangen</value>
+    <value>Recebendo</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>Suche nach Änderungen</value>
+    <value>Procurando por alterações</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>Senden</value>
+    <value>Enviando</value>
   </data>
   <data name="Stopped" xml:space="preserve">
-    <value>Abgebrochen</value>
+    <value>Cancelado</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>Aktualisiere Datenbank</value>
+    <value>Enviando base de dados</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
-    <value>Nur Herunterladen</value>
+    <value>Somente baixar</value>
   </data>
   <data name="FullSync" xml:space="preserve">
     <value>Normal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>Nur Hochladen</value>
+    <value>Somente enviar</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
-    <value>Modus</value>
+    <value>Modo</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>Entfernen</value>
+    <value>Remover</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>Änderung speichern</value>
+    <value>Salvar alterações</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>Die Inhalte dieser Ordner werden synchronisiert:</value>
+    <value>O conteúdo dessas pastas será sincronizado:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Bitte starte die erste Synchronisation manuell wenn du eine WLAN-Verbindung hast und das Gerät mit dem Ladegerät verbunden ist. Der erste Durchlauf kann unter Umständen sehr lange dauern.</value>
+    <value>Inicie a primeira sincronização manualmente quando o dispositivo estiver conectado a uma rede Wi-Fi e a um carregador. A primeira sincronização pode demorar um pouco.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
-    <value>Synchronisation jetzt starten</value>
+    <value>Iniciar sincronização</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>Es wird empfohlen das Gerät mit einem Ladegerät und einem WLAN-Netzwerk zu verbinden, da die Synchronisation lange dauern kann und das Display aktiviert bleibt.
-Bist du die sicher, dass du die Synchronisation trotzdem starten möchtest?</value>
+    <value>Recomenda-se conectar o dispositivo com uma rede Wi-Fi e um carregador, porque a sincronização pode levar muito tempo e a tela permanecerá ativa.
+Tem certeza de que deseja iniciar a sincronização agora?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>Der Server erlaubt diesen Vorgang nicht.</value>
+    <value>O servidor não permite esta operação.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>Achtung: Der gewählte Ordner ist nicht von der Windows-Suche indiziert. 
-
-Dies kann zu unerwartetem Verhalten führen.
-Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
+    <value>Atenção: A pasta escolhida não é indexada pela pesquisa do Windows.
+Isso pode levar a um comportamento inesperado.
+Tem certeza de que deseja usar esta pasta?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>Achtung: Der gewählte Ordner ist nur teilweise von der Windows-Suche indiziert. 
-
-Dies kann zu unerwartetem Verhalten führen.
-Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
+    <value>Atenção: A pasta escolhida é apenas parcialmente indexada pela pesquisa do Windows.
+Isso pode levar a um comportamento inesperado.
+Tem certeza de que deseja usar esta pasta?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
-    <value>Quelltext anzeigen</value>
+    <value>Visualizar código fonte</value>
   </data>
   <data name="SupportUrl.Content" xml:space="preserve">
-    <value>Support kontaktieren</value>
+    <value>Contactar o suporte</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>Veröffentlicht von</value>
+    <value>Publicar</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
-    <value>Version</value>
+    <value>Versão</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>Diagnosebericht per E-Mail senden</value>
+    <value>Enviar um relatório de diagnóstico via email</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>Die Synchronisation startet nach einiger Zeit automatisch wenn folgende Bedingungen erfüllt sind:
-- Das Ladegerät muss angeschlossen sein.
-- Eine WLAN-Verbindung ist möglich.
-- Das Gerät wird nicht genutzt. (nur bei mobilen Geräten)</value>
+    <value>A sincronização será iniciada em segundo plano se as seguintes condições forem atendidas:
+- O dispositivo está ligado a um carregador.
+- Uma Conexão WiFi é estabelecida.
+- O dispositivo não está em uso.</value>
   </data>
   <data name="day" xml:space="preserve">
-    <value>Tag</value>
+    <value>dia</value>
   </data>
   <data name="days" xml:space="preserve">
-    <value>Tagen</value>
+    <value>dias</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>Stunde</value>
+    <value>hora</value>
   </data>
   <data name="hours" xml:space="preserve">
-    <value>Stunden</value>
+    <value>horas</value>
   </data>
   <data name="justNow" xml:space="preserve">
-    <value>gerade eben</value>
+    <value>Imediatamente</value>
   </data>
   <data name="minute" xml:space="preserve">
-    <value>Minute</value>
+    <value>minuto</value>
   </data>
   <data name="minutes" xml:space="preserve">
-    <value>Minuten</value>
+    <value>minutos</value>
   </data>
   <data name="month" xml:space="preserve">
-    <value>Monat</value>
+    <value>mês</value>
   </data>
   <data name="months" xml:space="preserve">
-    <value>Monaten</value>
+    <value>meses</value>
   </data>
   <data name="second" xml:space="preserve">
-    <value>Sekunde</value>
+    <value>segundo</value>
   </data>
   <data name="seconds" xml:space="preserve">
-    <value>Sekunden</value>
+    <value>segundos</value>
   </data>
   <data name="TimeSpanPrefix" xml:space="preserve">
     <value/>
   </data>
   <data name="TimeSpanSuffix" xml:space="preserve">
-    <value>vor</value>
+    <value>atrás</value>
   </data>
   <data name="year" xml:space="preserve">
-    <value>Jahr</value>
+    <value>ano</value>
   </data>
   <data name="years" xml:space="preserve">
-    <value>Jahren</value>
+    <value>anos</value>
   </data>
 </root>

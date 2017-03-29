@@ -118,136 +118,136 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.Header" xml:space="preserve">
-    <value>Über</value>
+    <value>Over</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>Synchronisation aktivieren</value>
+    <value>Synchronisatie aanzetten</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>Übertragung wird auch im Hintergrund fortgesetzt!</value>
+    <value>Transfer rondt ook af als de app in de achtergrond draait!</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>Annuleren</value>
   </data>
   <data name="Connection.Header" xml:space="preserve">
-    <value>Verbindung</value>
+    <value>Verbinding</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
-    <value>Aktuelle Datei</value>
+    <value>Huidig bestand</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Verwijderen</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>Datei löschen?</value>
+    <value>Bestand verwijderen?</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>Ordner löschen?</value>
+    <value>Map verwijderen?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
-    <value>Synchronisation deaktivieren</value>
+    <value>Synchronisatie uitschakelen?</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Download</value>
+    <value>Downloaden</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>Herunterladen...</value>
+    <value>Downloaden...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
-    <value>Automatische Synchronisation</value>
+    <value>Automatische synchronisatie</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>Deaktiviert</value>
+    <value>Achtergrondtaak uitgeschakeld</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>Aktiviert</value>
+    <value>Achtergrondtaak ingeschakeld</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
-    <value>Dateien</value>
+    <value>Bestanden</value>
   </data>
   <data name="FilesButton.Text" xml:space="preserve">
-    <value>Dateien</value>
+    <value>Bestanden</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>Ausstehende Dateien</value>
+    <value>Onderhanden bestanden</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
-    <value>Dateiübertragung</value>
+    <value>Bestandsoverdracht</value>
   </data>
   <data name="History.Header" xml:space="preserve">
-    <value>Historie</value>
+    <value>Geschiedenis</value>
   </data>
   <data name="no" xml:space="preserve">
-    <value>Nein</value>
+    <value>Nee</value>
   </data>
   <data name="OpenFile.Content" xml:space="preserve">
-    <value>Datei öffnen</value>
+    <value>Bestand openen</value>
   </data>
   <data name="OutOf.Text" xml:space="preserve">
-    <value>von</value>
+    <value>van</value>
   </data>
   <data name="PasswordHeader.Text" xml:space="preserve">
-    <value>Kennwort</value>
+    <value>Wachtwoord</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
-    <value>Eigenschaften</value>
+    <value>Eigenschappen</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>Neu laden</value>
+    <value>Herladen</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>App Design</value>
+    <value>Applicatiethema</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
-    <value>Dunkel</value>
+    <value>Donker</value>
   </data>
   <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
-    <value>Hell</value>
+    <value>Licht</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>App zurücksetzen</value>
+    <value>Herstel deze app</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Instellingen</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Instellingen</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>Zurück-Taste</value>
+    <value>Terugknop</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
-    <value>Zurück-Taste im Seitenkopf</value>
+    <value>Terugknop in de paginakop</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>Zurück-Taste in Titelleiste</value>
+    <value>Terugknop in de titel/taakbalk</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>Synchronisation jetzt starten</value>
+    <value>Start synchronisatie</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="SynchedFolders.Text" xml:space="preserve">
-    <value>Synchronisierte Ordner</value>
+    <value>Gesynchroniseerde mappen</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Synchronisatie (Beta)</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Synchronisatie (Beta)</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>Übertragung läuft..</value>
+    <value>Transfer bezig...</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
-    <value>Synchronisation Stoppen</value>
+    <value>Stop synchronisatie</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>Dateien hochladen</value>
+    <value>Upload bestanden</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
-    <value>Benutzername</value>
+    <value>Gebruikersnaam</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
@@ -256,286 +256,286 @@
     <value>Ja</value>
   </data>
   <data name="DownloadMultiple.Label" xml:space="preserve">
-    <value>Download</value>
+    <value>Downloaden</value>
   </data>
   <data name="CancelSelectMode.Label" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>Annuleren</value>
   </data>
   <data name="DeleteMultiple.Label" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Verwijderen</value>
   </data>
   <data name="deleteMultipleConfirmation" xml:space="preserve">
-    <value>Löschen?</value>
+    <value>Verwijderen?</value>
   </data>
   <data name="DetailsPageHeader.Content" xml:space="preserve">
-    <value>Eigenschaften</value>
+    <value>Eigenschappen</value>
   </data>
   <data name="FileContentType.Header" xml:space="preserve">
-    <value>Typ</value>
+    <value>Type</value>
   </data>
   <data name="FileEtag.Header" xml:space="preserve">
-    <value>Etag</value>
+    <value>E-tag</value>
   </data>
   <data name="FileIsSynced.Header" xml:space="preserve">
-    <value>Synchronisationsstatus</value>
+    <value>Synchronizationstatus</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>Änderungsdatum</value>
+    <value>Modifydate</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
-    <value>Name</value>
+    <value>Naam</value>
   </data>
   <data name="FilePath.Header" xml:space="preserve">
-    <value>Pfad</value>
+    <value>Pad</value>
   </data>
   <data name="FileSize.Header" xml:space="preserve">
-    <value>Größe</value>
+    <value>Grootte</value>
   </data>
   <data name="NewFolder.Label" xml:space="preserve">
-    <value>Neuer Ordner</value>
+    <value>Nieuwe map</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>Auswahl</value>
+    <value>Selecteer modus</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
     <value>Verbinden</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
-    <value>Serveradresse</value>
+    <value>Serveradres</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Der Server wurde nicht gefunden. Bitte URL und  Internetverbindung prüfen.</value>
+    <value>The server could not be found. Please check the URL and your internet connection.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>Auf dem Server ist ein interner Fehler aufgetreten</value>
+    <value>An internal error has occured at the server</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>Die angeforderte Ressource konnte nicht gefunden werden</value>
+    <value>The requested resource could not be found</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>Der Server ist zur Zeit leider nicht verfügbar</value>
+    <value>The service is currently not available.</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
-    <value>Die Anmeldung am Server ist fehlgeschlagen.</value>
+    <value>Inloggen mislukt</value>
   </data>
   <data name="CreateNewFolder" xml:space="preserve">
-    <value>Neuen Ordner Erstellen</value>
+    <value>Creëer nieuwe map</value>
   </data>
   <data name="FolderName" xml:space="preserve">
-    <value>Ordnername</value>
+    <value>Mapnaam</value>
   </data>
   <data name="NewFolderName" xml:space="preserve">
-    <value>Neuer Ordner</value>
+    <value>Nieuwe map</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Oops" xml:space="preserve">
-    <value>Hoppla</value>
+    <value>Oei</value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
-    <value>Datei löschen?</value>
+    <value>Bestand verwijderen?</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
-    <value>Sync Status</value>
+    <value>Synchronisatiestatus</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>Große Dateien nicht herunterladen. Grenze in MB:</value>
+    <value>Geen grote bestanden downloaden. Limiet (MB):</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
-    <value>Akzeptieren</value>
+    <value>Accepteren</value>
   </data>
   <data name="MoveToFolder.Text" xml:space="preserve">
-    <value>Verschieben</value>
+    <value>Verplaatsen</value>
   </data>
   <data name="SelectFolder.Text" xml:space="preserve">
-    <value>Zielordner auswählen</value>
+    <value>Selecteer de doel map</value>
   </data>
   <data name="Move.Label" xml:space="preserve">
-    <value>Verschieben</value>
+    <value>Verplaatsen</value>
   </data>
   <data name="NewName" xml:space="preserve">
-    <value>Neuer Name:</value>
+    <value>Nieuwe naam:</value>
   </data>
   <data name="Rename.Text" xml:space="preserve">
-    <value>Umbenennen</value>
+    <value>Naam wijzigen</value>
   </data>
   <data name="RenameTitle" xml:space="preserve">
-    <value>Umbenennen</value>
+    <value>Naam wijzigen</value>
   </data>
   <data name="LocalFolderHeader.Header" xml:space="preserve">
-    <value>Lokaler Ordner</value>
+    <value>Lokale map</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
-    <value>ownCloud Ordner</value>
+    <value>ownCloud map</value>
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
-    <value>Konfiguration</value>
+    <value>Configuratie</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>Automatische Synchronisation</value>
+    <value>Automatische synchronisatie</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>Verbindung hergestellt! ACHTUNG: Verbindung ist nicht verschlüsselt!</value>
+    <value>Connection successful! Warning: The connection is not encrypted!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>Benutzername oder Kennwort falsch.</value>
+    <value>Verkeerde gebruikersnaam of wachtwoord.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>Ein Fehler is aufgetreten. Eventuell befindet sich der Server im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuche es später erneut oder kontaktiere deinen Systemadministrator.</value>
+    <value>An error occured. Maybe the server is in maintenance mode or the installation is incomplete. Please try again later or contact your system administrator.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Möchtest du diese App wirklich zurücksetzen?</value>
+    <value>Wilt u de app echt resetten?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Bitte starte die App neu.</value>
+    <value>Herstart de app.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
-    <value>Sichere Verbindung hergestellt!</value>
+    <value>Beveiligde verbinding succesvol!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
-    <value>Byte</value>
+    <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Ein Fehler ist aufgetreten. Bitte schließe das Programm und versuche es danach erneut.</value>
+    <value>An error occured. Please restart the application and try again.</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Verarbeite Änderungen</value>
+    <value>Wijzigingen verwerken</value>
   </data>
   <data name="Deletions" xml:space="preserve">
-    <value>Verarbeite gelöschte Dateien</value>
+    <value>Verwijderingen verwijderen</value>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Abgeschlossen</value>
+    <value>Klaar</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>Bereit</value>
+    <value>Klaar</value>
   </data>
   <data name="Receiving" xml:space="preserve">
-    <value>Empfangen</value>
+    <value>Ontvangen</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>Suche nach Änderungen</value>
+    <value>Kijken naar wijzigingen</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>Senden</value>
+    <value>Versturen</value>
   </data>
   <data name="Stopped" xml:space="preserve">
-    <value>Abgebrochen</value>
+    <value>Geanulleerd</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>Aktualisiere Datenbank</value>
+    <value>Database bijwerken</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
-    <value>Nur Herunterladen</value>
+    <value>Alleen downloaden</value>
   </data>
   <data name="FullSync" xml:space="preserve">
-    <value>Normal</value>
+    <value>Normaal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>Nur Hochladen</value>
+    <value>Alleen uploaden</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
     <value>Modus</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>Entfernen</value>
+    <value>Verwijder</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>Änderung speichern</value>
+    <value>Wijzigingen opslaan</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>Die Inhalte dieser Ordner werden synchronisiert:</value>
+    <value>De inhoud van deze mappen zal worden gesynchroniseerd:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Bitte starte die erste Synchronisation manuell wenn du eine WLAN-Verbindung hast und das Gerät mit dem Ladegerät verbunden ist. Der erste Durchlauf kann unter Umständen sehr lange dauern.</value>
+    <value>Please start the first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
-    <value>Synchronisation jetzt starten</value>
+    <value>Start synchronisatie</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>Es wird empfohlen das Gerät mit einem Ladegerät und einem WLAN-Netzwerk zu verbinden, da die Synchronisation lange dauern kann und das Display aktiviert bleibt.
-Bist du die sicher, dass du die Synchronisation trotzdem starten möchtest?</value>
+    <value>It is recommended to connect the device with a WiFi network and a charger because the synchronization could take very long and the display will stay active.
+Are you sure you want to start the synchronization now?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>Der Server erlaubt diesen Vorgang nicht.</value>
+    <value>The server does not allow this operation.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>Achtung: Der gewählte Ordner ist nicht von der Windows-Suche indiziert. 
+    <value>Attention: The chosen folder is not indexed by Windows search. 
 
-Dies kann zu unerwartetem Verhalten führen.
-Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>Achtung: Der gewählte Ordner ist nur teilweise von der Windows-Suche indiziert. 
+    <value>Attention: The chosen folder is just partially indexed by Windows search. 
 
-Dies kann zu unerwartetem Verhalten führen.
-Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
-    <value>Quelltext anzeigen</value>
+    <value>Bekijk broncode</value>
   </data>
   <data name="SupportUrl.Content" xml:space="preserve">
-    <value>Support kontaktieren</value>
+    <value>Contact met ondersteuning</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>Veröffentlicht von</value>
+    <value>Uitgever</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
-    <value>Version</value>
+    <value>Versie</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>Diagnosebericht per E-Mail senden</value>
+    <value>Send diagnostic report via email</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>Die Synchronisation startet nach einiger Zeit automatisch wenn folgende Bedingungen erfüllt sind:
-- Das Ladegerät muss angeschlossen sein.
-- Eine WLAN-Verbindung ist möglich.
-- Das Gerät wird nicht genutzt. (nur bei mobilen Geräten)</value>
+    <value>The synchronisation will start in the background if the following conditions are met:
+- The device is connected to a charger.
+- A WiFi-Connection is established.
+- The device is not in use.</value>
   </data>
   <data name="day" xml:space="preserve">
-    <value>Tag</value>
+    <value>dag</value>
   </data>
   <data name="days" xml:space="preserve">
-    <value>Tagen</value>
+    <value>dagen</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>Stunde</value>
+    <value>uur</value>
   </data>
   <data name="hours" xml:space="preserve">
-    <value>Stunden</value>
+    <value>uur</value>
   </data>
   <data name="justNow" xml:space="preserve">
-    <value>gerade eben</value>
+    <value>net</value>
   </data>
   <data name="minute" xml:space="preserve">
-    <value>Minute</value>
+    <value>minuut</value>
   </data>
   <data name="minutes" xml:space="preserve">
-    <value>Minuten</value>
+    <value>minuten</value>
   </data>
   <data name="month" xml:space="preserve">
-    <value>Monat</value>
+    <value>maand</value>
   </data>
   <data name="months" xml:space="preserve">
-    <value>Monaten</value>
+    <value>maanden</value>
   </data>
   <data name="second" xml:space="preserve">
-    <value>Sekunde</value>
+    <value>tweede</value>
   </data>
   <data name="seconds" xml:space="preserve">
-    <value>Sekunden</value>
+    <value>seconden</value>
   </data>
   <data name="TimeSpanPrefix" xml:space="preserve">
     <value/>
   </data>
   <data name="TimeSpanSuffix" xml:space="preserve">
-    <value>vor</value>
+    <value>geleden</value>
   </data>
   <data name="year" xml:space="preserve">
-    <value>Jahr</value>
+    <value>jaar</value>
   </data>
   <data name="years" xml:space="preserve">
-    <value>Jahren</value>
+    <value>jaar</value>
   </data>
 </root>
