@@ -220,7 +220,7 @@
     <value>O botão voltar está no cabeçalho da página</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>Botão voltar no Título / Barra de Tarefas</value>
+    <value>Botão voltar no Título/Barra de Tarefas</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
     <value>Iniciar sincronização</value>
@@ -244,7 +244,7 @@
     <value>Parar sincornização</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>Carregar arquivos</value>
+    <value>Enviar arquivos</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
     <value>Nome do Usuário</value>
@@ -424,7 +424,7 @@
     <value>Cancelado</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>Enviando base de dados</value>
+    <value>Atualizando base de dados</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
     <value>Somente baixar</value>
@@ -477,7 +477,7 @@ Tem certeza de que deseja usar esta pasta?</value>
     <value>Contactar o suporte</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>Publicar</value>
+    <value>Editor</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
     <value>Versão</value>
