@@ -96,15 +96,15 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="OwncloudUniversal_TemporaryKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\cs-CZ\Resources.resw" />
     <PRIResource Include="Strings\sq\Resources.resw" />
     <PRIResource Include="Strings\ru\Resources.resw" />
-    <PRIResource Include="Strings\pt_PT\Resources.resw" />
-    <PRIResource Include="Strings\pt_BR\Resources.resw" />
+    <PRIResource Include="Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Strings\pt-BR\Resources.resw" />
     <PRIResource Include="Strings\nl\Resources.resw" />
     <PRIResource Include="Strings\he\Resources.resw" />
     <PRIResource Include="Strings\fr-FR\Resources.resw" />
     <PRIResource Include="Strings\es\Resources.resw" />
-    <PRIResource Include="Strings\de_DE\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
