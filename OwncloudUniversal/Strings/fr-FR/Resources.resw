@@ -186,7 +186,7 @@
   <data name="OutOf.Text" xml:space="preserve">
     <value>of</value>
   </data>
-  <data name="Password.Header" xml:space="preserve">
+  <data name="PasswordHeader.Text" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
@@ -246,9 +246,6 @@
   <data name="Upload.Label" xml:space="preserve">
     <value>Mettre en ligne des fichiers</value>
   </data>
-  <data name="UserName.Header" xml:space="preserve">
-    <value>Nom d'utilisateur</value>
-  </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
   </data>
@@ -300,7 +297,7 @@
   <data name="Connect.Content" xml:space="preserve">
     <value>Connecter</value>
   </data>
-  <data name="ServerAddress.Header" xml:space="preserve">
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
     <value>Adresse du serveur</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
@@ -330,7 +327,7 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Ooops" xml:space="preserve">
+  <data name="Oops" xml:space="preserve">
     <value>Ooops..</value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
@@ -392,5 +389,8 @@
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>Connection sécuriser établie avec succés !</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
 </root>
