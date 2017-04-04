@@ -148,10 +148,10 @@
     <value>Synchronisation deaktivieren</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Download</value>
+    <value>Herunterladen</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>Herunterladen...</value>
+    <value>Lade herunter...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
     <value>Automatische Synchronisation</value>
@@ -187,13 +187,13 @@
     <value>von</value>
   </data>
   <data name="PasswordHeader.Text" xml:space="preserve">
-    <value>Kennwort</value>
+    <value>Passwort</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
     <value>Eigenschaften</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>Neu laden</value>
+    <value>Aktualisieren</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
     <value>App Design</value>
@@ -256,7 +256,7 @@
     <value>Ja</value>
   </data>
   <data name="DownloadMultiple.Label" xml:space="preserve">
-    <value>Download</value>
+    <value>Herunterladen</value>
   </data>
   <data name="CancelSelectMode.Label" xml:space="preserve">
     <value>Abbrechen</value>
@@ -337,7 +337,7 @@
     <value>Datei löschen?</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
-    <value>Sync Status</value>
+    <value>Synchronisation-Status</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
     <value>Große Dateien nicht herunterladen. Grenze in MB:</value>
@@ -382,22 +382,22 @@
     <value>Benutzername oder Kennwort falsch.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>Ein Fehler is aufgetreten. Eventuell befindet sich der Server im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuche es später erneut oder kontaktiere deinen Systemadministrator.</value>
+    <value>Ein Fehler is aufgetreten. Eventuell befindet sich der Server im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuchen Sie es später erneut oder kontaktieren Sie Ihren Systemadministrator.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Möchtest du diese App wirklich zurücksetzen?</value>
+    <value>Möchten Sie diese App wirklich zurücksetzen?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Bitte starte die App neu.</value>
+    <value>Bitte starten Sie die App neu.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>Sichere Verbindung hergestellt!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
-    <value>Byte</value>
+    <value>Bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Ein Fehler ist aufgetreten. Bitte schließe das Programm und versuche es danach erneut.</value>
+    <value>Ein Fehler ist aufgetreten. Bitte schließen Sie das Programm und versuchen Sie es danach erneut.</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Verarbeite Änderungen</value>
@@ -448,14 +448,14 @@
     <value>Die Inhalte dieser Ordner werden synchronisiert:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Bitte starte die erste Synchronisation manuell wenn du eine WLAN-Verbindung hast und das Gerät mit dem Ladegerät verbunden ist. Der erste Durchlauf kann unter Umständen sehr lange dauern.</value>
+    <value>Bitte starten Sie die erste Synchronisation manuell wenn Sie eine WLAN-Verbindung haben und das Gerät mit dem Ladegerät verbunden ist. Der erste Durchlauf kann unter Umständen sehr lange dauern.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
     <value>Synchronisation jetzt starten</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
     <value>Es wird empfohlen das Gerät mit einem Ladegerät und einem WLAN-Netzwerk zu verbinden, da die Synchronisation lange dauern kann und das Display aktiviert bleibt.
-Bist du die sicher, dass du die Synchronisation trotzdem starten möchtest?</value>
+Sind Sie sicher, dass Sie die Synchronisation trotzdem starten möchten?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
     <value>Der Server erlaubt diesen Vorgang nicht.</value>
@@ -464,13 +464,13 @@ Bist du die sicher, dass du die Synchronisation trotzdem starten möchtest?</val
     <value>Achtung: Der gewählte Ordner ist nicht von der Windows-Suche indiziert. 
 
 Dies kann zu unerwartetem Verhalten führen.
-Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
+Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
     <value>Achtung: Der gewählte Ordner ist nur teilweise von der Windows-Suche indiziert. 
 
 Dies kann zu unerwartetem Verhalten führen.
-Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
+Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
     <value>Quelltext anzeigen</value>
@@ -497,7 +497,7 @@ Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
     <value>Tag</value>
   </data>
   <data name="days" xml:space="preserve">
-    <value>Tagen</value>
+    <value>Tage</value>
   </data>
   <data name="hour" xml:space="preserve">
     <value>Stunde</value>
