@@ -7,5 +7,5 @@ source_file = OwncloudUniversal/Strings/en-US/Resources.resw
 source_lang = en
 type = RESX
 minimum_perc = 80
-lang_map = de_DE : de-DE, fr : fr-FR, cs_CZ : cs-CZ, pt_BR : pt-BR, pt_PT : pt-PT
+lang_map = de : de-DE, fr : fr-FR, cs_CZ : cs-CZ, pt_BR : pt-BR, pt_PT : pt-PT
 
