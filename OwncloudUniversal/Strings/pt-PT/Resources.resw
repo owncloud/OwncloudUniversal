@@ -121,16 +121,16 @@
     <value>Sobre</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>Ativar Sincronização </value>
+    <value>Ativar sincronização </value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>A transferência continuará mesmo que coloque a aplicação em segundo plano</value>
+    <value>A transferência também será concluída se a aplicação estiver em segundo plano</value>
   </data>
   <data name="cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
   <data name="Connection.Header" xml:space="preserve">
-    <value>Conecção</value>
+    <value>Ligação</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
     <value>Ficheiro Atual</value>
@@ -139,13 +139,13 @@
     <value>Eliminar</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>Eliminar Ficheiro?</value>
+    <value>Eliminar ficheiro?</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>Apagar Pasta</value>
+    <value>Eliminar pasta?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
-    <value>Desativar Sincronização</value>
+    <value>Desativar sincronização</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
     <value>Transferir</value>
@@ -433,7 +433,7 @@
     <value>Normal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>Apenas para carregar</value>
+    <value>Apenas envio</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
     <value>Modo</value>
@@ -451,7 +451,7 @@
     <value>Por favor comece a primeira sincronização manualmente quando o aparelho estiver conectado à rede e a carregar. A primeira sincronização pode demorar um pouco.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
-    <value>Começar sincronização</value>
+    <value>Iniciar sincronização</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
     <value>É recomendado que o aparelho esteja conectado a uma rede WiFi e a carregar para o caso da sincronização demorar algum tempo e o ecrã irá ficar ativo.
