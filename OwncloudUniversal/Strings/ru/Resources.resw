@@ -277,10 +277,10 @@
     <value>Метка</value>
   </data>
   <data name="FileIsSynced.Header" xml:space="preserve">
-    <value>Synchronizationstatus</value>
+    <value>Состояние синхронизации</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>Modifydate</value>
+    <value>Дата изменения</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
     <value>Название</value>
@@ -301,7 +301,7 @@
     <value>Подключиться</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
-    <value>Serveraddress</value>
+    <value>Адрес сервера</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
     <value>Не удалось найти сервер. Пожалуйста, проверьте адресную строку и подключение к интернету.</value>
@@ -322,7 +322,7 @@
     <value>Создать новую папку</value>
   </data>
   <data name="FolderName" xml:space="preserve">
-    <value>Foldername</value>
+    <value>Имя папки</value>
   </data>
   <data name="NewFolderName" xml:space="preserve">
     <value>Новая папка</value>
