@@ -304,16 +304,16 @@
     <value>Serveradres</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>The server could not be found. Please check the URL and your internet connection.</value>
+    <value>De server is niet gevonden. Controleer de URL en uw internetverbinding.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>An internal error has occured at the server</value>
+    <value>Er trad een interne fout voor op bij de server</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>The requested resource could not be found</value>
+    <value>De opgevraagde bron kan niet worden gevonden</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>The service is currently not available.</value>
+    <value>De service is nu niet beschikbaar.</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
     <value>Inloggen mislukt</value>
@@ -376,7 +376,7 @@
     <value>Automatische synchronisatie</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>Connection successful! Warning: The connection is not encrypted!</value>
+    <value>Verbinding gelukt! Waarschuwing: De verbinding is niet versleuteld!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
     <value>Verkeerde gebruikersnaam of wachtwoord.</value>
@@ -397,7 +397,7 @@
     <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>An error occured. Please restart the application and try again.</value>
+    <value>Er trad een fout op. Herstart de app en probeer het opnieuw.</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Wijzigingen verwerken</value>
@@ -458,7 +458,7 @@
 Are you sure you want to start the synchronization now?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>The server does not allow this operation.</value>
+    <value>De server staat deze verwerking niet toe.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
     <value>Attention: The chosen folder is not indexed by Windows search. 
@@ -485,7 +485,7 @@ Are you sure you want to use this folder?</value>
     <value>Versie</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>Send diagnostic report via email</value>
+    <value>Verstuur het diagnoserapport per e-mail</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
     <value>The synchronisation will start in the background if the following conditions are met:
