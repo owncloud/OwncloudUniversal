@@ -1,0 +1,541 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Header" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="ActivateSync.Text" xml:space="preserve">
+    <value>Aktiver synkronisering</value>
+  </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Overføring vil fullføres selv om appen kjører i bakgrunnen!</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Connection.Header" xml:space="preserve">
+    <value>Tilkobling</value>
+  </data>
+  <data name="CurrentFile.Header" xml:space="preserve">
+    <value>Gjeldende fil</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>Slett fil?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>Slett mappe?</value>
+  </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>Skru av synkronisering</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Last ned</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>Laster ned...</value>
+  </data>
+  <data name="EnableBackgroundTask.Header" xml:space="preserve">
+    <value>Automatisk synkronisering</value>
+  </data>
+  <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
+    <value>Bakgrunnsoppgave deaktivert</value>
+  </data>
+  <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
+    <value>Bakgrunnsoppgave aktivert</value>
+  </data>
+  <data name="Files.Content" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="FilesButton.Text" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="FilesToSync.Header" xml:space="preserve">
+    <value>Ventende filer</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>Filoverføring</value>
+  </data>
+  <data name="History.Header" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Nei</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>Åpne fil</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>av</value>
+  </data>
+  <data name="PasswordHeader.Text" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Egenskaper</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>Last på nytt</value>
+  </data>
+  <data name="RequestedApplicationTheme.Header" xml:space="preserve">
+    <value>Programdrakt</value>
+  </data>
+  <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
+    <value>Mørk</value>
+  </data>
+  <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
+    <value>Lys</value>
+  </data>
+  <data name="ResetDatabase.Content" xml:space="preserve">
+    <value>Nullstill denne appen</value>
+  </data>
+  <data name="Settings.Content" xml:space="preserve">
+    <value>Innstillinger</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Innstillinger</value>
+  </data>
+  <data name="ShellDrawnBackButton.Header" xml:space="preserve">
+    <value>Tilbake-knapp</value>
+  </data>
+  <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
+    <value>Tilbake-knappen er i sideoverskriften</value>
+  </data>
+  <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
+    <value>Tilbake-knappen er i tittelen / oppgavelinjen</value>
+  </data>
+  <data name="StartSync.Content" xml:space="preserve">
+    <value>Start synkronisering</value>
+  </data>
+  <data name="Status.Header" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SynchedFolders.Text" xml:space="preserve">
+    <value>Synkroniserte mapper</value>
+  </data>
+  <data name="Synchronization.Content" xml:space="preserve">
+    <value>Synkronisering (Beta)</value>
+  </data>
+  <data name="SynchronizationButton.Text" xml:space="preserve">
+    <value>Synkronisering (Beta)</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>Overføring pågår.</value>
+  </data>
+  <data name="Unsync.Text" xml:space="preserve">
+    <value>Stopp synkronisering</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>Last opp filer</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>Brukernavn</value>
+  </data>
+  <data name="WebDavUrl.Header" xml:space="preserve">
+    <value>WebDav-URL</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>Last ned</value>
+  </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>Slett?</value>
+  </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>Egenskaper</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>Etag</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>Synkroniseringsstatus</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>Endringsdato</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>Sti</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>Størrelse</value>
+  </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>Ny mappe</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>Velg modus</value>
+  </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>Koble til</value>
+  </data>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>Tjeneradresse</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>Fant ikke serveren. Sjekk URL og internettforbindelsen.</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>En intern feil har oppstått på serveren</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>Ressursen ble ikke funnet</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>Tjenesten er ikke tilgjengelig for øyeblikket</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>Pålogging feilet</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>Opprett ny mappe</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Mappenavn</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>Ny mappe</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>Oida</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>Slett fil?</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>Synkroniseringsstatus</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>Ikke last ned store filer. Grense (MB):</value>
+  </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>Aksepter</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>Flytt</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>Velg målmappe</value>
+  </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>Flytt</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>Nytt navn:</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>Gi nytt navn</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>Gi nytt navn</value>
+  </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>Lokal mappe</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>ownCloud-mappe</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>Konfigurasjon</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>Automatisk synkronisering</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>Forbindelse opprettet! Advarsel: Forbindelsen er ikke kryptert!</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Feil brukernavn eller passord</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>En feil oppstod. Kanskje det utføres vedlikehold på serveren eller installasjonen ikke er fullstendig. Prøv igjen senere eller kontakt administratoren.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>Ønsker du virkelig å nullstille denne appen?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>Start appen på nytt.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>Sikker tilkobling etablert!</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>bytes</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>Det oppstod en feil. Start applikasjonen på nytt og prøv igjen</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Behandler endringer</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>Behandler slettinger</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Ferdig</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>Mottar</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Ser etter endringer</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Avbrutt</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>Oppdaterer databasen</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>Kun nedlasting</value>
+  </data>
+  <data name="FullSync" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="UploadOnly" xml:space="preserve">
+    <value>Bare last opp</value>
+  </data>
+  <data name="SyncDirection.Header" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="SaveFolderConfiguration.Label" xml:space="preserve">
+    <value>Lagre endringer</value>
+  </data>
+  <data name="FolderConfigurationHeader.Text" xml:space="preserve">
+    <value>Innholdet i disse mappene vil bli synkronisert:</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>Start den første synkroniseringen manuelt mens enheten er koblet til et WiFi-nettverk og en lader. Første synkronisering kan ta lang tid.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>Start synkronisering</value>
+  </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>Det anbefales å koble enheten til et WiFi-nettverk og en lader fordi synkroniseringen kan ta veldig lang tid og skjermen vil holdes påslått.
+Er du sikker på at du vil starte synkroniseringen nå?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>Serveren tillater ikke denne operasjonen.</value>
+  </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>Advarsel: Den valgte mappen er ikke indeksert av Windows-søk. 
+
+Dette kan gi uventet oppførsel.
+Er du sikker på at du vil bruke denne mappen?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>Advarsel: Den valgte mappen er bare delvis indeksert av Windows-søk. 
+
+Dette kan gi uventet oppførsel.
+Er du sikker på at du vil bruke denne mappen?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>Vis kildekode</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>Kontakt brukerstøtte</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>Utgiver</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>Versjon</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>Send diagnoserapport på e-post</value>
+  </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>Synkroniseringen vil starte i bakgrunnen hvis følgende forutsetninger er til stede:
+- Enheten er koblet til en lader.
+- En WiFi-forbindelse er etablert.
+- Enheten er ikke i bruk.</value>
+  </data>
+  <data name="day" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="days" xml:space="preserve">
+    <value>dager</value>
+  </data>
+  <data name="hour" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>timer</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>akkurat nå</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>minutt</value>
+  </data>
+  <data name="minutes" xml:space="preserve">
+    <value>minutter</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>måned</value>
+  </data>
+  <data name="months" xml:space="preserve">
+    <value>måneder</value>
+  </data>
+  <data name="second" xml:space="preserve">
+    <value>sekund</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>sekunder</value>
+  </data>
+  <data name="TimeSpanPrefix" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="TimeSpanSuffix" xml:space="preserve">
+    <value>siden</value>
+  </data>
+  <data name="year" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="years" xml:space="preserve">
+    <value>år</value>
+  </data>
+</root>
