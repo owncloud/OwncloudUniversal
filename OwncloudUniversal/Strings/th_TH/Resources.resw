@@ -462,16 +462,16 @@
     <value>เซิร์ฟเวอร์ไม่อนุญาตให้ดำเนินการนี้</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>Attention: The chosen folder is not indexed by Windows search. 
+    <value>ข้อควรระวัง: โฟลเดอร์ที่เลือกจะไม่ถูกจัดทำดัชนีโดยการค้นหาของวินโดว์ส
 
-This can lead to unexpected behaviour.
-Are you sure you want to use this folder?</value>
+ซึ่งอาจทำให้เกิดปัญหา
+คุณแน่ใจหรือไม่ว่าต้องการใช้โฟลเดอร์นี้?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>Attention: The chosen folder is just partially indexed by Windows search. 
+    <value>ข้อควรระวัง: โฟลเดอร์ที่เลือกเป็นเพียงการจัดทำดัชนีบางส่วนโดยการค้นหาของวินโดว์ส
 
-This can lead to unexpected behaviour.
-Are you sure you want to use this folder?</value>
+ซึ่งอาจทำให้เกิดปัญหา
+คุณแน่ใจหรือไม่ว่าต้องการใช้โฟลเดอร์นี้?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
     <value>ดูซอร์สโค้ด</value>
@@ -489,10 +489,10 @@ Are you sure you want to use this folder?</value>
     <value>ส่งรายงานการวินิจฉัยทางอีเมล</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>The synchronisation will start in the background if the following conditions are met:
-- The device is connected to a charger.
-- A WiFi-Connection is established.
-- The device is not in use.</value>
+    <value>การประสานข้อมูลจะเริ่มต้นได้ก็ต่อเมื่อทำตามเงื่อนไขต่อไปนี้:
+- อุปกรณ์เชื่อมต่อกับที่ชาร์จแล้ว
+- มีการเชื่อมต่อ WiFi แล้ว
+- ไม่ได้ใช้งานอุปกรณ์</value>
   </data>
   <data name="day" xml:space="preserve">
     <value>วัน</value>
