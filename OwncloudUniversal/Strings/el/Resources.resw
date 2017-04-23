@@ -118,425 +118,424 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.Header" xml:space="preserve">
-    <value>Over</value>
+    <value>Σχετικά</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>Synchronisatie aanzetten</value>
+    <value>Ενεργοποίηση συγχρονισμού</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>Transfer rondt ook af als de app in de achtergrond draait!</value>
+    <value>Η μεταφορά θα ολοκληρωθεί επίσης, εφόσον η εφαρμογή υπάρχει στο ιστορικό</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>Annuleren</value>
+    <value>Ακύρωση</value>
   </data>
   <data name="Connection.Header" xml:space="preserve">
-    <value>Verbinding</value>
+    <value>Σύνδεση</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
-    <value>Huidig bestand</value>
+    <value>Τρέχον αρχείο</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
-    <value>Verwijderen</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>Bestand verwijderen?</value>
+    <value>Διαγραφή αρχείου;</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>Map verwijderen?</value>
+    <value>Διαγραφή φακέλου;</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
-    <value>Synchronisatie uitschakelen?</value>
+    <value>Απενεργοποίηση συγχρονισμού</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Downloaden</value>
+    <value>Λήψη</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>Downloaden...</value>
+    <value>Λήψη...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
-    <value>Automatische synchronisatie</value>
+    <value>Αυτόματος συγχρονισμός</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>Achtergrondtaak uitgeschakeld</value>
+    <value>Υπηρεσία ιστορικού απενεργοποιημένη</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>Achtergrondtaak ingeschakeld</value>
+    <value>Υπηρεσία ιστορικού ενεργοποιημένη</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
-    <value>Bestanden</value>
+    <value>Αρχεία</value>
   </data>
   <data name="FilesButton.Text" xml:space="preserve">
-    <value>Bestanden</value>
+    <value>Αρχεία</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>Onderhanden bestanden</value>
+    <value>Αρχεία σε εκκρεμότητα</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
-    <value>Bestandsoverdracht</value>
+    <value>Διαβίβαση αρχείου</value>
   </data>
   <data name="History.Header" xml:space="preserve">
-    <value>Geschiedenis</value>
+    <value>Ιστορικό</value>
   </data>
   <data name="no" xml:space="preserve">
-    <value>Nee</value>
+    <value>Όχι</value>
   </data>
   <data name="OpenFile.Content" xml:space="preserve">
-    <value>Bestand openen</value>
+    <value>Άνοιγμα αρχείου</value>
   </data>
   <data name="OutOf.Text" xml:space="preserve">
-    <value>van</value>
+    <value>του</value>
   </data>
   <data name="PasswordHeader.Text" xml:space="preserve">
-    <value>Wachtwoord</value>
+    <value>Συνθηματικό</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
-    <value>Eigenschappen</value>
+    <value>Ιδιότητες</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>Herladen</value>
+    <value>Επαναφόρτωση</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>Applicatiethema</value>
+    <value>Θέμα εφαρμογής</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
-    <value>Donker</value>
+    <value>Σκούρο</value>
   </data>
   <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
-    <value>Licht</value>
+    <value>Φωτεινό</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Herstel deze app</value>
+    <value>Επανεκκίνηση της εφαρμογής</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
-    <value>Instellingen</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Instellingen</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>Terugknop</value>
+    <value>Πίσω κουμπί</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
-    <value>Terugknop in de paginakop</value>
+    <value>Το κουμπί Επιστροφή βρίσκεται στην Κεφαλίδα Σελίδας</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>Terugknop in de titel/taakbalk</value>
+    <value>Το κουμπί Επιστροφής βρίσκετε στο Τίτλο/ΜπάραΕργασιών</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>Start synchronisatie</value>
+    <value>Έναρξη συγχρονισμού</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
-    <value>Status</value>
+    <value>Κατάσταση</value>
   </data>
   <data name="SynchedFolders.Text" xml:space="preserve">
-    <value>Gesynchroniseerde mappen</value>
+    <value>Συγχρονισμένοι φάκελοι</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronisatie (Beta)</value>
+    <value>Ο συγχρονισμός (Beta)</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronisatie (Beta)</value>
+    <value>Ο συγχρονισμός (Beta)</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>Transfer bezig...</value>
+    <value>Η μεταφορά είναι σε εξέλιξη...</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
-    <value>Stop synchronisatie</value>
+    <value>Λήξη συγχρονισμού</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>Upload bestanden</value>
+    <value>Μεταφόρτωση αρχείων</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
-    <value>Gebruikersnaam</value>
+    <value>Όνομα χρήστη</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
   </data>
   <data name="yes" xml:space="preserve">
-    <value>Ja</value>
+    <value>Ναι</value>
   </data>
   <data name="DownloadMultiple.Label" xml:space="preserve">
-    <value>Downloaden</value>
+    <value>Λήψη</value>
   </data>
   <data name="CancelSelectMode.Label" xml:space="preserve">
-    <value>Annuleren</value>
+    <value>Ακύρωση</value>
   </data>
   <data name="DeleteMultiple.Label" xml:space="preserve">
-    <value>Verwijderen</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="deleteMultipleConfirmation" xml:space="preserve">
-    <value>Verwijderen?</value>
+    <value>Διαγραφή;</value>
   </data>
   <data name="DetailsPageHeader.Content" xml:space="preserve">
-    <value>Eigenschappen</value>
+    <value>Ιδιότητες</value>
   </data>
   <data name="FileContentType.Header" xml:space="preserve">
-    <value>Type</value>
+    <value>Τύπος</value>
   </data>
   <data name="FileEtag.Header" xml:space="preserve">
-    <value>E-tag</value>
+    <value>Ηλεκτρονική ετικέτα</value>
   </data>
   <data name="FileIsSynced.Header" xml:space="preserve">
-    <value>Synchronizationstatus</value>
+    <value>Κατάσταση συχρονισμού</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>Modifydate</value>
+    <value>Τροποποίηση ημερομηνίας</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
-    <value>Naam</value>
+    <value>Όνομα</value>
   </data>
   <data name="FilePath.Header" xml:space="preserve">
-    <value>Pad</value>
+    <value>Διαδρομή</value>
   </data>
   <data name="FileSize.Header" xml:space="preserve">
-    <value>Grootte</value>
+    <value>Μέγεθος</value>
   </data>
   <data name="NewFolder.Label" xml:space="preserve">
-    <value>Nieuwe map</value>
+    <value>Νέος φάκελος</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>Selecteer modus</value>
+    <value>Επιλογή κατάστασης</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
-    <value>Verbinden</value>
+    <value>Σύνδεση</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
-    <value>Serveradres</value>
+    <value>Διεύθυνση διακομιστή</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>De server is niet gevonden. Controleer de URL en uw internetverbinding.</value>
+    <value>Αδυναμία εύρεσης διακομιστή. Παρακαλώ ελέγξτε το URL και τη σύνδεση σας.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>Er trad een interne fout voor op bij de server</value>
+    <value>Παρουσιάστηκε εσωτερικό σφάλμα στο διακομιστή</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>De opgevraagde bron kan niet worden gevonden</value>
+    <value>Ο ζητούμενος πόρος δεν βρέθηκε</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>De service is nu niet beschikbaar.</value>
+    <value>Η υπηρεσία δεν είναι διαθέσιμη</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
-    <value>Inloggen mislukt</value>
+    <value>Η είσοδος απέτυχε!</value>
   </data>
   <data name="CreateNewFolder" xml:space="preserve">
-    <value>Creëer nieuwe map</value>
+    <value>Δημιουργία νέου φακέλου</value>
   </data>
   <data name="FolderName" xml:space="preserve">
-    <value>Mapnaam</value>
+    <value>Όνομα φακέλου</value>
   </data>
   <data name="NewFolderName" xml:space="preserve">
-    <value>Nieuwe map</value>
+    <value>Νέος φάκελος</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>OK</value>
+    <value>ΟΚ</value>
   </data>
   <data name="Oops" xml:space="preserve">
-    <value>Oei</value>
+    <value>Και κλάμα η κυρία </value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
-    <value>Bestand verwijderen?</value>
+    <value>Διαγραφή αρχείου;</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
-    <value>Synchronisatiestatus</value>
+    <value>Κατάσταση Συγχρονισμού</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>Geen grote bestanden downloaden. Limiet (MB):</value>
+    <value>Μην κάνετε λήψη μεγάλων αρχείων. Όριο (MB):</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
-    <value>Accepteren</value>
+    <value>Αποδοχή</value>
   </data>
   <data name="MoveToFolder.Text" xml:space="preserve">
-    <value>Verplaatsen</value>
+    <value>Μετακίνηση</value>
   </data>
   <data name="SelectFolder.Text" xml:space="preserve">
-    <value>Selecteer de doel map</value>
+    <value>Επέλεξε το φάκελο στόχο</value>
   </data>
   <data name="Move.Label" xml:space="preserve">
-    <value>Verplaatsen</value>
+    <value>Μετακίνηση</value>
   </data>
   <data name="NewName" xml:space="preserve">
-    <value>Nieuwe naam:</value>
+    <value>Νέο Όνομα:</value>
   </data>
   <data name="Rename.Text" xml:space="preserve">
-    <value>Naam wijzigen</value>
+    <value>Μετονομασία</value>
   </data>
   <data name="RenameTitle" xml:space="preserve">
-    <value>Naam wijzigen</value>
+    <value>Μετονομασία</value>
   </data>
   <data name="LocalFolderHeader.Header" xml:space="preserve">
-    <value>Lokale map</value>
+    <value>Τοπικός φάκελος</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
-    <value>ownCloud map</value>
+    <value>Φάκελο ownCloud</value>
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
-    <value>Configuratie</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>Automatische synchronisatie</value>
+    <value>Αυτόματος συγχρονισμός</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>Verbinding gelukt! Waarschuwing: De verbinding is niet versleuteld!</value>
+    <value>Η σύνδεση ήταν επιτυχής! Προειδοποίηση: Η σύνδεση δεν είναι κρυπτογραφημένη!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>Verkeerde gebruikersnaam of wachtwoord.</value>
+    <value>Εσφαλμένο όνομα χρήστη ή συνθηματικό.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>Er trad een fout op. Misschien staat de server in onderhoudsmodus of is de installatie niet compleet. Probeer het opnieuw of neem contact op met uw beheerder.</value>
+    <value>Προέκυψε ένα σφάλμα. Ίσως ο διακομιστής βρίσκεται σε λειτουργία συντήρησης ή η εγκατάσταση είναι ελλιπής. Δοκιμάστε ξανά αργότερα ή επικοινωνήστε με το διαχειριστή του συστήματός σας.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Wilt u de app echt resetten?</value>
+    <value>Do you really want to reset this app?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Herstart de app.</value>
+    <value>Παρακαλώ επανεκκινήστε την εφαρμογή.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
-    <value>Beveiligde verbinding succesvol!</value>
+    <value>Secure connection successful!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
     <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Er trad een fout op. Herstart de app en probeer het opnieuw.</value>
+    <value>An error occured. Please restart the application and try again.</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Wijzigingen verwerken</value>
+    <value>Processing changes</value>
   </data>
   <data name="Deletions" xml:space="preserve">
-    <value>Verwijderingen verwijderen</value>
+    <value>Processing deletions</value>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Klaar</value>
+    <value>Ολοκληρώθηκε</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>Klaar</value>
+    <value>Ready</value>
   </data>
   <data name="Receiving" xml:space="preserve">
-    <value>Ontvangen</value>
+    <value>Receiving</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>Kijken naar wijzigingen</value>
+    <value>Looking for changes</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>Versturen</value>
+    <value>Sending</value>
   </data>
   <data name="Stopped" xml:space="preserve">
-    <value>Geanulleerd</value>
+    <value>Ακυρώθηκε</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>Database bijwerken</value>
+    <value>Updating the database</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
-    <value>Alleen downloaden</value>
+    <value>Μόνο λήψη</value>
   </data>
   <data name="FullSync" xml:space="preserve">
-    <value>Normaal</value>
+    <value>Normal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>Alleen uploaden</value>
+    <value>Μόνο μεταφόρτωση</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
-    <value>Modus</value>
+    <value>Κατάσταση</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>Verwijder</value>
+    <value>Αφαίρεση</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>Wijzigingen opslaan</value>
+    <value>Αποθήκευση αλλαγών</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>De inhoud van deze mappen zal worden gesynchroniseerd:</value>
+    <value>Το περιεχόμενο αυτών των φακέλων θα συγχρονιστεί:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Start de eerste synchronisatie handmatig als het apparaat is verbonden met een WIFI netwerk en een oplader. De eerste synch kan even tijd kosten.</value>
+    <value>Please start the first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
-    <value>Start synchronisatie</value>
+    <value>Έναρξη συγχρονισμού</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>Aanbevolen wordt om het apparaat te verbinden met een WIFI-netwerk en een oplader, omdat synchronisatie veel tijd kan vergen en het scherm actief blijft.
-Weet u zeker dat u nu wilt synchroniseren?</value>
+    <value>It is recommended to connect the device with a WiFi network and a charger because the synchronization could take very long and the display will stay active.
+Are you sure you want to start the synchronization now?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>De server staat deze verwerking niet toe.</value>
+    <value>The server does not allow this operation.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>Let op: de gekozen map is niet geïndexeerd door de Windows zoekfunctie.
-Dit kan leiden tot onverwacht gedrag.
-Weet u zeker dat u deze map wilt gebruiken?
-</value>
+    <value>Attention: The chosen folder is not indexed by Windows search. 
+
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>Let op: de gekozen map is maar deels geïndexeerd door de Windows zoekfunctie.
+    <value>Attention: The chosen folder is just partially indexed by Windows search. 
 
-Dit kan leiden tot onverwacht gedrag.
-Weet u zeker dat u deze map wilt gebruiken?</value>
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
-    <value>Bekijk broncode</value>
+    <value>Προβολή πηγαίου κώδικα</value>
   </data>
   <data name="SupportUrl.Content" xml:space="preserve">
-    <value>Contact met ondersteuning</value>
+    <value>Contact support</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>Uitgever</value>
+    <value>Publisher</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
-    <value>Versie</value>
+    <value>Έκδοση</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>Verstuur het diagnoserapport per e-mail</value>
+    <value>Αποστολή διαγνωστικού μέσω ηλεκτρονικής αλληλογραφίας</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>De synchronisatie start in de achtergrond als aan de volgende voorwaarden is voldaan:
-- Het apparaat is verbonden met een oplader.
-- Er is een WIFI-verbinding actief.
-- Het apparaat wordt niet gebruikt.
-</value>
+    <value>The synchronisation will start in the background if the following conditions are met:
+- The device is connected to a charger.
+- A WiFi-Connection is established.
+- The device is not in use.</value>
   </data>
   <data name="day" xml:space="preserve">
-    <value>dag</value>
+    <value>ημέρα</value>
   </data>
   <data name="days" xml:space="preserve">
-    <value>dagen</value>
+    <value>ημέρες</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>uur</value>
+    <value>ώρα</value>
   </data>
   <data name="hours" xml:space="preserve">
-    <value>uur</value>
+    <value>ώρες</value>
   </data>
   <data name="justNow" xml:space="preserve">
-    <value>net</value>
+    <value>μόλις τώρα</value>
   </data>
   <data name="minute" xml:space="preserve">
-    <value>minuut</value>
+    <value>λεπτό</value>
   </data>
   <data name="minutes" xml:space="preserve">
-    <value>minuten</value>
+    <value>λεπτά</value>
   </data>
   <data name="month" xml:space="preserve">
-    <value>maand</value>
+    <value>μήνας</value>
   </data>
   <data name="months" xml:space="preserve">
-    <value>maanden</value>
+    <value>μήνες</value>
   </data>
   <data name="second" xml:space="preserve">
-    <value>tweede</value>
+    <value>δευτερόλεπτο</value>
   </data>
   <data name="seconds" xml:space="preserve">
-    <value>seconden</value>
+    <value>δευτερόλεπτα</value>
   </data>
   <data name="TimeSpanPrefix" xml:space="preserve">
     <value/>
   </data>
   <data name="TimeSpanSuffix" xml:space="preserve">
-    <value>geleden</value>
+    <value>πριν</value>
   </data>
   <data name="year" xml:space="preserve">
-    <value>jaar</value>
+    <value>έτος</value>
   </data>
   <data name="years" xml:space="preserve">
-    <value>jaar</value>
+    <value>χρόνια</value>
   </data>
 </root>
