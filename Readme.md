@@ -8,6 +8,11 @@ This is the ownCloud app for your Windows 10 device.
 - Create and delete folders.
 - View thumbnails of your images - those thumbnails will be cached on your device so have to be loaded just once.
 
+## Translation
+Translation happens here: https://www.transifex.com/owncloud-org/owncloud/windowsphone/
+
+You have to request access to the team before you can modify the strings.
+
 ## Screenshots
 <kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot5.png" width="250"/></kbd>
 <kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot1.png" width="250"/></kbd>
