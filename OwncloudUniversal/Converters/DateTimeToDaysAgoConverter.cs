@@ -14,32 +14,29 @@ namespace OwncloudUniversal.Converters
             if (value is DateTime)
             {
                 TimeSpan span = DateTime.Now - (DateTime)value;
-                var suffix = App.ResourceLoader.GetString("TimeSpanSuffix");
-                var prefix = App.ResourceLoader.GetString("TimeSpanPrefix");
                 if (span.Days > 365)
                 {
                     int years = (span.Days / 365) -1;
                     if (span.Days % 365 != 0)
                         years += 1;
-                    return $"{prefix} {years} {(years == 1 ? App.ResourceLoader.GetString("year") : App.ResourceLoader.GetString("years"))} {suffix}";
+                    return string.Format(years == 1 ? App.ResourceLoader.GetString("AYearAgo") : App.ResourceLoader.GetString("XYearsAgo"), years);
                 }
                 if (span.Days > 30)
                 {
                     int months = (span.Days / 30) -1;
                     if (span.Days % 31 != 0)
                         months += 1;
-                    return $"{prefix} {months} {(months == 1 ? App.ResourceLoader.GetString("month") : App.ResourceLoader.GetString("months"))} {suffix}";
+                    return string.Format(months == 1 ? App.ResourceLoader.GetString("AMonthAgo") : App.ResourceLoader.GetString("XMonthsAgo"), months);
                 }
                 if (span.Days > 0)
-                    return $"{prefix} {span.Days} {(span.Days == 1 ? App.ResourceLoader.GetString("day") : App.ResourceLoader.GetString("days"))} {suffix}";
+                    return string.Format(span.Days == 1 ? App.ResourceLoader.GetString("ADayAgo") : App.ResourceLoader.GetString("XDaysAgo"), span.Days);
                 if (span.Hours > 0)
-                    return $"{prefix} {span.Hours} {(span.Hours == 1 ? App.ResourceLoader.GetString("hour") : App.ResourceLoader.GetString("hours"))} {suffix}";
+                    return string.Format(span.Hours == 1 ? App.ResourceLoader.GetString("AnHourAgo") : App.ResourceLoader.GetString("XHoursAgo"), span.Hours);
                 if (span.Minutes > 0)
-                    return $"{prefix} {span.Minutes} {(span.Minutes == 1 ? App.ResourceLoader.GetString("minute") : App.ResourceLoader.GetString("minutes"))} {suffix}";
+                    return string.Format(span.Minutes == 1 ? App.ResourceLoader.GetString("AMinuteAgo") : App.ResourceLoader.GetString("XMinutesAgo"), span.Minutes);
                 if (span.Seconds > 5)
-                    return $"{prefix} {span.Seconds} {(span.Seconds == 1 ? App.ResourceLoader.GetString("second") : App.ResourceLoader.GetString("seconds"))} {suffix}";
-                if (span.Seconds <= 5)
-                    return App.ResourceLoader.GetString("justNow");
+                    return string.Format(span.Seconds == 1 ? App.ResourceLoader.GetString("ASecondAgo") : App.ResourceLoader.GetString("XSecondsAgo"), span.Seconds);
+                return App.ResourceLoader.GetString("justNow");
             }
             return string.Empty;
         }
