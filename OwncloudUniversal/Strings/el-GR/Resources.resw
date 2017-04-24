@@ -400,37 +400,37 @@
     <value>An error occured. Please restart the application and try again.</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Processing changes</value>
+    <value>Επεξεργασία αλλαγών</value>
   </data>
   <data name="Deletions" xml:space="preserve">
-    <value>Processing deletions</value>
+    <value>Επεξεργασία διαγραφών</value>
   </data>
   <data name="Finished" xml:space="preserve">
     <value>Ολοκληρώθηκε</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>Έτοιμο</value>
   </data>
   <data name="Receiving" xml:space="preserve">
-    <value>Receiving</value>
+    <value>Λήψη</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>Looking for changes</value>
+    <value>Ψάχνετε για αλλαγές</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>Sending</value>
+    <value>Αποστολή</value>
   </data>
   <data name="Stopped" xml:space="preserve">
     <value>Ακυρώθηκε</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>Updating the database</value>
+    <value>Ένημέρωση βάσης δεδομένων</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
     <value>Μόνο λήψη</value>
   </data>
   <data name="FullSync" xml:space="preserve">
-    <value>Normal</value>
+    <value>Κανονικό</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
     <value>Μόνο μεταφόρτωση</value>
@@ -458,7 +458,7 @@
 Are you sure you want to start the synchronization now?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>The server does not allow this operation.</value>
+    <value>Ο διακομιστής δεν επιτρέπει αυτή τη λειτουργία</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
     <value>Attention: The chosen folder is not indexed by Windows search. 
@@ -479,7 +479,7 @@ Are you sure you want to use this folder?</value>
     <value>Contact support</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>Publisher</value>
+    <value>Εκδότης</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
     <value>Έκδοση</value>
@@ -493,49 +493,43 @@ Are you sure you want to use this folder?</value>
 - A WiFi-Connection is established.
 - The device is not in use.</value>
   </data>
-  <data name="day" xml:space="preserve">
-    <value>ημέρα</value>
-  </data>
-  <data name="days" xml:space="preserve">
-    <value>ημέρες</value>
-  </data>
-  <data name="hour" xml:space="preserve">
-    <value>ώρα</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>ώρες</value>
-  </data>
   <data name="justNow" xml:space="preserve">
     <value>μόλις τώρα</value>
   </data>
-  <data name="minute" xml:space="preserve">
-    <value>λεπτό</value>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>a day ago</value>
   </data>
-  <data name="minutes" xml:space="preserve">
-    <value>λεπτά</value>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>a minute ago</value>
   </data>
-  <data name="month" xml:space="preserve">
-    <value>μήνας</value>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>a month ago</value>
   </data>
-  <data name="months" xml:space="preserve">
-    <value>μήνες</value>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>an hour ago</value>
   </data>
-  <data name="second" xml:space="preserve">
-    <value>δευτερόλεπτο</value>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>a second ago</value>
   </data>
-  <data name="seconds" xml:space="preserve">
-    <value>δευτερόλεπτα</value>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>a year ago</value>
   </data>
-  <data name="TimeSpanPrefix" xml:space="preserve">
-    <value/>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
   </data>
-  <data name="TimeSpanSuffix" xml:space="preserve">
-    <value>πριν</value>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
   </data>
-  <data name="year" xml:space="preserve">
-    <value>έτος</value>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
   </data>
-  <data name="years" xml:space="preserve">
-    <value>χρόνια</value>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0} months ago</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0} seconds ago</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0} years ago</value>
   </data>
 </root>

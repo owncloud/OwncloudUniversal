@@ -494,49 +494,43 @@
 - มีการเชื่อมต่อ WiFi แล้ว
 - ไม่ได้ใช้งานอุปกรณ์</value>
   </data>
-  <data name="day" xml:space="preserve">
-    <value>วัน</value>
-  </data>
-  <data name="days" xml:space="preserve">
-    <value>วัน</value>
-  </data>
-  <data name="hour" xml:space="preserve">
-    <value>ชั่วโมง</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>ชั่วโมง</value>
-  </data>
   <data name="justNow" xml:space="preserve">
     <value>ตอนนี้</value>
   </data>
-  <data name="minute" xml:space="preserve">
-    <value>นาที</value>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>a day ago</value>
   </data>
-  <data name="minutes" xml:space="preserve">
-    <value>นาที</value>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>a minute ago</value>
   </data>
-  <data name="month" xml:space="preserve">
-    <value>เดือน</value>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>a month ago</value>
   </data>
-  <data name="months" xml:space="preserve">
-    <value>เดือน</value>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>an hour ago</value>
   </data>
-  <data name="second" xml:space="preserve">
-    <value>วินาที</value>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>a second ago</value>
   </data>
-  <data name="seconds" xml:space="preserve">
-    <value>วินาที</value>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>a year ago</value>
   </data>
-  <data name="TimeSpanPrefix" xml:space="preserve">
-    <value/>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
   </data>
-  <data name="TimeSpanSuffix" xml:space="preserve">
-    <value>ที่ผ่านมา</value>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
   </data>
-  <data name="year" xml:space="preserve">
-    <value>ปี</value>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
   </data>
-  <data name="years" xml:space="preserve">
-    <value>ปี</value>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0} months ago</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0} seconds ago</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0} years ago</value>
   </data>
 </root>
