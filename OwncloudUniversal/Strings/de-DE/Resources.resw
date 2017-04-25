@@ -497,39 +497,39 @@ Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
     <value>gerade eben</value>
   </data>
   <data name="ADayAgo" xml:space="preserve">
-    <value>a day ago</value>
+    <value>Vor einem Tag</value>
   </data>
   <data name="AMinuteAgo" xml:space="preserve">
-    <value>a minute ago</value>
+    <value>Vor einer Minute</value>
   </data>
   <data name="AMonthAgo" xml:space="preserve">
-    <value>a month ago</value>
+    <value>Vor einem Monat</value>
   </data>
   <data name="AnHourAgo" xml:space="preserve">
-    <value>an hour ago</value>
+    <value>Vor einer Stunde</value>
   </data>
   <data name="ASecondAgo" xml:space="preserve">
-    <value>a second ago</value>
+    <value>Vor einer Sekunde</value>
   </data>
   <data name="AYearAgo" xml:space="preserve">
-    <value>a year ago</value>
+    <value>Vor einem Jahr</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
-    <value>{0} days ago</value>
+    <value>Vor {0} Tagen</value>
   </data>
   <data name="XHoursAgo" xml:space="preserve">
-    <value>{0} hours ago</value>
+    <value>Vor {0} Stunden</value>
   </data>
   <data name="XMinutesAgo" xml:space="preserve">
-    <value>{0} minutes ago</value>
+    <value>Vor {0} Minuten</value>
   </data>
   <data name="XMonthsAgo" xml:space="preserve">
-    <value>{0} months ago</value>
+    <value>Vor {0} Monaten</value>
   </data>
   <data name="XSecondsAgo" xml:space="preserve">
-    <value>{0} seconds ago</value>
+    <value>Vor {0} Sekunden</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
-    <value>{0} years ago</value>
+    <value>Vor {0} Jahren</value>
   </data>
 </root>
