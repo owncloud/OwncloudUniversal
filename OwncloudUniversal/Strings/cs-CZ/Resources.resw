@@ -497,39 +497,39 @@ Jste si jisti, že chcete použít tuto složku?</value>
     <value>nyní</value>
   </data>
   <data name="ADayAgo" xml:space="preserve">
-    <value>a day ago</value>
+    <value>včera</value>
   </data>
   <data name="AMinuteAgo" xml:space="preserve">
-    <value>a minute ago</value>
+    <value>před minutou</value>
   </data>
   <data name="AMonthAgo" xml:space="preserve">
-    <value>a month ago</value>
+    <value>před měsícem</value>
   </data>
   <data name="AnHourAgo" xml:space="preserve">
-    <value>an hour ago</value>
+    <value>před hodinou</value>
   </data>
   <data name="ASecondAgo" xml:space="preserve">
-    <value>a second ago</value>
+    <value>před sekundou</value>
   </data>
   <data name="AYearAgo" xml:space="preserve">
-    <value>a year ago</value>
+    <value>loni</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
-    <value>{0} days ago</value>
+    <value>před {0} dny</value>
   </data>
   <data name="XHoursAgo" xml:space="preserve">
-    <value>{0} hours ago</value>
+    <value>před {0} hodinami</value>
   </data>
   <data name="XMinutesAgo" xml:space="preserve">
-    <value>{0} minutes ago</value>
+    <value>před {0} minutami</value>
   </data>
   <data name="XMonthsAgo" xml:space="preserve">
-    <value>{0} months ago</value>
+    <value>před {0} měsíci</value>
   </data>
   <data name="XSecondsAgo" xml:space="preserve">
-    <value>{0} seconds ago</value>
+    <value>před {0} sekundami</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
-    <value>{0} years ago</value>
+    <value>před {0} roky</value>
   </data>
 </root>
