@@ -385,19 +385,19 @@
     <value>Προέκυψε ένα σφάλμα. Ίσως ο διακομιστής βρίσκεται σε λειτουργία συντήρησης ή η εγκατάσταση είναι ελλιπής. Δοκιμάστε ξανά αργότερα ή επικοινωνήστε με το διαχειριστή του συστήματός σας.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Do you really want to reset this app?</value>
+    <value>Επιθυμείτε πραγματικά να επαναφέρετε την εφαρμογή;</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
     <value>Παρακαλώ επανεκκινήστε την εφαρμογή.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
-    <value>Secure connection successful!</value>
+    <value>Επιτυχημένη ασφαλής σύνδεση!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
     <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>An error occured. Please restart the application and try again.</value>
+    <value>Προέκυψε ένα σφάλμα. Παρακαλώ επανεκκινήστε την εφαρμογή και προσπαθήστε ξανά.</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Επεξεργασία αλλαγών</value>
@@ -448,35 +448,32 @@
     <value>Το περιεχόμενο αυτών των φακέλων θα συγχρονιστεί:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Please start the first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>
+    <value>Παρακαλώ ξεκινήστε τον πρώτο συγχρονισμό χειροκίνητα όταν η συσκευή είναι συνδεδεμένη σε ένα ασύρματο δίκτυο και φορτίζεται. Ο πρώτος συγχρονισμός θα χρειαστεί λίγο χρόνο.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
     <value>Έναρξη συγχρονισμού</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>It is recommended to connect the device with a WiFi network and a charger because the synchronization could take very long and the display will stay active.
-Are you sure you want to start the synchronization now?</value>
+    <value>Προτείνεται να συνδέσετε τη συσκευή με ένα ασύρματο δίκτυο και ένα φορτιστή, γιατί ο συγχρονισμός μπορεί να πάρει πολύ χρόνο και η οθόνη θα παραμείνει ενεργή. Είστε βέβαιοι πως επιθυμείτε να ξεκινήσετε το συγχρονισμό τώρα; </value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
     <value>Ο διακομιστής δεν επιτρέπει αυτή τη λειτουργία</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>Attention: The chosen folder is not indexed by Windows search. 
-
-This can lead to unexpected behaviour.
-Are you sure you want to use this folder?</value>
+    <value>Προσοχή: Ο επιλεγμένος φάκελος δεν είναι καταχωρημένος στην αναζήτηση των Windows.
+Αυτό μπορεί να οδηγήσει σε απροσδόκητη συμπεριφορά.
+Είστε βέβαιοι πως επιθυμείτε να χρησιμοποιήσετε αυτό το φάκελο; </value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>Attention: The chosen folder is just partially indexed by Windows search. 
-
-This can lead to unexpected behaviour.
-Are you sure you want to use this folder?</value>
+    <value>Προσοχή: Ο επιλεγμένος φάκελος είναι μερικώς καταχωρημένος στην αναζήτηση των Windows.
+Αυτό θα μπορούσε να οδηγήσει σε απροσδόκητη συμπεριφορά.
+Είστε βέβαιοι πως επιθυμείτε να χρησιμοποιήσετε αυτό το φάκελο; </value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
     <value>Προβολή πηγαίου κώδικα</value>
   </data>
   <data name="SupportUrl.Content" xml:space="preserve">
-    <value>Contact support</value>
+    <value>Επικοινωνήστε με την υποστήριξη</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
     <value>Εκδότης</value>
@@ -488,48 +485,48 @@ Are you sure you want to use this folder?</value>
     <value>Αποστολή διαγνωστικού μέσω ηλεκτρονικής αλληλογραφίας</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>The synchronisation will start in the background if the following conditions are met:
-- The device is connected to a charger.
-- A WiFi-Connection is established.
-- The device is not in use.</value>
+    <value>Ο συγχρονισμός θα εκκινηθεί στο παρασκήνιο εφόσον οι πληρούνται οι παρακάτω προϋποθέσεις. 
+- Η συσκευή είναι συνδεδεμένη σε ένα φορτιστή.
+- Επιτεύχθηκε η ασύρματη σύνδεση.
+- Η συσκευή δε χρησιμοποιείται.</value>
   </data>
   <data name="justNow" xml:space="preserve">
     <value>μόλις τώρα</value>
   </data>
   <data name="ADayAgo" xml:space="preserve">
-    <value>a day ago</value>
+    <value>πριν μια μέρα</value>
   </data>
   <data name="AMinuteAgo" xml:space="preserve">
-    <value>a minute ago</value>
+    <value>πριν ένα λεπτό</value>
   </data>
   <data name="AMonthAgo" xml:space="preserve">
-    <value>a month ago</value>
+    <value>πριν ένα μήνα</value>
   </data>
   <data name="AnHourAgo" xml:space="preserve">
-    <value>an hour ago</value>
+    <value>πριν μια ώρα</value>
   </data>
   <data name="ASecondAgo" xml:space="preserve">
-    <value>a second ago</value>
+    <value>πριν ένα δευτερόλεπτο</value>
   </data>
   <data name="AYearAgo" xml:space="preserve">
-    <value>a year ago</value>
+    <value>πριν ένα χρόνο</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
-    <value>{0} days ago</value>
+    <value>{0} μέρες πριν</value>
   </data>
   <data name="XHoursAgo" xml:space="preserve">
-    <value>{0} hours ago</value>
+    <value>{0} ώρες πριν</value>
   </data>
   <data name="XMinutesAgo" xml:space="preserve">
-    <value>{0} minutes ago</value>
+    <value>{0} λεπτά πριν</value>
   </data>
   <data name="XMonthsAgo" xml:space="preserve">
-    <value>{0} months ago</value>
+    <value>{0} μήνες πριν</value>
   </data>
   <data name="XSecondsAgo" xml:space="preserve">
-    <value>{0} seconds ago</value>
+    <value>{0} δευτερόλεπτα πριν</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
-    <value>{0} years ago</value>
+    <value>{0} χρόνια πριν</value>
   </data>
 </root>
