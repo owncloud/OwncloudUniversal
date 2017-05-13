@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="ViewModels\FileTransferPageViewModel.cs" />
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
+    <Compile Include="ViewModels\PhotoPageViewModel.cs" />
     <Compile Include="ViewModels\SelectFolderPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\SyncedFolderConfigurationPageViewModel.cs" />
@@ -162,6 +163,9 @@
     </Compile>
     <Compile Include="Views\FilesPage.xaml.cs">
       <DependentUpon>FilesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PhotoPage.xaml.cs">
+      <DependentUpon>PhotoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectFolderPage.xaml.cs">
       <DependentUpon>SelectFolderPage.xaml</DependentUpon>
@@ -307,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FilesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PhotoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
