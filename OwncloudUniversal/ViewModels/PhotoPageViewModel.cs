@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.AppService;
+using Windows.Media.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +14,7 @@ using OwncloudUniversal.Services;
 using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.Views;
+using OwncloudUniversal.WebDav;
 using OwncloudUniversal.WebDav.Model;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
@@ -24,12 +26,15 @@ namespace OwncloudUniversal.ViewModels
         private List<DavItem> _items;
         private int _selectedIndex;
         private bool _showControls;
+        private WebDavClient _client;
+        private MediaSource _mediaSource;
 
         public PhotoPageViewModel()
         {
             EnterFullScreenCommand = new DelegateCommand(EnterFullScreen);
             LeaveFullScreenCommand = new DelegateCommand(LeaveFullscreen);
             ShowControls = true;
+            _client = new WebDavClient(new Uri(Configuration.ServerUrl), Configuration.Credential);
         }
 
         public ICommand EnterFullScreenCommand { get; private set; }
@@ -69,6 +74,15 @@ namespace OwncloudUniversal.ViewModels
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             Items = await LoadItems();
+            PropertyChanged += async (sender, args) =>
+            {
+                if (args.PropertyName == "SelectedItem" && (SelectedItem?.ContentType.StartsWith("video") ?? false))
+                    await CreateMediaStream(SelectedItem);
+                else
+                {
+                    MediaSource?.Reset();
+                }
+            };
             SelectedIndex = Items.FindIndex(i => i.EntityId == ((DavItem)parameter).EntityId);
             if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
                 EnterFullScreen();
@@ -81,10 +95,28 @@ namespace OwncloudUniversal.ViewModels
             get
             {
                 if (SelectedIndex != -1 && Items != null)
+                {
                     return Items[SelectedIndex];
+                }
                 return null;
             }
-        } 
+        }
+
+        public MediaSource MediaSource
+        {
+            get { return _mediaSource; }
+            set
+            {
+                _mediaSource = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private async Task CreateMediaStream(DavItem item)
+        {
+            var stream = await _client.GetAsHttpRandomAccessStream(item);
+            MediaSource = MediaSource.CreateFromStream(stream, stream.ContentType);
+        }
 
         private async Task<List<DavItem>>  LoadItems()
         {
@@ -99,7 +131,7 @@ namespace OwncloudUniversal.ViewModels
                     davItem.ThumbnailUrl = url;
                 }
             }
-            return service.Items.Where(i => i.ContentType.StartsWith("image")).ToList();
+            return service.Items.Where(i => i.ContentType.StartsWith("image") || i.ContentType.StartsWith("video")).ToList();
         }
 
         public override Task OnNavigatingFromAsync(NavigatingEventArgs args)

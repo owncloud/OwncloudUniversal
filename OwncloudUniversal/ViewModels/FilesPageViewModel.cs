@@ -123,7 +123,7 @@ namespace OwncloudUniversal.ViewModels
                     {
                         NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
                     }
-                    else if(value.ContentType.StartsWith("image"))
+                    else if(value.ContentType.StartsWith("image") || value.ContentType.StartsWith("video"))
                     {
                         NavigationService.Navigate(typeof(PhotoPage), value, new SuppressNavigationTransitionInfo());
                     }

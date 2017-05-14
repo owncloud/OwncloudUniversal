@@ -36,53 +36,58 @@
         <FlipView x:Name="FlipView" ItemsSource="{Binding Items}" SelectedIndex="{Binding SelectedIndex , Mode=TwoWay}">
             <FlipView.ItemTemplate>
                 <DataTemplate>
-                    <ScrollViewer x:Name="ScrollViewer" MinZoomFactor="1" ZoomMode="Enabled"  
+                    <Grid>
+                        <ScrollViewer x:Name="ScrollViewer" MinZoomFactor="1" ZoomMode="Enabled"  
                                   VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
-                        <controls:ImageEx x:Name="ImageEx"
+                            <controls:ImageEx x:Name="ImageEx"
                                           Width="{Binding Path=ViewportWidth, ElementName=ScrollViewer}"
                                           Height="{Binding Path=ViewportHeight, ElementName=ScrollViewer}"
                                           IsCacheEnabled="True"
                                           Source="{Binding ThumbnailUrl}"
                                           PlaceholderSource="/Assets/FileTypes/image.png"
                                           PlaceholderStretch="None"
-                                          RenderTransformOrigin="0.5, 0.5">
+                                          RenderTransformOrigin="0.5, 0.5"
+                                          Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}">
 
-                            <controls:ImageEx.Resources>
-                                <Storyboard x:Key="RotationStoryBoard" BeginTime="00:00:00.000" Duration="00:00:0.200">
-                                    <DoubleAnimation Storyboard.TargetName="RotateTransform"
+                                <controls:ImageEx.Resources>
+                                    <Storyboard x:Key="RotationStoryBoard" BeginTime="00:00:00.000" Duration="00:00:0.200">
+                                        <DoubleAnimation Storyboard.TargetName="RotateTransform"
                                                      Storyboard.TargetProperty="Angle"
                                                      By="90"
                                                      BeginTime="00:00:00.000" Duration="00:00:00.200" />
-                                </Storyboard>
-                            </controls:ImageEx.Resources>
+                                    </Storyboard>
+                                </controls:ImageEx.Resources>
 
-                            <controls:ImageEx.RenderTransform>
-                                <RotateTransform x:Name="RotateTransform" />
-                            </controls:ImageEx.RenderTransform>
+                                <controls:ImageEx.RenderTransform>
+                                    <RotateTransform x:Name="RotateTransform" />
+                                </controls:ImageEx.RenderTransform>
 
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior SourceObject="{Binding ElementName=RotateButton}"
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior SourceObject="{Binding ElementName=RotateButton}"
                                                            EventName="Click">
-                                    <media:ControlStoryboardAction Storyboard="{StaticResource RotationStoryBoard}" />
-                                </core:EventTriggerBehavior>
+                                        <media:ControlStoryboardAction Storyboard="{StaticResource RotationStoryBoard}" />
+                                    </core:EventTriggerBehavior>
 
-                                <core:EventTriggerBehavior EventName="Tapped"
+                                    <core:EventTriggerBehavior EventName="Tapped"
                                                            SourceObject="{Binding ElementName=FlipView}">
-                                    <core:ChangePropertyAction PropertyName="ShowControls"
+                                        <core:ChangePropertyAction PropertyName="ShowControls"
                                                                TargetObject="{Binding DataContext, ElementName=Page}"
                                                                Value="{Binding DataContext.ShowControls, ElementName=Page, Converter={StaticResource BoolConverter}}" />
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
-                        </controls:ImageEx>
-                    </ScrollViewer>
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </controls:ImageEx>
+                        </ScrollViewer>
+                    </Grid>
+
                 </DataTemplate>
             </FlipView.ItemTemplate>
-
-
         </FlipView>
+        <MediaPlayerElement Source="{Binding DataContext.MediaSource, ElementName=Page, Mode=OneWay}" AutoPlay="True" AreTransportControlsEnabled="True" Stretch="Uniform" Visibility="{Binding DataContext.SelectedItem.ContentType, ElementName=Page, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}">
+        </MediaPlayerElement>
         <CommandBar x:Name="CommandBar" OverflowButtonVisibility="Collapsed" Opacity=".7" Canvas.ZIndex="10"
-                    Width="Auto" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">
-            <AppBarButton Icon="Rotate" x:Name="RotateButton" />
+                    Width="Auto" HorizontalContentAlignment="Center" VerticalAlignment="Bottom"
+                    Visibility="{Binding DataContext.SelectedItem.ContentType, ElementName=Page, Converter={StaticResource ContentTypeToVisibilityConverter}}">
+            <AppBarButton Icon="Rotate" x:Name="RotateButton"/>
             <AppBarButton Icon="FullScreen" Command="{Binding EnterFullScreenCommand}"
                           Visibility="{Binding IsInFullScreen, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
             <AppBarButton Command="{Binding LeaveFullScreenCommand}"
@@ -100,9 +105,6 @@
                 <core:DataTriggerBehavior Binding="{Binding ShowControls}" Value="False">
                     <media:ControlStoryboardAction Storyboard="{StaticResource FadeOut}" />
                 </core:DataTriggerBehavior>
-                <!--<core:EventTriggerBehavior SourceObject="{Binding ElementName=CommandBar}" EventName="ManipulationCompleted">
-                    <media:ControlStoryboardAction Storyboard="{StaticResource FadeOut}"/>
-                </core:EventTriggerBehavior>-->
             </interactivity:Interaction.Behaviors>
 
         </CommandBar>
