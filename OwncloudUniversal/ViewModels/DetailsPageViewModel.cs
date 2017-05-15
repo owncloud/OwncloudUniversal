@@ -7,6 +7,7 @@ using Template10.Common;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Windows.UI.Xaml.Navigation;
+using OwncloudUniversal.Shared;
 using OwncloudUniversal.Shared.Model;
 using OwncloudUniversal.WebDav.Model;
 
@@ -26,16 +27,19 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        public DetailsPageViewModel()
-        {
-            
-        }
-
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             var item = parameter as BaseItem;
             if (item != null)
                 Item = (DavItem)item;
+            var serverUrl = Configuration.ServerUrl.Substring(0, Configuration.ServerUrl.IndexOf("remote.php", StringComparison.OrdinalIgnoreCase));
+            if (!Item.IsCollection && Item.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+            {
+                var itemPath = Item.EntityId.Substring(Item.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
+                var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 128 + "/" + 128 + itemPath;
+                Item.ThumbnailUrl = url;
+            }
+            RaisePropertyChanged("Item");
             return base.OnNavigatedToAsync(parameter, mode, state);
         }
     }

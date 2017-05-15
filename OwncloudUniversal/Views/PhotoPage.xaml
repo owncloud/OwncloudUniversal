@@ -1,0 +1,113 @@
+﻿<Page
+    x:Class="OwncloudUniversal.Views.PhotoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OwncloudUniversal.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:media="using:Microsoft.Xaml.Interactions.Media"
+    xmlns:t10="using:Template10.Controls"
+    mc:Ignorable="d"
+    DataContext="{Binding PhotoPageViewModel, RelativeSource={RelativeSource Self}}"
+    x:Name="Page">
+
+    <Page.Resources>
+
+        <Storyboard x:Name="FadeIn">
+            <FadeInThemeAnimation TargetName="CommandBar" />
+            <FadeInThemeAnimation TargetName="Header" />
+        </Storyboard>
+        <Storyboard x:Name="FadeOut">
+            <FadeOutThemeAnimation TargetName="CommandBar" />
+            <FadeOutThemeAnimation TargetName="Header" />
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <t10:PageHeader x:Name="Header" Opacity="0.7" Canvas.ZIndex="10" Background="Transparent">
+            <t10:PageHeader.Content>
+                <TextBlock Text="{Binding SelectedItem.DisplayName}"/>
+            </t10:PageHeader.Content>
+        </t10:PageHeader>
+        <FlipView x:Name="FlipView" ItemsSource="{Binding Items}" SelectedIndex="{Binding SelectedIndex , Mode=TwoWay}">
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <ScrollViewer x:Name="ScrollViewer" MinZoomFactor="1" ZoomMode="Enabled"  
+                                  VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                            <controls:ImageEx x:Name="ImageEx"
+                                          Width="{Binding Path=ViewportWidth, ElementName=ScrollViewer}"
+                                          Height="{Binding Path=ViewportHeight, ElementName=ScrollViewer}"
+                                          IsCacheEnabled="True"
+                                          Source="{Binding ThumbnailUrl}"
+                                          PlaceholderSource="/Assets/FileTypes/image.png"
+                                          PlaceholderStretch="None"
+                                          RenderTransformOrigin="0.5, 0.5"
+                                          Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}">
+
+                                <controls:ImageEx.Resources>
+                                    <Storyboard x:Key="RotationStoryBoard" BeginTime="00:00:00.000" Duration="00:00:0.200">
+                                        <DoubleAnimation Storyboard.TargetName="RotateTransform"
+                                                     Storyboard.TargetProperty="Angle"
+                                                     By="90"
+                                                     BeginTime="00:00:00.000" Duration="00:00:00.200" />
+                                    </Storyboard>
+                                </controls:ImageEx.Resources>
+
+                                <controls:ImageEx.RenderTransform>
+                                    <RotateTransform x:Name="RotateTransform" />
+                                </controls:ImageEx.RenderTransform>
+
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior SourceObject="{Binding ElementName=RotateButton}"
+                                                           EventName="Click">
+                                        <media:ControlStoryboardAction Storyboard="{StaticResource RotationStoryBoard}" />
+                                    </core:EventTriggerBehavior>
+
+                                    <core:EventTriggerBehavior EventName="Tapped"
+                                                           SourceObject="{Binding ElementName=FlipView}">
+                                        <core:ChangePropertyAction PropertyName="ShowControls"
+                                                               TargetObject="{Binding DataContext, ElementName=Page}"
+                                                               Value="{Binding DataContext.ShowControls, ElementName=Page, Converter={StaticResource BoolConverter}}" />
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </controls:ImageEx>
+                        </ScrollViewer>
+                    </Grid>
+
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+        <MediaPlayerElement Source="{Binding DataContext.MediaSource, ElementName=Page, Mode=OneWay}" AutoPlay="True" AreTransportControlsEnabled="True" Stretch="Uniform" Visibility="{Binding DataContext.SelectedItem.ContentType, ElementName=Page, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}">
+        </MediaPlayerElement>
+        <CommandBar x:Name="CommandBar" OverflowButtonVisibility="Collapsed" Opacity=".7" Canvas.ZIndex="10"
+                    Width="Auto" HorizontalContentAlignment="Center" VerticalAlignment="Bottom"
+                    Visibility="{Binding DataContext.SelectedItem.ContentType, ElementName=Page, Converter={StaticResource ContentTypeToVisibilityConverter}}">
+            <AppBarButton Icon="Rotate" x:Name="RotateButton"/>
+            <AppBarButton Icon="FullScreen" Command="{Binding EnterFullScreenCommand}"
+                          Visibility="{Binding IsInFullScreen, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
+            <AppBarButton Command="{Binding LeaveFullScreenCommand}"
+                          Visibility="{Binding IsInFullScreen, Converter={StaticResource BoolToVisibilityConverter}}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE92C;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+
+            <interactivity:Interaction.Behaviors>
+                <core:DataTriggerBehavior Binding="{Binding ShowControls}" Value="True">
+                    <media:ControlStoryboardAction Storyboard="{StaticResource FadeIn}" />
+                </core:DataTriggerBehavior>
+
+                <core:DataTriggerBehavior Binding="{Binding ShowControls}" Value="False">
+                    <media:ControlStoryboardAction Storyboard="{StaticResource FadeOut}" />
+                </core:DataTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+
+        </CommandBar>
+    </Grid>
+</Page>
+
