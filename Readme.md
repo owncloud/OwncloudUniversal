@@ -6,6 +6,7 @@ This is the ownCloud app for your Windows 10 Phone, PC or Tablet.
 Download the latest release here: https://github.com/owncloud/OwncloudUniversal/releases
 
 ## Features
+- Works on all Windows 10 devices!
 - Synchronize your files with a background task. On the phone it will only sync while your device is charging to save battery.
 - Upload, download and manage files and folders
 - View your images or stream videos directly from your ownCloud
