@@ -121,6 +121,7 @@
     <Compile Include="Model\LinkStatus.cs" />
     <Compile Include="Model\LinkStatusTableModel.cs" />
     <Compile Include="LocalFileSystem\LocalItem.cs" />
+    <Compile Include="Synchronisation\EnityIdComparer.cs" />
     <Compile Include="Synchronisation\ExecutionContext.cs" />
     <Compile Include="Synchronisation\ExecutionStatus.cs" />
     <Compile Include="ToastHelper.cs" />

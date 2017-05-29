@@ -247,7 +247,7 @@ namespace OwncloudUniversal.Shared.LocalFileSystem
             {
                 storageItems.Add(new BaseItem{EntityId = storageItem.Path});
             }
-            var missingItems = existingItems.Except(storageItems, new EnityIdComparer());
+            var missingItems = existingItems.Except(storageItems, new EnityIdComparer()).ToList();
 
             foreach (var missingItem in missingItems)
             {
