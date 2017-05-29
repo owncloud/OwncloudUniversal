@@ -96,8 +96,8 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="OwncloudUniversal_TemporaryKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\is-IS\Resources.resw" />
     <PRIResource Include="Strings\th-TH\Resources.resw" />
-    <PRIResource Include="Strings\nb-NO\Resources.resw" />
     <PRIResource Include="Strings\el-GR\Resources.resw" />
     <PRIResource Include="Strings\cs-CZ\Resources.resw" />
     <PRIResource Include="Strings\sq-AL\Resources.resw" />
