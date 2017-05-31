@@ -7,8 +7,8 @@
     <ProjectGuid>{A089C0C2-0FBD-4A0F-8CC6-BA5FECBE75F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OwncloudUniversal.WebDav</RootNamespace>
-    <AssemblyName>OwncloudUniversal.WebDav</AssemblyName>
+    <RootNamespace>OOwncloudUniversal.OwnCloud</RootNamespace>
+    <AssemblyName>OOwncloudUniversal.OwnCloud</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -117,10 +117,10 @@
     <Compile Include="WebDavRequest.cs" />
     <Compile Include="WebDavAdapter.cs" />
     <Compile Include="WebDavClient.cs" />
-    <EmbeddedResource Include="Properties\OwncloudUniversal.WebDav.rd.xml" />
+    <EmbeddedResource Include="Properties\OOwncloudUniversal.OwnCloud.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OwncloudUniversal.Shared\OwncloudUniversal.Shared.csproj">
+    <ProjectReference Include="..\OwncloudUniversal.Synchronization\OwncloudUniversal.Synchronization.csproj">
       <Project>{fa10e7b0-ac70-44bd-9446-492bd3ae1119}</Project>
       <Name>OwncloudUniversal.Shared</Name>
     </ProjectReference>

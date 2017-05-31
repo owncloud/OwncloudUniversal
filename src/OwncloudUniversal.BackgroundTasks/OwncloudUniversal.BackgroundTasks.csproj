@@ -7,8 +7,8 @@
     <ProjectGuid>{38A3AE71-C876-429A-B46C-3758EC5D3691}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OwncloudUniversal.BackgroundSync</RootNamespace>
-    <AssemblyName>OwncloudUniversal.BackgroundSync</AssemblyName>
+    <RootNamespace>OwncloudUniversal.BackgroundTasks</RootNamespace>
+    <AssemblyName>OwncloudUniversal.BackgroundTasks</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -112,11 +112,11 @@
     <Compile Include="WebDavBackgroundSync.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OwncloudUniversal.Shared\OwncloudUniversal.Shared.csproj">
+    <ProjectReference Include="..\OwncloudUniversal.Synchronization\OwncloudUniversal.Synchronization.csproj">
       <Project>{fa10e7b0-ac70-44bd-9446-492bd3ae1119}</Project>
       <Name>OwncloudUniversal.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OwncloudUniversal.WebDav\OwncloudUniversal.WebDav.csproj">
+    <ProjectReference Include="..\OwncloudUniversal.OwnCloud\OwncloudUniversal.OwnCloud.csproj">
       <Project>{a089c0c2-0fbd-4a0f-8cc6-ba5fecbe75f0}</Project>
       <Name>OwncloudUniversal.WebDav</Name>
     </ProjectReference>

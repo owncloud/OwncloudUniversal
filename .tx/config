@@ -2,8 +2,8 @@
 host = https://www.transifex.com
 
 [owncloud.windowsphone]
-file_filter = OwncloudUniversal/Strings/<lang>/Resources.resw
-source_file = OwncloudUniversal/Strings/en-US/Resources.resw
+file_filter = src/OwncloudUniversal/Strings/<lang>/Resources.resw
+source_file = src/OwncloudUniversal/Strings/en-US/Resources.resw
 source_lang = en
 type = RESX
 minimum_perc = 80

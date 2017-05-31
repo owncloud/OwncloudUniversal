@@ -10,10 +10,10 @@ install:
   - ps: .appveyor/install-vsix.ps1
   
 build_script:
-  - MSBuild "C:\projects\ownclouduniversal\OwncloudUniversal.sln" /t:Build /p:Configuration=Release;Platform="ARM";OutDir="C:\projects\ownclouduniversal\Release";AppxBundle=Always;AppxBundlePlatforms="x86|x64|ARM" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - MSBuild "C:\projects\ownclouduniversal\src\OwncloudUniversal.sln" /t:Build /p:Configuration=Release;Platform="ARM";OutDir="C:\projects\ownclouduniversal\Release";AppxBundle=Always;AppxBundlePlatforms="x86|x64|ARM" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
   
 before_build:
-  - nuget restore OwncloudUniversal.sln
+  - nuget restore src/OwncloudUniversal.sln
   
 artifacts:
   - path: Release\OwncloudUniversal\AppPackages

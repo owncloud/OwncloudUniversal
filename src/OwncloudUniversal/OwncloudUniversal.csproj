@@ -352,15 +352,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OwncloudUniversal.BackgroundSync\OwncloudUniversal.BackgroundSync.csproj">
+    <ProjectReference Include="..\OwncloudUniversal.BackgroundTasks\OwncloudUniversal.BackgroundTasks.csproj">
       <Project>{38a3ae71-c876-429a-b46c-3758ec5d3691}</Project>
       <Name>OwncloudUniversal.BackgroundSync</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OwncloudUniversal.Shared\OwncloudUniversal.Shared.csproj">
+    <ProjectReference Include="..\OwncloudUniversal.Synchronization\OwncloudUniversal.Synchronization.csproj">
       <Project>{fa10e7b0-ac70-44bd-9446-492bd3ae1119}</Project>
       <Name>OwncloudUniversal.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OwncloudUniversal.WebDav\OwncloudUniversal.WebDav.csproj">
+    <ProjectReference Include="..\OwncloudUniversal.OwnCloud\OwncloudUniversal.OwnCloud.csproj">
       <Project>{a089c0c2-0fbd-4a0f-8cc6-ba5fecbe75f0}</Project>
       <Name>OwncloudUniversal.WebDav</Name>
     </ProjectReference>

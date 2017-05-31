@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.Shared", "OwncloudUniversal.Shared\OwncloudUniversal.Shared.csproj", "{FA10E7B0-AC70-44BD-9446-492BD3AE1119}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.Synchronization", "OwncloudUniversal.Synchronization\OwncloudUniversal.Synchronization.csproj", "{FA10E7B0-AC70-44BD-9446-492BD3AE1119}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.BackgroundSync", "OwncloudUniversal.BackgroundSync\OwncloudUniversal.BackgroundSync.csproj", "{38A3AE71-C876-429A-B46C-3758EC5D3691}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.BackgroundTasks", "OwncloudUniversal.BackgroundTasks\OwncloudUniversal.BackgroundTasks.csproj", "{38A3AE71-C876-429A-B46C-3758EC5D3691}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.WebDav", "OwncloudUniversal.WebDav\OwncloudUniversal.WebDav.csproj", "{A089C0C2-0FBD-4A0F-8CC6-BA5FECBE75F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.OwnCloud", "OwncloudUniversal.OwnCloud\OwncloudUniversal.OwnCloud.csproj", "{A089C0C2-0FBD-4A0F-8CC6-BA5FECBE75F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal", "OwncloudUniversal\OwncloudUniversal.csproj", "{AB75E33F-C87C-45E2-A38C-C79356E15B8D}"
 EndProject

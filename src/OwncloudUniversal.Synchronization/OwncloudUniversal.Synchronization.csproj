@@ -7,8 +7,8 @@
     <ProjectGuid>{FA10E7B0-AC70-44BD-9446-492BD3AE1119}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OwncloudUniversal.Shared</RootNamespace>
-    <AssemblyName>OwncloudUniversal.Shared</AssemblyName>
+    <RootNamespace>OwncloudUniversal.Synchronization</RootNamespace>
+    <AssemblyName>OwncloudUniversal.Synchronization</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -130,7 +130,7 @@
     <Compile Include="SQLite\DateTimeHelper.cs" />
     <Compile Include="SQLite\SQLiteClient.cs" />
     <Compile Include="Synchronisation\BackgroundSyncProcess.cs" />
-    <EmbeddedResource Include="Properties\owncloud_universal.shared.rd.xml" />
+    <EmbeddedResource Include="Properties\owncloud_universal.synchronization.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
