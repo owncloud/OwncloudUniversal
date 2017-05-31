@@ -20,7 +20,7 @@ Translation happens here: https://www.transifex.com/owncloud-org/owncloud/window
 You have to login and request access to the team before you can modify the strings.
 
 ## Screenshots
-<kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot1.png" width="250"/></kbd>
-<kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot2.png" width="250"/></kbd>
+<kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/screenshots/screenshot1.png" width="250"/></kbd>
+<kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/screenshots/screenshot2.png" width="250"/></kbd>
 <br>
-<kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/Screenshots/screenshot3.png" width="500"/></kbd>
+<kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/screenshots/screenshot3.png" width="500"/></kbd>
