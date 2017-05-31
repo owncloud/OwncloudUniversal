@@ -1,4 +1,4 @@
-﻿using OwncloudUniversal.Shared;
+﻿using OwncloudUniversal.Synchronization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Notifications;
-using OwncloudUniversal.Shared.LocalFileSystem;
-using OwncloudUniversal.Shared.Synchronisation;
-using OwncloudUniversal.WebDav;
+using OwncloudUniversal.Synchronization.LocalFileSystem;
+using OwncloudUniversal.Synchronization.Synchronisation;
+using OwncloudUniversal.OwnCloud;
+using OwncloudUniversal.Synchronization.Configuration;
 
-namespace OwncloudUniversal.BackgroundSync
+namespace OwncloudUniversal.BackgroundTasks
 {
     public sealed class WebDavBackgroundSync : IBackgroundTask
     {

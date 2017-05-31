@@ -20,7 +20,7 @@ using HttpRequestMessage = Windows.Web.Http.HttpRequestMessage;
 using HttpResponseMessage = Windows.Web.Http.HttpResponseMessage;
 using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
-namespace OwncloudUniversal.WebDav
+namespace OwncloudUniversal.OwnCloud
 {
     internal class WebDavRequest
     {

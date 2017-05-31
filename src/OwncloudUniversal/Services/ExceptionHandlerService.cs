@@ -8,8 +8,8 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.OwnCloud.Model;
 
 namespace OwncloudUniversal.Services
 {

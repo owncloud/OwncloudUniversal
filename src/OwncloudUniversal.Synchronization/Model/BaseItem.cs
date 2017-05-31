@@ -2,7 +2,7 @@
 using System.IO;
 using Windows.UI.Xaml.Controls;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     /// <summary>
     /// The base class for all entities that will be synchronized. Each Entity must have a corresponding <see cref="AbstractAdapter"/>

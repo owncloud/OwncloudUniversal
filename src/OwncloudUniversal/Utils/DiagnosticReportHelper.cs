@@ -11,7 +11,7 @@ using Windows.Networking.Connectivity;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
 using Windows.System.Profile;
-using OwncloudUniversal.Shared;
+using OwncloudUniversal.Synchronization;
 
 namespace OwncloudUniversal.Utils
 {

@@ -11,11 +11,12 @@ using Windows.Security.Cryptography;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http.Headers;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.LocalFileSystem;
-using OwncloudUniversal.Shared.Model;
-using OwncloudUniversal.WebDav;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.LocalFileSystem;
+using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.OwnCloud;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization.Configuration;
 
 namespace OwncloudUniversal.Services
 {

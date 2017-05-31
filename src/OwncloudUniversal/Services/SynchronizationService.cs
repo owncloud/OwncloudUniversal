@@ -15,10 +15,11 @@ using Windows.System.Power;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.LocalFileSystem;
-using OwncloudUniversal.Shared.Synchronisation;
-using OwncloudUniversal.WebDav;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.LocalFileSystem;
+using OwncloudUniversal.Synchronization.Synchronisation;
+using OwncloudUniversal.OwnCloud;
+using OwncloudUniversal.Synchronization.Configuration;
 using Template10.Mvvm;
 
 namespace OwncloudUniversal.Services

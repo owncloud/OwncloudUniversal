@@ -14,12 +14,12 @@ using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.Synchronisation;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.Synchronisation;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
-namespace OwncloudUniversal.WebDav
+namespace OwncloudUniversal.OwnCloud
 {
     public class WebDavClient
     {

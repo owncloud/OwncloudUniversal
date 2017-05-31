@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     public class FolderAssociation
     {

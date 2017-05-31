@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwncloudUniversal.Shared.SQLite
+namespace OwncloudUniversal.Synchronization.SQLite
 {
     public static class DateTimeHelper
     {

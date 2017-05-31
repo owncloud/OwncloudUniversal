@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Newtonsoft.Json;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization;
 using HttpMethod = Windows.Web.Http.HttpMethod;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
-namespace OwncloudUniversal.WebDav
+namespace OwncloudUniversal.OwnCloud
 {
     public class OcsClient
     {

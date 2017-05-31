@@ -7,9 +7,10 @@ using Template10.Common;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Windows.UI.Xaml.Navigation;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.Model;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization.Configuration;
 
 namespace OwncloudUniversal.ViewModels
 {

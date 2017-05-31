@@ -1,5 +1,4 @@
 ﻿using OwncloudUniversal.Model;
-using OwncloudUniversal.Shared.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,9 +12,10 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Provider;
 using Windows.Storage.Search;
-using OwncloudUniversal.Shared.Synchronisation;
+using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.Synchronization.Synchronisation;
 
-namespace OwncloudUniversal.Shared.LocalFileSystem
+namespace OwncloudUniversal.Synchronization.LocalFileSystem
 {
     public class FileSystemAdapter : AbstractAdapter
     {

@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.Model;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     /// <summary>
     /// Base class for the adapters used for the synchronisation.

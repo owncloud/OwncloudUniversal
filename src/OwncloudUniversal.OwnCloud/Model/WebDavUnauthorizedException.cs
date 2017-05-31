@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 
-namespace OwncloudUniversal.WebDav.Model
+namespace OwncloudUniversal.OwnCloud.Model
 {
     public class WebDavException : HttpRequestException
     {

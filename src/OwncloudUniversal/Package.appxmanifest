@@ -27,7 +27,7 @@
         <uap:LockScreen BadgeLogo="assets\Badge\Badge.png" Notification="badgeAndTileText" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="OwncloudUniversal.BackgroundSync.WebDavBackgroundSync">
+        <Extension Category="windows.backgroundTasks" EntryPoint="OwncloudUniversal.BackgroundTasks.WebDavBackgroundSync">
           <BackgroundTasks>
             <Task Type="systemEvent" />
           </BackgroundTasks>

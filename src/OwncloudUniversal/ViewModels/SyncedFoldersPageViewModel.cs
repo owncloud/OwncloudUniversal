@@ -7,7 +7,7 @@ using System.Windows.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Services;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.Views;
 using Template10.Mvvm;
 

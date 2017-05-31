@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud.Model;
 
 namespace OwncloudUniversal.Converters
 {

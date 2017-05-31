@@ -13,9 +13,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.ViewModels;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud.Model;
 using Template10.Services.PopupService;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238

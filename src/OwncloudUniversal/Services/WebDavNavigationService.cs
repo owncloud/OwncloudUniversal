@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.Views;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization.Configuration;
 using Template10.Services.NavigationService;
 using Template10.Utils;
 

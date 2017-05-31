@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud.Model;
 
-namespace OwncloudUniversal.WebDav
+namespace OwncloudUniversal.OwnCloud
 {
     internal static class XmlParser
     {

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using SQLitePCL;
-using OwncloudUniversal.Shared.SQLite;
+using OwncloudUniversal.Synchronization.SQLite;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     /// <summary>
     /// Represents a Table from the SQLite-Database

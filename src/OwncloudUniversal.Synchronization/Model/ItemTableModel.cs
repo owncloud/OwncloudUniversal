@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Model;
 using SQLitePCL;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     public class ItemTableModel : AbstractTableModelBase<BaseItem, long>
     {

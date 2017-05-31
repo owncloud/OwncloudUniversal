@@ -2,12 +2,12 @@
 using System.Linq;
 using Windows.ApplicationModel.Background;
 
-namespace OwncloudUniversal.Shared.Synchronisation
+namespace OwncloudUniversal.Synchronization.Configuration
 {
     public class BackgroundTaskConfiguration
     {
         private const string TaskName = "owncloud-backgroundSync";
-        private const string EntryPoint = "OwncloudUniversal.BackgroundSync.WebDavBackgroundSync";
+        private const string EntryPoint = "OwncloudUniversal.BackgroundTasks.WebDavBackgroundSync";
 
         public bool Enabled
         {

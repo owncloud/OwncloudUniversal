@@ -10,9 +10,9 @@ using Windows.System.Power;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using OwncloudUniversal.Model;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Model;
 
-namespace OwncloudUniversal.Shared.Synchronisation
+namespace OwncloudUniversal.Synchronization.Synchronisation
 {
     public class BackgroundSyncProcess
     {

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLitePCL;
 using OwncloudUniversal.Model;
-using OwncloudUniversal.Shared.SQLite;
+using OwncloudUniversal.Synchronization.SQLite;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     public class FolderAssociationTableModel : AbstractTableModelBase<FolderAssociation, long>
     {

@@ -9,12 +9,13 @@ using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Storage;
 using OwncloudUniversal.Model;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.Model;
-using OwncloudUniversal.Shared.Synchronisation;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.Synchronization.Synchronisation;
 
-namespace OwncloudUniversal.WebDav
+namespace OwncloudUniversal.OwnCloud
 {
     public class WebDavAdapter : AbstractAdapter, IBackgroundSyncAdapter
     {

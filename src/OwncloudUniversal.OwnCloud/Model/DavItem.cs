@@ -1,8 +1,8 @@
 ﻿using System;
 using Windows.UI.Xaml.Media.Imaging;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Model;
 
-namespace OwncloudUniversal.WebDav.Model
+namespace OwncloudUniversal.OwnCloud.Model
 {
     public class DavItem : BaseItem
     {

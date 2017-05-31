@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using OwncloudUniversal.Services;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.Synchronisation;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.Synchronisation;
 using Template10.Mvvm;
 
 namespace OwncloudUniversal.ViewModels

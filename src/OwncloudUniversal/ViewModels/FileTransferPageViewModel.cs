@@ -15,8 +15,8 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Services;
-using OwncloudUniversal.Shared.Model;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.OwnCloud.Model;
 using Template10.Mvvm;
 using Template10.Utils;
 

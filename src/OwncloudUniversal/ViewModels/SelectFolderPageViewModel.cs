@@ -10,10 +10,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Services;
-using OwncloudUniversal.Shared;
+using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Views;
-using OwncloudUniversal.WebDav;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization.Configuration;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 

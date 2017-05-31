@@ -13,13 +13,14 @@ using Windows.Web.Http;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI;
 using OwncloudUniversal.Services;
-using OwncloudUniversal.Shared;
-using OwncloudUniversal.Shared.SQLite;
+using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.SQLite;
 using OwncloudUniversal.Utils;
 using OwncloudUniversal.ViewModels;
 using OwncloudUniversal.Views;
-using OwncloudUniversal.WebDav;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.OwnCloud;
+using OwncloudUniversal.OwnCloud.Model;
+using OwncloudUniversal.Synchronization.Configuration;
 
 namespace OwncloudUniversal
 {

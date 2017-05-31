@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using OwncloudUniversal.Model;
-using OwncloudUniversal.Shared.Model;
-using OwncloudUniversal.WebDav;
-using OwncloudUniversal.WebDav.Model;
+using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.OwnCloud;
+using OwncloudUniversal.OwnCloud.Model;
 
 namespace OwncloudUniversal.Services
 {

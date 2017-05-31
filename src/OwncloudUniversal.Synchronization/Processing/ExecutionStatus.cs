@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwncloudUniversal.Shared.Synchronisation
+namespace OwncloudUniversal.Synchronization.Synchronisation
 {
     //when adding new values to this, make sure you also add the corresponding translation
     public enum ExecutionStatus

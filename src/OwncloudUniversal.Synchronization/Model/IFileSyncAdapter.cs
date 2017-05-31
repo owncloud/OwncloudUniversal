@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     /// <summary>
     /// Represents an <see cref="AbstractAdapter"></see> that is able to use the Windows-BackgroundTransfer-API 

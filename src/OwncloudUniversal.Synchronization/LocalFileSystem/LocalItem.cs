@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using OwncloudUniversal.Shared.LocalFileSystem;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.Synchronization.LocalFileSystem;
 
-namespace OwncloudUniversal.Shared.Model
+namespace OwncloudUniversal.Synchronization.Model
 {
     public class LocalItem : BaseItem
     {

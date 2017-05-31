@@ -10,7 +10,7 @@ using Windows.Storage.AccessCache;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 
-namespace OwncloudUniversal.Shared
+namespace OwncloudUniversal.Synchronization
 {
     public static class LogHelper
     {

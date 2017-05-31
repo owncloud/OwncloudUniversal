@@ -1,4 +1,4 @@
-﻿namespace OwncloudUniversal.WebDav.Model
+﻿namespace OwncloudUniversal.OwnCloud.Model
 {
     public class ServerStatus
     {

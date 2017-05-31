@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
 
-namespace OwncloudUniversal.Shared.Synchronisation
+namespace OwncloudUniversal.Synchronization.Synchronisation
 {
     public class ExecutionContext : INotifyPropertyChanged
     {

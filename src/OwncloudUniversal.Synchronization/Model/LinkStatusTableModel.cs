@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLitePCL;
 using System.Collections.ObjectModel;
-using OwncloudUniversal.Shared.Model;
+using OwncloudUniversal.Synchronization.Model;
 
 namespace OwncloudUniversal.Model
 {

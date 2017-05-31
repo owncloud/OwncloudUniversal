@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLitePCL;
 
-namespace OwncloudUniversal.Shared.SQLite
+namespace OwncloudUniversal.Synchronization.SQLite
 {
     public static class SQLiteClient
     {

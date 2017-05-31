@@ -7,7 +7,7 @@ using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 
-namespace OwncloudUniversal.WebDav
+namespace OwncloudUniversal.OwnCloud
 {
     public class HttpRandomAccessStream : IRandomAccessStream
     {
