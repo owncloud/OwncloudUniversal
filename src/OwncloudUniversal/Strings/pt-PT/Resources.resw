@@ -151,7 +151,7 @@
     <value>Transferir</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>A descarregar...</value>
+    <value>A transferir...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
     <value>Sincronização Automática</value>
@@ -205,7 +205,7 @@
     <value>Claro</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Apagar esta aplicação</value>
+    <value>Repor esta aplicação</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
     <value>Definições</value>
@@ -223,7 +223,7 @@
     <value>Botão voltar atrás está na barra de tarefas</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>Começar sincronização</value>
+    <value>Iniciar a sincronização</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
     <value>Estado</value>
@@ -238,7 +238,7 @@
     <value>Sincronização (Beta)</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>Transferência em progresso...</value>
+    <value>Transferência em curso...</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
     <value>Parar sincronização</value>
@@ -265,7 +265,7 @@
     <value>Eliminar</value>
   </data>
   <data name="deleteMultipleConfirmation" xml:space="preserve">
-    <value>Apagar?</value>
+    <value>Eliminar?</value>
   </data>
   <data name="DetailsPageHeader.Content" xml:space="preserve">
     <value>Propriedades</value>
@@ -295,7 +295,7 @@
     <value>Nova Pasta</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>Selecione modo</value>
+    <value>Selecione o modo</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
     <value>Ligar</value>
@@ -525,5 +525,22 @@ Tem a certeza que quer começar a sincronização agora?</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
     <value>{0} anos atrás</value>
+  </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Connect your Windows 10 device with your ownCloud!
+
+Features:
+
+ - Works on all Windows 10 devices!
+ - Open source software
+ - Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+ - Upload, download and manage files and folders.
+ - View your images or stream videos directly from your ownCloud.
+
+New to ownCloud?
+Check it out at https://owncloud.org
+
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
 </root>

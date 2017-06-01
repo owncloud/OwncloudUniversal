@@ -531,4 +531,21 @@ Esta seguro que quiere utilizar esta carpeta?</value>
   <data name="XYearsAgo" xml:space="preserve">
     <value>Hace {0} años</value>
   </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Connect your Windows 10 device with your ownCloud!
+
+Features:
+
+ - Works on all Windows 10 devices!
+ - Open source software
+ - Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+ - Upload, download and manage files and folders.
+ - View your images or stream videos directly from your ownCloud.
+
+New to ownCloud?
+Check it out at https://owncloud.org
+
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+  </data>
 </root>
