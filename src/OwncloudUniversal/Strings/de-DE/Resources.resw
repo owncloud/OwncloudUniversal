@@ -533,20 +533,20 @@ Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
     <value>Vor {0} Jahren</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Verbinde dein Windows 10 Gerät mit deiner ownCloud!
 
-Features:
+Funktionen:
 
- - Works on all Windows 10 devices!
- - Open source software
- - Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
- - Upload, download and manage files and folders.
- - View your images or stream videos directly from your ownCloud.
+ - Funktioniert auf allen Windows 10 Geräten!
+ - Open-Source Software
+ - Synchronisiere deine Dateien automatisch im Hintergrund. Auf Smartphones wird nur beim aufladen synchronisiert um Akku zu sparen.
+ - Verwalte deine Dateien und Ordner und lade Dateien hoch oder runter.
+ - Sieh dir deine Bilder an oder streame Videos direkt von deiner ownCloud!
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Neu bei ownCloud?
+Sieh es dir an unter https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Probleme?
+Erstelle einen neuen Fehlerbericht auf https://github.com/owncloud/OwncloudUniversal/issues oder nutze die Diagnosereportfunktion innerhalb der App.</value>
   </data>
 </root>
