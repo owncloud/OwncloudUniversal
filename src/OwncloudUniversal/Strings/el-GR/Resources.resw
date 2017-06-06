@@ -530,20 +530,20 @@
     <value>{0} χρόνια πριν</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Συνδέστε τη συσκευή Windows 10 με το δικό σαςCloud!
 
-Features:
+Χαρακτηριστικά:
 
- - Works on all Windows 10 devices!
- - Open source software
- - Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
- - Upload, download and manage files and folders.
- - View your images or stream videos directly from your ownCloud.
+- Λειτουργεί σε όλες τις συσκευές Windows 10!
+- Λογισμικό ανοιχτού κώδικα
+- Συγχρονίστε τα αρχεία σας με μια εργασία φόντου. Στα τηλέφωνα θα συγχρονίζεται μόνο όταν η συσκευή σας φορτίζει για να εξοικονομήσει ενέργεια
+- Μεταφόρτωση, λήψη και διαχείριση αρχείων και φακέλων
+- Δείτε τις εικόνες σας ή ροή βίντεο απευθείας από το ownCloud σας.
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Νέοι στο ownCloud?
+Ελέγξτε το στο https: //owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Προβλήματα;
+Ανοίξτε ένα νέο θέμα (πρόβλημα) στη διεύθυνση https://github.com/owncloud/OwncloudUniversal/issues ή χρησιμοποιήστε τη λειτουργία αναφοράς διαγνωστικού ελέγχου μέσα στην εφαρμογή.</value>
   </data>
 </root>
