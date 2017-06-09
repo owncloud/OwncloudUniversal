@@ -3,7 +3,8 @@ This is the ownCloud app for your Windows 10 Phone, PC or Tablet.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/rrsqmfv03gos8vmq?svg=true)](https://ci.appveyor.com/project/DeepDiver1975/ownclouduniversal)
 ## Installation
-Download the latest release here: https://github.com/owncloud/OwncloudUniversal/releases
+<a href="https://www.microsoft.com/store/apps/9pj6d2hkq1zt?ocid=badge"><img src="https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png" width="300" alt="Get it from Microsoft" /></a>
+
 
 #### Preview Packages
 The latest (from the latest commit) app package can be found [here](https://ci.appveyor.com/project/DeepDiver1975/ownclouduniversal/build/artifacts)
