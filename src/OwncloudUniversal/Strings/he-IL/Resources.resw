@@ -533,20 +533,28 @@
     <value>לפני {0} שנים</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>חיבור של התקן חלונות 10 שלך עם ownCloud!
+    <value>Connect your Windows 10 device with your ownCloud!
 
-מאפיינים:
+For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
 
- - עובד בכל התקני חלונות 10!
- - תוכנת מקור פתוח
- - סנכרון הקבצים שלך ברקע. בטלפונים הסנכרון יעבוד רק כאשר נמצא בטעינה לחיסכון בחשמל.
- - העלאה, הורדה וניהול קבצים ותיקיות.
- - הצגת התמונות או צפייה בסרטים שלך ישירות מ- ownCloud.
+This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
 
-חדשים ל- ownCloud?
-ניתן לנסות אותו ב- https://owncloud.org
+Features:
 
-בעיות?
-ניתן לפתוח בעיה חדשה ב- https://github.com/owncloud/OwncloudUniversal/issues או ניתן להשתמש בפונקציית דיווח מאווחנת מתוך היישום.</value>
+- Works on all Windows 10 devices!
+- Open source software
+- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+- Upload, download and manage files and folders.
+- View your images or stream videos directly from your ownCloud.
+
+
+New to ownCloud?
+Check it out at https://owncloud.org
+
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Unknown error, please check the log file</value>
   </data>
 </root>

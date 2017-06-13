@@ -533,20 +533,28 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
     <value>Vor {0} Jahren</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Verbinden Sie Ihr Windows 10 Gerät mit Ihrer ownCloud!
+    <value>Connect your Windows 10 device with your ownCloud!
 
-Funktionen:
+For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
 
- - Funktioniert auf allen Windows 10 Geräten!
- - Open-Source Software
- - Synchronisiere deine Dateien automatisch im Hintergrund. Auf Smartphones wird nur beim aufladen synchronisiert um Akku zu sparen.
- - Verwalten Sie Ihre Dateien und Ordner und laden Sie Dateien hoch oder runter.
- - Sehen Sie sich Ihre Bilder an oder streamen Sie Videos direkt von Ihrer ownCloud!
+This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
 
-Neu bei ownCloud?
-Sehen Sie es sich unter https://owncloud.org an.
+Features:
 
-Probleme?
-Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/OwncloudUniversal/issues oder nutzen Sie die Diagnosereportfunktion innerhalb der App.</value>
+- Works on all Windows 10 devices!
+- Open source software
+- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+- Upload, download and manage files and folders.
+- View your images or stream videos directly from your ownCloud.
+
+
+New to ownCloud?
+Check it out at https://owncloud.org
+
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Unknown error, please check the log file</value>
   </data>
 </root>

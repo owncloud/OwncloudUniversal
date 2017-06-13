@@ -534,19 +534,28 @@
     <value>{0} ปีที่ผ่านมา</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>เชื่อมต่อวินโดว์ส 10 กับ ownCloud ของคุณ!
+    <value>Connect your Windows 10 device with your ownCloud!
 
-คุณสมบัติ:
-- ใช้งานได้กับวินโดว์ส 10 ทุกเครื่อง!
-- ซอฟต์แวร์เป็นแบบโอเพ่นซอร์ส
-- ประสานข้อมูลไฟล์ในการทำงานพื้นหลัง โทรศัพท์จะประสานข้อมูลเฉพาะในขณะที่อุปกรณ์กำลังชาร์จเพื่อประหยัดแบตเตอรี่
-- อัพโหลด ดาวน์โหลด การจัดการไฟล์และโฟลเดอร์
-- ดูภาพหรือสตรีมวิดีโอของคุณได้โดยตรงจาก
+For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
 
-วิธีสร้าง ownCloud?
-สามารถตรวจสอบได้ที่ https://owncloud.org
+This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
 
-พบปัญหา?
-สามารถแจ้งปัญหาได้ที่ https://github.com/owncloud/OwncloudUniversal/issues หรือ ใช้ฟังก์ชันรายงานการวินิจฉัยภายในแอพฯ</value>
+Features:
+
+- Works on all Windows 10 devices!
+- Open source software
+- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+- Upload, download and manage files and folders.
+- View your images or stream videos directly from your ownCloud.
+
+
+New to ownCloud?
+Check it out at https://owncloud.org
+
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Unknown error, please check the log file</value>
   </data>
 </root>
