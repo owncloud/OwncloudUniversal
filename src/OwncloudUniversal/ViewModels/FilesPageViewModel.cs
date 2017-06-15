@@ -101,6 +101,7 @@ namespace OwncloudUniversal.ViewModels
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            IndicatorService.GetDefault().ShowBar();
             await base.OnNavigatedToAsync(parameter, mode, state);
             WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
@@ -130,6 +131,7 @@ namespace OwncloudUniversal.ViewModels
                     RaisePropertyChanged();
                     if (value.IsCollection)
                     {
+                        IndicatorService.GetDefault().ShowBar();
                         NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
                     }
                     else if(value.ContentType.StartsWith("image") || value.ContentType.StartsWith("video"))
