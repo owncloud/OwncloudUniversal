@@ -9,13 +9,16 @@ using System.Net;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
+using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Search;
+using Windows.System;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
@@ -24,6 +27,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using Microsoft.Toolkit.Uwp.UI;
+using OwncloudUniversal.Converters;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.LocalFileSystem;
@@ -60,6 +64,7 @@ namespace OwncloudUniversal.ViewModels
             HomeCommand = new DelegateCommand(() => NavigationService.Navigate(typeof(FilesPage), new DavItem { EntityId = Configuration.ServerUrl}, new SuppressNavigationTransitionInfo()));
             MoveCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(SelectFolderPage), FilesPage.GetSelectedItems(item), new SuppressNavigationTransitionInfo()));
             RenameCommand = new DelegateCommand<DavItem>(async item => await Rename(item));
+            OpenCommand = new DelegateCommand<DavItem>(async item => await OpenFileAsync(item));
         }
 
         private void WebDavNavigationServiceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -81,6 +86,7 @@ namespace OwncloudUniversal.ViewModels
         public ICommand SwitchSelectionModeCommand { get; private set; }
         public ICommand HomeCommand { get; private set; }
         public ICommand MoveCommand { get; private set; }
+        public ICommand OpenCommand { get; }
 
         public WebDavNavigationService WebDavNavigationService
         {
@@ -290,6 +296,37 @@ namespace OwncloudUniversal.ViewModels
                 await WebDavNavigationService.ReloadAsync();
                 IndicatorService.GetDefault().HideBar();
             }
+        }
+
+        private async Task OpenFileAsync(DavItem item)
+        {
+            try
+            {
+                var operations = await WebDavItemService.GetDefault()
+                    .CreateDownloadAsync(new List<BaseItem> {item}, ApplicationData.Current.TemporaryFolder);
+                var operation = operations.FirstOrDefault();
+                var token = new CancellationTokenSource();
+                var callback = new Progress<DownloadOperation>(async downloadOperation =>
+                {
+                    await Dispatcher.DispatchAsync(() =>
+                    {
+                        var text = string.Format(App.ResourceLoader.GetString("DownloadingFile"), item.DisplayName);
+                        text += " - " + new ProgressToPercentConverter().Convert(downloadOperation.Progress, null, null, null);
+                        IndicatorService.GetDefault().ShowBar(text);
+                    });
+                });
+                var task = operation.StartAsync().AsTask(token.Token, callback);
+                await task.ContinueWith(async downloadTask =>
+                {
+                    var download = await downloadTask;
+                    await Launcher.LaunchFileAsync(download.ResultFile);
+                });
+            }
+            finally
+            {
+                IndicatorService.GetDefault().HideBar();
+            }
+            
         }
     }
 }

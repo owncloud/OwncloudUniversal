@@ -156,6 +156,14 @@
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Margin="12"
+                                                Command="{Binding DataContext.OpenCommand, ElementName=Page}"
+                                                CommandParameter="{Binding}"
+                                                Visibility="{Binding IsCollection, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                                x:Uid="DownloadOpenFile"
+                                                Tag="OpenFile"
+                                                Style="{StaticResource MenuFyloutItemStyle}"/>
+
+                                <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}"
                                                 CommandParameter="{Binding}"
                                                 Visibility="{Binding Converter={StaticResource InvertedItemToVisibilityConverter}}"
