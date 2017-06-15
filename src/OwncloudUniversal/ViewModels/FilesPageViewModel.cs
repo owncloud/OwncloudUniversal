@@ -21,6 +21,7 @@ using Windows.Storage.Search;
 using Windows.System;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
@@ -306,20 +307,27 @@ namespace OwncloudUniversal.ViewModels
                     .CreateDownloadAsync(new List<BaseItem> {item}, ApplicationData.Current.TemporaryFolder);
                 var operation = operations.FirstOrDefault();
                 var token = new CancellationTokenSource();
+                var button = new Button();
+                button.Content = App.ResourceLoader.GetString("Cancel");
+                button.HorizontalAlignment = HorizontalAlignment.Center;
+                button.Command = new DelegateCommand(() => { token.Cancel(false); });
                 var callback = new Progress<DownloadOperation>(async downloadOperation =>
                 {
                     await Dispatcher.DispatchAsync(() =>
                     {
                         var text = string.Format(App.ResourceLoader.GetString("DownloadingFile"), item.DisplayName);
                         text += " - " + new ProgressToPercentConverter().Convert(downloadOperation.Progress, null, null, null);
-                        IndicatorService.GetDefault().ShowBar(text);
+                        IndicatorService.GetDefault().ShowBar(text, button);
                     });
                 });
                 var task = operation.StartAsync().AsTask(token.Token, callback);
                 await task.ContinueWith(async downloadTask =>
                 {
                     var download = await downloadTask;
-                    await Launcher.LaunchFileAsync(download.ResultFile);
+                    await Dispatcher.DispatchAsync(async () =>
+                    {
+                        await Launcher.LaunchFileAsync(download.ResultFile);
+                    });
                 });
             }
             finally
