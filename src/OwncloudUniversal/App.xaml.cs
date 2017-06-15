@@ -84,12 +84,6 @@ namespace OwncloudUniversal
                 {
                     NavigationService.Navigate(typeof(FilesPage));
                 }
-
-                if (Configuration.IsBackgroundTaskEnabled)
-                {
-                    var settings = new SettingsPageViewModel();
-                    settings.SettingsPartViewModel.BackgroundTaskEnabled = true;
-                }
             }
         }
     }

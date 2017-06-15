@@ -108,6 +108,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppUpdateTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebDavBackgroundSync.cs" />
   </ItemGroup>
