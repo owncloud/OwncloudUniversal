@@ -6,6 +6,7 @@ using Windows.ApplicationModel.Activation;
 using Template10.Controls;
 using Template10.Common;
 using Windows.ApplicationModel.Resources;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Data;
@@ -65,10 +66,11 @@ namespace OwncloudUniversal
             };
         }
 
-        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
+        public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // TODO: add your long-running task here
             SQLiteClient.Init();
+            await ImageCache.Instance.InitializeAsync(ApplicationData.Current.LocalCacheFolder, "ImageCache");
             ImageCache.Instance.MaxMemoryCacheCount = Int32.MaxValue;
             if (startKind == StartKind.Launch)
             {
@@ -89,7 +91,6 @@ namespace OwncloudUniversal
                     settings.SettingsPartViewModel.BackgroundTaskEnabled = true;
                 }
             }
-            return Task.CompletedTask;
         }
     }
 }
