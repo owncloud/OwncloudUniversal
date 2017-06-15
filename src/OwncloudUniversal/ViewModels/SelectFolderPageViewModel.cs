@@ -97,6 +97,11 @@ namespace OwncloudUniversal.ViewModels
             {
                 await NavigationService.NavigateAsync(typeof(FilesPage), WebDavNavigationService.CurrentItem, new SuppressNavigationTransitionInfo());
             }
+            for (int i = 0; i < NavigationService.Frame.BackStackDepth; i++)
+            {
+                if(NavigationService.Frame.BackStack[i].SourcePageType == typeof(SelectFolderPage))
+                    NavigationService.Frame.BackStack.RemoveAt(i);
+            }
         }
 
         public DavItem SelectedItem
