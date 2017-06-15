@@ -115,7 +115,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid x:Name="ItemGrid" HorizontalAlignment="Stretch">
+                    <Grid x:Name="ItemGrid" HorizontalAlignment="Stretch" Holding="ItemGrid_OnHolding" RightTapped="ItemGrid_OnRightTapped">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -207,17 +207,6 @@
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
                             </MenuFlyout>
                         </FlyoutBase.AttachedFlyout>
-
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Holding">
-                                <behaviors:OpenFlyoutAction />
-                            </core:EventTriggerBehavior>
-
-                            <core:EventTriggerBehavior EventName="RightTapped">
-                                <behaviors:OpenFlyoutAction />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

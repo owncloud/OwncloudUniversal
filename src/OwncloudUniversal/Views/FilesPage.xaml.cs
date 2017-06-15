@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Input;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -17,6 +19,7 @@ using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.ViewModels;
 using OwncloudUniversal.OwnCloud.Model;
 using Template10.Services.PopupService;
+using Template10.Utils;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -48,6 +51,28 @@ namespace OwncloudUniversal.Views
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedItems = ListView.SelectedItems?.ToList();
+        }
+
+        private void ItemGrid_OnHolding(object sender, HoldingRoutedEventArgs e)
+        {
+            if(e.HoldingState == HoldingState.Started)
+            {
+                var senderElement = sender as UIElement;
+                MenuFlyout flyoutBase = (MenuFlyout)FlyoutBase.GetAttachedFlyout((FrameworkElement)senderElement);
+                flyoutBase.ShowAt(senderElement, e.GetPosition(senderElement));
+                Debug.WriteLine("Holding " + e.GetPosition(senderElement));
+            }
+        }
+
+        private void ItemGrid_OnRightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if (UIViewSettings.GetForCurrentView().UserInteractionMode == UserInteractionMode.Mouse)
+            {
+                var senderElement = sender as UIElement;
+                MenuFlyout flyoutBase = (MenuFlyout)FlyoutBase.GetAttachedFlyout((FrameworkElement)senderElement);
+                flyoutBase.ShowAt(senderElement, e.GetPosition(senderElement));
+                Debug.WriteLine("Tapped " + e.GetPosition(senderElement));
+            }
         }
     }
 }
