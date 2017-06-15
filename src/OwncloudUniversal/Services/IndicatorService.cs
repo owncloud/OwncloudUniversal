@@ -11,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using OwncloudUniversal.Views;
+using Template10.Common;
 
 namespace OwncloudUniversal.Services
 {
@@ -33,7 +34,7 @@ namespace OwncloudUniversal.Services
 
         public void ShowBar(string text, UIElement element = null)
         {
-            Shell.ModalDialog.ModalBackground = new SolidColorBrush(Colors.Black);
+            Shell.ModalDialog.ModalBackground = (SolidColorBrush) BootStrapper.Current.Resources["OverlayColor"];
             Shell.ModalDialog.ModalBackground.Opacity = 0.75;
             Shell.ModalDialog.IsModal = true;
             Shell.Text.Text = text;

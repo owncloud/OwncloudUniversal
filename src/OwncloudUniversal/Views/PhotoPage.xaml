@@ -30,7 +30,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <t10:PageHeader x:Name="Header" Opacity="0.7" Canvas.ZIndex="10" Background="Transparent">
             <t10:PageHeader.Content>
-                <TextBlock Text="{Binding SelectedItem.DisplayName}"/>
+                <TextBlock Text="{Binding SelectedItem.DisplayName}" Foreground="{ThemeResource ContrastColorBrush}"/>
             </t10:PageHeader.Content>
         </t10:PageHeader>
         <FlipView x:Name="FlipView" ItemsSource="{Binding Items}" SelectedIndex="{Binding SelectedIndex , Mode=TwoWay}">
