@@ -108,7 +108,7 @@
 
         </Controls:HamburgerMenu>
 
-        <Controls:ModalDialog  x:Name="ProgressRing" ModalBackground="Transparent">
+        <Controls:ModalDialog  x:Name="Dialog" ModalBackground="Transparent">
             <Controls:ModalDialog.ModalContent>
                 <StackPanel VerticalAlignment="Center">
                     <ProgressRing IsActive="True" Foreground="{ThemeResource ContrastColorBrush}"
@@ -118,7 +118,6 @@
                                   MinHeight="80"/>
                     <TextBlock x:Name="ProgressText" HorizontalAlignment="Center" Foreground="{ThemeResource ContrastColorBrush}" Margin="12"/>
                 </StackPanel>
-
             </Controls:ModalDialog.ModalContent>
         </Controls:ModalDialog>
     </Grid>
