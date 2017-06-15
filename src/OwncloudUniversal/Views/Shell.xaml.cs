@@ -17,6 +17,7 @@ namespace OwncloudUniversal.Views
         public static HamburgerMenu HamburgerMenu => Instance.MyHamburgerMenu;
 
         public static ModalDialog Ring => Instance.ProgressRing;
+        public static TextBlock Text => Instance.ProgressText;
 
         Services.SettingsServices.SettingsService _settings;
 

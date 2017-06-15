@@ -26,9 +26,16 @@ namespace OwncloudUniversal.Services
             Shell.Ring.IsModal = true;
         }
 
+        public void ShowBar(string text)
+        {
+            Shell.Ring.IsModal = true;
+            Shell.Text.Text = text;
+        }
+
         public void HideBar()
         {
             Shell.Ring.IsModal = false;
+            Shell.Text.Text = string.Empty;
         }
     }
 }

@@ -110,11 +110,15 @@
 
         <Controls:ModalDialog  x:Name="ProgressRing" ModalBackground="Transparent">
             <Controls:ModalDialog.ModalContent>
-                <ProgressRing IsActive="True" Foreground="{ThemeResource ContrastColorBrush}"
-                      Width="80" 
-                      Height="80" 
-                      MinWidth="80" 
-                      MinHeight="80"/>
+                <StackPanel VerticalAlignment="Center">
+                    <ProgressRing IsActive="True" Foreground="{ThemeResource ContrastColorBrush}"
+                                  Width="80" 
+                                  Height="80" 
+                                  MinWidth="80" 
+                                  MinHeight="80"/>
+                    <TextBlock x:Name="ProgressText" HorizontalAlignment="Center" Foreground="{ThemeResource ContrastColorBrush}" Margin="12"/>
+                </StackPanel>
+
             </Controls:ModalDialog.ModalContent>
         </Controls:ModalDialog>
     </Grid>
