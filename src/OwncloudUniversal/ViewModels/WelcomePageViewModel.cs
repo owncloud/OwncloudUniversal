@@ -15,6 +15,7 @@ using OwncloudUniversal.Views;
 using OwncloudUniversal.OwnCloud;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Utils;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
@@ -80,10 +81,10 @@ namespace OwncloudUniversal.ViewModels
             ConnectCommand = new DelegateCommand(async () => await Connect());
         }
 
-        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             Shell.HamburgerMenu.IsFullScreen = true;
-            return Task.CompletedTask;
+            await DesktopClientHelper.ShowDekstopClientInfo();
         }
 
         private async Task CheckServerStatus()

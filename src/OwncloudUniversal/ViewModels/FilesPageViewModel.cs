@@ -32,6 +32,7 @@ using OwncloudUniversal.Views;
 using OwncloudUniversal.OwnCloud;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Utils;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Template10.Utils;
@@ -148,6 +149,7 @@ namespace OwncloudUniversal.ViewModels
 
         private async Task RegisterFolderForSync(object parameter)
         {
+            await DesktopClientHelper.ShowDekstopClientInfo();
             if (parameter is DavItem)
             {
                 var folderPicker = new FolderPicker();

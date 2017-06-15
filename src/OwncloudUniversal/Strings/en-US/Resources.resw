@@ -557,4 +557,11 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
   <data name="Error" xml:space="preserve">
     <value>Unknown error, please check the log file</value>
   </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
+Would you like to download it now?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Don't show again</value>
+  </data>
 </root>

@@ -127,6 +127,17 @@ namespace OwncloudUniversal.Synchronization.Configuration
             set { Config.Values["IsBackgroundTaskEnabled"] = value; }
         }
 
+        public static bool HideDesktopClientInfo
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("HideDesktopClientInfo"))
+                    return (bool)Config.Values["HideDesktopClientInfo"];
+                return false;
+            }
+            set => Config.Values["HideDesktopClientInfo"] = value;
+        }
+
         public static void Reset()
         {
             ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);
