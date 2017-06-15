@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /OwncloudUniversal.sln.DotSettings
+/src/OwncloudUniversal/OwncloudUniversal_StoreKey.pfx
+*.appx
