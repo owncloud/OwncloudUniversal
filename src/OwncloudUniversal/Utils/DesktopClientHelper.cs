@@ -39,6 +39,7 @@ namespace OwncloudUniversal.Utils
                     if ((int)result.Id== 0)
                     {
                         await Launcher.LaunchUriAsync(new Uri("https://owncloud.org/install/#install-clients"));
+                        App.Current.Exit();
                     }
                     if ((int)result.Id == 1)
                     {
