@@ -38,7 +38,7 @@ namespace OwncloudUniversal.Views
         {
             //workaround because if multiple selected Items are passed 
             //directly as commandparameter they are always null
-            if (_selectedItems == null || _selectedItems.Count == 0)
+            if (_selectedItems == null || _selectedItems.Count <= 1)
                 return new List<DavItem>() {item};
             return _selectedItems?.Cast<DavItem>().ToList();
         }
