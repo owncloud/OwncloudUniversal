@@ -118,444 +118,444 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.Header" xml:space="preserve">
-    <value>על אודות</value>
+    <value>Über</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>מאפשר סינכרון</value>
+    <value>Synchronisation aktivieren</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>העברה תסתיים גם אם היישום עובד ברקע!</value>
+    <value>Übertragung wird auch im Hintergrund fortgesetzt!</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>ביטול</value>
+    <value>Abbrechen</value>
   </data>
   <data name="Connection.Header" xml:space="preserve">
-    <value>התחברות</value>
+    <value>Verbindung</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
-    <value>קובץ נוכחי</value>
+    <value>Aktuelle Datei</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
-    <value>מחיקה</value>
+    <value>Löschen</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>מחיקת קובץ?</value>
+    <value>Datei löschen?</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>מחיקת תיקייה?</value>
+    <value>Ordner löschen?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
-    <value>נטרול סנכרון</value>
+    <value>Synchronisation deaktivieren</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>הורדה</value>
+    <value>Download</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>מוריד...</value>
+    <value>Herunterladen...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
-    <value>סנכרון אוטומטי</value>
+    <value>Automatische Synchronisation</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>פעילות ברקע נוטרלה</value>
+    <value>Deaktiviert</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>פעילות ברקע מאופשרת</value>
+    <value>Aktiviert</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
-    <value>קבצים</value>
+    <value>Dateien</value>
   </data>
   <data name="FilesButton.Text" xml:space="preserve">
-    <value>קבצים</value>
+    <value>Dateien</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>קבצים מחכים לפעולה</value>
+    <value>Ausstehende Dateien</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
-    <value>העברת קובץ</value>
+    <value>Dateiübertragung</value>
   </data>
   <data name="History.Header" xml:space="preserve">
-    <value>היסטוריה</value>
+    <value>Historie</value>
   </data>
   <data name="no" xml:space="preserve">
-    <value>לא</value>
+    <value>Nein</value>
   </data>
   <data name="OpenFile.Content" xml:space="preserve">
-    <value>פתיחת קובץ</value>
+    <value>Datei öffnen</value>
   </data>
   <data name="OutOf.Text" xml:space="preserve">
-    <value>מתוך</value>
+    <value>von</value>
   </data>
   <data name="PasswordHeader.Text" xml:space="preserve">
-    <value>סיסמא</value>
+    <value>Kennwort</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
-    <value>מאפיינים</value>
+    <value>Eigenschaften</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>טעינה מחדש</value>
+    <value>Neu laden</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>ערכת נושא ליישום</value>
+    <value>App Design</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
-    <value>כהה</value>
+    <value>Dunkel</value>
   </data>
   <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
-    <value>בהיר</value>
+    <value>Hell</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>איפוס יישום זה</value>
+    <value>App zurücksetzen</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
-    <value>הגדרות</value>
+    <value>Einstellungen</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>הגדרות</value>
+    <value>Einstellungen</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>כפתור חזרה</value>
+    <value>Zurück-Taste</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
-    <value>כפתור חזרה ממוקם בכותרת עמוד</value>
+    <value>Zurück-Taste im Seitenkopf</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>כפתור חזרה ממוקם בכותרת / שורת משימות</value>
+    <value>Zurück-Taste in Titelleiste</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>התחלת סנכרון</value>
+    <value>Synchronisation jetzt starten</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
-    <value>מצב</value>
+    <value>Status</value>
   </data>
   <data name="SynchedFolders.Text" xml:space="preserve">
-    <value>תיקיות מסונכרנות</value>
+    <value>Synchronisierte Ordner</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>סנכרון (בטא)</value>
+    <value>Synchronisation (Beta)</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>סנכרון (בטא)</value>
+    <value>Synchronisation (Beta)</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>סנכרון בפעולה..</value>
+    <value>Übertragung läuft..</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
-    <value>הפסקת סנכרון</value>
+    <value>Synchronisation Stoppen</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>העלאת קבצים</value>
+    <value>Dateien hochladen</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
-    <value>שם משתמש</value>
+    <value>Benutzername</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
   </data>
   <data name="yes" xml:space="preserve">
-    <value>כן</value>
+    <value>Ja</value>
   </data>
   <data name="DownloadMultiple.Label" xml:space="preserve">
-    <value>הורדה</value>
+    <value>Download</value>
   </data>
   <data name="CancelSelectMode.Label" xml:space="preserve">
-    <value>ביטול</value>
+    <value>Abbrechen</value>
   </data>
   <data name="DeleteMultiple.Label" xml:space="preserve">
-    <value>מחיקה</value>
+    <value>Löschen</value>
   </data>
   <data name="deleteMultipleConfirmation" xml:space="preserve">
-    <value>מחיקה?</value>
+    <value>Löschen?</value>
   </data>
   <data name="DetailsPageHeader.Content" xml:space="preserve">
-    <value>מאפיינים</value>
+    <value>Eigenschaften</value>
   </data>
   <data name="FileContentType.Header" xml:space="preserve">
-    <value>סוג</value>
+    <value>Typ</value>
   </data>
   <data name="FileEtag.Header" xml:space="preserve">
     <value>Etag</value>
   </data>
   <data name="FileIsSynced.Header" xml:space="preserve">
-    <value>סטטוס סנכרון</value>
+    <value>Synchronisationsstatus</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>תאריך עריכה</value>
+    <value>Änderungsdatum</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
-    <value>שם</value>
+    <value>Name</value>
   </data>
   <data name="FilePath.Header" xml:space="preserve">
-    <value>נתיב</value>
+    <value>Pfad</value>
   </data>
   <data name="FileSize.Header" xml:space="preserve">
-    <value>גודל</value>
+    <value>Größe</value>
   </data>
   <data name="NewFolder.Label" xml:space="preserve">
-    <value>תיקייה חדשה</value>
+    <value>Neuer Ordner</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>מצב בחירה</value>
+    <value>Auswahl</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
-    <value>התחברות</value>
+    <value>Verbinden</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
-    <value>כתובת שרת</value>
+    <value>Serveradresse</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>לא ניתן לאתר את השרת. יש לבדוק את נתיב האינטרנט ואת חיבור האינטרנט שלך.</value>
+    <value>Der Server wurde nicht gefunden. Bitte URL und  Internetverbindung prüfen.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>שגיאה פנימית אירעה בשרת</value>
+    <value>Auf dem Server ist ein interner Fehler aufgetreten</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>לא ניתן היה לאתר את המשאב המבוקש</value>
+    <value>Die angeforderte Ressource konnte nicht gefunden werden</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>השירות אינו זמין כרגע</value>
+    <value>Der Server ist zur Zeit leider nicht verfügbar</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
-    <value>התחברות נכשלה</value>
+    <value>Die Anmeldung am Server ist fehlgeschlagen.</value>
   </data>
   <data name="CreateNewFolder" xml:space="preserve">
-    <value>יצירת תיקייה חדשה</value>
+    <value>Neuen Ordner Erstellen</value>
   </data>
   <data name="FolderName" xml:space="preserve">
-    <value>שם תיקייה</value>
+    <value>Ordnername</value>
   </data>
   <data name="NewFolderName" xml:space="preserve">
-    <value>תיקייה חדשה</value>
+    <value>Neuer Ordner</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>אישור</value>
+    <value>OK</value>
   </data>
   <data name="Oops" xml:space="preserve">
-    <value>אופס</value>
+    <value>Hoppla</value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
-    <value>מחיקת קובץ?</value>
+    <value>Datei löschen?</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
-    <value>מצב סנכרון</value>
+    <value>Sync Status</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>אין להוריד קבצים גדולים. הגבלה (MB):</value>
+    <value>Große Dateien nicht herunterladen. Grenze in MB:</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
-    <value>אישור</value>
+    <value>Akzeptieren</value>
   </data>
   <data name="MoveToFolder.Text" xml:space="preserve">
-    <value>העברה</value>
+    <value>Verschieben</value>
   </data>
   <data name="SelectFolder.Text" xml:space="preserve">
-    <value>יש לבחור את תיקיית היעד</value>
+    <value>Zielordner auswählen</value>
   </data>
   <data name="Move.Label" xml:space="preserve">
-    <value>העברה</value>
+    <value>Verschieben</value>
   </data>
   <data name="NewName" xml:space="preserve">
-    <value>שם חדש:</value>
+    <value>Neuer Name:</value>
   </data>
   <data name="Rename.Text" xml:space="preserve">
-    <value>שינוי שם</value>
+    <value>Umbenennen</value>
   </data>
   <data name="RenameTitle" xml:space="preserve">
-    <value>שינוי שם</value>
+    <value>Umbenennen</value>
   </data>
   <data name="LocalFolderHeader.Header" xml:space="preserve">
-    <value>תיקייה מקומית</value>
+    <value>Lokaler Ordner</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
-    <value>תיקיית ownCloud</value>
+    <value>ownCloud Ordner</value>
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
-    <value>הגדרות</value>
+    <value>Konfiguration</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>סנכרון אוטומטי</value>
+    <value>Automatische Synchronisation</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>התחברות בוצעה בהצלחה! הזהרה: החיבור אינו מקודד!</value>
+    <value>Verbindung hergestellt! ACHTUNG: Verbindung ist nicht verschlüsselt!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>שם משתמש או סיסמא שגויים</value>
+    <value>Benutzername oder Kennwort falsch.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>אירעה שגיאה. יתכן והשרת במצב אחזקה או שההתקנה אינה מושלמת. יש לנסות שוב בזמן מאוחר יותר או ליצור קשר עם מנהל המערכת.</value>
+    <value>Ein Fehler is aufgetreten. Eventuell befindet sich der Server im Wartungsmodus oder ist noch nicht fertig installiert. Bitte versuche es später erneut oder kontaktiere deinen Systemadministrator.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>האם באמת לאפס יישום זה?</value>
+    <value>Möchtest du diese App wirklich zurücksetzen?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>יש להפעיל את היישום מחדש.</value>
+    <value>Bitte starte die App neu.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
-    <value>התחברות מאובטחת נוצרה בהצלחה!</value>
+    <value>Sichere Verbindung hergestellt!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
-    <value>בייטים</value>
+    <value>Byte</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>אירעה שגיאה. יש להפעיל מחדש את היישום ולנסות שוב.</value>
+    <value>Ein Fehler ist aufgetreten. Bitte schließe das Programm und versuche es danach erneut.</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>שינויי תהליכים</value>
+    <value>Verarbeite Änderungen</value>
   </data>
   <data name="Deletions" xml:space="preserve">
-    <value>מחיקת תהליכים</value>
+    <value>Verarbeite gelöschte Dateien</value>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>הסתיים</value>
+    <value>Abgeschlossen</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>מוכן</value>
+    <value>Bereit</value>
   </data>
   <data name="Receiving" xml:space="preserve">
-    <value>מקבל</value>
+    <value>Empfangen</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>מחפש שינויים</value>
+    <value>Suche nach Änderungen</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>שולח</value>
+    <value>Senden</value>
   </data>
   <data name="Stopped" xml:space="preserve">
-    <value>בוטל</value>
+    <value>Abgebrochen</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>מעדכן את מסד הנתונים</value>
+    <value>Aktualisiere Datenbank</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
-    <value>הורדה בלבד</value>
+    <value>Nur Herunterladen</value>
   </data>
   <data name="FullSync" xml:space="preserve">
-    <value>רגיל</value>
+    <value>Normal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>העלאה בלבד</value>
+    <value>Nur Hochladen</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
-    <value>מצב</value>
+    <value>Modus</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>הסרה</value>
+    <value>Entfernen</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>שמירת שינויים</value>
+    <value>Änderung speichern</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>התוכן של תיקיות אלו יסונכרן:</value>
+    <value>Die Inhalte dieser Ordner werden synchronisiert:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>יש להתחיל את הסנכרון הראשון כאשר ההתקן מחובר לרשת WiFi ולמטען. הסנכרון הראשון עלול לקחת זמן מה.</value>
+    <value>Bitte starte die erste Synchronisation manuell wenn du eine WLAN-Verbindung hast und das Gerät mit dem Ladegerät verbunden ist. Der erste Durchlauf kann unter Umständen sehr lange dauern.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
-    <value>התחלת סנכרון</value>
+    <value>Synchronisation jetzt starten</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>מומלץ לחבר את ההתקן לרשת WiFi ולמטען כיוון שהסנכרון יכול להמשך זמן רב והתצוגה תישאר פעילה.
-האם באמת להתחיל את הסנכרון עכשיו?</value>
+    <value>Es wird empfohlen das Gerät mit einem Ladegerät und einem WLAN-Netzwerk zu verbinden, da die Synchronisation lange dauern kann und das Display aktiviert bleibt.
+Bist du die sicher, dass du die Synchronisation trotzdem starten möchtest?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>השרת אינו מאפשר פעולה זו.</value>
+    <value>Der Server erlaubt diesen Vorgang nicht.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>תשומת לב: התיקייה הנבחרת אינה מקוטלגת על ידי חיפוש חלונות. 
+    <value>Achtung: Der gewählte Ordner ist nicht von der Windows-Suche indiziert. 
 
-מצב זה עלול להוביל להתנהגות לא צפויה.
-האם באמת להשתמש בתיקייה זו?</value>
+Dies kann zu unerwartetem Verhalten führen.
+Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>תשומת לב: התיקייה הנבחרת מקוטלגת באופן חלקי על ידי חיפוש חלונות. 
+    <value>Achtung: Der gewählte Ordner ist nur teilweise von der Windows-Suche indiziert. 
 
-מצב זה עלול להוביל להתנהגות לא צפויה.
-האם באמת להשתמש בתיקייה זו?</value>
+Dies kann zu unerwartetem Verhalten führen.
+Bist du dir sicher, dass du diesen Ordner verwenden möchtest?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
-    <value>הצגת קוד מקור</value>
+    <value>Quelltext anzeigen</value>
   </data>
   <data name="SupportUrl.Content" xml:space="preserve">
-    <value>יצירת קשר עם תמיכה</value>
+    <value>Support kontaktieren</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>מוציא לאור</value>
+    <value>Veröffentlicht von</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
-    <value>גרסה</value>
+    <value>Version</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>שליחת דוח אבחון על בסיס דואר אלקטרוני</value>
+    <value>Diagnosebericht per E-Mail senden</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>הסנכרון יחל לפעול ברקע אם התנאים הבאים מתקיימים:
-- ההתקן מחובר למטען.
-- חיבור רשת WiFi נוצר.
-- ההתקן אינו בשימוש.</value>
+    <value>Die Synchronisation startet nach einiger Zeit automatisch wenn folgende Bedingungen erfüllt sind:
+- Das Ladegerät muss angeschlossen sein.
+- Eine WLAN-Verbindung ist möglich.
+- Das Gerät wird nicht genutzt. (nur bei mobilen Geräten)</value>
   </data>
   <data name="justNow" xml:space="preserve">
-    <value>ברגע זה</value>
+    <value>gerade eben</value>
   </data>
   <data name="ADayAgo" xml:space="preserve">
-    <value>לפני יום</value>
+    <value>Vor einem Tag</value>
   </data>
   <data name="AMinuteAgo" xml:space="preserve">
-    <value>לפני דקה</value>
+    <value>Vor einer Minute</value>
   </data>
   <data name="AMonthAgo" xml:space="preserve">
-    <value>לפני חודש</value>
+    <value>Vor einem Monat</value>
   </data>
   <data name="AnHourAgo" xml:space="preserve">
-    <value>לפני שעה</value>
+    <value>Vor einer Stunde</value>
   </data>
   <data name="ASecondAgo" xml:space="preserve">
-    <value>לפני שניה</value>
+    <value>Vor einer Sekunde</value>
   </data>
   <data name="AYearAgo" xml:space="preserve">
-    <value>לפני שנה</value>
+    <value>Vor einem Jahr</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
-    <value>לפני {0} ימים</value>
+    <value>Vor {0} Tagen</value>
   </data>
   <data name="XHoursAgo" xml:space="preserve">
-    <value>לפני {0} שעות</value>
+    <value>Vor {0} Stunden</value>
   </data>
   <data name="XMinutesAgo" xml:space="preserve">
-    <value>לפני {0} דקות</value>
+    <value>Vor {0} Minuten</value>
   </data>
   <data name="XMonthsAgo" xml:space="preserve">
-    <value>לפני {0} חודשים</value>
+    <value>Vor {0} Monaten</value>
   </data>
   <data name="XSecondsAgo" xml:space="preserve">
-    <value>לפני {0} שניות</value>
+    <value>Vor {0} Sekunden</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
-    <value>לפני {0} שנים</value>
+    <value>Vor {0} Jahren</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>חיבור התקן חלונות 10 עם ה- ownCloud שלך!
+    <value>Connect your Windows 10 device with your ownCloud!
 
-לחווית משתמש מועדפת מומלץ להשתמש בסנכרון על בסיס לקוח שולחן עבודה רגיל במחשב האישי. ניתן למצוא לקוח כזה כאן: https://owncloud.org/install/#install-clients 
+For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
 
-היישום הנו בפיתוח יעודי יחודי של קהילת ownCloud ומתחיל הפיתוח הנו Adrian Gebhart. ניתן להתרשם מהפרויקט ב- GitHub אם ברצונך להצטרף לפיתוח, ניתן לעשות זאת ב-: https://github.com/owncloud/OwncloudUniversal
+This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
 
-מאפיינים:
+Features:
 
-- עובד בכל התקני חלונות 10!
-- תוכנת מקור פתוח
-- סנכרון הקבצים שלך ברקע. בטלפונים הסנכרון יתבצע רק כאשר המכשיר בטעינה לחסכון בסוללה.
-- העלאה, הורדה וניהול קבצים ותיקיות.
-- הצגת תמונות וקבצי וידאו ישירות ב- ownCloud שלך.
+- Works on all Windows 10 devices!
+- Open source software
+- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+- Upload, download and manage files and folders.
+- View your images or stream videos directly from your ownCloud.
 
 
-חדש ב- ownCloud?
-ניתן להתרשם ב- https://owncloud.org
+New to ownCloud?
+Check it out at https://owncloud.org
 
-בעיות?
-ניתן לפתוח נושא חדש ב- https://github.com/owncloud/OwncloudUniversal/issues לחילופין להשתמש בפונקציית דיווח מאבחנת מתוך היישום.</value>
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>שגיאה לא ברורה, יש לבדוק בקובץ התיעוד</value>
+    <value>Unknown error, please check the log file</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
@@ -565,7 +565,7 @@ Would you like to download it now?</value>
     <value>Don&apos;t show again</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
-    <value>פתיחת קובץ</value>
+    <value>Datei öffnen</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
     <value>Downloading {0}</value>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -532,31 +532,41 @@ Esta seguro que quiere utilizar esta carpeta?</value>
     <value>Hace {0} años</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Conecte su dispositivo Windows 10 con su ownCloud!
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+Para una experiencia óptima,, considere usar el cliente de sync normal. Lo puede descargar de: https://owncloud.org/install/#install-clients 
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+Esta app es un proyecto desarrolado por la comunidad ownCloud y ha sido iniciado por Adrian Gebhart. Revise el pryecto en GitHub si desea colaborar con el proyecto: https://github.com/owncloud/OwncloudUniversal
 
-Features:
+Destacado:
 
-- Works on all Windows 10 devices!
-- Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- Funciona con todos los dispositivos windows 10
+- Software open source 
+- Sincroniza sus archivos en background. En telefonos moviles, solo sincroniza mientras se está cargando el movil para ahorrar bateria
+- Permite subir, bajar y utilizar sus archivos remotamente.
+- Puede ver sus imagenes o archivos de video en stream.
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Nuevo en ownCloud?
+Visite la web del proyecto: https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+¿Problemas?
+Abra una incidencia en: https://github.com/owncloud/OwncloudUniversal/issues o use la herramienta de diagnostico incluida en la app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Error desconocido, por favor revise el archivo de log.</value>
+  </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
+Would you like to download it now?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Don&apos;t show again</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Abrir archivo</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Downloading {0}</value>
   </data>
 </root>
