@@ -101,7 +101,6 @@ namespace OwncloudUniversal.ViewModels
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            IndicatorService.GetDefault().ShowBar();
             await base.OnNavigatedToAsync(parameter, mode, state);
             WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;

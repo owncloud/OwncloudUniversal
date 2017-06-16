@@ -147,7 +147,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center"  Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Left"/>
+                                <TextBlock VerticalAlignment="Center"  Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Stretch"/>
                                 <TextBlock Grid.Column="1" Foreground="{ThemeResource ForegroundMediumBrush}" Text="{Binding LastModified, Converter={StaticResource DateTimeToDaysAgoConverter}}" 
                                        HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                             </Grid>
