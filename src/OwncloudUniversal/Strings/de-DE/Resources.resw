@@ -515,22 +515,22 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
     <value>Vor einem Jahr</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
-    <value>Vor {0} Tagen</value>
+    <value>vor {0} Tagen</value>
   </data>
   <data name="XHoursAgo" xml:space="preserve">
-    <value>Vor {0} Stunden</value>
+    <value>vor {0} Stunden</value>
   </data>
   <data name="XMinutesAgo" xml:space="preserve">
-    <value>Vor {0} Minuten</value>
+    <value>vor {0} Minuten</value>
   </data>
   <data name="XMonthsAgo" xml:space="preserve">
-    <value>Vor {0} Monaten</value>
+    <value>vor {0} Monaten</value>
   </data>
   <data name="XSecondsAgo" xml:space="preserve">
-    <value>Vor {0} Sekunden</value>
+    <value>vor {0} Sekunden</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
-    <value>Vor {0} Jahren</value>
+    <value>vor {0} Jahren</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
     <value>Connect your Windows 10 device with your ownCloud!
