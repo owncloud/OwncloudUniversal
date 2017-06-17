@@ -148,7 +148,7 @@
     <value>Synchronisatie uitschakelen?</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Downloaden</value>
+    <value>Save as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Downloaden...</value>
@@ -534,41 +534,41 @@ Weet u zeker dat u deze map wilt gebruiken?</value>
     <value>{0} jaar geleden</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Verbind uw Windows 10 apparaat met uw ownCloud!
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+Voor een optimale ervaring op de PC, overweeg om de normale desktop sync client te gebruiken. U kunt het hier vinden: https://owncloud.org/install/#install-clients 
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+Deze app is een project ontwikkeld door de ownCloud-Community alleen en is gestart door Adrian Gebhart. Download het projct op GitHub als u wilt helpen met de ontwikkeling: https://github.com/owncloud/OwncloudUniversal
 
-Features:
+Kenmerken:
 
-- Works on all Windows 10 devices!
+- Werkt op alle Windows 10 apparaten!
 - Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- Synchroniseer uw bestanden met een achtergrond taak. Op telefoons wordt alleen gesynchroniseerd wannneer uw apparaat aan het opladen is om batterij te besparen.
+- Upload, download en beheer bestanden en mappen.
+- Bekijk uw afbeeldingen of films direct van uw ownCloud.
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Nieuw bij ownCloud?
+Probeer het op https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Problemen?
+Open een melding op https://github.com/owncloud/OwncloudUniversal/issues of gebruik de diagnostisch raportage functie in de app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Onbekende fout, controleer het log bestand.</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Voor een optimale ervaring op de PC. Probeer de originele Desktop Sync Client voor Windows.
+Wilt u deze nu downloaden?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>Toon niet nogmaals</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Bestand openen</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>{0}aan het downloaden</value>
   </data>
 </root>

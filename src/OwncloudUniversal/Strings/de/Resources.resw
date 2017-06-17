@@ -148,7 +148,7 @@
     <value>Synchronisation deaktivieren</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Download</value>
+    <value>Save as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Herunterladen...</value>

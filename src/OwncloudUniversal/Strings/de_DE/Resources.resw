@@ -148,7 +148,7 @@
     <value>Synchronisation deaktivieren</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Herunterladen</value>
+    <value>Save as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Lade herunter...</value>
@@ -555,19 +555,19 @@ Probleme?
 Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/OwncloudUniversal/issues oder nutzen Sie die Diagnosereportfunktion innerhalb der App.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Unbekannter Fehler, bitte Protokoll prüfen</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
 Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>Nicht mehr anzeigen</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Datei öffnen</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>Lade {0} herunter</value>
   </data>
 </root>

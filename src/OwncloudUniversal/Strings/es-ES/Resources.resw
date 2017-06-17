@@ -148,7 +148,7 @@
     <value>Deshabilitar sincronización</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Descargar</value>
+    <value>Save as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Descargando...</value>
@@ -557,16 +557,16 @@ Abra una incidencia en: https://github.com/owncloud/OwncloudUniversal/issues o u
     <value>Error desconocido, por favor revise el archivo de log.</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Para una óptima experiencia en el PC, por favor use el cliente original de escritorio &quot;sync&quot; de Windows.
+¿Desearía descargarlo ahora?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>No mostrar de nuevo</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Abrir archivo</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>Descargando {0}</value>
   </data>
 </root>

@@ -148,7 +148,7 @@
     <value>Skru av synkronisering</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Last ned</value>
+    <value>Save as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Laster ned...</value>

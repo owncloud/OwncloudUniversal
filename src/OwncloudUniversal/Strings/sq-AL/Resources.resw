@@ -148,7 +148,7 @@
     <value>Çaktivizo njëkohësimin</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Shkarkoje</value>
+    <value>Save as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Po shkarkohet…</value>

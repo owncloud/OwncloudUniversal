@@ -148,7 +148,7 @@
     <value>נטרול סנכרון</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>הורדה</value>
+    <value>Save as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>מוריד...</value>
@@ -558,16 +558,16 @@
     <value>שגיאה לא ברורה, יש לבדוק בקובץ התיעוד</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>לחוויה אופטימלית במחשב האישי. יש להשתמש בלקוח סנכרון מקורי לחלונות מבוסס שולחן עבודה.
+האם ברצונך להוריד אותו עכשיו?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>אל תציג שוב</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>פתיחת קובץ</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>מוריד {0}</value>
   </data>
 </root>
