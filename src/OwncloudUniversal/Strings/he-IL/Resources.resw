@@ -148,7 +148,7 @@
     <value>נטרול סנכרון</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>שמירה בשם</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>מוריד...</value>

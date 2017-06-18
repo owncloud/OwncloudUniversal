@@ -148,7 +148,7 @@
     <value>Synchronisation deaktivieren</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>Speichern unter</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Lade herunter...</value>
@@ -533,23 +533,23 @@ Sind Sie sicher, dass Sie diesen Ordner verwenden möchten?</value>
     <value>Vor {0} Jahren</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Verbinde dein Windows 10 Gerät mit deiner ownCloud!
+    <value>Verbinden Sie Ihr Windows 10 Gerät mit Ihrer ownCloud!
 
-Für PCs empfehlen wir den normalen Desktop-Sync-Client zur Synchronisation zu verwenden. Du kannst ihn hier finden: https://owncloud.org/install/#install-clients
+Für PCs empfehlen wir den normalen Desktop-Sync-Client zur Synchronisation zu verwenden. Sie können diesen hier finden: https://owncloud.org/install/#install-clients
 
-Diese App ist ein Projekt das nur von der ownCloud-Community entwickelt wird und von Adrian Gebhart gestartet wurde. Besuche die GitHub-Seite wenn du bei der Entwicklung mitmachen willst: https://github.com/owncloud/OwncloudUniversal
+Diese App ist ein Projekt das nur von der ownCloud-Community entwickelt wird und von Adrian Gebhart gestartet wurde. Besuchen Sie die GitHub-Seite wenn Sie bei der Entwicklung mitmachen möchten: https://github.com/owncloud/OwncloudUniversal
 
 Funktionen:
 
 - Funktioniert auf allen Windows 10 Geräten!
 - Open-Source Software
-- Synchronisiere deine Dateien automatisch im Hintergrund. Auf Smartphones wird nur beim aufladen synchronisiert um Akku zu sparen.
-- Verwalte deine Dateien und Ordner und lade Dateien hoch oder runter.
-- Sie dir deine Bilder an oder streame Videos direkt von deiner ownCloud!
+- Synchronisieren Sie Ihre Dateien automatisch im Hintergrund. Auf Smartphones wird nur beim aufladen synchronisiert um Akku zu sparen.
+- Verwalten Sie Ihre Dateien und Ordner und laden Sie Dateien hoch oder runter.
+- Sehen Sie sich Ihre Bilder an oder streamen Sie Videos direkt von Ihrer ownCloud!
 
 
 Neu bei ownCloud?
-Sie es dir an unter https://owncloud.org
+Sehen Sie es sich unter https://owncloud.org an.
 
 Probleme?
 Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/OwncloudUniversal/issues oder nutzen Sie die Diagnosereportfunktion innerhalb der App.</value>
@@ -558,8 +558,8 @@ Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/Owncloud
     <value>Unbekannter Fehler, bitte Protokoll prüfen</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Für ein optimales Erlebnis auf dem PC. Bitte probieren Sie den originalen Desktop Client für Windows zum Synchronisieren.
+Möchten Sie diesen jetzt herunterladen?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
     <value>Nicht mehr anzeigen</value>
