@@ -148,7 +148,7 @@
     <value>Onemogoči usklajevanje</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>Shrani kot</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Prejemanje ...</value>
@@ -388,7 +388,7 @@
     <value>Ali res želite ponastaviti ta program?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Please restart the app.</value>
+    <value>Ponovno zaženite program</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>Varna povezava je uspešno vzpostavljena!</value>
@@ -497,22 +497,22 @@ Are you sure you want to use this folder?</value>
     <value>ravnokar</value>
   </data>
   <data name="ADayAgo" xml:space="preserve">
-    <value>a day ago</value>
+    <value>pred enim dnem</value>
   </data>
   <data name="AMinuteAgo" xml:space="preserve">
-    <value>a minute ago</value>
+    <value>pred eno minuto</value>
   </data>
   <data name="AMonthAgo" xml:space="preserve">
-    <value>a month ago</value>
+    <value>pred enim mesecem</value>
   </data>
   <data name="AnHourAgo" xml:space="preserve">
-    <value>an hour ago</value>
+    <value>pred eno uro</value>
   </data>
   <data name="ASecondAgo" xml:space="preserve">
-    <value>a second ago</value>
+    <value>pred eno sekundo</value>
   </data>
   <data name="AYearAgo" xml:space="preserve">
-    <value>a year ago</value>
+    <value>pred enim letom</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
     <value>pred {0} dnevi</value>
@@ -555,19 +555,19 @@ Problems?
 Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Neznana napaka, preverite dnevniško datoteko</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
 Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>Ne pokaži več</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Odpri datoteko</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>Prejemanje {0}</value>
   </data>
 </root>
