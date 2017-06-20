@@ -148,7 +148,7 @@
     <value>Απενεργοποίηση συγχρονισμού</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>Αποθήκευση ως</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Λήψη...</value>
@@ -552,19 +552,19 @@ Problems?
 Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Άγνωστο σφάλμα, ελέγξτε το αρχείο καταγραφής</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Για βέλτιστη εμπειρία στον υπολογιστή. Δοκιμάστε το αρχικό πρόγραμμα-πελάτη Desktop Sync για Windows.
+Θα θέλατε να το κατεβάσετε τώρα;</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>Μην εμφανιστεί ξανά</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Άνοιγμα αρχείου</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>Λήψη {0}</value>
   </data>
 </root>
