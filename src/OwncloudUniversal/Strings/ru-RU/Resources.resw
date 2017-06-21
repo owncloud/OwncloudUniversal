@@ -148,7 +148,7 @@
     <value>Запретить синхронизацию</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>Сохранить как</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Скачивание...</value>
@@ -531,41 +531,41 @@
     <value>{0} лет назад</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Подключите ваше устройство с Windows 10 к вашему облаку!
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+Для оптимального доступа на ПК, пожалуйста попробуйте использовать вместо этого обычный desktop sync client. Вы можете найти его здесь: https://owncloud.org/install/#install-clients
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+Это приложение — это проект, разрабатываемый только сообществом ownCloud, первоначальный автор Адриан Гебхарт (Adrian Gebhart). Посмотрите проект на Гитхабе, если хотите присоединиться к разработке: https://github.com/owncloud/OwncloudUniversal
 
-Features:
+Возможности:
 
-- Works on all Windows 10 devices!
-- Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- Работает на всех устройствах с Windows 10!
+- ПО с открытыми исходниками
+- Синхронизация файлов работает в фоновом режиме. На телефонах синхронизация будет работать только при зарядке устройства, чтобы не расходовать батарею.
+- Закачивание, скачивание и управление файлами и каталогами.
+- Просмотр изображений и видеопотоков прямо из ownCloud.
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Впервые сталкиваетесь с ownCloud?
+Посмотрите на https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Проблемы?
+Откройте новый вопрос на https://github.com/owncloud/OwncloudUniversal/issues или используйте функцию диагностических отчётов внутри приложения.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Неизвестная ошибка, пожалуйста проверьте файл журнала</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Для оптимального доступа из ПК. Пожалуйста попробуйте Desktop Sync Client для Windows.
+Желаете скачать его сейчас?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>Не показывать снова</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Открыть файл</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>Скачивание {0}</value>
   </data>
 </root>

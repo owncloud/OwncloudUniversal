@@ -148,7 +148,7 @@
     <value>ปิดใช้งานการประสานข้อมูล</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>บันทึกเป็น</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>กำลังดาวน์โหลด...</value>
@@ -556,19 +556,19 @@ Problems?
 Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุโปรดตรวจสอบไฟล์บันทึก</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
 Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>ไม่ต้องแสดงอีกครั้ง</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>เปิดไฟล์</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>กำลังดาวน์โหลด {0}</value>
   </data>
 </root>
