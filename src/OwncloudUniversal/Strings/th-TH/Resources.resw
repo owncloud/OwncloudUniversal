@@ -534,33 +534,33 @@
     <value>{0} ปีที่ผ่านมา</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>คุณสามารถใช้โปรแกรมสำหรับเชื่อมโยงข้อมูลได้จากลิงค์นี้ https://owncloud.org/install/#install-clients
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+แอพนี้เป็นโครงการที่ได้รับการพัฒนาโดยชุมชนของคุณเอง เริ่มต้นโดย Adrian Gebhart สามารถตรวจสอบโครงการเกี่ยวกับ GitHub หากคุณต้องการเข้าร่วมการพัฒนา
+https://github.com/owncloud/OwncloudUniversal
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+คุณสมบัติ:
 
-Features:
-
-- Works on all Windows 10 devices!
-- Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- ทำงานได้กับอุปกรณ์ Windows 10 ทั้งหมด!
+- ซอฟต์แวร์โอเพนซอร์ส
+- ประสานไฟล์ของคุณกับงานพื้นหลัง โทรศัพท์จะซิงค์เฉพาะเมื่ออุปกรณ์กำลังชาร์จเพื่อประหยัดแบตเตอรี่
+- อัพโหลดและดาวน์โหลดจัดการไฟล์และโฟลเดอร์
+- ดูภาพหรือสตรีมวิดีโอของคุณได้โดยตรงกับ ownCloud ของคุณ
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+คุณมีระบบคราวด์เป็นของตัวเอง?
+ไปดูรายละเอียดได้ที่ https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+การแจ้งปัญหา?
+สามารถไปแจ้งปัญหาได้ที่ https://github.com/owncloud/OwncloudUniversal/issues หรือใช้ฟังก์ชันรายงานการวินิจฉัยภายในแอพพลิเคชัน
+</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุโปรดตรวจสอบไฟล์บันทึก</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>สำหรับเครื่องคอมพิวเตอร์ที่ใช้ระบบปฎิบัติการวินโดว์ส สามารถลองใช้โปรแกรม Desktop Sync Client 
+คุณต้องการดาวน์โหลดตอนนี้เลย?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
     <value>ไม่ต้องแสดงอีกครั้ง</value>
