@@ -116,7 +116,7 @@
                                   Height="80" 
                                   MinWidth="80" 
                                   MinHeight="80"/>
-                    <TextBlock x:Name="ProgressText" HorizontalAlignment="Center" Foreground="{ThemeResource ContrastColorBrush}" Margin="12"/>
+                    <TextBlock x:Name="ProgressText" HorizontalAlignment="Center" Foreground="{ThemeResource ContrastColorBrush}" Margin="12" TextWrapping="Wrap"/>
                 </StackPanel>
             </Controls:ModalDialog.ModalContent>
         </Controls:ModalDialog>
