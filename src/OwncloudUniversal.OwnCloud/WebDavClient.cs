@@ -61,17 +61,6 @@ namespace OwncloudUniversal.OwnCloud
             await download.StartAsync().AsTask(progressCallback);
         }
 
-        public async Task<HttpRandomAccessStream> GetAsHttpRandomAccessStream(DavItem item)
-        {
-            var url = new Uri(item.EntityId, UriKind.RelativeOrAbsolute);
-            if (!url.IsAbsoluteUri)
-                url = new Uri(_serverUrl, url);
-            var buffer = CryptographicBuffer.ConvertStringToBinary(_credential.UserName + ":" + _credential.Password, BinaryStringEncoding.Utf8);
-            var token = CryptographicBuffer.EncodeToBase64String(buffer);
-            var value = new HttpCredentialsHeaderValue("Basic", token);
-            return await HttpRandomAccessStream.CreateAsync(new HttpClient {DefaultRequestHeaders = { Authorization = value}}, url);
-        }
-
         private async Task OnDownloadProgressChanged(DownloadOperation obj)
         {
             if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
