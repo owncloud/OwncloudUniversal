@@ -75,10 +75,10 @@ namespace OwncloudUniversal.ViewModels
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             Items = await LoadItems();
-            PropertyChanged += async (sender, args) =>
+            PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == "SelectedItem" && (SelectedItem?.ContentType.StartsWith("video") ?? false))
-                    await CreateMediaStream(SelectedItem);
+                    CreateMediaStream(SelectedItem);
                 else
                 {
                     MediaSource?.Reset();
@@ -113,10 +113,12 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        private async Task CreateMediaStream(DavItem item)
+        private void CreateMediaStream(DavItem item)
         {
-            var stream = await _client.GetAsHttpRandomAccessStream(item);
-            MediaSource = MediaSource.CreateFromStream(stream, stream.ContentType);
+            var url = new Uri(item.EntityId, UriKind.RelativeOrAbsolute);
+            if (!url.IsAbsoluteUri)
+                url = new Uri(new Uri(Configuration.ServerUrl), url);
+            MediaSource = MediaSource.CreateFromUri(url);
         }
 
         private async Task<List<DavItem>>  LoadItems()
@@ -127,9 +129,12 @@ namespace OwncloudUniversal.ViewModels
             {
                 if (!davItem.IsCollection && davItem.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
                 {
-                    var itemPath = davItem.EntityId.Substring(davItem.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
-                    var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 2000 + "/" + 2000 + itemPath;
-                    davItem.ThumbnailUrl = url;
+                    var url = new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute);
+                    if (!url.IsAbsoluteUri)
+                        url = new Uri(new Uri(serverUrl), url);
+                    //var itemPath = davItem.EntityId.Substring(davItem.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
+                    //var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 2000 + "/" + 2000 + itemPath;
+                    davItem.ThumbnailUrl = url.ToString();
                 }
             }
             return service.Items.Where(i => i.ContentType.StartsWith("image") || i.ContentType.StartsWith("video")).ToList();

@@ -107,7 +107,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpRandomAccessStream.cs" />
     <Compile Include="Model\DavItem.cs" />
     <Compile Include="Model\WebDavUnauthorizedException.cs" />
     <Compile Include="OcsClient.cs" />

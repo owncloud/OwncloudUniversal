@@ -9,6 +9,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.SpeechRecognition;
+using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
@@ -48,6 +49,8 @@ namespace OwncloudUniversal.OwnCloud
             _contentStream = contentStream;
             _customHeaders = customHeaders;
             var filter = new HttpBaseProtocolFilter {AllowUI = false};
+            if(networkCredential.UserName != string.Empty && networkCredential.Password != string.Empty)
+                filter.ServerCredential = new PasswordCredential(requestUrl.DnsSafeHost, networkCredential.UserName, networkCredential.Password);
             _httpClient = new HttpClient(filter);
         }
 
@@ -61,11 +64,7 @@ namespace OwncloudUniversal.OwnCloud
                 if(_customHeaders != null)
                     foreach (var header in _customHeaders)
                         request.Headers.Add(header);
-
-                var buffer =
-                    CryptographicBuffer.ConvertStringToBinary(_networkCredential.UserName + ":" + _networkCredential.Password, BinaryStringEncoding.Utf8);
-                var token = CryptographicBuffer.EncodeToBase64String(buffer);
-                request.Headers.Authorization = new HttpCredentialsHeaderValue("Basic", token);
+                
                 if (_method.Method == "PROPFIND")
                     request.Content = new HttpStringContent(PropfindContent, UnicodeEncoding.Utf8);
                 else if (_contentStream != null)
