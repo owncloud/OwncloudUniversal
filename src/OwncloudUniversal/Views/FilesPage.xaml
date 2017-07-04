@@ -109,7 +109,7 @@
                   Grid.Row="1" 
                   ItemsSource="{Binding WebDavNavigationService.Items}" 
                   SelectionMode="{Binding SelectionMode}"
-                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
+                  SelectedItem="{x:Bind FilesPageViewModel.SelectedItem, Mode=TwoWay}" 
                   IsMultiSelectCheckBoxEnabled="True"
                   VerticalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged" Grid.ColumnSpan="2">
 

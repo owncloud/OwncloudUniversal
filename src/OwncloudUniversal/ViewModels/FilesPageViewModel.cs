@@ -139,7 +139,7 @@ namespace OwncloudUniversal.ViewModels
                     }
                     else
                     {
-                        NavigationService.Navigate(typeof(DetailsPage), value, new SuppressNavigationTransitionInfo());
+                        var task = OpenFileAsync(value);
                     }
                 }
             } 
