@@ -138,6 +138,17 @@ namespace OwncloudUniversal.Synchronization.Configuration
             set => Config.Values["HideDesktopClientInfo"] = value;
         }
 
+        public static bool NeedsInitialSchemaVersion
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("NeedsInitialSchemaVersion"))
+                    return (bool)Config.Values["NeedsInitialSchemaVersion"];
+                return true;
+            }
+            set => Config.Values["NeedsInitialSchemaVersion"] = value;
+        }
+
         public static void Reset()
         {
             ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);
