@@ -27,17 +27,23 @@
         <uap:LockScreen BadgeLogo="assets\Badge\Badge.png" Notification="badgeAndTileText" />
       </uap:VisualElements>
       <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="OwncloudUniversal.BackgroundTasks.InstantUploadTask">
+          <BackgroundTasks>
+            <Task Type="general" />
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.updateTask" EntryPoint="OwncloudUniversal.BackgroundTasks.AppUpdateTask" />
         <Extension Category="windows.backgroundTasks" EntryPoint="OwncloudUniversal.BackgroundTasks.WebDavBackgroundSync">
           <BackgroundTasks>
             <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
-        <Extension Category="windows.updateTask" EntryPoint="OwncloudUniversal.BackgroundTasks.AppUpdateTask" />
       </Extensions>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
     <Capability Name="privateNetworkClientServer" />
+    <uap:Capability Name="picturesLibrary" />
   </Capabilities>
 </Package>
