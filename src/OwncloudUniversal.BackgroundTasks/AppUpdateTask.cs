@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.SQLite;
 
 namespace OwncloudUniversal.BackgroundTasks
 {
@@ -17,6 +18,7 @@ namespace OwncloudUniversal.BackgroundTasks
                 var reg = new BackgroundTaskConfiguration();
                 reg.Enabled = true;
             }
+            SQLiteClient.Init();
         }
     }
 }
