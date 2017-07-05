@@ -13,7 +13,7 @@ using Windows.Storage.FileProperties;
 using Windows.Storage.Provider;
 using Windows.Storage.Search;
 using OwncloudUniversal.Synchronization.Model;
-using OwncloudUniversal.Synchronization.Synchronisation;
+using OwncloudUniversal.Synchronization.Processing;
 
 namespace OwncloudUniversal.Synchronization.LocalFileSystem
 {
@@ -289,5 +289,41 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             return result.TrimEnd('\\');
         }
 
+        public async Task<List<BaseItem>> GetChangesFromChangeTracker(KnownLibraryId libraryId, FolderAssociation association, List<StorageLibraryChangeType> supportedChangeTypes)
+        {
+            var result = new List<BaseItem>();
+            var library = await StorageLibrary.GetLibraryAsync(libraryId);
+            library.ChangeTracker.Enable();
+            var reader = library.ChangeTracker.GetChangeReader();
+            var changes = await reader.ReadBatchAsync();
+            foreach (var change in changes)
+            {
+                try
+                {
+                    if (supportedChangeTypes.Contains(change.ChangeType))
+                    {
+                        var file = await change.GetStorageItemAsync();
+                        var props = await file.GetBasicPropertiesAsync();
+                        var item = new LocalItem(association, file, props);
+                        result.Add(item);
+                    }
+                }
+                catch (Exception e)
+                {
+                    await LogHelper.Write("InstantUpload: " + e.Message);
+                    await LogHelper.Write(e.StackTrace);
+                }
+                
+            }
+            return result;
+        }
+
+        public async Task AcceptChangesFromChangeTracker(KnownLibraryId libraryId)
+        {
+            var library = await StorageLibrary.GetLibraryAsync(libraryId);
+            library.ChangeTracker.Enable();
+            var reader = library.ChangeTracker.GetChangeReader();
+            await reader.AcceptChangesAsync();
+        }
     }
 }
