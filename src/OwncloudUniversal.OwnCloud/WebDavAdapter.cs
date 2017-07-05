@@ -13,7 +13,6 @@ using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Configuration;
 using OwncloudUniversal.Synchronization.Model;
-using OwncloudUniversal.Synchronization.Synchronisation;
 
 namespace OwncloudUniversal.OwnCloud
 {

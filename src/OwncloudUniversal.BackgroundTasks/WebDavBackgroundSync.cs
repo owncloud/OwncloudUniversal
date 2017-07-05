@@ -8,9 +8,9 @@ using Windows.ApplicationModel.Background;
 using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Notifications;
 using OwncloudUniversal.Synchronization.LocalFileSystem;
-using OwncloudUniversal.Synchronization.Synchronisation;
 using OwncloudUniversal.OwnCloud;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.Processing;
 
 namespace OwncloudUniversal.BackgroundTasks
 {
