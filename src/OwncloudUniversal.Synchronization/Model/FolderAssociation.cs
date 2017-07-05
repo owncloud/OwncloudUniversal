@@ -18,5 +18,6 @@ namespace OwncloudUniversal.Synchronization.Model
         public DateTime LastSync { get; set; }
         public string LocalFolderPath => ItemTableModel.GetDefault().GetItem(LocalFolderId)?.EntityId;
         public string RemoteFolderFolderPath => ItemTableModel.GetDefault().GetItem(RemoteFolderId)?.EntityId;
+        public bool SupportsInstantUpload { get; set; }
     }
 }

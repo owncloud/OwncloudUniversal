@@ -37,6 +37,7 @@ namespace OwncloudUniversal.Synchronization.Model
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (long)item.SyncDirection);
             query.Bind(5, DateTimeHelper.DateTimeSQLite(item.LastSync));
+            query.Bind(6, item.SupportsInstantUpload ? 1 : 0);
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)
@@ -56,7 +57,8 @@ namespace OwncloudUniversal.Synchronization.Model
             query.Bind(3, item.IsActive ? 1 : 0);
             query.Bind(4, (long)item.SyncDirection);
             query.Bind(5, SQLite.DateTimeHelper.DateTimeSQLite(item.LastSync));
-            query.Bind(6, item.Id);
+            query.Bind(6, item.SupportsInstantUpload ? 1 : 0);
+            query.Bind(7, item.Id);
         }
 
         protected override FolderAssociation CreateInstance(ISQLiteStatement query)
@@ -71,6 +73,7 @@ namespace OwncloudUniversal.Synchronization.Model
             if(!DateTime.TryParse((string)query[5], out date))
                 date = DateTime.MinValue;
             fa.LastSync = date;
+            fa.SupportsInstantUpload = (long) query[6] == 1;
             return fa;
         }
 
@@ -81,22 +84,22 @@ namespace OwncloudUniversal.Synchronization.Model
 
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Association (LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection, @lastsync)";
+            return "INSERT INTO Association (LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync, SupportsInstantUpload) VALUES(@localitemid, @remoteitemid, @isactive, @syncdirection, @lastsync, @SupportsInstantUpload)";
         }
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync FROM Association";
+            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync, SupportsInstantUpload FROM Association";
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync FROM Association WHERE Id = ?";
+            return "SELECT Id, LocalItemId, RemoteItemId, IsActive, SyncDirection, LastSync, SupportsInstantUpload FROM Association WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE Association  SET LocalItemId = ?, RemoteItemId = ?, IsActive = ?, SyncDirection = ?, LastSync= ? WHERE Id = ?";
+            return "UPDATE Association  SET LocalItemId = ?, RemoteItemId = ?, IsActive = ?, SyncDirection = ?, LastSync= ?, SupportsInstantUpload = ? WHERE Id = ?";
         }
 
         protected override string GetLastInsertRowIdQuery()
