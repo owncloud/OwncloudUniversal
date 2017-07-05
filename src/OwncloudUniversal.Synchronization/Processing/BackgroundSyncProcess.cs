@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
-using Windows.Data.Xml.Dom;
-using Windows.System.Power;
 using Windows.UI.Core;
-using Windows.UI.Notifications;
 using OwncloudUniversal.Model;
 using OwncloudUniversal.Synchronization.Model;
 
-namespace OwncloudUniversal.Synchronization.Synchronisation
+namespace OwncloudUniversal.Synchronization.Processing
 {
     public class BackgroundSyncProcess
     {
-        private List<BaseItem> _itemIndex;
-        private List<BaseItem> _deletions;
         private int _uploadCount;
         private int _downloadCount;
         private int _deletedCount;
@@ -43,8 +36,6 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             LogHelper.ResetLog();
             _watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
-            _itemIndex = null;
-            _deletions = null;
             _uploadCount = 0;
             _downloadCount = 0;
             _deletedCount = 0;
@@ -68,14 +59,14 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             await SetExecutionStatus(ExecutionStatus.Finished);
         }
 
-        private async Task GetChanges()
+        protected virtual async Task GetChanges()
         {
             var associations = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation association in associations)
             {
-                await
-                    LogHelper.Write(
-                        $"Scanning {association.LocalFolderPath} and {association.RemoteFolderFolderPath} BackgroundTask: {_isBackgroundTask}");
+                if(association.SupportsInstantUpload)
+                    continue;
+                await LogHelper.Write($"Scanning {association.LocalFolderPath} and {association.RemoteFolderFolderPath} BackgroundTask: {_isBackgroundTask}");
                 if (_watch.Elapsed.Minutes >= 9)
                     break;
                 await SetExecutionStatus(ExecutionStatus.Scanning);
@@ -85,22 +76,22 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
                 var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
                 var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
 
-                _deletions = await getDeletedTargetTask;
-                _deletions.AddRange(await getDeletedSourceTask);
+                 var deletedItems = await getDeletedTargetTask;
+                deletedItems.AddRange(await getDeletedSourceTask);
 
-                _itemIndex = await getUpdatedSourceTask;
-                _itemIndex.AddRange(await getUpdatedTargetTask);
+                var items = await getUpdatedSourceTask;
+                items.AddRange(await getUpdatedTargetTask);
 
-                await _UpdateFileIndexes(association);
-                await ProcessDeletions();
-                await LogHelper.Write($"Updating: {_itemIndex.Count} Deleting: {_deletions.Count} BackgroundTask: {_isBackgroundTask}");
+                await _UpdateFileIndexes(association, items);
+                await ProcessDeletions(deletedItems);
+                await LogHelper.Write($"Updating: {items.Count} Deleting: {deletedItems.Count} BackgroundTask: {_isBackgroundTask}");
             }
         }
 
-        private async Task ProcessDeletions()
+        protected async Task ProcessDeletions(List<BaseItem> deletedItems)
         {
             await SetExecutionStatus(ExecutionStatus.Deletions);
-            foreach (var item in _deletions)
+            foreach (var item in deletedItems)
             {
                 try
                 {
@@ -169,15 +160,15 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             }
         }
 
-        private async Task ProcessItems()
+        protected virtual async Task ProcessItems()
         {
             await LogHelper.Write($"Starting Sync.. BackgroundTask: {_isBackgroundTask}");
             await SetExecutionStatus(ExecutionStatus.Active);
-            _itemIndex = ItemTableModel.GetDefault().GetAllItems().ToList();
+            var items = ItemTableModel.GetDefault().GetAllItems().ToList();
             var links = LinkStatusTableModel.GetDefault().GetAllItems().ToList();
 
             var itemsToProcess = 
-                (from baseItem in _itemIndex
+                (from baseItem in items
                         .Where(i =>
                          i.Association.SyncDirection == SyncDirection.DownloadOnly &&
                          i.AdapterType == _targetEntityAdapter.GetType() ||
@@ -204,7 +195,7 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             await ProcessUpdates(itemsToUpdate);
         }
 
-        private async Task ProcessUpdates(IEnumerable<dynamic> itemsToUpdate)
+        protected async Task ProcessUpdates(IEnumerable<dynamic> itemsToUpdate)
         {
             var toUpdate = itemsToUpdate as IList<dynamic> ?? itemsToUpdate.ToList();
             await LogHelper.Write($"{toUpdate.Count} items to update");
@@ -271,7 +262,7 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             }
         }
 
-        private async Task ProcessAdds(IEnumerable<BaseItem> itemsToAdd)
+        protected async Task ProcessAdds(IEnumerable<BaseItem> itemsToAdd)
         {
             var baseItems = itemsToAdd as IList<BaseItem> ?? itemsToAdd.ToList();
             foreach (var item in baseItems)
@@ -367,12 +358,12 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             return result;
         }
 
-        private async Task _UpdateFileIndexes(FolderAssociation association)
+        protected async Task _UpdateFileIndexes(FolderAssociation association, List<BaseItem> items)
         {
             await SetExecutionStatus(ExecutionStatus.UpdatingIndex);
             var itemTableModel = ItemTableModel.GetDefault();
             
-            foreach (BaseItem t in _itemIndex)
+            foreach (BaseItem t in items)
             {
                 t.Association = association;
                 var foundItem = itemTableModel.GetItem(t);
@@ -453,7 +444,7 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             SyncHistoryTableModel.GetDefault().InsertItem(historyEntry);
         }
 
-        private async Task SetExecutionStatus(ExecutionStatus status)
+        protected async Task SetExecutionStatus(ExecutionStatus status)
         {
             if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
             {
@@ -465,7 +456,7 @@ namespace OwncloudUniversal.Synchronization.Synchronisation
             }
         }
 
-        private async Task SetExectuingFileName(string entityId)
+        protected async Task SetExectuingFileName(string entityId)
         {
             if (!_isBackgroundTask)
             {

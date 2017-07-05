@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Configuration\BackgroundTaskConfiguration.cs" />
     <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\InstantUploadRegistration.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="Model\IFileSyncAdapter.cs" />
     <Compile Include="LocalFileSystem\FileSystemAdapter.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Processing\EnityIdComparer.cs" />
     <Compile Include="Processing\ExecutionContext.cs" />
     <Compile Include="Processing\ExecutionStatus.cs" />
+    <Compile Include="Processing\InstantUploadProcess.cs" />
     <Compile Include="ToastHelper.cs" />
     <Compile Include="Model\SyncDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
