@@ -118,413 +118,419 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.Header" xml:space="preserve">
-    <value>Sobre</value>
+    <value>Om</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>Ativar sincronização </value>
+    <value>Aktivera synkronisering</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>A transferência também será concluída se a aplicação estiver em segundo plano</value>
+    <value>Transfer will also complete if the app is in the background!</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>Cancelar</value>
+    <value>Avbryt</value>
   </data>
   <data name="Connection.Header" xml:space="preserve">
-    <value>Ligação</value>
+    <value>Anslutning</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
-    <value>Ficheiro Atual</value>
+    <value>Nuvarande fil</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
-    <value>Eliminar</value>
+    <value>Ta bort</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>Eliminar ficheiro?</value>
+    <value>Radera fil ?</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>Eliminar pasta?</value>
+    <value>Radera mapp ?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
-    <value>Desativar sincronização</value>
+    <value>Avaktivera synkronisering</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Guardar como</value>
+    <value>Spara som</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>A transferir...</value>
+    <value>Laddar ner...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
-    <value>Sincronização Automática</value>
+    <value>Automatiskt synkronisering</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>Tarefa em segundo plano desativada</value>
+    <value>Bakgrundsuppgift avaktiverad</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>Tarefa em segundo plano ativada</value>
+    <value>Bakgrundsuppgift aktiverad</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
-    <value>Ficheiros</value>
+    <value>Filer</value>
   </data>
   <data name="FilesButton.Text" xml:space="preserve">
-    <value>Ficheiros</value>
+    <value>Filer</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>Ficheiros Pendentes</value>
+    <value>Väntande filer</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
-    <value>Tranferir Ficheiro</value>
+    <value>Fil överföring</value>
   </data>
   <data name="History.Header" xml:space="preserve">
-    <value>Histórico</value>
+    <value>Historik</value>
   </data>
   <data name="no" xml:space="preserve">
-    <value>Não</value>
+    <value>Nej</value>
   </data>
   <data name="OpenFile.Content" xml:space="preserve">
-    <value>Abrir Ficheiro</value>
+    <value>Öppna fil</value>
   </data>
   <data name="OutOf.Text" xml:space="preserve">
-    <value>de</value>
+    <value>av</value>
   </data>
   <data name="PasswordHeader.Text" xml:space="preserve">
-    <value>Palavra-passe</value>
+    <value>Lösenord</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
-    <value>Propriedades</value>
+    <value>Egenskaper</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>Recarregar</value>
+    <value>Ladda om</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>Tema da Aplicação</value>
+    <value>Applikationstema</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
-    <value>Escuro</value>
+    <value>Mörk</value>
   </data>
   <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
-    <value>Claro</value>
+    <value>Ljus</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Repor esta aplicação</value>
+    <value>Återställ appen</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
-    <value>Definições</value>
+    <value>Inställningar</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Definições</value>
+    <value>Inställningar</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>Botão voltar atrás</value>
+    <value>Tillbaka knapp</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
-    <value>Botão voltar atrás está no cabeçalho da página</value>
+    <value>Back button is in Page Header</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>Botão voltar atrás está na barra de tarefas</value>
+    <value>Back button in Title/TaskBar</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>Iniciar a sincronização</value>
+    <value>Starta synkronisering</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
-    <value>Estado</value>
+    <value>Status</value>
   </data>
   <data name="SynchedFolders.Text" xml:space="preserve">
-    <value>Pastas sincronizadas</value>
+    <value>Synkade mappar</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Sincronização (Beta)</value>
+    <value>Synkronisering (Beta)</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Sincronização (Beta)</value>
+    <value>Synkronisering (Beta)</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>Transferência em curso...</value>
+    <value>Överför...</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
-    <value>Parar sincronização</value>
+    <value>Avbryt synkronisering</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>Carregar Ficheiros</value>
+    <value>Ladda upp filer</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
-    <value>Nome de utilizador</value>
+    <value>Användarnamn</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
   </data>
   <data name="yes" xml:space="preserve">
-    <value>Sim</value>
+    <value>Ja</value>
   </data>
   <data name="DownloadMultiple.Label" xml:space="preserve">
-    <value>Transferir</value>
+    <value>Ladda ned</value>
   </data>
   <data name="CancelSelectMode.Label" xml:space="preserve">
-    <value>Cancelar</value>
+    <value>Avbryt</value>
   </data>
   <data name="DeleteMultiple.Label" xml:space="preserve">
-    <value>Eliminar</value>
+    <value>Ta bort</value>
   </data>
   <data name="deleteMultipleConfirmation" xml:space="preserve">
-    <value>Eliminar?</value>
+    <value>Ta bort?</value>
   </data>
   <data name="DetailsPageHeader.Content" xml:space="preserve">
-    <value>Propriedades</value>
+    <value>Egenskaper</value>
   </data>
   <data name="FileContentType.Header" xml:space="preserve">
-    <value>Tipo</value>
+    <value>Typ</value>
   </data>
   <data name="FileEtag.Header" xml:space="preserve">
     <value>Etag</value>
   </data>
   <data name="FileIsSynced.Header" xml:space="preserve">
-    <value>Estado da sincronização</value>
+    <value>Synkroniseringsstatus</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>Alterar data</value>
+    <value>Ändringsdatum</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
-    <value>Nome</value>
+    <value>Namn</value>
   </data>
   <data name="FilePath.Header" xml:space="preserve">
-    <value>Caminho</value>
+    <value>sökväg</value>
   </data>
   <data name="FileSize.Header" xml:space="preserve">
-    <value>Tamanho</value>
+    <value>Storlek</value>
   </data>
   <data name="NewFolder.Label" xml:space="preserve">
-    <value>Nova Pasta</value>
+    <value>Ny mapp</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>Selecione o modo</value>
+    <value>Välj läge</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
-    <value>Ligar</value>
+    <value>Anslut</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
-    <value>Endereço do Servidor</value>
+    <value>Serveradress</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>O servidor não foi encontrado. Por favor verifique o URL e a sua conexão à internet</value>
+    <value>The server could not be found. Please check the URL and your internet connection.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>Ocorreu um erro interno no servidor.</value>
+    <value>Ett intärnt fel har inträffat på servern</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>A ferramenta pedida não foi encontrada</value>
+    <value>The requested resource could not be found</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>O serviço encontra-se indisponível</value>
+    <value>The service is currently not available.</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
-    <value>Iniciação falhada</value>
+    <value>Inloggning misslyckades</value>
   </data>
   <data name="CreateNewFolder" xml:space="preserve">
-    <value>Criar nova pasta</value>
+    <value>Skapa ny mapp</value>
   </data>
   <data name="FolderName" xml:space="preserve">
-    <value>Nome da pasta</value>
+    <value>Mappnamn</value>
   </data>
   <data name="NewFolderName" xml:space="preserve">
-    <value>Nova Pasta</value>
+    <value>Ny mapp</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Oops" xml:space="preserve">
-    <value>Oops</value>
+    <value>Ojdå</value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
-    <value>Eliminar Ficheiro?</value>
+    <value>Radera fil ?</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
-    <value>Estado da Sincronização</value>
+    <value>Synkroniseringsstatus</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>Não descarregue ficheiros grandes. Limite (Mb):</value>
+    <value>Do not download large files. Limit (MB):</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
-    <value>Aceitar</value>
+    <value>Acceptera</value>
   </data>
   <data name="MoveToFolder.Text" xml:space="preserve">
-    <value>Mover</value>
+    <value>Flytta</value>
   </data>
   <data name="SelectFolder.Text" xml:space="preserve">
-    <value>Selecione a pasta de destino</value>
+    <value>Välj målmapp</value>
   </data>
   <data name="Move.Label" xml:space="preserve">
-    <value>Mover</value>
+    <value>Flytta</value>
   </data>
   <data name="NewName" xml:space="preserve">
-    <value>Novo Nome:</value>
+    <value>Nytt namn:</value>
   </data>
   <data name="Rename.Text" xml:space="preserve">
-    <value>Renomear</value>
+    <value>Byt namn</value>
   </data>
   <data name="RenameTitle" xml:space="preserve">
-    <value>Renomear</value>
+    <value>Byt namn</value>
   </data>
   <data name="LocalFolderHeader.Header" xml:space="preserve">
-    <value>Pasta Local</value>
+    <value>Lokal mapp</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
-    <value>Pasta ownCloud</value>
+    <value>ownCloud-mapp</value>
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
-    <value>Configuração</value>
+    <value>Konfiguration</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>Sincronização Automática</value>
+    <value>Automatisk synkronisering</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>Conexão com sucesso! Atenção: A conexão não está encriptada!</value>
+    <value>Connection successful! Warning: The connection is not encrypted!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>Nome de utilizador ou password errada</value>
+    <value>Fel användarnamn eller lösenord.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>Ocorreu um erro. Provavelmente o servidor está em modo de manutenção ou a instalação está incompleta. Tente novamente mais tarde ou contacte o administrador.</value>
+    <value>An error occured. Maybe the server is in maintenance mode or the installation is incomplete. Please try again later or contact your system administrator.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Tem a certeza que deseja apagar esta aplicação?</value>
+    <value>Vill du verkligen återställa appen?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Por favor reinicie a aplicação.</value>
+    <value>Starta om appen.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
-    <value>Conexão segura conseguida com sucesso!</value>
+    <value>Säker anslutning lyckades!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
     <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Ocorreu um erro. Por favor reinicie a aplicação ou tente novamente.</value>
+    <value>An error occured. Please restart the application and try again.</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>A processar alterações</value>
+    <value>Bearbetar ändringar</value>
   </data>
   <data name="Deletions" xml:space="preserve">
-    <value>Apagar em processo</value>
+    <value>Bearbetar borttagningar</value>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Terminado</value>
+    <value>Klar</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>Pronto</value>
+    <value>Redo</value>
   </data>
   <data name="Receiving" xml:space="preserve">
-    <value>Recebendo</value>
+    <value>Tar emot</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>Procurando alterações</value>
+    <value>Letar efter ändringar</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>A Enviar</value>
+    <value>Skickar</value>
   </data>
   <data name="Stopped" xml:space="preserve">
-    <value>Cancelado</value>
+    <value>Avbruten</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>A atualizar base de dados</value>
+    <value>Uppdaterar databasen</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
-    <value>Apenas para descarregar</value>
+    <value>Ladda bara ner</value>
   </data>
   <data name="FullSync" xml:space="preserve">
     <value>Normal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>Apenas envio</value>
+    <value>Ladda bara upp</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
-    <value>Modo</value>
+    <value>Läge</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>Remover</value>
+    <value>Radera</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>Guardar alterações</value>
+    <value>Spara ändringar</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>O conteúdo destas pastas será sincronizado:</value>
+    <value>The content of these folders will be synced:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Por favor comece a primeira sincronização manualmente quando o aparelho estiver conectado à rede e a carregar. A primeira sincronização pode demorar um pouco.</value>
+    <value>Please start the first synchronization manually when the device is connected to a WiFi network and a charger. The first sync could take a while.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
-    <value>Iniciar sincronização</value>
+    <value>Starta synkronisering</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>É recomendado que o aparelho esteja conectado a uma rede WiFi e a carregar para o caso da sincronização demorar algum tempo e o ecrã irá ficar ativo.
-Tem a certeza que quer começar a sincronização agora?</value>
+    <value>It is recommended to connect the device with a WiFi network and a charger because the synchronization could take very long and the display will stay active.
+Are you sure you want to start the synchronization now?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>O servidor não permite esta operação.</value>
+    <value>The server does not allow this operation.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>Atenção: A pasta escolhida não está indexada pela pesquisa do Windows. Isto pode levar a um comportamento inesperado. Tem a certeza que pretende usar esta pasta?</value>
+    <value>Attention: The chosen folder is not indexed by Windows search. 
+
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>Atenção: A pasta escolhida apenas está parcialmente indexada pela pesquisa do Windows. Isto pode levar a um comportamento inesperado. Tem a certeza que pretende usar esta pasta?</value>
+    <value>Attention: The chosen folder is just partially indexed by Windows search. 
+
+This can lead to unexpected behaviour.
+Are you sure you want to use this folder?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
-    <value>Ver o código fonte</value>
+    <value>Visa källkod</value>
   </data>
   <data name="SupportUrl.Content" xml:space="preserve">
-    <value>Contactar suporte</value>
+    <value>Kontakta supporten</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>Editor</value>
+    <value>Utgivare</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
-    <value>Versão</value>
+    <value>Version</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>Enviar relatório de diagnóstico via email</value>
+    <value>Send diagnostic report via email</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>A sincronização irá iniciar em segundo plano se as seguintes condições forem encontradas:
-- O aparelho está conectado a um carregador.
-- Conectado a uma rede WiFi.
-- O aparelho não está a ser usado.</value>
+    <value>The synchronisation will start in the background if the following conditions are met:
+- The device is connected to a charger.
+- A WiFi-Connection is established.
+- The device is not in use.</value>
   </data>
   <data name="justNow" xml:space="preserve">
-    <value>Agora mesmo</value>
+    <value>just nu</value>
   </data>
   <data name="ADayAgo" xml:space="preserve">
-    <value>à um dia atrás</value>
+    <value>en dag sedan</value>
   </data>
   <data name="AMinuteAgo" xml:space="preserve">
-    <value>à um minuto atrás</value>
+    <value>en minut sedan</value>
   </data>
   <data name="AMonthAgo" xml:space="preserve">
-    <value>à um mês atrás</value>
+    <value>en månad sedan</value>
   </data>
   <data name="AnHourAgo" xml:space="preserve">
-    <value>à uma hora atrás</value>
+    <value>en timme sedan</value>
   </data>
   <data name="ASecondAgo" xml:space="preserve">
-    <value>à um segundo atrás</value>
+    <value>en sekund sedan</value>
   </data>
   <data name="AYearAgo" xml:space="preserve">
-    <value>à um ano atrás</value>
+    <value>ett år sedan</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
-    <value>{0} dias atrás</value>
+    <value>{0} dagar sedan</value>
   </data>
   <data name="XHoursAgo" xml:space="preserve">
-    <value>{0} horas atrás</value>
+    <value>{0} timmar sedan</value>
   </data>
   <data name="XMinutesAgo" xml:space="preserve">
-    <value>{0} minutos atrás</value>
+    <value>{0} minuter sedan</value>
   </data>
   <data name="XMonthsAgo" xml:space="preserve">
-    <value>{0} meses atrás</value>
+    <value>{0} månader sedan</value>
   </data>
   <data name="XSecondsAgo" xml:space="preserve">
-    <value>{0} segundos atrás</value>
+    <value>{0} sekunder sedan</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
-    <value>{0} anos atrás</value>
+    <value>{0} år sedan</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
     <value>Connect your Windows 10 device with your ownCloud!
@@ -549,19 +555,19 @@ Problems?
 Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Erro desconhecido, por favor verifique o ficheiro log</value>
+    <value>Unknown error, please check the log file</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>Para uma ótima experiência no PC. Por favor, teste Desktop Sync Client para Windows.
-Gostaria de o transferir agora?</value>
+    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
+Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Não mostrar novamente</value>
+    <value>Visa inte igen</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
-    <value>Abrir Ficheiro</value>
+    <value>Öppna fil</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>A Transferir {0}</value>
+    <value>Laddar ner {0}</value>
   </data>
 </root>
