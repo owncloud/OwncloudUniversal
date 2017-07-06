@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using OwncloudUniversal.Model;
 using OwncloudUniversal.Synchronization.LocalFileSystem;
 using OwncloudUniversal.Synchronization.Model;
 
@@ -33,19 +34,51 @@ namespace OwncloudUniversal.Synchronization.Processing
                     _itemsToUpdate.AddRange(updated);
                     var deletions = await _adapter.GetChangesFromChangeTracker(KnownLibraryId.Pictures, association, new List<StorageLibraryChangeType> { StorageLibraryChangeType.Deleted, StorageLibraryChangeType.MovedOrRenamed, StorageLibraryChangeType.MovedOutOfLibrary });
 
+                    if(adds == null || updated == null || deletions == null)//changetracking was reset in this case
+                        return;
+
                     await _UpdateFileIndexes(association, adds);
                     await _UpdateFileIndexes(association, updated);
                     await ProcessDeletions(deletions);
 
-                    await _adapter.AcceptChangesFromChangeTracker(KnownLibraryId.Pictures);
+                    await _adapter.AcceptChangesFromChangeTracker();
                 }
             }
         }
 
         protected override async Task ProcessItems()
         {
+            List<dynamic> itemsToUpdate = new List<dynamic>();
+            
+            if (_itemsToUpdate.Count != 0)
+            {
+                var links = LinkStatusTableModel.GetDefault().GetAllItems();
+                foreach (var baseItem in _itemsToUpdate)
+                {
+                    var existingItem = ItemTableModel.GetDefault().GetItem(baseItem);
+                    if (existingItem == null)
+                        _itemsToAdd.Add(baseItem);
+                    else
+                    {
+                        var itemsToProcess = (from link in links
+                                .Where(x => x.SourceItemId == existingItem.Id || x.TargetItemId == existingItem.Id)
+                                .DefaultIfEmpty()
+                            select new { LinkStatus = link, BaseItem = existingItem }).ToList();
+
+                        _itemsToAdd.AddRange((from item in itemsToProcess
+                            where item.LinkStatus == null
+                            select item.BaseItem).ToList());
+
+                        itemsToUpdate.AddRange((from item in itemsToProcess
+                            where item.LinkStatus != null
+                            select item).ToList());
+                    }
+                }
+            }
+            
+            
             await ProcessAdds(_itemsToAdd);
-            await ProcessUpdates(_itemsToUpdate);
+            await ProcessUpdates(itemsToUpdate);
         }
     }
 }

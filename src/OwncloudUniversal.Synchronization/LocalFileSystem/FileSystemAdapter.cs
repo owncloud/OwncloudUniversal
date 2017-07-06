@@ -19,6 +19,7 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
 {
     public class FileSystemAdapter : AbstractAdapter
     {
+        private StorageLibraryChangeReader _changeReader;
         private async Task _GetChangesFromSearchIndex(StorageFolder folder, long associationId,
             List<BaseItem> result)
         {
@@ -294,23 +295,66 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             var result = new List<BaseItem>();
             var library = await StorageLibrary.GetLibraryAsync(libraryId);
             library.ChangeTracker.Enable();
-            var reader = library.ChangeTracker.GetChangeReader();
-            var changes = await reader.ReadBatchAsync();
+            _changeReader = library.ChangeTracker.GetChangeReader();
+            var changes = await _changeReader.ReadBatchAsync();
             foreach (var change in changes)
             {
+                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
+                {
+                    await LogHelper.Write($"Changetracking lost: {change.Path}");
+                    library.ChangeTracker.Reset();
+                    return null;
+                }
                 try
                 {
                     if (supportedChangeTypes.Contains(change.ChangeType))
                     {
+                        Debug.WriteLine($"File: {change.Path} ChangeType: {change.ChangeType}");
+                        if (change.Path.EndsWith("thumb"))
+                            continue;
                         var file = await change.GetStorageItemAsync();
-                        var props = await file.GetBasicPropertiesAsync();
-                        var item = new LocalItem(association, file, props);
-                        result.Add(item);
+
+                        if (file == null && change.ChangeType == StorageLibraryChangeType.Deleted)
+                        {
+                            var localItem = new LocalItem();
+                            localItem.Association = association;
+                            localItem.EntityId = change.Path;
+                            result.Add(localItem);
+                        }
+                        else if (file == null || file.IsOfType(StorageItemTypes.Folder))
+                        {
+                            await LogHelper.Write($"Skipping {change.Path}");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                //check if the file is currently in use, for example a video currently being recorded
+                                var stream = await ((StorageFile)file).OpenStreamForWriteAsync();
+                                stream.Dispose();
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            var props = await file.GetBasicPropertiesAsync();
+                            var item = new LocalItem(association, file, props);
+
+                            if (change.ChangeType == StorageLibraryChangeType.ContentsChanged)
+                            {
+                                //for some reason something is writing to the files after the upload, but without making changes
+                                var existingItem = ItemTableModel.GetDefault().GetItem(item);
+                                if(existingItem?.Size == item.Size)
+                                    continue;
+                            }
+                            result.Add(item);
+                        }
+                        
                     }
                 }
                 catch (Exception e)
                 {
-                    await LogHelper.Write("InstantUpload: " + e.Message);
+                    await LogHelper.Write($"InstantUpload: {e.Message} File: {change.Path} ChangeType: {change.ChangeType}");
                     await LogHelper.Write(e.StackTrace);
                 }
                 
@@ -318,12 +362,10 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             return result;
         }
 
-        public async Task AcceptChangesFromChangeTracker(KnownLibraryId libraryId)
+        public async Task AcceptChangesFromChangeTracker()
         {
-            var library = await StorageLibrary.GetLibraryAsync(libraryId);
-            library.ChangeTracker.Enable();
-            var reader = library.ChangeTracker.GetChangeReader();
-            await reader.AcceptChangesAsync();
+            if(_changeReader != null)
+                await _changeReader.AcceptChangesAsync();
         }
     }
 }
