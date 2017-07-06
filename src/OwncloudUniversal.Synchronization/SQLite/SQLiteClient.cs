@@ -137,6 +137,11 @@ namespace OwncloudUniversal.Synchronization.SQLite
                 query.Step();
             }
 
+            using (var query = Connection.Prepare("ALTER TABLE Item ADD Column Size INTEGER"))
+            {
+                query.Step();
+            }
+
             using (var query = Connection.Prepare("PRAGMA schema_version = 104"))
             {
                 query.Step();

@@ -50,7 +50,7 @@ namespace OwncloudUniversal.Synchronization.Model
              
         protected override string GetInsertItemQuery()
         {
-            return "INSERT INTO Item (AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified) VALUES(@AssociationId, @EntityId, @iscollection, @changekey, @changenumber, @syncpostponed, @adaptertype, @lastmodified)";
+            return "INSERT INTO Item (AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified, Size) VALUES(@AssociationId, @EntityId, @iscollection, @changekey, @changenumber, @syncpostponed, @adaptertype, @lastmodified, @size)";
         }
 
         protected override string GetLastInsertRowIdQuery()
@@ -60,23 +60,23 @@ namespace OwncloudUniversal.Synchronization.Model
 
         protected override string GetSelectAllQuery()
         {
-            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified FROM Item ORDER BY EntityId ASC";
+            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified, Size FROM Item ORDER BY EntityId ASC";
         }
 
         protected override string GetSelectByEntityIdQuery()
         {
             return
-                "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified FROM Item WHERE EntityId = ? COLLATE NOCASE";//some chars might be escaped like this %2c or this %2C
+                "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified, Size FROM Item WHERE EntityId = ? COLLATE NOCASE";//some chars might be escaped like this %2c or this %2C
         }
 
         protected override string GetSelectItemQuery()
         {
-            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified FROM Item WHERE Id = ?";
+            return "SELECT Id, AssociationId, EntityId, IsCollection, ChangeKey, ChangeNumber, SyncPostponed, AdapterType, LastModified, Size FROM Item WHERE Id = ?";
         }
 
         protected override string GetUpdateItemQuery()
         {
-            return "UPDATE Item SET EntityId = ?, IsCollection = ?, ChangeKey = ?, ChangeNumber = ?, SyncPostponed = ?, AdapterType=?, LastModified=? WHERE Id = ?";
+            return "UPDATE Item SET EntityId = ?, IsCollection = ?, ChangeKey = ?, ChangeNumber = ?, SyncPostponed = ?, AdapterType=?, LastModified=?, Size = ? WHERE Id = ?";
         }
 
         protected override void BindSelectItemQuery(ISQLiteStatement query, string itemId)
@@ -95,6 +95,7 @@ namespace OwncloudUniversal.Synchronization.Model
             query.Bind(6, item.SyncPostponed ? 1 : 0);
             query.Bind(7, item.AdapterType.AssemblyQualifiedName);
             query.Bind(8, SQLite.DateTimeHelper.DateTimeSQLite(item.LastModified));
+            query.Bind(9, item.Size);
         }
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, BaseItem item, long key)
@@ -107,7 +108,8 @@ namespace OwncloudUniversal.Synchronization.Model
             query.Bind(5, item.SyncPostponed ? 1: 0);
             query.Bind(6, item.AdapterType.AssemblyQualifiedName);
             query.Bind(7, SQLite.DateTimeHelper.DateTimeSQLite(item.LastModified));
-            query.Bind(8, key);
+            query.Bind(8, item.Size);
+            query.Bind(9, key);
         }
 
         protected override BaseItem CreateInstance(ISQLiteStatement query)
@@ -123,6 +125,7 @@ namespace OwncloudUniversal.Synchronization.Model
             item.ChangeNumber = (long)query["ChangeNumber"];
             item.SyncPostponed = (long) query["SyncPostponed"] == 1;
             item.AdapterType = Type.GetType((string)query["AdapterType"]);
+            item.Size = Convert.ToUInt64((long) query["Size"]);
             DateTime date;
             if (DateTime.TryParse((string)query["LastModified"], out date))
                 item.LastModified = date;
@@ -161,7 +164,7 @@ namespace OwncloudUniversal.Synchronization.Model
         public ObservableCollection<BaseItem> GetPostponedItems()
         {
             var items = new ObservableCollection<BaseItem>();
-            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType, LastModified from Item i " +
+            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType, LastModified, Size from Item i " +
                                                   "where i.SyncPostponed = 1"))
             {
                 while (query.Step() == SQLiteResult.ROW)
@@ -176,7 +179,7 @@ namespace OwncloudUniversal.Synchronization.Model
         public ObservableCollection<BaseItem> GetFilesForFolder(FolderAssociation association, Type adapterType)
         {
             var items = new ObservableCollection<BaseItem>();
-            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType, LastModified from Item i " +
+            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType, LastModified, Size from Item i " +
                                                   $"where i.AssociationId = '{association.Id}' AND i.AdapterType = '{adapterType.AssemblyQualifiedName}' ORDER BY EntityId ASC"))
             {
                 while (query.Step() == SQLiteResult.ROW)
@@ -191,7 +194,7 @@ namespace OwncloudUniversal.Synchronization.Model
         public ObservableCollection<BaseItem> GetFilesForFolder(string folderPath)
         {
             var items = new ObservableCollection<BaseItem>();
-            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType, LastModified from Item i " +
+            using (var query = Connection.Prepare("select i.Id, i.AssociationId, i.EntityId, i.IsCollection, i.ChangeKey, i.ChangeNumber, i.SyncPostponed, AdapterType, LastModified, Size from Item i " +
                                                   $"where i.EntityId like '{folderPath}%'  ORDER BY EntityId " +
                                                   $"COLLATE NOCASE"))
             {
