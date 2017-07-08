@@ -104,7 +104,6 @@ namespace OwncloudUniversal.ViewModels
             await base.OnNavigatedToAsync(parameter, mode, state);
             WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
-            WebDavNavigationService.SetNavigationService(NavigationService);
             await Task.Run(() => LoadThumbnails());
         }
 
@@ -130,8 +129,9 @@ namespace OwncloudUniversal.ViewModels
                     RaisePropertyChanged();
                     if (value.IsCollection)
                     {
-                        IndicatorService.GetDefault().ShowBar();
-                        NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
+                        var t = WebDavNavigationService.NavigateAsync(value);
+                        //IndicatorService.GetDefault().ShowBar();
+                        //NavigationService.Navigate(typeof(FilesPage), value, new SuppressNavigationTransitionInfo());
                     }
                     else if(value.ContentType.StartsWith("image") || value.ContentType.StartsWith("video"))
                     {

@@ -74,7 +74,6 @@ namespace OwncloudUniversal.ViewModels
         public override async Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
         {
             var service = await WebDavNavigationService.InintializeAsync();
-            service.SetNavigationService(NavigationService);
             await service.ReloadAsync();
             await base.OnNavigatedFromAsync(pageState, suspending);
         }
