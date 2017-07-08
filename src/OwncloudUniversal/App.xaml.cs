@@ -72,6 +72,10 @@ namespace OwncloudUniversal
             SQLiteClient.Init();
             await ImageCache.Instance.InitializeAsync(ApplicationData.Current.LocalCacheFolder, "ImageCache");
             ImageCache.Instance.MaxMemoryCacheCount = Int32.MaxValue;
+#if DEBUG
+            var taskConfig = new InstantUploadRegistration();
+            await taskConfig.EnableAsync();
+#endif
             if (startKind == StartKind.Launch)
             {
                 if (Configuration.IsFirstRun)

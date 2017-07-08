@@ -17,9 +17,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.LocalFileSystem;
-using OwncloudUniversal.Synchronization.Synchronisation;
 using OwncloudUniversal.OwnCloud;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.Processing;
 using Template10.Mvvm;
 
 namespace OwncloudUniversal.Services

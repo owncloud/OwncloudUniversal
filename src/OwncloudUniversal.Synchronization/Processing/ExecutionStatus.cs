@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OwncloudUniversal.Synchronization.Synchronisation
+﻿namespace OwncloudUniversal.Synchronization.Processing
 {
     //when adding new values to this, make sure you also add the corresponding translation
     public enum ExecutionStatus

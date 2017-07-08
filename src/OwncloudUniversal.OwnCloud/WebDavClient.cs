@@ -16,7 +16,7 @@ using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization;
-using OwncloudUniversal.Synchronization.Synchronisation;
+using OwncloudUniversal.Synchronization.Processing;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
 namespace OwncloudUniversal.OwnCloud

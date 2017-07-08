@@ -7,7 +7,7 @@ using System.Windows.Input;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Configuration;
-using OwncloudUniversal.Synchronization.Synchronisation;
+using OwncloudUniversal.Synchronization.Processing;
 using Template10.Mvvm;
 
 namespace OwncloudUniversal.ViewModels
@@ -15,6 +15,8 @@ namespace OwncloudUniversal.ViewModels
     public class SynchronizationPageViewModel : ViewModelBase
     {
         private readonly SynchronizationService _syncService;
+        BackgroundTaskConfiguration _taskConfig = new BackgroundTaskConfiguration();
+        InstantUploadRegistration registration = new InstantUploadRegistration();
 
         public ExecutionContext ExecutionContext => ExecutionContext.Instance;
         public ICommand StartSyncCommand { get; private set; }
@@ -35,6 +37,8 @@ namespace OwncloudUniversal.ViewModels
             set
             { 
                 Configuration.IsBackgroundTaskEnabled = value;
+                _taskConfig.Enabled = value;
+                var task = registration.EnableAsync();
                 RaisePropertyChanged();
             }
         }

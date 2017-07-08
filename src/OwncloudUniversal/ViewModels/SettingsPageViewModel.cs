@@ -13,7 +13,6 @@ using Windows.UI.Xaml;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Configuration;
 using OwncloudUniversal.Synchronization.SQLite;
-using OwncloudUniversal.Synchronization.Synchronisation;
 using OwncloudUniversal.Utils;
 using Template10.Common;
 using SettingsService = OwncloudUniversal.Services.SettingsServices.SettingsService;

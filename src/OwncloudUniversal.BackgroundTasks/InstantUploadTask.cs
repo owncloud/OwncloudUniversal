@@ -1,26 +1,24 @@
-﻿using OwncloudUniversal.Synchronization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Networking.BackgroundTransfer;
-using Windows.UI.Notifications;
-using OwncloudUniversal.Synchronization.LocalFileSystem;
 using OwncloudUniversal.OwnCloud;
+using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.LocalFileSystem;
 using OwncloudUniversal.Synchronization.Processing;
 
 namespace OwncloudUniversal.BackgroundTasks
 {
-    public sealed class WebDavBackgroundSync : IBackgroundTask
+    public sealed class InstantUploadTask : IBackgroundTask
     {
         BackgroundTaskDeferral _deferral;
-        private BackgroundSyncProcess _worker;
+        InstantUploadProcess _worker;
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-
             taskInstance.Canceled += OnCanceled;
             _deferral = taskInstance.GetDeferral();
 
@@ -29,12 +27,12 @@ namespace OwncloudUniversal.BackgroundTasks
                 var fileSystem = new FileSystemAdapter(true, null);
                 var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
                 fileSystem.LinkedAdapter = webDav;
-                _worker = new BackgroundSyncProcess(fileSystem, webDav, true);
+                _worker = new InstantUploadProcess(fileSystem, webDav, true);
                 await _worker.Run();
             }
             catch (Exception e)
             {
-                await LogHelper.Write($"BackgroundTask Exception: {e.Message}" + Environment.NewLine +
+                await LogHelper.Write($"InstantUploadProcess Exception: {e.Message}" + Environment.NewLine +
                                       $"{e.StackTrace}" + Environment.NewLine +
                                       $"Status:{ExecutionContext.Instance.Status.ToString()}" + Environment.NewLine +
                                       $"File: {ExecutionContext.Instance.CurrentFileNumber}" + Environment.NewLine +
@@ -43,7 +41,7 @@ namespace OwncloudUniversal.BackgroundTasks
             finally
             {
 
-                await LogHelper.Write("BackgroundTask finished");
+                await LogHelper.Write("InstantUploadProcess finished");
                 _deferral.Complete();
             }
         }
@@ -57,10 +55,8 @@ namespace OwncloudUniversal.BackgroundTasks
                 downloadOperation?.AttachAsync().Cancel();
                 var operation = ExecutionContext.Instance.BackgroundTransferOperation as UploadOperation;
                 operation?.AttachAsync().Cancel();
-                Task.Run(() =>LogHelper.Write($"BackgroundTask canceled. Reason: {reason}, Status:{ExecutionContext.Instance.Status.ToString()} File: {ExecutionContext.Instance.CurrentFileNumber} of {ExecutionContext.Instance.TotalFileCount}"));
+                Task.Run(() => LogHelper.Write($"InstantUploadProcess canceled. Reason: {reason}, Status:{ExecutionContext.Instance.Status.ToString()} File: {ExecutionContext.Instance.CurrentFileNumber} of {ExecutionContext.Instance.TotalFileCount}"));
             }
         }
-
-
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OwncloudUniversal.Synchronization.Model;
 
-namespace OwncloudUniversal.Synchronization.Synchronisation
+namespace OwncloudUniversal.Synchronization.Processing
 {
     class EnityIdComparer : IEqualityComparer<BaseItem>
     {

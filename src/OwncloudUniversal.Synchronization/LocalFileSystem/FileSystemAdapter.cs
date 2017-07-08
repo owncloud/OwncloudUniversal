@@ -13,12 +13,13 @@ using Windows.Storage.FileProperties;
 using Windows.Storage.Provider;
 using Windows.Storage.Search;
 using OwncloudUniversal.Synchronization.Model;
-using OwncloudUniversal.Synchronization.Synchronisation;
+using OwncloudUniversal.Synchronization.Processing;
 
 namespace OwncloudUniversal.Synchronization.LocalFileSystem
 {
     public class FileSystemAdapter : AbstractAdapter
     {
+        private StorageLibraryChangeReader _changeReader;
         private async Task _GetChangesFromSearchIndex(StorageFolder folder, long associationId,
             List<BaseItem> result)
         {
@@ -286,8 +287,85 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             var relativefileUri = item.EntityId.Replace(remoteFolder.EntityId, "");
             string path = Uri.UnescapeDataString(relativefileUri.ToString().Replace('/', '\\'));
             var result = folderUri.LocalPath + '\\' + path;
+            return result.TrimEnd('\\');
+        }
+
+        public async Task<List<BaseItem>> GetChangesFromChangeTracker(KnownLibraryId libraryId, FolderAssociation association, List<StorageLibraryChangeType> supportedChangeTypes)
+        {
+            var result = new List<BaseItem>();
+            var library = await StorageLibrary.GetLibraryAsync(libraryId);
+            library.ChangeTracker.Enable();
+            _changeReader = library.ChangeTracker.GetChangeReader();
+            var changes = await _changeReader.ReadBatchAsync();
+            foreach (var change in changes)
+            {
+                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
+                {
+                    await LogHelper.Write($"Changetracking lost: {change.Path}");
+                    library.ChangeTracker.Reset();
+                    return null;
+                }
+                try
+                {
+                    if (supportedChangeTypes.Contains(change.ChangeType))
+                    {
+                        Debug.WriteLine($"File: {change.Path} ChangeType: {change.ChangeType}");
+                        if (change.Path.EndsWith("thumb"))
+                            continue;
+                        var file = await change.GetStorageItemAsync();
+
+                        if (file == null && change.ChangeType == StorageLibraryChangeType.Deleted)
+                        {
+                            var localItem = new LocalItem();
+                            localItem.Association = association;
+                            localItem.EntityId = change.Path;
+                            result.Add(localItem);
+                        }
+                        else if (file == null || file.IsOfType(StorageItemTypes.Folder))
+                        {
+                            await LogHelper.Write($"Skipping {change.Path}");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                //check if the file is currently in use, for example a video currently being recorded
+                                var stream = await ((StorageFile)file).OpenStreamForWriteAsync();
+                                stream.Dispose();
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            var props = await file.GetBasicPropertiesAsync();
+                            var item = new LocalItem(association, file, props);
+
+                            if (change.ChangeType == StorageLibraryChangeType.ContentsChanged)
+                            {
+                                //for some reason something is writing to the files after the upload, but without making changes
+                                var existingItem = ItemTableModel.GetDefault().GetItem(item);
+                                if(existingItem?.Size == item.Size)
+                                    continue;
+                            }
+                            result.Add(item);
+                        }
+                        
+                    }
+                }
+                catch (Exception e)
+                {
+                    await LogHelper.Write($"InstantUpload: {e.Message} File: {change.Path} ChangeType: {change.ChangeType}");
+                    await LogHelper.Write(e.StackTrace);
+                }
+                
+            }
             return result;
         }
 
+        public async Task AcceptChangesFromChangeTracker()
+        {
+            if(_changeReader != null)
+                await _changeReader.AcceptChangesAsync();
+        }
     }
 }

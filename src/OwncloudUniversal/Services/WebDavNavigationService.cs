@@ -14,6 +14,7 @@ using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.Views;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization.Configuration;
+using Template10.Common;
 using Template10.Services.NavigationService;
 using Template10.Utils;
 
@@ -31,10 +32,40 @@ namespace OwncloudUniversal.Services
 
         private WebDavNavigationService()
         {
+            _navigationService = BootStrapper.Current.NavigationService;
+            _navigationService.FrameFacade.BackRequested += OnBackRequested;
+            _navigationService.FrameFacade.ForwardRequested += OnForwardRequested;
             _itemService = WebDavItemService.GetDefault();
             BackStack = new ObservableCollection<DavItem>();
             ForwardStack = new ObservableCollection<DavItem>();
             Items = new ObservableCollection<DavItem>();
+        }
+
+        private async void OnForwardRequested(object sender, HandledEventArgs handledEventArgs)
+        {
+            var source = _navigationService.FrameFacade.Frame.ForwardStack.LastOrDefault();
+            if(source != null)
+                if (!(source.SourcePageType == typeof(FilesPage) || source.SourcePageType == typeof(SelectFolderPage)))
+                    return;
+            if (ForwardStack.Count > 0)
+            {
+                handledEventArgs.Handled = true;
+                await GoForwardAsync();
+            }
+        }
+
+        private async void OnBackRequested(object sender, HandledEventArgs handledEventArgs)
+        {
+            var source = _navigationService.FrameFacade.Frame;
+            if(source != null)
+                if (!(source.SourcePageType == typeof(FilesPage) || source.SourcePageType == typeof(SelectFolderPage)))
+                    return;
+
+            if (BackStack.Count > 1)
+            {
+                handledEventArgs.Handled = true;
+                await GoBackAsync();
+            }
         }
 
         public static async Task<WebDavNavigationService> InintializeAsync()
@@ -46,51 +77,6 @@ namespace OwncloudUniversal.Services
             return _instance;
         }
 
-        public void SetNavigationService(INavigationService service)
-        {
-            _navigationService = service;
-            _navigationService.FrameFacade.Navigated += FrameFacadeOnNavigating;
-            _navigationService.Frame.Navigating += (sender, args) =>
-            {
-                if (args.NavigationMode == NavigationMode.Forward)
-                    args.Cancel = true;
-            };
-        }
-
-        private async void FrameFacadeOnNavigating(object sender, NavigatedEventArgs args)
-        {
-            var mode = args.NavigationMode;
-            var sourcePageEntry = args.Page.Frame.BackStack.LastOrDefault();
-            if (args.NavigationMode == NavigationMode.Back)
-                sourcePageEntry = args.Page.Frame.ForwardStack.LastOrDefault();
-            var targetPage = args.Page;
-
-            Debug.WriteLine($"Navigating: {args.NavigationMode}, To: {targetPage.GetType().Name}, From {sourcePageEntry?.SourcePageType.Name}");
-            
-            //ignore all naviagtion between other pagetypes
-            if (!(targetPage is FilesPage || targetPage is SelectFolderPage))
-                return;
-            if (!(sourcePageEntry?.SourcePageType == typeof(FilesPage) || sourcePageEntry?.SourcePageType == typeof(SelectFolderPage)))
-                return;
-
-            if (mode == NavigationMode.New)
-            {
-                DavItem parameter = null;
-                if (args.Parameter is string)
-                    parameter = Template10.Services.SerializationService.SerializationService.Json.Deserialize((string)args.Parameter) as DavItem;
-                await NavigateAsync(parameter);
-            }
-
-            if (mode == NavigationMode.Back)
-            {
-                await GoBackAsync();
-            }
-            if (mode == NavigationMode.Forward)
-            {
-                await GoForwardAsync();
-            }
-        }
-        
         public ObservableCollection<DavItem> Items
         {
             get { return _items; }
@@ -131,31 +117,12 @@ namespace OwncloudUniversal.Services
             }
         }
 
-        private async Task NavigateAsync(DavItem item)
+        public async Task NavigateAsync(DavItem item)
         {
             if(item == null)
                 return;
             if (BackStack.FirstOrDefault(x=>x.EntityId == item.EntityId) != null)
             {
-                var entry = _navigationService?.Frame.BackStack.FirstOrDefault(x =>
-                {
-                    var s = x.Parameter as string;
-                    if (s == null) return false;
-                    if (!s.Contains(item.GetType().FullName)) return false;
-                    var parameterItem = Template10.Services.SerializationService.SerializationService.Json.Deserialize(s);
-                    if(parameterItem is DavItem)
-                        return ((DavItem)parameterItem).EntityId == item.EntityId;
-                    return false;
-                });
-                if (entry != default(PageStackEntry))
-                {
-                    int i = _navigationService.Frame.BackStack.IndexOf(entry);
-                    while (_navigationService.Frame.BackStackDepth > i)
-                    {
-                        _navigationService.Frame.BackStack.RemoveAt(_navigationService.Frame.BackStackDepth-1);
-                    }
-                }
-                else _navigationService?.Frame.BackStack.Clear();
                 var backStackItem = BackStack.FirstOrDefault(x => x.EntityId == item.EntityId);
                 int index = BackStack.IndexOf(backStackItem);
                 var list = BackStack.ToList();

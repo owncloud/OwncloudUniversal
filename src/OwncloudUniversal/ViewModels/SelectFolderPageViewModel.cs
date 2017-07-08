@@ -56,7 +56,6 @@ namespace OwncloudUniversal.ViewModels
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
-            WebDavNavigationService.SetNavigationService(NavigationService);
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
             if (parameter is List<DavItem>)
             {
@@ -117,7 +116,9 @@ namespace OwncloudUniversal.ViewModels
                     return;
                 if (value.IsCollection)
                 {
-                    NavigationService.Navigate(typeof(SelectFolderPage), value, new SuppressNavigationTransitionInfo());
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    WebDavNavigationService.NavigateAsync(value);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 }
             }
             

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLitePCL;
+using OwncloudUniversal.Synchronization.Configuration;
 
 namespace OwncloudUniversal.Synchronization.SQLite
 {
@@ -55,6 +56,20 @@ namespace OwncloudUniversal.Synchronization.SQLite
                 statement.Step();
             }
 
+            query = @"CREATE TABLE IF NOT EXISTS [SyncHistory] (
+                        [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        [TargetItemId] INTEGER  NULL,
+                        [SourceItemId] INTEGER  NULL,
+                        [CreateDate] NVARCHAR(32),
+                        [Result] NVARCHAR(32),
+                        [Message] TEXT,
+                        [OldItemDisplayName] TEXT
+                    );";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
+
             //activate foreign keys?
             query = "PRAGMA foreign_keys = ON";
             using (var statement = Connection.Prepare(query))
@@ -62,6 +77,9 @@ namespace OwncloudUniversal.Synchronization.SQLite
                 statement.Step();
             }
 
+            SetInitialSchemaVersion();
+            if (GetCurrentSchemaVersion() < 104)
+                UpgradeSchemaTo_v104();
         }
 
         public static void Reset()
@@ -86,6 +104,48 @@ namespace OwncloudUniversal.Synchronization.SQLite
                 statement.Step();
             }
             Init();
+        }
+
+        private static void SetInitialSchemaVersion()
+        {
+            if (Configuration.Configuration.NeedsInitialSchemaVersion)
+            {
+                using (var query = Connection.Prepare("PRAGMA schema_version = 100"))
+                {
+                    query.Step();
+                }
+                Configuration.Configuration.NeedsInitialSchemaVersion = false;
+            }
+        }
+
+        private static long GetCurrentSchemaVersion()
+        {
+            using (var query = Connection.Prepare("PRAGMA schema_version"))
+            {
+                if (query.Step() == SQLiteResult.ROW)
+                {
+                    return (long)query[0];
+                }
+            }
+            return -1;
+        }
+
+        private static void UpgradeSchemaTo_v104()
+        {
+            using (var query = Connection.Prepare("ALTER TABLE Association ADD Column SupportsInstantUpload BOOLEAN"))
+            {
+                query.Step();
+            }
+
+            using (var query = Connection.Prepare("ALTER TABLE Item ADD Column Size INTEGER"))
+            {
+                query.Step();
+            }
+
+            using (var query = Connection.Prepare("PRAGMA schema_version = 104"))
+            {
+                query.Step();
+            }
         }
     }
 }
