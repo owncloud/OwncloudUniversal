@@ -552,8 +552,8 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Erro desconhecido, por favor verifique o ficheiro log</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Para uma ótima experiência no PC. Por favor, teste Desktop Sync Client para Windows.
+Gostaria de o transferir agora?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
     <value>Não mostrar novamente</value>
