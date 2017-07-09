@@ -62,7 +62,7 @@ namespace OwncloudUniversal.ViewModels
             SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = SelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.Single : ListViewSelectionMode.Multiple);
             ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item, new SuppressNavigationTransitionInfo()));
             AddFolderCommand = new DelegateCommand(async () => await CreateFolderAsync());
-            HomeCommand = new DelegateCommand(() => NavigationService.Navigate(typeof(FilesPage), new DavItem { EntityId = Configuration.ServerUrl}, new SuppressNavigationTransitionInfo()));
+            HomeCommand = new DelegateCommand(async () => await WebDavNavigationService.NavigateAsync(new DavItem { EntityId = Configuration.ServerUrl }));
             MoveCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(SelectFolderPage), FilesPage.GetSelectedItems(item), new SuppressNavigationTransitionInfo()));
             RenameCommand = new DelegateCommand<DavItem>(async item => await Rename(item));
             OpenCommand = new DelegateCommand<DavItem>(async item => await OpenFileAsync(item));
