@@ -111,6 +111,21 @@
                 </ScrollViewer>
             </PivotItem>
 
+            <PivotItem Header="Camera-Upload" x:Uid="CameraUpload">
+                
+                
+                
+                <PivotItem.DataContext>
+                    <vm:CameraUploadPageViewModel x:Name="CameraUploadPageViewModel"/>
+                </PivotItem.DataContext>
+                <StackPanel>
+                    <ToggleSwitch Header="Upload new Images" IsOn="{x:Bind CameraUploadPageViewModel.Enabled, Mode=TwoWay}"/>
+                    <ToggleSwitch x:Name="AllowMeteredSwitch" Header="Allow metered connections" IsEnabled="{x:Bind CameraUploadPageViewModel.Enabled, Mode=OneWay}"/>
+                    <toolkit:HeaderedTextBlock Header="Target folder" Text="Tap here to select a folder" IsEnabled="{x:Bind CameraUploadPageViewModel.Enabled, Mode=OneWay}"/>
+                    <ToggleSwitch Header="Upload videos" IsEnabled="{x:Bind CameraUploadPageViewModel.Enabled, Mode=OneWay}"/>
+                </StackPanel>
+            </PivotItem>
+
             <!--  about  -->
             <PivotItem x:Uid="About">
                 <RelativePanel DataContext="{Binding AboutPartViewModel}">

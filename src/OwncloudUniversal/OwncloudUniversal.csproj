@@ -147,6 +147,7 @@
     <Compile Include="Utils\DiagnosticReportHelper.cs" />
     <Compile Include="Utils\MimeTypeHelper.cs" />
     <Compile Include="Utils\ThemeHelper.cs" />
+    <Compile Include="ViewModels\CameraUploadPageViewModel.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="ViewModels\FileTransferPageViewModel.cs" />
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
