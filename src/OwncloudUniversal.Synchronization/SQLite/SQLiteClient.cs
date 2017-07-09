@@ -58,12 +58,11 @@ namespace OwncloudUniversal.Synchronization.SQLite
 
             query = @"CREATE TABLE IF NOT EXISTS [SyncHistory] (
                         [Id] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        [TargetItemId] INTEGER  NULL,
-                        [SourceItemId] INTEGER  NULL,
                         [CreateDate] NVARCHAR(32),
                         [Result] NVARCHAR(32),
                         [Message] TEXT,
-                        [OldItemDisplayName] TEXT
+                        [EntityId] TEXT,
+                        [ContentType] NVARCHAR(64)
                     );";
             using (var statement = Connection.Prepare(query))
             {
@@ -103,6 +102,12 @@ namespace OwncloudUniversal.Synchronization.SQLite
             {
                 statement.Step();
             }
+
+            query = @"DROP TABLE SyncHistory;";
+            using (var statement = Connection.Prepare(query))
+            {
+                statement.Step();
+            }
             Init();
         }
 
@@ -138,6 +143,11 @@ namespace OwncloudUniversal.Synchronization.SQLite
             }
 
             using (var query = Connection.Prepare("ALTER TABLE Item ADD Column Size INTEGER"))
+            {
+                query.Step();
+            }
+
+            using (var query = Connection.Prepare("ALTER TABLE Item ADD Column ContentType NVARCHAR(64)"))
             {
                 query.Step();
             }

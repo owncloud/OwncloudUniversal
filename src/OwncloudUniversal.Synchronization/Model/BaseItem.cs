@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 namespace OwncloudUniversal.Synchronization.Model
 {
     /// <summary>
-    /// The base class for all entities that will be synchronized. Each Entity must have a corresponding <see cref="AbstractAdapter"/>
+    /// The base class for all Enties that will be synchronized. Each Entity must have a corresponding <see cref="AbstractAdapter"/>
     /// </summary>
     public class BaseItem
     { 
@@ -68,6 +68,11 @@ namespace OwncloudUniversal.Synchronization.Model
         /// Contains the Date of the last time this item was modified
         /// </summary>
         public virtual DateTime? LastModified { get; set; }
+
+        /// <summary>
+        /// The content type of the items
+        /// </summary>
+        public virtual string ContentType { get; set; }
 
         /// <summary>
         /// Indicates wether this item is in the database and will be (or already was) synchronized.

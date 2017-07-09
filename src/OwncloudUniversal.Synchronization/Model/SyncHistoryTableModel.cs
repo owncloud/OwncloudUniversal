@@ -7,7 +7,7 @@ using SQLitePCL;
 
 namespace OwncloudUniversal.Synchronization.Model
 {
-    class SyncHistoryTableModel : AbstractTableModelBase<SyncHistoryEntry, long>
+    public class SyncHistoryTableModel : AbstractTableModelBase<SyncHistoryEntry, long>
     {
         private SyncHistoryTableModel() { }
 
@@ -35,16 +35,15 @@ namespace OwncloudUniversal.Synchronization.Model
             SyncResult result;
             Enum.TryParse((string) query["Result"], out result);
             entry.Result = result;
-            entry.SourceItemId = (long) query["SourceItemId"];
-            entry.TargetItemId = (long)query["TargetItemId"];
-            entry.OldItemDisplayName = (string) query["OldItemDisplayName"];
+            entry.EntityId = (string) query["EntityId"];
+            entry.ContentType = (string) query["ContentType"];
             return entry;
         }
 
         protected override string GetSelectItemQuery()
         {
             return
-                "SELECT Id, CreateDate, Message, Result, SourceItemId, TargetItemId, OldItemDisplayName From SyncHistory where Id = @Id";
+                "SELECT Id, CreateDate, Message, Result, EntityId, ContentType From SyncHistory where Id = @Id";
         }
 
         protected override void BindSelectItemQuery(ISQLiteStatement query, long key)
@@ -60,7 +59,7 @@ namespace OwncloudUniversal.Synchronization.Model
         protected override string GetInsertItemQuery()
         {
             return
-                "INSERT INTO SyncHistory (CreateDate, Message, Result, SourceItemId, TargetItemId, OldItemDisplayName) VALUES (@CreateDate, @Message, @Result, @SourceItemId, @TargetItemId, @OldItemDisplayName)";
+                "INSERT INTO SyncHistory (CreateDate, Message, Result, EntityId, ContentType) VALUES (@CreateDate, @Message, @Result, @EntityId, @ContentType)";
         }
 
         protected override void BindInsertItemQuery(ISQLiteStatement query, SyncHistoryEntry item)
@@ -68,15 +67,14 @@ namespace OwncloudUniversal.Synchronization.Model
             query.Bind(1, SQLite.DateTimeHelper.DateTimeSQLite(item.CreateDate));
             query.Bind(2, item.Message);
             query.Bind(3, item.Result.ToString());
-            query.Bind(4, item.SourceItemId);
-            query.Bind(5, item.TargetItemId);
-            query.Bind(6, item.OldItemDisplayName);
+            query.Bind(4, item.EntityId);
+            query.Bind(5, item.ContentType);
         }
 
         protected override string GetUpdateItemQuery()
         {
             return
-                "UPDATE SyncHistory SET CreateDate = @CreateDate, Message = @Message, Result = @Result, SourceItemId = @SourceItemId, TargetItemId = @TargetItemId, OldItemDisplayName = @OldItemDisplayName where Id = @Id";
+                "UPDATE SyncHistory SET CreateDate = @CreateDate, Message = @Message, Result = @Result, EntityId = @EntityId, ContentType = @ContentType where Id = @Id";
         }
 
         protected override void BindUpdateItemQuery(ISQLiteStatement query, SyncHistoryEntry item, long key)
@@ -85,9 +83,8 @@ namespace OwncloudUniversal.Synchronization.Model
             query.Bind(2, SQLite.DateTimeHelper.DateTimeSQLite(item.CreateDate));
             query.Bind(3, item.Message);
             query.Bind(4, item.Result.ToString());
-            query.Bind(6, item.SourceItemId);
-            query.Bind(7, item.TargetItemId);
-            query.Bind(8, item.OldItemDisplayName);
+            query.Bind(5, item.EntityId);
+            query.Bind(6, item.ContentType);
         }
 
         protected override string GetDeleteItemQuery()
@@ -103,7 +100,7 @@ namespace OwncloudUniversal.Synchronization.Model
         protected override string GetSelectAllQuery()
         {
             return
-                "SELECT Id, CreateDate, Message, Result, SourceItemId, TargetItemId, OldItemDisplayName From SyncHistory";
+                "SELECT Id, CreateDate, Message, Result, EntityId, ContentType From SyncHistory ORDER BY Id DESC";
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)

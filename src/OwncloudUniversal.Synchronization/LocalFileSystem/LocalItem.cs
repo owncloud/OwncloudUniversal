@@ -24,6 +24,7 @@ namespace OwncloudUniversal.Synchronization.Model
             EntityId = storageItem.Path;
             ChangeNumber = 0;
             Size = basicProperties.Size;
+            ContentType = (storageItem as StorageFile)?.ContentType;
         }
 
         public LocalItem(FolderAssociation association, IStorageItem storageItem, IDictionary<string, object> properties )
@@ -36,6 +37,7 @@ namespace OwncloudUniversal.Synchronization.Model
             ChangeNumber = 0;
             if(!IsCollection)
                 Size = (ulong)properties["System.Size"];
+            ContentType = (storageItem as StorageFile)?.ContentType;
         }
       
         private string Path { get; set; }

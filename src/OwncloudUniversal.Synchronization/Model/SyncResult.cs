@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OwncloudUniversal.Synchronization.Model
 {
-    enum SyncResult
+    public enum SyncResult
     {
         Sent,
         Received,

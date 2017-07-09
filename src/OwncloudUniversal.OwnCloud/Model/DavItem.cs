@@ -8,7 +8,6 @@ namespace OwncloudUniversal.OwnCloud.Model
     {
         public string Href { get; set; }
         public string Etag { get; set; }
-        public string ContentType { get; set; }
         public override string DisplayName { get; set; }
         public override string EntityId
         {
