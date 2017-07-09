@@ -130,7 +130,9 @@ namespace OwncloudUniversal.Synchronization.Processing
                             var historyEntry = new SyncHistoryEntry();
                             historyEntry.CreateDate = DateTime.Now;
                             historyEntry.Result = SyncResult.Deleted;
-                            historyEntry.OldItemDisplayName = item.DisplayName;
+                            historyEntry.ContentType = item.ContentType;
+                            historyEntry.EntityId = item.EntityId;
+                            
                             SyncHistoryTableModel.GetDefault().InsertItem(historyEntry);
                         }
                     }
@@ -152,9 +154,9 @@ namespace OwncloudUniversal.Synchronization.Processing
                 }
                 catch (Exception e)
                 {
-                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    ToastHelper.SendToast(string.Format("Message: {0}, EntityId: {1}", e.Message, item.EntityId));
                     await
-                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
+                        LogHelper.Write(string.Format("Message: {0}, EntityId: {1} StackTrace:\r\n{2}", e.Message,
                             item.EntityId, e.StackTrace));
                 }
             }
@@ -250,13 +252,14 @@ namespace OwncloudUniversal.Synchronization.Processing
                 {
                     var historyEntry = new SyncHistoryEntry();
                     historyEntry.CreateDate = DateTime.Now;
-                    historyEntry.SourceItemId = item.BaseItem.Id;
+                    historyEntry.EntityId = item.BaseItem.EntityId;
+                    historyEntry.ContentType = item.BaseItem.ContentType;
                     historyEntry.Result = SyncResult.Failed;
                     historyEntry.Message = e.Message;
                     SyncHistoryTableModel.GetDefault().InsertItem(historyEntry);
-                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.BaseItem.EntityId));
+                    ToastHelper.SendToast(string.Format("Message: {0}, EntityId: {1}", e.Message, item.BaseItem.EntityId));
                     await
-                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
+                        LogHelper.Write(string.Format("Message: {0}, EntityId: {1} StackTrace:\r\n{2}", e.Message,
                             item.BaseItem.EntityId, e.StackTrace));
                 }
             }
@@ -286,23 +289,23 @@ namespace OwncloudUniversal.Synchronization.Processing
                         continue;
                     }
 
-                    string targetEntitiyId = null;
+                    string targetEntiyId = null;
 
                     if (item.AdapterType == _targetEntityAdapter.GetType())
                     {
-                        targetEntitiyId = _sourceEntityAdapter.BuildEntityId(item);
+                        targetEntiyId = _sourceEntityAdapter.BuildEntityId(item);
                     }
 
                     if (item.AdapterType == _sourceEntityAdapter.GetType())
                     {
-                        targetEntitiyId = _targetEntityAdapter.BuildEntityId(item);
+                        targetEntiyId = _targetEntityAdapter.BuildEntityId(item);
                     }
 
                     //if a new item is added which already exists on the other side we just assume
                     //that they both have the same content and just create a link but do not upload/download anything
                     //this the could be the case at the initial sync. The initial sync should never update 
                     //items on one side because we can not compare the contents of files
-                    var foundItem = ItemTableModel.GetDefault().GetItemFromEntityId(targetEntitiyId);
+                    var foundItem = ItemTableModel.GetDefault().GetItemFromEntityId(targetEntiyId);
                     var result = foundItem ?? await Insert(item);
                     AfterInsert(item, result);
                     if (await TimeIsOver())
@@ -310,9 +313,9 @@ namespace OwncloudUniversal.Synchronization.Processing
                 }
                 catch (Exception e)
                 {
-                    ToastHelper.SendToast(string.Format("Message: {0}, EntitityId: {1}", e.Message, item.EntityId));
+                    ToastHelper.SendToast(string.Format("Message: {0}, EntityId: {1}", e.Message, item.EntityId));
                     await
-                        LogHelper.Write(string.Format("Message: {0}, EntitityId: {1} StackTrace:\r\n{2}", e.Message,
+                        LogHelper.Write(string.Format("Message: {0}, EntityId: {1} StackTrace:\r\n{2}", e.Message,
                             item.EntityId, e.StackTrace));
                 }
             }
@@ -412,8 +415,8 @@ namespace OwncloudUniversal.Synchronization.Processing
 
             var historyEntry = new SyncHistoryEntry();
             historyEntry.CreateDate = DateTime.Now;
-            historyEntry.SourceItemId = sourceItem.Id;
-            historyEntry.TargetItemId = targetItem.Id;
+            historyEntry.EntityId = sourceItem.EntityId;
+            historyEntry.ContentType = sourceItem.ContentType;
             historyEntry.Result = sourceItem.AdapterType == _sourceEntityAdapter.GetType()
                 ? SyncResult.Sent
                 : SyncResult.Received;
@@ -436,8 +439,8 @@ namespace OwncloudUniversal.Synchronization.Processing
             }
             var historyEntry = new SyncHistoryEntry();
             historyEntry.CreateDate = DateTime.Now;
-            historyEntry.SourceItemId = sourceItem.Id;
-            historyEntry.TargetItemId = targetItem.Id;
+            historyEntry.ContentType = sourceItem.ContentType;
+            historyEntry.EntityId = sourceItem.EntityId;
             historyEntry.Result = sourceItem.AdapterType == _sourceEntityAdapter.GetType()
                 ? SyncResult.Sent
                 : SyncResult.Received;
