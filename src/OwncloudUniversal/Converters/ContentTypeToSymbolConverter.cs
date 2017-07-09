@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace OwncloudUniversal.Converters
 {
@@ -14,11 +15,12 @@ namespace OwncloudUniversal.Converters
             if (value is string)
             {
                 string contentType = (string) value;
-                string basepath = "/Assets/FileTypes/";
+                string basepath = "ms-appx:///Assets/FileTypes/";
                 var name = Utils.MimetypeIconUtil.GetIconName(contentType);
-                return basepath + name;
+                var uri = new Uri(basepath + name, UriKind.RelativeOrAbsolute);
+                return new BitmapImage(uri);
             }
-            return string.Empty;
+            return new BitmapImage();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
