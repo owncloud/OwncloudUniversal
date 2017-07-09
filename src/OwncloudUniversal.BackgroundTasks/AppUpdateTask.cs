@@ -18,6 +18,11 @@ namespace OwncloudUniversal.BackgroundTasks
                 var reg = new BackgroundTaskConfiguration();
                 reg.Enabled = true;
             }
+            if (Configuration.IsCameraUploadEnabled)
+            {
+                var reg = new InstantUploadRegistration();
+                reg.Enabled = true;
+            }
             SQLiteClient.Init();
         }
     }

@@ -14,7 +14,25 @@ namespace OwncloudUniversal.Synchronization.Configuration
         private const string TaskName = "owncloud-instantupload";
         private const string EntryPoint = "OwncloudUniversal.BackgroundTasks.InstantUploadTask";
 
-        public async Task EnableAsync()
+        public bool Enabled
+        {
+            get { return BackgroundTaskRegistration.AllTasks.Any(task => task.Value.Name == TaskName); }
+            set
+            {
+                if (value)
+                {
+
+                    var task = new Task(async () => await Register().ConfigureAwait(false));
+                    task.RunSynchronously();
+                }
+                else
+                {
+                    Deregister();
+                }
+            }
+        }
+
+        private async Task Register()
         {
             BackgroundExecutionManager.RemoveAccess();
             var promise = await BackgroundExecutionManager.RequestAccessAsync();
@@ -55,7 +73,7 @@ namespace OwncloudUniversal.Synchronization.Configuration
 
         }
 
-        public void Disable()
+        private void Deregister()
         {
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {

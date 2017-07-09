@@ -149,6 +149,17 @@ namespace OwncloudUniversal.Synchronization.Configuration
             set => Config.Values["NeedsInitialSchemaVersion"] = value;
         }
 
+        public static bool IsCameraUploadEnabled
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("IsCameraUploadEnabled"))
+                    return (bool)Config.Values["IsCameraUploadEnabled"];
+                return true;
+            }
+            set => Config.Values["IsCameraUploadEnabled"] = value;
+        }
+
         public static void Reset()
         {
             ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);
