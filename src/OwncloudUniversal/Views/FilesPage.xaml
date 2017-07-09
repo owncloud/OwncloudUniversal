@@ -11,9 +11,7 @@
     xmlns:behaviors="using:Template10.Behaviors"
     xmlns:converters="using:OwncloudUniversal.Converters"
     xmlns:system="using:System"
-    xmlns:interop="using:Windows.UI.Xaml.Interop"
     xmlns:model="using:OwncloudUniversal.OwnCloud.Model"
-    xmlns:behaviors1="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     DataContext="{Binding FilesPageViewModel, RelativeSource={RelativeSource Self}}"
     x:Name="Page"
     mc:Ignorable="d">
@@ -215,13 +213,13 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
+
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
-            
+
         </ListView>
 
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="2">

@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Template10.Controls"
     xmlns:uicontrol="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:model="using:OwncloudUniversal.Synchronization.Model"
     DataContext="{Binding SynchronizationPageViewModel, RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d">
 
@@ -65,7 +66,28 @@
             </PivotItem>
 
             <PivotItem x:Uid="History">
-                <TextBlock Text="Coming soon.. :)"/>
+                <ListView ItemsSource="{x:Bind SynchronizationPageViewModel.HistoryEntries}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:SyncHistoryEntry">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{x:Bind ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}" Stretch="UniformToFill" Height="40" Width="40"/>
+                                
+                                <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                                    <TextBlock Text="{x:Bind EntityId, Converter={StaticResource EntityIdToDisplayNameConverter}}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{x:Bind Result, Converter={StaticResource EnumToResourceStringConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}"/>
+                                        <TextBlock Text="-" Margin="4,0" Foreground="{ThemeResource ForegroundMediumBrush}"/>
+                                        <TextBlock Text="{x:Bind CreateDate}" Foreground="{ThemeResource ForegroundMediumBrush}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </PivotItem>
         </Pivot>
     </Grid>

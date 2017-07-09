@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows.Input;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.Synchronization.Processing;
 using Template10.Mvvm;
 
@@ -42,5 +44,7 @@ namespace OwncloudUniversal.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public ObservableCollection<SyncHistoryEntry> HistoryEntries { get; } = SyncHistoryTableModel.GetDefault().GetAllItems();
     }
 }
