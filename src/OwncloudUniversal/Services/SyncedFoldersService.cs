@@ -55,7 +55,7 @@ namespace OwncloudUniversal.Services
 
         public List<FolderAssociation> GetAllSyncedFolders()
         {
-            return FolderAssociationTableModel.GetDefault().GetAllItems().ToList();
+            return FolderAssociationTableModel.GetDefault().GetAllItems().ToList().Where(x => x.SupportsInstantUpload == false).ToList();
         }
 
         public void RemoveFromSyncedFolders(FolderAssociation association)
