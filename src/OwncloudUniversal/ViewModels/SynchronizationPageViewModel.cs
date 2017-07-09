@@ -18,7 +18,6 @@ namespace OwncloudUniversal.ViewModels
     {
         private readonly SynchronizationService _syncService;
         BackgroundTaskConfiguration _taskConfig = new BackgroundTaskConfiguration();
-        InstantUploadRegistration registration = new InstantUploadRegistration();
 
         public ExecutionContext ExecutionContext => ExecutionContext.Instance;
         public ICommand StartSyncCommand { get; private set; }
@@ -40,7 +39,6 @@ namespace OwncloudUniversal.ViewModels
             { 
                 Configuration.IsBackgroundTaskEnabled = value;
                 _taskConfig.Enabled = value;
-                var task = registration.EnableAsync();
                 RaisePropertyChanged();
             }
         }
