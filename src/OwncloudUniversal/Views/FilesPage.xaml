@@ -11,6 +11,9 @@
     xmlns:behaviors="using:Template10.Behaviors"
     xmlns:converters="using:OwncloudUniversal.Converters"
     xmlns:system="using:System"
+    xmlns:interop="using:Windows.UI.Xaml.Interop"
+    xmlns:model="using:OwncloudUniversal.OwnCloud.Model"
+    xmlns:behaviors1="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     DataContext="{Binding FilesPageViewModel, RelativeSource={RelativeSource Self}}"
     x:Name="Page"
     mc:Ignorable="d">
@@ -107,49 +110,51 @@
 
         <ListView x:Name="ListView" 
                   Grid.Row="1" 
-                  ItemsSource="{Binding WebDavNavigationService.Items}" 
+                  ItemsSource="{x:Bind FilesPageViewModel.WebDavNavigationService.Items, Mode=OneWay}" 
                   SelectionMode="{Binding SelectionMode}"
                   SelectedItem="{x:Bind FilesPageViewModel.SelectedItem, Mode=TwoWay}" 
                   IsMultiSelectCheckBoxEnabled="True"
+                  ShowsScrollingPlaceholders="False"
                   VerticalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged" Grid.ColumnSpan="2">
-
+            
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:DavItem">
                     <Grid x:Name="ItemGrid" HorizontalAlignment="Stretch" Holding="ItemGrid_OnHolding" RightTapped="ItemGrid_OnRightTapped">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <toolkit:ImageEx
+                            x:Name="ImageEx"
                             Grid.Column="0"
                             IsCacheEnabled="True"
-                            Source="{Binding ThumbnailUrl}"
-                            PlaceholderSource="/Assets/FileTypes/image.png"
+                            Source="{x:Bind ThumbnailUrl}"
+                            PlaceholderSource="{Binding ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
                             PlaceholderStretch="UniformToFill"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="0,0,3,0"
                             Height="40" 
                             Width="40"
-                            Visibility="{Binding ContentType, Converter={StaticResource ContentTypeToVisibilityConverter}}"/>
-                        <Image Grid.Column="0" 
-                               VerticalAlignment="Center"
-                               Height="40"
-                               Width="40"
-                               Margin="0,0,3,0"
-                               Source="{Binding ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
-                               Visibility="{Binding ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
+                            x:Phase="1"/>
 
-                        <StackPanel Grid.Column="1">
-                            <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" HorizontalAlignment="Stretch"/>
+
+                        <StackPanel Grid.Column="1" x:Name="ContentPanel">
+                            <TextBlock VerticalAlignment="Center" Text="{x:Bind DisplayName}"
+                                       HorizontalAlignment="Stretch" x:Phase="0" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center"  Text="{Binding Size, Converter={StaticResource BytesToSuffixConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" HorizontalAlignment="Stretch"/>
-                                <TextBlock Grid.Column="1" Foreground="{ThemeResource ForegroundMediumBrush}" Text="{Binding LastModified, Converter={StaticResource DateTimeToDaysAgoConverter}}" 
-                                       HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                                <TextBlock VerticalAlignment="Center"
+                                           Text="{x:Bind Size, Converter={StaticResource BytesToSuffixConverter}}"
+                                           Foreground="{ThemeResource ForegroundMediumBrush}"
+                                           HorizontalAlignment="Stretch" x:Phase="0" />
+                                <TextBlock Grid.Column="1" Foreground="{ThemeResource ForegroundMediumBrush}"
+                                           Text="{x:Bind LastModified, Converter={StaticResource DateTimeToDaysAgoConverter}}"
+                                           HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                           x:Phase="0" />
                             </Grid>
                         </StackPanel>
 
@@ -157,16 +162,16 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.OpenCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}"
-                                                Visibility="{Binding IsCollection, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                                CommandParameter="{x:Bind}"
+                                                Visibility="{x:Bind IsCollection, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
                                                 x:Uid="DownloadOpenFile"
                                                 Tag="OpenFile"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}"
-                                                Visibility="{Binding Converter={StaticResource InvertedItemToVisibilityConverter}}"
+                                                CommandParameter="{x:Bind}"
+                                                Visibility="{x:Bind Converter={StaticResource InvertedItemToVisibilityConverter}}"
                                                 x:Uid="ActivateSync"
                                                 Tag="Sync"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
@@ -174,35 +179,35 @@
                                 <MenuFlyoutItem x:Name="DownloadMenuItem"
                                                 Margin="12"
                                                 Command="{Binding DataContext.DownloadCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}"
+                                                CommandParameter="{x:Bind}"
                                                 x:Uid="Download"
                                                 Tag="Download"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.MoveCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}"
+                                                CommandParameter="{x:Bind}"
                                                 x:Uid="MoveToFolder"
                                                 Tag="MoveToFolder"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.DeleteCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}"
+                                                CommandParameter="{x:Bind}"
                                                 x:Uid="Delete"
                                                 Tag="Delete"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.RenameCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}"
+                                                CommandParameter="{x:Bind}"
                                                 x:Uid="Rename"
                                                 Tag="Rename"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
                                 <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.ShowPropertiesCommand, ElementName=Page}"
-                                                CommandParameter="{Binding}" x:Uid="Properties" 
+                                                CommandParameter="{x:Bind}" x:Uid="Properties" 
                                                 Tag="More" 
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
                             </MenuFlyout>
@@ -210,12 +215,13 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
+            
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
+            
         </ListView>
 
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
