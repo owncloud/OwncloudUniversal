@@ -54,7 +54,7 @@ namespace OwncloudUniversal.OwnCloud
         {
             if (Uri.IsWellFormedUriString(input, UriKind.Absolute))
             {
-                input = input.TrimEnd('/').ToLower();
+                input = input.TrimEnd('/');
                 if (input.EndsWith("owncloud") || input.EndsWith("nextcloud") || input.EndsWith("ownCloud"))
                 {
                     input += "/status.php";
