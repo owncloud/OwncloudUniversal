@@ -26,6 +26,6 @@ You have to login and request access to the team before you can modify the strin
 <br>
 <kbd><img src="https://github.com/owncloud/OwncloudUniversal/blob/master/screenshots/screenshot3.png" width="500"/></kbd>
 
-## Donate
+## Donations
 If you like this project leave a donation:
 https://paypal.me/pestotoast
