@@ -424,7 +424,7 @@
     <value>ยกเลิกแล้ว</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>กำลังอัพเดตฐานข้อมูล</value>
+    <value>กำลังอัพเดทฐานข้อมูล</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
     <value>ดาวน์โหลดเท่านั้น</value>
@@ -556,7 +556,7 @@ https://github.com/owncloud/OwncloudUniversal
 </value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุโปรดตรวจสอบไฟล์บันทึก</value>
+    <value>เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุโปรดตรวจสอบไฟล์ log</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>สำหรับเครื่องคอมพิวเตอร์ที่ใช้ระบบปฎิบัติการวินโดว์ส สามารถลองใช้โปรแกรม Desktop Sync Client 
