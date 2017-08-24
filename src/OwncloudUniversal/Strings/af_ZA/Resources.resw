@@ -1,0 +1,573 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Header" xml:space="preserve">
+    <value>Oor</value>
+  </data>
+  <data name="ActivateSync.Text" xml:space="preserve">
+    <value>Aktiveer sinchronisering</value>
+  </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Oordrag sal ook voltooi as die toep in die agtergrond loop!</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Kanselleer</value>
+  </data>
+  <data name="Connection.Header" xml:space="preserve">
+    <value>Verbinding</value>
+  </data>
+  <data name="CurrentFile.Header" xml:space="preserve">
+    <value>Huidige Lêer</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>Skrap</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>Skrap Lêer?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>Skrap Vouer?</value>
+  </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>Deaktiveer sinchronisering</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Bewaar as</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>Laai tans af…</value>
+  </data>
+  <data name="EnableBackgroundTask.Header" xml:space="preserve">
+    <value>Outomatiese sinchronisering</value>
+  </data>
+  <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
+    <value>Agtergrondtaak gedeaktiveer</value>
+  </data>
+  <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
+    <value>Agtergrond geaktiveer</value>
+  </data>
+  <data name="Files.Content" xml:space="preserve">
+    <value>Lêers</value>
+  </data>
+  <data name="FilesButton.Text" xml:space="preserve">
+    <value>Lêers</value>
+  </data>
+  <data name="FilesToSync.Header" xml:space="preserve">
+    <value>Hangende lêers</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>Lêeroordrag</value>
+  </data>
+  <data name="History.Header" xml:space="preserve">
+    <value>Geskiedenis</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>Open lêer</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>van</value>
+  </data>
+  <data name="PasswordHeader.Text" xml:space="preserve">
+    <value>Wagwoord</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Eienskappe</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>Herlaai</value>
+  </data>
+  <data name="RequestedApplicationTheme.Header" xml:space="preserve">
+    <value>Toepassingtema</value>
+  </data>
+  <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
+    <value>Donker</value>
+  </data>
+  <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
+    <value>Lig</value>
+  </data>
+  <data name="ResetDatabase.Content" xml:space="preserve">
+    <value>Herstel hierdie Toep</value>
+  </data>
+  <data name="Settings.Content" xml:space="preserve">
+    <value>Instellings</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Instellings</value>
+  </data>
+  <data name="ShellDrawnBackButton.Header" xml:space="preserve">
+    <value>Terugknop</value>
+  </data>
+  <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
+    <value>Terug-knop is in Bladsykop</value>
+  </data>
+  <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
+    <value>Terug-knop in Titel-/Taakbalk</value>
+  </data>
+  <data name="StartSync.Content" xml:space="preserve">
+    <value>Begin sinchronisering</value>
+  </data>
+  <data name="Status.Header" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SynchedFolders.Text" xml:space="preserve">
+    <value>Gesinchroniseerde Vouers</value>
+  </data>
+  <data name="Synchronization.Content" xml:space="preserve">
+    <value>Sinchronisering (Beta)</value>
+  </data>
+  <data name="SynchronizationButton.Text" xml:space="preserve">
+    <value>Sinchronisering (Beta)</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>Oordrag aan die gang…</value>
+  </data>
+  <data name="Unsync.Text" xml:space="preserve">
+    <value>Staak Sinchronisering</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>Laai lêers op</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>Gebruikersnaam</value>
+  </data>
+  <data name="WebDavUrl.Header" xml:space="preserve">
+    <value>WebDav-Url</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>Laai Af</value>
+  </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>Kanselleer</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>Skrap</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>Skrap?</value>
+  </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>Eienskappe</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>Tipe</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>Etag</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>Sinchroniseerstatus</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>Wysigdatum</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>Pad</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>Nuwe Vouer</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>Kies modus</value>
+  </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>Verbind</value>
+  </data>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>Bedieneradres</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>Die bediener kon nie gevind word nie. Gaan die bronadres en u internetverbinding na.</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>’n Interne fout het by die bediener voorgekom</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>Die versoekte hulpbron kon nie gevind word nie</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>Die diens is tans onbeskikbaar.</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>Aantekening het misluk</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>Skep nuwe vouer</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Vouernaam</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>Nuwe Vouer</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>Oeps</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>Skrap Lêer?</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>Sinchroniseerstatus</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>Moenie groot lêers aflaai nie. Perk (MB):</value>
+  </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>Aanvaar</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>Skuif</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>Kies die teikenvouer</value>
+  </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>Skuif</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>Nuwe Naam:</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>Hernoem</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>Hernoem</value>
+  </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>Lokale Vouer</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>ownCloud-vouer</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>Opstelling</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>Outomatiese sinchronisering</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>Suksesvol gekoppel! Waarskuwing: Die verbinding is nie geënkripteer nie!</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Verkeerde gebruikersnaam of wagwoord.</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>’n Fout het voorgekom. Die bediener is dalk besig met onderhoud of die installasie is onvoltooid. Probeer later weer of kontak u stelseladministrateur.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>Wil u regtig die toep herstel?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>Herbegin asb. die toep.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>Suksesvolle beveiligde verbinding!</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>grepe</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>’n Fout het voorgekom. Herbegin die toep en probeer weer.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Verwerk tans veranderinge</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>Verwerk tans skrappings</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Afgehandel</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Gereed</value>
+  </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>Ontvang tans</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Kyk vir veranderinge</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Stuur tans</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Gekanselleer</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>Databasis word bygewerk</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>Slegs aflaai</value>
+  </data>
+  <data name="FullSync" xml:space="preserve">
+    <value>Normaal</value>
+  </data>
+  <data name="UploadOnly" xml:space="preserve">
+    <value>Slegs oplaai</value>
+  </data>
+  <data name="SyncDirection.Header" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
+    <value>Verwyder</value>
+  </data>
+  <data name="SaveFolderConfiguration.Label" xml:space="preserve">
+    <value>Bewaar veranderinge</value>
+  </data>
+  <data name="FolderConfigurationHeader.Text" xml:space="preserve">
+    <value>Die inhoud van hierdie vouer sal gesinchroniseer word:</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>Begin asb. die sinchronisering handmatig wanneer die toestel ingeprop en aan ’n Wi-Fi-netwerk gekoppel is. Die eerste sinchronisering kan lank vat.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>Begin sinchronisering</value>
+  </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>Dit word aanbeveel om die toestel in te prop en aan ’n Wi-Fi-netwerk te koppel omdat die sinchronisering lank kan vat en die skerm aktief sal bly.
+Is u seker u wil nou begin sinchroniseer?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>Die bediener laat nie hierdie bewerking toe nie.</value>
+  </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>Aandag: Die gekose vouer is nie deur Windows-sowk geïndekseer nie.
+
+Dit kan tot onverwagte gedrag lei.
+Is u seker u wil hierdie vouer gebruik?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>Aandag: Die gekose vouer is slegs gedeeltelik deur Windows-sowk geïndekseer.
+
+Dit kan tot onverwagte gedrag lei.
+Is u seker u wil hierdie vouer gebruik?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>Bekyk bronkode</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>Kontak ondersteuning</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>Uitgewer</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>Weergawe</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>Stuur diagnoseverslag d.m.v. e-pos</value>
+  </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>Die sinchronisering sal in die agtergrond begin mits die volgende toestande waar is:
+- Die toestel is aan ’n laaier gekoppel.
+- ’n Wi-Fi-verbinding bestaan.
+- Die toestel word nie gebruik nie.</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>sopas</value>
+  </data>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>’n dag gelede</value>
+  </data>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>’n minuut gelede</value>
+  </data>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>’n maand gelede</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>’n uur gelede</value>
+  </data>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>’n sekonde gelede</value>
+  </data>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>’n jaar gelede</value>
+  </data>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0} dae gelede</value>
+  </data>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0} uur gelede</value>
+  </data>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0} minute gelede</value>
+  </data>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0} maande gelede</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0} sekondes gelede</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0} jaar gelede</value>
+  </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Koppel u Windows 10-toestel aan u ownCloud!
+
+Oorweeg dit om eerder die normale werkskermsinchroniseerkliënt te gebruik vir ’n optimale ervaring op die rekenaar. U kan dit hier kry: https://owncloud.org/install/#install-clients 
+
+Hierdie toep is ’n projek wat slegs deur die ownCloud-gemeenskap ontwikkel word en is deur Adrian Gebhart begin. Besoek die projek op GitHub indien u deel van die ontwikkelingspan wil wees: https://github.com/owncloud/OwncloudUniversal
+
+Eienskappe:
+
+- Werk op alle Windows 10-toestelle!
+- Oopbronprogrammatuur
+- Sinchroniseer u lêers met ’n agtergrondtaak. Op ’n foon sal dit slegs sinchroniseer indien u toestel ingeprop is om die battery te bewaar.
+- Lêers en vouers kan op- en afgelaai en bestuur word.
+- Bekyk u beelde of stroom video’s direo vanaf u eie ownCloud.
+
+
+Nuut by ownCloud?
+Gaan kyk by https://owncloud.org
+
+Probleme?
+Open ’n nuwe knelpunt op https://github.com/owncloud/OwncloudUniversal/issues of gebruik die diagnoseverslagfunksie in die toep.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Onbekende fout, gaan asb. die loglêer na</value>
+  </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>Probeer die oorspronklike Werkskerm-sinchroniseerkliënt vir Windows vir ’n optimale ervaring op die rekenaar.
+Wil u dit nou aflaai?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Moenie weer wys nie</value>
+  </data>
+  <data name="DownloadOpenFile.Text" xml:space="preserve">
+    <value>Open lêer</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Laai tans {0} af</value>
+  </data>
+</root>
