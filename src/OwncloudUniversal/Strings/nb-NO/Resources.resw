@@ -533,33 +533,33 @@ Er du sikker på at du vil bruke denne mappen?</value>
     <value>{0}år siden</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Koble Windows 10 til din ownCloud!
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+For optimal opplevelse på PC, vurder å benytte normal klient for synkronisering i stedet. Du kan finne den her: https://owncloud.org/install/#install-clients 
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+Programmet er utviklet av ownCloud samfunnet og ble startet av Adrian Gebhart. Sjekk ut prosjektet fra GitHub for å delta i utvikling: https://github.com/owncloud/OwncloudUniversal
 
-Features:
+Funksjoner:
 
-- Works on all Windows 10 devices!
-- Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- Fungerer på alle Windows 10 enheter!
+- Åpen kildekode (ikke en funksjon men fakta)
+- Synkroniserer dine filer i bakgrunn. På telefoner synkroniserer den kun når du lader for å spare batteri.
+- Last opp eller ned og administrer dine filer og kataloger.
+- Se bilder eller film direkte fra din ownCloud.
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Ny med ownCloud?
+Sjekk ownCloud på https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Problemer?
+Åpne ny henvendelse på  https://github.com/owncloud/OwncloudUniversal/issues eller bruk diagnose rapport funksjon i programmet.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ukjent feil, vennligst sjekk logg-filen</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>For best opplevelse på din PC forsøk den originale synkroniserings klient for Windows. 
+Vil du laste den ned nå?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
     <value>Ikke vis igjen</value>
