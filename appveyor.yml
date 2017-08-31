@@ -18,3 +18,6 @@ before_build:
 artifacts:
   - path: Release\OwncloudUniversal\AppPackages
     name: OwncloudUniversal-Latest
+
+hosts:
+  api.nuget.org: 93.184.221.200

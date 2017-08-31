@@ -118,457 +118,456 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.Header" xml:space="preserve">
-    <value>เกี่ยวกับเรา</value>
+    <value>Oor</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
-    <value>เปิดใช้งานการประสานข้อมูล</value>
+    <value>Aktiveer sinchronisering</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>การถ่ายโอนจะเสร็จสมบูรณ์หากแอพฯยังทำงานอยู่ในพื้นหลัง</value>
+    <value>Oordrag sal ook voltooi as die toep in die agtergrond loop!</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>ยกเลิก</value>
+    <value>Kanselleer</value>
   </data>
   <data name="Connection.Header" xml:space="preserve">
-    <value>การเชื่อมต่อ</value>
+    <value>Verbinding</value>
   </data>
   <data name="CurrentFile.Header" xml:space="preserve">
-    <value>ไฟล์ปัจจุบัน</value>
+    <value>Huidige Lêer</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
-    <value>ลบ</value>
+    <value>Skrap</value>
   </data>
   <data name="deleteConfirmation" xml:space="preserve">
-    <value>ลบไฟล์?</value>
+    <value>Skrap Lêer?</value>
   </data>
   <data name="deleteFolderConfirmation" xml:space="preserve">
-    <value>ลบโฟลเดอร์?</value>
+    <value>Skrap Vouer?</value>
   </data>
   <data name="DisableSync.Text" xml:space="preserve">
-    <value>ปิดใช้งานการประสานข้อมูล</value>
+    <value>Deaktiveer sinchronisering</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>บันทึกเป็น</value>
+    <value>Bewaar as</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>กำลังดาวน์โหลด...</value>
+    <value>Laai tans af…</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
-    <value>ประสานข้อมูลอัตโนมัติ</value>
+    <value>Outomatiese sinchronisering</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>ปิดการใช้งานพื้นหลังแล้ว</value>
+    <value>Agtergrondtaak gedeaktiveer</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>เปิดใช้งานพื้นหลังแล้ว</value>
+    <value>Agtergrond geaktiveer</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
-    <value>ไฟล์</value>
+    <value>Lêers</value>
   </data>
   <data name="FilesButton.Text" xml:space="preserve">
-    <value>ไฟล์</value>
+    <value>Lêers</value>
   </data>
   <data name="FilesToSync.Header" xml:space="preserve">
-    <value>ไฟล์ที่รอดำเนินการ</value>
+    <value>Hangende lêers</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
-    <value>ไฟล์ที่ส่ง</value>
+    <value>Lêeroordrag</value>
   </data>
   <data name="History.Header" xml:space="preserve">
-    <value>ประวัติ</value>
+    <value>Geskiedenis</value>
   </data>
   <data name="no" xml:space="preserve">
-    <value>ไม่ตกลง</value>
+    <value>Nee</value>
   </data>
   <data name="OpenFile.Content" xml:space="preserve">
-    <value>เปิดไฟล์</value>
+    <value>Open lêer</value>
   </data>
   <data name="OutOf.Text" xml:space="preserve">
-    <value>ของ</value>
+    <value>van</value>
   </data>
   <data name="PasswordHeader.Text" xml:space="preserve">
-    <value>รหัสผ่าน</value>
+    <value>Wagwoord</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
-    <value>คุณสมบัติ</value>
+    <value>Eienskappe</value>
   </data>
   <data name="Refresh.Label" xml:space="preserve">
-    <value>โหลดใหม่อีกครั้ง</value>
+    <value>Herlaai</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>ธีมแอพพลิเคชัน</value>
+    <value>Toepassingtema</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
-    <value>มืด</value>
+    <value>Donker</value>
   </data>
   <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
-    <value>สว่าง</value>
+    <value>Lig</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>รีเซ็ตแอพฯนี้</value>
+    <value>Herstel hierdie Toep</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
-    <value>ตั้งค่า</value>
+    <value>Instellings</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>ตั้งค่า</value>
+    <value>Instellings</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>ปุ่มย้อนกลับ</value>
+    <value>Terugknop</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
-    <value>ปุ่มย้อนกลับอยู่ในส่วนหัวของหน้า</value>
+    <value>Terug-knop is in Bladsykop</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>ปุ่มย้อนกลับไปใน ชื่อเรื่อง/ทาสก์บาร์</value>
+    <value>Terug-knop in Titel-/Taakbalk</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
-    <value>เริ่มการประสานข้อมูล</value>
+    <value>Begin sinchronisering</value>
   </data>
   <data name="Status.Header" xml:space="preserve">
-    <value>สถานะ</value>
+    <value>Status</value>
   </data>
   <data name="SynchedFolders.Text" xml:space="preserve">
-    <value>ประสานข้อมูลโฟลเดอร์แล้ว</value>
+    <value>Gesinchroniseerde Vouers</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>ระบบประสานข้อมูล (รุ่นเบต้า)</value>
+    <value>Sinchronisering (Beta)</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>ระบบประสานข้อมูล (รุ่นเบต้า)</value>
+    <value>Sinchronisering (Beta)</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>กำลังดำเนินการอยู่..</value>
+    <value>Oordrag aan die gang…</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
-    <value>หยุดการประสานข้อมูล</value>
+    <value>Staak Sinchronisering</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>อัพโหลดไฟล์</value>
+    <value>Laai lêers op</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
-    <value>ชื่อผู้ใช้</value>
+    <value>Gebruikersnaam</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
   </data>
   <data name="yes" xml:space="preserve">
-    <value>ตกลง</value>
+    <value>Ja</value>
   </data>
   <data name="DownloadMultiple.Label" xml:space="preserve">
-    <value>ดาวน์โหลด</value>
+    <value>Laai Af</value>
   </data>
   <data name="CancelSelectMode.Label" xml:space="preserve">
-    <value>ยกเลิก</value>
+    <value>Kanselleer</value>
   </data>
   <data name="DeleteMultiple.Label" xml:space="preserve">
-    <value>ลบ</value>
+    <value>Skrap</value>
   </data>
   <data name="deleteMultipleConfirmation" xml:space="preserve">
-    <value>ต้องการลบ?</value>
+    <value>Skrap?</value>
   </data>
   <data name="DetailsPageHeader.Content" xml:space="preserve">
-    <value>คุณสมบัติ</value>
+    <value>Eienskappe</value>
   </data>
   <data name="FileContentType.Header" xml:space="preserve">
-    <value>ประเภท</value>
+    <value>Tipe</value>
   </data>
   <data name="FileEtag.Header" xml:space="preserve">
     <value>Etag</value>
   </data>
   <data name="FileIsSynced.Header" xml:space="preserve">
-    <value>สถานะการประสานข้อมูล</value>
+    <value>Sinchroniseerstatus</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>แก้ไขวันที่</value>
+    <value>Wysigdatum</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
-    <value>ชื่อ</value>
+    <value>Naam</value>
   </data>
   <data name="FilePath.Header" xml:space="preserve">
-    <value>เส้นทาง</value>
+    <value>Pad</value>
   </data>
   <data name="FileSize.Header" xml:space="preserve">
-    <value>ขนาด</value>
+    <value>Grootte</value>
   </data>
   <data name="NewFolder.Label" xml:space="preserve">
-    <value>โฟลเดอร์ใหม่</value>
+    <value>Nuwe Vouer</value>
   </data>
   <data name="SelectMode.Label" xml:space="preserve">
-    <value>เลือกโหมด</value>
+    <value>Kies modus</value>
   </data>
   <data name="Connect.Content" xml:space="preserve">
-    <value>เชื่อมต่อ</value>
+    <value>Verbind</value>
   </data>
   <data name="ServerAddressHeader.Text" xml:space="preserve">
-    <value>ที่อยู่ของเซิร์ฟเวอร์</value>
+    <value>Bedieneradres</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>ไม่พบเซิร์ฟเวอร์ โปรดตรวจสอบ URL และการเชื่อมต่ออินเทอร์เน็ตของคุณ</value>
+    <value>Die bediener kon nie gevind word nie. Gaan die bronadres en u internetverbinding na.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>มีข้อผิดพลาดภายในเกิดขึ้นที่เซิร์ฟเวอร์</value>
+    <value>’n Interne fout het by die bediener voorgekom</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>ไม่พบแหล่งข้อมูลที่ร้องขอ</value>
+    <value>Die versoekte hulpbron kon nie gevind word nie</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>ขณะนี้ยังไม่พร้อมให้บริการ</value>
+    <value>Die diens is tans onbeskikbaar.</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
-    <value>เข้าสู่ระบบล้มเหลว</value>
+    <value>Aantekening het misluk</value>
   </data>
   <data name="CreateNewFolder" xml:space="preserve">
-    <value>สร้างโฟลเดอร์ใหม่</value>
+    <value>Skep nuwe vouer</value>
   </data>
   <data name="FolderName" xml:space="preserve">
-    <value>ชื่อโฟลเดอร์</value>
+    <value>Vouernaam</value>
   </data>
   <data name="NewFolderName" xml:space="preserve">
-    <value>โฟลเดอร์ใหม่</value>
+    <value>Nuwe Vouer</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>ตกลง</value>
+    <value>OK</value>
   </data>
   <data name="Oops" xml:space="preserve">
-    <value>กำ</value>
+    <value>Oeps</value>
   </data>
   <data name="deleteFileConfirmation" xml:space="preserve">
-    <value>ลบไฟล์?</value>
+    <value>Skrap Lêer?</value>
   </data>
   <data name="SyncStatus.Header" xml:space="preserve">
-    <value>ประสานข้อมูลสถานะ</value>
+    <value>Sinchroniseerstatus</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>อย่าดาวน์โหลดไฟล์ขนาดใหญ่เกินไป จำกัดไว้ที่ (MB):</value>
+    <value>Moenie groot lêers aflaai nie. Perk (MB):</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
-    <value>ยอมรับ</value>
+    <value>Aanvaar</value>
   </data>
   <data name="MoveToFolder.Text" xml:space="preserve">
-    <value>ย้าย</value>
+    <value>Skuif</value>
   </data>
   <data name="SelectFolder.Text" xml:space="preserve">
-    <value>เลือกโฟลเดอร์เป้าหมาย</value>
+    <value>Kies die teikenvouer</value>
   </data>
   <data name="Move.Label" xml:space="preserve">
-    <value>ย้าย</value>
+    <value>Skuif</value>
   </data>
   <data name="NewName" xml:space="preserve">
-    <value>ชื่อใหม่:</value>
+    <value>Nuwe Naam:</value>
   </data>
   <data name="Rename.Text" xml:space="preserve">
-    <value>เปลี่ยนชื่อ</value>
+    <value>Hernoem</value>
   </data>
   <data name="RenameTitle" xml:space="preserve">
-    <value>เปลี่ยนชื่อ</value>
+    <value>Hernoem</value>
   </data>
   <data name="LocalFolderHeader.Header" xml:space="preserve">
-    <value>โฟลเดอร์ต้นทาง</value>
+    <value>Lokale Vouer</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
-    <value>โฟลเดอร์ ownCloud</value>
+    <value>ownCloud-vouer</value>
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
-    <value>การกำหนดค่า</value>
+    <value>Opstelling</value>
   </data>
   <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
-    <value>ประสานข้อมูลอัตโนมัติ</value>
+    <value>Outomatiese sinchronisering</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>การเชื่อมต่อสำเร็จ! คำเตือน: การเชื่อมต่อไม่ได้ถูกเข้ารหัส!</value>
+    <value>Suksesvol gekoppel! Waarskuwing: Die verbinding is nie geënkripteer nie!</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>ชื่อผู้ใช้หรือรหัสผ่านผิด</value>
+    <value>Verkeerde gebruikersnaam of wagwoord.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>เกิดข้อผิดพลาด บางทีเซิร์ฟเวอร์อาจอยู่ในโหมดการบำรุงรักษาหรือการติดตั้งไม่สมบูรณ์ โปรดลองอีกครั้งในภายหลังหรือติดต่อผู้ดูแลระบบของคุณ</value>
+    <value>’n Fout het voorgekom. Die bediener is dalk besig met onderhoud of die installasie is onvoltooid. Probeer later weer of kontak u stelseladministrateur.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>คุณต้องรีเซ็ตแอพฯนี้?</value>
+    <value>Wil u regtig die toep herstel?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>โปรดรีสตาร์ทแอพ</value>
+    <value>Herbegin asb. die toep.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
-    <value>การเชื่อมต่อที่ปลอดภัยสำเร็จ!</value>
+    <value>Suksesvolle beveiligde verbinding!</value>
   </data>
   <data name="Bytes" xml:space="preserve">
-    <value>ไบต์</value>
+    <value>grepe</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>เกิดข้อผิดพลาด โปรดรีสตาร์ทแอพฯใหม่และลองอีกครั้ง</value>
+    <value>’n Fout het voorgekom. Herbegin die toep en probeer weer.</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>กำลังเปลี่ยนแปลงการประมวลผล</value>
+    <value>Verwerk tans veranderinge</value>
   </data>
   <data name="Deletions" xml:space="preserve">
-    <value>กำลังลบการประมวลผล</value>
+    <value>Verwerk tans skrappings</value>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>เสร็จสิ้น</value>
+    <value>Afgehandel</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>พร้อมแล้ว</value>
+    <value>Gereed</value>
   </data>
   <data name="Receiving" xml:space="preserve">
-    <value>กำลังรับ</value>
+    <value>Ontvang tans</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>กำลังมองหาการเปลี่ยนแปลง</value>
+    <value>Kyk vir veranderinge</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>กำลังส่ง</value>
+    <value>Stuur tans</value>
   </data>
   <data name="Stopped" xml:space="preserve">
-    <value>ยกเลิกแล้ว</value>
+    <value>Gekanselleer</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>กำลังอัพเดทฐานข้อมูล</value>
+    <value>Databasis word bygewerk</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
-    <value>ดาวน์โหลดเท่านั้น</value>
+    <value>Slegs aflaai</value>
   </data>
   <data name="FullSync" xml:space="preserve">
-    <value>ปกติ</value>
+    <value>Normaal</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>อัพโหลดเท่านั้น</value>
+    <value>Slegs oplaai</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
-    <value>โหมด</value>
+    <value>Modus</value>
   </data>
   <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
-    <value>ลบออก</value>
+    <value>Verwyder</value>
   </data>
   <data name="SaveFolderConfiguration.Label" xml:space="preserve">
-    <value>บันทึกการเปลี่ยนแปลง
-</value>
+    <value>Bewaar veranderinge</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>เนื้อหาของโฟลเดอร์เหล่านี้จะถูกประสานข้อมูล:</value>
+    <value>Die inhoud van hierdie vouer sal gesinchroniseer word:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>โปรดเริ่มต้นการประสานข้อมูลครั้งแรกด้วยตนเองเมื่ออุปกรณ์เชื่อมต่อกับเครือข่าย Wi-Fi และที่ชาร์จ อาจจะต้องใช้เวลาสักครู่</value>
+    <value>Begin asb. die sinchronisering handmatig wanneer die toestel ingeprop en aan ’n Wi-Fi-netwerk gekoppel is. Die eerste sinchronisering kan lank vat.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
-    <value>เริ่มการประสานข้อมูล</value>
+    <value>Begin sinchronisering</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>ขอแนะนำให้เชื่อมต่ออุปกรณ์กับเครือข่าย Wi-Fi และที่ชาร์จเพราะการประสานข้อมูลอาจใช้เวลานานและจอแสดงผลจะยังคงใช้งานอยู่
-คุณแน่ใจหรือว่าต้องการประสานข้อมูลตอนนี้?</value>
+    <value>Dit word aanbeveel om die toestel in te prop en aan ’n Wi-Fi-netwerk te koppel omdat die sinchronisering lank kan vat en die skerm aktief sal bly.
+Is u seker u wil nou begin sinchroniseer?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
-    <value>เซิร์ฟเวอร์ไม่อนุญาตให้ดำเนินการนี้</value>
+    <value>Die bediener laat nie hierdie bewerking toe nie.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>ข้อควรระวัง: โฟลเดอร์ที่เลือกจะไม่ถูกจัดทำดัชนีโดยการค้นหาของวินโดว์ส
+    <value>Aandag: Die gekose vouer is nie deur Windows-sowk geïndekseer nie.
 
-ซึ่งอาจทำให้เกิดปัญหา
-คุณแน่ใจหรือไม่ว่าต้องการใช้โฟลเดอร์นี้?</value>
+Dit kan tot onverwagte gedrag lei.
+Is u seker u wil hierdie vouer gebruik?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>ข้อควรระวัง: โฟลเดอร์ที่เลือกเป็นเพียงการจัดทำดัชนีบางส่วนโดยการค้นหาของวินโดว์ส
+    <value>Aandag: Die gekose vouer is slegs gedeeltelik deur Windows-sowk geïndekseer.
 
-ซึ่งอาจทำให้เกิดปัญหา
-คุณแน่ใจหรือไม่ว่าต้องการใช้โฟลเดอร์นี้?</value>
+Dit kan tot onverwagte gedrag lei.
+Is u seker u wil hierdie vouer gebruik?</value>
   </data>
   <data name="ProjectUrl.Content" xml:space="preserve">
-    <value>ดูซอร์สโค้ด</value>
+    <value>Bekyk bronkode</value>
   </data>
   <data name="SupportUrl.Content" xml:space="preserve">
-    <value>ติดต่อฝ่ายสนับสนุน</value>
+    <value>Kontak ondersteuning</value>
   </data>
   <data name="Publisher.Header" xml:space="preserve">
-    <value>สำนักพิมพ์</value>
+    <value>Uitgewer</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
-    <value>รุ่น</value>
+    <value>Weergawe</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>ส่งรายงานการวินิจฉัยทางอีเมล</value>
+    <value>Stuur diagnoseverslag d.m.v. e-pos</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
-    <value>การประสานข้อมูลจะเริ่มต้นได้ก็ต่อเมื่อทำตามเงื่อนไขต่อไปนี้:
-- อุปกรณ์เชื่อมต่อกับที่ชาร์จแล้ว
-- มีการเชื่อมต่อ WiFi แล้ว
-- ไม่ได้ใช้งานอุปกรณ์</value>
+    <value>Die sinchronisering sal in die agtergrond begin mits die volgende toestande waar is:
+- Die toestel is aan ’n laaier gekoppel.
+- ’n Wi-Fi-verbinding bestaan.
+- Die toestel word nie gebruik nie.</value>
   </data>
   <data name="justNow" xml:space="preserve">
-    <value>ตอนนี้</value>
+    <value>sopas</value>
   </data>
   <data name="ADayAgo" xml:space="preserve">
-    <value>วันที่ผ่านมา</value>
+    <value>’n dag gelede</value>
   </data>
   <data name="AMinuteAgo" xml:space="preserve">
-    <value>นาทีที่ผ่านมา</value>
+    <value>’n minuut gelede</value>
   </data>
   <data name="AMonthAgo" xml:space="preserve">
-    <value>เดือนที่ผ่านมา</value>
+    <value>’n maand gelede</value>
   </data>
   <data name="AnHourAgo" xml:space="preserve">
-    <value>ชั่วโมงที่ผ่านมา</value>
+    <value>’n uur gelede</value>
   </data>
   <data name="ASecondAgo" xml:space="preserve">
-    <value>วินาทีที่ผ่านมา</value>
+    <value>’n sekonde gelede</value>
   </data>
   <data name="AYearAgo" xml:space="preserve">
-    <value>ปีที่ผ่านมา</value>
+    <value>’n jaar gelede</value>
   </data>
   <data name="XDaysAgo" xml:space="preserve">
-    <value>{0} วันที่ผ่านมา</value>
+    <value>{0} dae gelede</value>
   </data>
   <data name="XHoursAgo" xml:space="preserve">
-    <value>{0} ชั่วโมงที่ผ่านมา</value>
+    <value>{0} uur gelede</value>
   </data>
   <data name="XMinutesAgo" xml:space="preserve">
-    <value>{0} นาทีที่ผ่านมา</value>
+    <value>{0} minute gelede</value>
   </data>
   <data name="XMonthsAgo" xml:space="preserve">
-    <value>{0} เดือนที่ผ่านมา</value>
+    <value>{0} maande gelede</value>
   </data>
   <data name="XSecondsAgo" xml:space="preserve">
-    <value>{0} วินาทีที่ผ่านมา</value>
+    <value>{0} sekondes gelede</value>
   </data>
   <data name="XYearsAgo" xml:space="preserve">
-    <value>{0} ปีที่ผ่านมา</value>
+    <value>{0} jaar gelede</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>คุณสามารถใช้โปรแกรมสำหรับเชื่อมโยงข้อมูลได้จากลิงค์นี้ https://owncloud.org/install/#install-clients
+    <value>Koppel u Windows 10-toestel aan u ownCloud!
 
-แอพนี้เป็นโครงการที่ได้รับการพัฒนาโดยชุมชนของคุณเอง เริ่มต้นโดย Adrian Gebhart สามารถตรวจสอบโครงการเกี่ยวกับ GitHub หากคุณต้องการเข้าร่วมการพัฒนา
-https://github.com/owncloud/OwncloudUniversal
+Oorweeg dit om eerder die normale werkskermsinchroniseerkliënt te gebruik vir ’n optimale ervaring op die rekenaar. U kan dit hier kry: https://owncloud.org/install/#install-clients 
 
-คุณสมบัติ:
+Hierdie toep is ’n projek wat slegs deur die ownCloud-gemeenskap ontwikkel word en is deur Adrian Gebhart begin. Besoek die projek op GitHub indien u deel van die ontwikkelingspan wil wees: https://github.com/owncloud/OwncloudUniversal
 
-- ทำงานได้กับอุปกรณ์ Windows 10 ทั้งหมด!
-- ซอฟต์แวร์โอเพนซอร์ส
-- ประสานไฟล์ของคุณกับงานพื้นหลัง โทรศัพท์จะซิงค์เฉพาะเมื่ออุปกรณ์กำลังชาร์จเพื่อประหยัดแบตเตอรี่
-- อัพโหลดและดาวน์โหลดจัดการไฟล์และโฟลเดอร์
-- ดูภาพหรือสตรีมวิดีโอของคุณได้โดยตรงกับ ownCloud ของคุณ
+Eienskappe:
+
+- Werk op alle Windows 10-toestelle!
+- Oopbronprogrammatuur
+- Sinchroniseer u lêers met ’n agtergrondtaak. Op ’n foon sal dit slegs sinchroniseer indien u toestel ingeprop is om die battery te bewaar.
+- Lêers en vouers kan op- en afgelaai en bestuur word.
+- Bekyk u beelde of stroom video’s direo vanaf u eie ownCloud.
 
 
-คุณมีระบบคราวด์เป็นของตัวเอง?
-ไปดูรายละเอียดได้ที่ https://owncloud.org
+Nuut by ownCloud?
+Gaan kyk by https://owncloud.org
 
-การแจ้งปัญหา?
-สามารถไปแจ้งปัญหาได้ที่ https://github.com/owncloud/OwncloudUniversal/issues หรือใช้ฟังก์ชันรายงานการวินิจฉัยภายในแอพพลิเคชัน
-</value>
+Probleme?
+Open ’n nuwe knelpunt op https://github.com/owncloud/OwncloudUniversal/issues of gebruik die diagnoseverslagfunksie in die toep.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุโปรดตรวจสอบไฟล์ log</value>
+    <value>Onbekende fout, gaan asb. die loglêer na</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>สำหรับเครื่องคอมพิวเตอร์ที่ใช้ระบบปฎิบัติการวินโดว์ส สามารถลองใช้โปรแกรม Desktop Sync Client 
-คุณต้องการดาวน์โหลดตอนนี้เลย?</value>
+    <value>Probeer die oorspronklike Werkskerm-sinchroniseerkliënt vir Windows vir ’n optimale ervaring op die rekenaar.
+Wil u dit nou aflaai?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>ไม่ต้องแสดงอีกครั้ง</value>
+    <value>Moenie weer wys nie</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
-    <value>เปิดไฟล์</value>
+    <value>Open lêer</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>กำลังดาวน์โหลด {0}</value>
+    <value>Laai tans {0} af</value>
   </data>
 </root>
