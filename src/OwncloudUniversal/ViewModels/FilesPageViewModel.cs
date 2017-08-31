@@ -50,6 +50,7 @@ namespace OwncloudUniversal.ViewModels
         private readonly SyncedFoldersService _syncedFolderService;
         private ListViewSelectionMode _selectionMode = ListViewSelectionMode.Single;
         private WebDavNavigationService _webDavNavigationService;
+        private CancellationTokenSource _token;
 
         public FilesPageViewModel()
         {
@@ -72,7 +73,15 @@ namespace OwncloudUniversal.ViewModels
         {
             if (propertyChangedEventArgs.PropertyName == "Items")
             {
-                Task.Run(() => LoadThumbnails());
+                //stop loading the old thumbnails after changing the webdav folder
+                if(_token == null)
+                    _token = new CancellationTokenSource();
+                else
+                {
+                    _token.Cancel();
+                    _token = new CancellationTokenSource();
+                }
+                Task.Run(() => LoadThumbnails(), _token.Token);
             }
         }
 

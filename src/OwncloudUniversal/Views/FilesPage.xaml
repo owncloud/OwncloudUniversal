@@ -127,7 +127,7 @@
                             Grid.Column="0"
                             IsCacheEnabled="True"
                             Source="{x:Bind ThumbnailUrl}"
-                            PlaceholderSource="{Binding ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
+                            PlaceholderSource="{x:Bind ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
                             PlaceholderStretch="UniformToFill"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
@@ -137,7 +137,7 @@
                             x:Phase="1"/>
 
 
-                        <StackPanel Grid.Column="1" x:Name="ContentPanel">
+                       <StackPanel Grid.Column="1" x:Name="ContentPanel">
                             <TextBlock VerticalAlignment="Center" Text="{x:Bind DisplayName}"
                                        HorizontalAlignment="Stretch" x:Phase="0" />
                             <Grid>
