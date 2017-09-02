@@ -29,6 +29,7 @@ namespace OwncloudUniversal.Synchronization.Configuration
                 {
                     Deregister();
                 }
+                Configuration.IsCameraUploadEnabled = value;
             }
         }
 

@@ -160,6 +160,18 @@ namespace OwncloudUniversal.Synchronization.Configuration
             set => Config.Values["IsCameraUploadEnabled"] = value;
         }
 
+        public static string CameraUploadTargetFolder
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("CameraUploadTargetFolder"))
+                    return (string)Config.Values["CameraUploadTargetFolder"];
+                return new Uri(ServerUrl).LocalPath + "/CameraUpload/";
+            }
+
+            set => Config.Values["CameraUploadTargetFolder"] = value;
+        }
+
         public static void Reset()
         {
             ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);
