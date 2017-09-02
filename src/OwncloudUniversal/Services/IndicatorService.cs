@@ -39,7 +39,7 @@ namespace OwncloudUniversal.Services
             Shell.ModalDialog.IsModal = true;
             Shell.Text.Text = text;
             var panel = Shell.ModalDialog.ModalContent as StackPanel;
-            if(panel?.Children.Contains(element) == false)
+            if(panel?.Children.Contains(element) == false && element != null)
                 panel.Children.Add(element);
         }
 
