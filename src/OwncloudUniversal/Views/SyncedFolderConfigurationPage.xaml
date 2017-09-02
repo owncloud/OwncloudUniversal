@@ -38,7 +38,6 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock x:Uid="RunSyncMessage" Text="Please make sure that you manually start the first sync!" TextWrapping="WrapWholeWords" Margin="0,12,0,0"/>
-            <ToggleSwitch OnContent="Instant Upload aktiviert" OffContent="Instant Upload deaktiviert" IsOn="{Binding Association.SupportsInstantUpload, Mode=TwoWay}"/>
             <Button x:Uid="StartFirstSync" Command="{Binding StartSyncCommand}" IsEnabled="{Binding ExecutionContext.IsActive, Converter={StaticResource BoolConverter}}" Margin="0,12,0,0"/>
         </ListView>
         <CommandBar Grid.Row="3">
