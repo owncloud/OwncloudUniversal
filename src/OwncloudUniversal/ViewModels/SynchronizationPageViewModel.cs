@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Storage;
+using Windows.Storage.FileProperties;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
 using OwncloudUniversal.Services;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Configuration;
@@ -32,6 +36,12 @@ namespace OwncloudUniversal.ViewModels
             });
         }
 
+        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        {
+            LoadThumbnails();
+            return base.OnNavigatedToAsync(parameter, mode, state);
+        }
+
         public bool BackgroundTaskEnabled
         {
             get { return Configuration.IsBackgroundTaskEnabled; }
@@ -44,5 +54,40 @@ namespace OwncloudUniversal.ViewModels
         }
 
         public ObservableCollection<SyncHistoryEntry> HistoryEntries { get; } = SyncHistoryTableModel.GetDefault().GetAllItems();
+
+        private async void LoadThumbnails()
+        {
+
+            var serverUrl = Configuration.ServerUrl.Substring(0, Configuration.ServerUrl.IndexOf("remote.php", StringComparison.OrdinalIgnoreCase));
+            foreach (var syncHistoryEntry in HistoryEntries)
+            {
+                try
+                {
+                    if(syncHistoryEntry.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (syncHistoryEntry.EntityId.Contains("/"))
+                        {
+
+                            var itemPath = syncHistoryEntry.EntityId.Substring(syncHistoryEntry.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
+                            var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 40 + "/" + 40 + itemPath;
+                            syncHistoryEntry.Image = new BitmapImage(new Uri(url));
+                        }
+                        else
+                        {
+                            var file = await StorageFile.GetFileFromPathAsync(syncHistoryEntry.EntityId);
+                            var thumb = await file.GetThumbnailAsync(ThumbnailMode.PicturesView, 40, ThumbnailOptions.None);
+                            syncHistoryEntry.Image = new BitmapImage();
+                            syncHistoryEntry.Image.SetSource(thumb);
+                        }
+
+                        RaisePropertyChanged("Image");
+                    }
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+        }
     }
 }

@@ -74,14 +74,27 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{x:Bind ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}" Stretch="UniformToFill" Height="40" Width="40"/>
+                                <uicontrol:ImageEx
+                                    x:Name="ImageEx"
+                                    Grid.Column="0"
+                                    IsCacheEnabled="True"
+                                    Source="{x:Bind Image, Mode=OneWay}"
+                                    PlaceholderSource="{x:Bind ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
+                                    PlaceholderStretch="UniformToFill"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,3,0"
+                                    Height="40" 
+                                    Width="40"
+                                    x:Phase="1"/>
+                                <!--<Image Source="{x:Bind ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}" Stretch="UniformToFill" Height="40" Width="40"/>-->
                                 
                                 <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                    <TextBlock Text="{x:Bind EntityId, Converter={StaticResource EntityIdToDisplayNameConverter}}"/>
+                                    <TextBlock Text="{x:Bind EntityId, Converter={StaticResource EntityIdToDisplayNameConverter}}" x:Phase="0"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{x:Bind Result, Converter={StaticResource EnumToResourceStringConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}"/>
+                                        <TextBlock Text="{x:Bind Result, Converter={StaticResource EnumToResourceStringConverter}}" Foreground="{ThemeResource ForegroundMediumBrush}" x:Phase="0"/>
                                         <TextBlock Text="-" Margin="4,0" Foreground="{ThemeResource ForegroundMediumBrush}"/>
-                                        <TextBlock Text="{x:Bind CreateDate}" Foreground="{ThemeResource ForegroundMediumBrush}"/>
+                                        <TextBlock Text="{x:Bind CreateDate}" Foreground="{ThemeResource ForegroundMediumBrush}" x:Phase="0"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
