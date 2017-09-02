@@ -180,8 +180,8 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             string folderPath = Path.GetDirectoryName(filePath);
 
             var currentFolder = await StorageFolder.GetFolderFromPathAsync(item.Association.LocalFolderPath);
-            var fixedName = currentFolder.Path.Replace("USERS", "Users");
-            string[] folders = folderPath.Replace(fixedName, "").TrimStart('\\').Split('\\');
+            //var fixedName = currentFolder.Path.Replace("USERS", "Users");
+            string[] folders = folderPath.Replace(currentFolder.Path, "").TrimStart('\\').Split('\\');
 
             foreach (var folder in folders)
             {
@@ -250,10 +250,10 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
                 storageItems.Add(new BaseItem{EntityId = storageItem.Path});
             }
             var missingItems = existingItems.Except(storageItems, new EnityIdComparer()).ToList();
-            var fixedPath = sFolder.Path.Replace("USERS", "Users");
+            //var fixedPath = sFolder.Path.Replace("USERS", "Users");
             foreach (var missingItem in missingItems)
             {
-                if (missingItem.EntityId == fixedPath) continue;
+                if (missingItem.EntityId == sFolder.Path) continue;
                 //additional check if the file really does not exist
                 //for some reason the query seems to return wrong results sometimes
                 if (!missingItem.IsCollection)
