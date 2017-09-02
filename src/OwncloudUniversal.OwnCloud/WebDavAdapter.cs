@@ -127,7 +127,8 @@ namespace OwncloudUniversal.OwnCloud
         private async Task CreateFolder(FolderAssociation association, BaseItem localItem, string name)
         {
             //adds the folder and if necessesary the parent folder
-            var remoteBaseFolder = GetAssociatedItem(association.RemoteFolderId).EntityId;
+            var uri = new Uri(Configuration.ServerUrl);
+            var remoteBaseFolder = uri.LocalPath;
             var path = _BuildRemoteFolderPath(association, localItem.EntityId);
             path = WebUtility.UrlDecode(path.Replace(remoteBaseFolder, "").TrimEnd('/'));
             var folders = path.Split('/');
