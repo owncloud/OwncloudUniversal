@@ -591,4 +591,13 @@ Would you like to download it now?</value>
   <data name="Sent" xml:space="preserve">
     <value>Sent</value>
   </data>
+  <data name="CameraUpload.Text" xml:space="preserve">
+    <value>Camera Uploads</value>
+  </data>
+  <data name="FolderAlreadyInUseForSync" xml:space="preserve">
+    <value>This folder is already used for synchronization!</value>
+  </data>
+  <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
+    <value>The folder {0} is already in use for synchronisation!</value>
+  </data>
 </root>
