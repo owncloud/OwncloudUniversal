@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,16 +15,25 @@ namespace OwncloudUniversal.Converters
             if (value is Uri)
             {
                 name = (value as Uri).ToString();
-                if(name.Contains("webdav/"))
-                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase)+6);
+                if (name.Contains("remote.php/webdav"))
+                {
+                    name = name.Substring(name.IndexOf("remote.php/webdav", StringComparison.CurrentCultureIgnoreCase) + 17);
+                    if (string.IsNullOrEmpty(name))
+                        name = "/";
+                }
             }
+
             if (value is string)
             {
                 name = (value as string);
-                if (name.Contains("webdav/"))
-                    name = name.Substring(name.IndexOf("webdav/", StringComparison.CurrentCultureIgnoreCase) + 6);
+                if (name.Contains("remote.php/webdav"))
+                {
+                    name = name.Substring(name.IndexOf("remote.php/webdav", StringComparison.CurrentCultureIgnoreCase) + 17);
+                    if (string.IsNullOrEmpty(name))
+                        name = "/";
+                }
             }
-            return name;
+            return Uri.UnescapeDataString(name);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
