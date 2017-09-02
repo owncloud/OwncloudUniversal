@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using SQLitePCL;
 using OwncloudUniversal.Synchronization.SQLite;
 
@@ -122,7 +123,13 @@ namespace OwncloudUniversal.Synchronization.Model
             using (var query = Connection.Prepare(GetInsertItemQuery()))
             {
                 BindInsertItemQuery(query, item);
-                query.Step();
+                var result = query.Step();
+                if (result != SQLiteResult.DONE)
+                {
+                    Debug.WriteLine(result.ToString());
+                    Debug.WriteLine(query.ToString());
+                    throw new SQLiteException(result.ToString());
+                }
             }
         }
         /// <summary>
