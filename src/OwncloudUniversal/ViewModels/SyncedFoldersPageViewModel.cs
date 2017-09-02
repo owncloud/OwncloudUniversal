@@ -51,7 +51,7 @@ namespace OwncloudUniversal.ViewModels
 
         private void LoadFolders()
         {
-            SyncedFolders = _syncedFoldersService.GetAllSyncedFolders();
+            SyncedFolders = _syncedFoldersService.GetConfiguredFolders();
         }
 
         private void RemoveFromSync(object parameter)

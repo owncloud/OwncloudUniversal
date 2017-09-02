@@ -15,7 +15,7 @@ namespace OwncloudUniversal.Services
     public class SyncedFoldersService
     {
 
-        public async Task<FolderAssociation> AddFolderToSyncAsync (StorageFolder folder, DavItem remoteFolderItem)
+        public async Task<FolderAssociation> AddFolderToSyncAsync (StorageFolder folder, DavItem remoteFolderItem, bool allowInstantUpload = false)
         {
             StorageApplicationPermissions.FutureAccessList.Add(folder);
             var properties = await folder.Properties.RetrievePropertiesAsync(new List<string> { "System.DateModified" });
@@ -28,6 +28,11 @@ namespace OwncloudUniversal.Services
                 SyncDirection = SyncDirection.FullSync,
                 LastSync = DateTime.MinValue
             };
+            if (allowInstantUpload)
+            {
+                fa.SyncDirection = SyncDirection.UploadOnly;
+                fa.SupportsInstantUpload = true;
+            }
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
             fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();
 
@@ -38,6 +43,11 @@ namespace OwncloudUniversal.Services
                 EntityId = folder.Path,
                 Association = fa,
             };
+            var testFolder = await StorageFolder.GetFolderFromPathAsync(folder.Path);
+            if (testFolder.Path != folder.Path)
+            {
+                li.EntityId = testFolder.Path;
+            }
             ItemTableModel.GetDefault().InsertItem(li);
             li = ItemTableModel.GetDefault().GetLastInsertItem();
 
@@ -53,9 +63,30 @@ namespace OwncloudUniversal.Services
             return fa;
         }
 
-        public List<FolderAssociation> GetAllSyncedFolders()
+        public List<FolderAssociation> GetConfiguredFolders()
         {
             return FolderAssociationTableModel.GetDefault().GetAllItems().ToList().Where(x => x.SupportsInstantUpload == false).ToList();
+        }
+
+        public List<FolderAssociation> GetAllSyncedFolders()
+        {
+            return FolderAssociationTableModel.GetDefault().GetAllItems().ToList();
+        }
+
+        public List<FolderAssociation> GetInstantUploadAssociations()
+        {
+            return FolderAssociationTableModel.GetDefault().GetAllItems().ToList().Where(x => x.SupportsInstantUpload).ToList();
+        }
+
+        public void RemoveInstantUploadAssociations()
+        {
+            foreach (var association in GetInstantUploadAssociations())
+            {
+                FolderAssociationTableModel.GetDefault().DeleteItem(association.Id);
+                LinkStatusTableModel.GetDefault().DeleteLinksFromAssociation(association);
+                ItemTableModel.GetDefault().DeleteItem(association.RemoteFolderId);
+                ItemTableModel.GetDefault().DeleteItem(association.LocalFolderId);
+            }
         }
 
         public void RemoveFromSyncedFolders(FolderAssociation association)

@@ -186,6 +186,15 @@ namespace OwncloudUniversal.ViewModels
                     if(result == ContentDialogResult.Secondary)
                         return;
                 }
+                foreach (var assocaition in _syncedFolderService.GetAllSyncedFolders())
+                {
+                    if(String.Equals(folder.Path, assocaition.LocalFolderPath, StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageDialog dialog = new MessageDialog(string.Format(App.ResourceLoader.GetString("SelectedFolderAlreadyInUseForSync"), folder.Path));
+                        await dialog.ShowAsync();
+                        return;
+                    }
+                }
                 var fa = await _syncedFolderService.AddFolderToSyncAsync(folder, (DavItem) parameter);
                 NavigationService.Navigate(typeof(SyncedFolderConfigurationPage), fa, new SuppressNavigationTransitionInfo());
             }
