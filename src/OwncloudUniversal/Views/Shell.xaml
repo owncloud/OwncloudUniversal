@@ -64,6 +64,20 @@
                     </StackPanel>
                 </Controls:HamburgerButtonInfo>
 
+                <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:CameraUploadPage">
+                    <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                        <SuppressNavigationTransitionInfo />
+                    </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Width="48"
+                                    Height="48"
+                                    Symbol="Camera" />
+                        <TextBlock Margin="12,0,0,0"
+                                   VerticalAlignment="Center"
+                                   x:Uid="CameraUpload"/>
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
+
             </Controls:HamburgerMenu.PrimaryButtons>
 
             <Controls:HamburgerMenu.SecondaryButtons>

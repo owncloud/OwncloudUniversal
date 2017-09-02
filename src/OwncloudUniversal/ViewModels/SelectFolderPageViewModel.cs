@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
@@ -15,6 +16,7 @@ using OwncloudUniversal.Views;
 using OwncloudUniversal.OwnCloud;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization.Configuration;
+using OwncloudUniversal.Synchronization.Model;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 
@@ -23,8 +25,9 @@ namespace OwncloudUniversal.ViewModels
     public class SelectFolderPageViewModel : ViewModelBase
     {
         private DavItem _selectedItem;
-        private static List<DavItem> _itemsToMove;
+        private List<DavItem> _itemsToMove;
         private WebDavNavigationService _webDavNavigationService;
+        private Page _callingPage;
 
         public WebDavNavigationService WebDavNavigationService
         {
@@ -43,8 +46,8 @@ namespace OwncloudUniversal.ViewModels
 
         public SelectFolderPageViewModel()
         {
-            HomeCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(SelectFolderPage), new DavItem{EntityId = Configuration.ServerUrl}, new SuppressNavigationTransitionInfo()));
-            AcceptCommand = new DelegateCommand(async () => await Move());
+            HomeCommand = new DelegateCommand(async () => await WebDavNavigationService.NavigateAsync(new DavItem {EntityId = Configuration.ServerUrl}));
+            AcceptCommand = new DelegateCommand(async () => await AcceptSelection());
             CancelCommand = new DelegateCommand(async () =>
             {
 
@@ -57,11 +60,17 @@ namespace OwncloudUniversal.ViewModels
         {
             WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
+            //items should be moved
             if (parameter is List<DavItem>)
             {
                 _itemsToMove = parameter as List<DavItem>;
+                HideItemsToMove();
             }
-            HideItemsToMove();
+            //just a folder has to be selected (nothing to move), the parameter is the default folder
+            if (parameter is DavItem item)
+            {
+                await WebDavNavigationService.NavigateAsync(item);
+            }
             await base.OnNavigatedToAsync(parameter, mode, state);
         }
 
@@ -87,6 +96,7 @@ namespace OwncloudUniversal.ViewModels
         {
             try
             {
+                IndicatorService.GetDefault().ShowBar();
                 foreach (var davItem in _itemsToMove)
                 {
                     await WebDavItemService.GetDefault().MoveToFolder(davItem, WebDavNavigationService.CurrentItem);
@@ -94,6 +104,8 @@ namespace OwncloudUniversal.ViewModels
             }
             finally
             {
+                IndicatorService.GetDefault().HideBar();
+                await WebDavNavigationService.ReloadAsync();
                 await NavigationService.NavigateAsync(typeof(FilesPage), WebDavNavigationService.CurrentItem, new SuppressNavigationTransitionInfo());
             }
             for (int i = 0; i < NavigationService.Frame.BackStackDepth; i++)
@@ -144,6 +156,27 @@ namespace OwncloudUniversal.ViewModels
                 await WebDavItemService.GetDefault().CreateFolder(WebDavNavigationService.CurrentItem, box.Text);
                 await WebDavNavigationService.ReloadAsync();
                 IndicatorService.GetDefault().HideBar();
+            }
+        }
+
+        private async Task AcceptSelection()
+        {
+            if(_itemsToMove != null)
+                await Move();
+            else
+            {
+                SyncedFoldersService service = new SyncedFoldersService();
+                foreach (var assocaition in service.GetAllSyncedFolders())
+                {
+                    if (WebDavNavigationService.CurrentItem.EntityId == assocaition.RemoteFolderFolderPath)
+                    {
+                        MessageDialog dialog = new MessageDialog(string.Format(App.ResourceLoader.GetString("SelectedFolderAlreadyInUseForSync"), WebDavNavigationService.CurrentItem.EntityId));
+                        await dialog.ShowAsync();
+                        return;
+                    }
+                }
+                await NavigationService.NavigateAsync(typeof(CameraUploadPage),
+                    WebDavNavigationService.CurrentItem, new SuppressNavigationTransitionInfo());
             }
         }
     }
