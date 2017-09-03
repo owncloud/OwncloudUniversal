@@ -87,7 +87,12 @@ namespace OwncloudUniversal.ViewModels
                 RaisePropertyChanged("Enabled");
                 throw;
             }
-            
+        }
+
+        public bool UploadViaWifiOnly
+        {
+            get => Configuration.UploadViaWifiOnly;
+            set => Configuration.UploadViaWifiOnly = value;
         }
 
         private void DeleteCameraUploadAssociation()

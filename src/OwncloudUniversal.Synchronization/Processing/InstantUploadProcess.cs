@@ -48,6 +48,14 @@ namespace OwncloudUniversal.Synchronization.Processing
 
         protected override async Task ProcessItems()
         {
+            if (Configuration.Configuration.UploadViaWifiOnly)
+            {
+                var internetConnectionProfile = Windows.Networking.Connectivity.NetworkInformation.GetInternetConnectionProfile();
+                if (internetConnectionProfile != null && !internetConnectionProfile.IsWlanConnectionProfile)
+                {
+                    return;
+                }
+            }
             List<dynamic> itemsToUpdate = new List<dynamic>();
             
             if (_itemsToUpdate.Count != 0)
@@ -75,7 +83,6 @@ namespace OwncloudUniversal.Synchronization.Processing
                     }
                 }
             }
-            
             
             await ProcessAdds(_itemsToAdd);
             await ProcessUpdates(itemsToUpdate);

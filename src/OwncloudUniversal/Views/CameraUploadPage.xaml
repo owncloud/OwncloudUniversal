@@ -35,7 +35,7 @@
 
         <ListView Grid.Row="2" SelectionMode="None">
             <ToggleSwitch x:Uid="CameraUploadToogleSwitch" IsOn="{x:Bind CameraUploadPageViewModel.Enabled, Mode=TwoWay}"/>
-            <ToggleSwitch x:Uid="OnlyViaWifi"/>
+            <ToggleSwitch x:Uid="OnlyViaWifi" IsOn="{x:Bind CameraUploadPageViewModel.UploadViaWifiOnly, Mode=TwoWay}"/>
             <controls:HeaderedTextBlock x:Uid="UploadPath"  Text="{x:Bind CameraUploadPageViewModel.TargetFolder.EntityId, Converter={StaticResource UriToNicePathConverter}}">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="PointerPressed" >
