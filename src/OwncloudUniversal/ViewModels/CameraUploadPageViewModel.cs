@@ -41,6 +41,8 @@ namespace OwncloudUniversal.ViewModels
                 {
                     DeleteCameraUploadAssociation();
                     CreateCameraUploadAssociation();
+                    var backgroundSyncRegistration = new BackgroundTaskConfiguration();
+                    backgroundSyncRegistration.Enabled = true;
                 }
                 else
                     DeleteCameraUploadAssociation();
