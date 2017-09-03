@@ -86,6 +86,7 @@ namespace OwncloudUniversal.Services
                 LinkStatusTableModel.GetDefault().DeleteLinksFromAssociation(association);
                 ItemTableModel.GetDefault().DeleteItem(association.RemoteFolderId);
                 ItemTableModel.GetDefault().DeleteItem(association.LocalFolderId);
+                ItemTableModel.GetDefault().DeleteItemsFromAssociation(association);
             }
         }
 
