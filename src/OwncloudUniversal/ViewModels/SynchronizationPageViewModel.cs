@@ -44,7 +44,7 @@ namespace OwncloudUniversal.ViewModels
 
         public bool BackgroundTaskEnabled
         {
-            get { return Configuration.IsBackgroundTaskEnabled; }
+            get { return _taskConfig.Enabled; }
             set
             { 
                 Configuration.IsBackgroundTaskEnabled = value;
