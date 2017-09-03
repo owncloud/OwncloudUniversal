@@ -172,11 +172,11 @@ namespace OwncloudUniversal.Synchronization.Processing
             var itemsToProcess = 
                 (from baseItem in items
                         .Where(i =>
-                         i.Association.SyncDirection == SyncDirection.DownloadOnly &&
+                         i.Association?.SyncDirection == SyncDirection.DownloadOnly &&
                          i.AdapterType == _targetEntityAdapter.GetType() ||
-                         i.Association.SyncDirection == SyncDirection.UploadOnly &&
+                         i.Association?.SyncDirection == SyncDirection.UploadOnly &&
                          i.AdapterType == _sourceEntityAdapter.GetType() ||
-                         i.Association.SyncDirection == SyncDirection.FullSync)
+                         i.Association?.SyncDirection == SyncDirection.FullSync)
                 from link in links
                     .Where(x => x.SourceItemId == baseItem.Id || x.TargetItemId == baseItem.Id)
                     .DefaultIfEmpty()
