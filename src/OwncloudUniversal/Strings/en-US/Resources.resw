@@ -592,12 +592,27 @@ Would you like to download it now?</value>
     <value>Sent</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Uploads</value>
+    <value>Camera Upload</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
     <value>This folder is already used for synchronization!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
     <value>The folder {0} is already in use for synchronisation!</value>
+  </data>
+  <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera</value>
+  </data>
+  <data name="CameraUploadPageHeader.Content" xml:space="preserve">
+    <value>Camera Upload</value>
+  </data>
+  <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
+    <value>Instant picture uploads</value>
+  </data>
+  <data name="OnlyViaWifi.Header" xml:space="preserve">
+    <value>Upload pictures via WiFi only</value>
+  </data>
+  <data name="UploadPath.Header" xml:space="preserve">
+    <value>Upload path</value>
   </data>
 </root>

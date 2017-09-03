@@ -21,8 +21,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <t10:PageHeader Content="Camera Uploads"
-                        x:Uid="CameraUploadPageHeader"
+        <t10:PageHeader x:Uid="CameraUploadPageHeader"
                         Frame="{x:Bind Frame}"
                         Grid.Row="0"/>
 
@@ -30,15 +29,14 @@
             <TextBlock x:Uid="CameraUploadConfigurationHeader" 
                        Foreground="{ThemeResource CustomColorContrastBrush}" 
                        TextWrapping="WrapWholeWords" 
-                       Text="New Photos can be uploaded to ownCloud"
                        FontSize="15"
                        Margin="12"/>
         </Border>
 
         <ListView Grid.Row="2">
-            <ToggleSwitch Header="Upload new Images" IsOn="{x:Bind CameraUploadPageViewModel.Enabled, Mode=TwoWay}" x:Name="CameraUploadToogleSwitch"/>
-            <ToggleSwitch x:Name="AllowMeteredSwitch" Header="Allow metered connections"/>
-            <controls:HeaderedTextBlock Header="Target folder" Text="{x:Bind CameraUploadPageViewModel.TargetFolder.EntityId, Converter={StaticResource UriToNicePathConverter}}">
+            <ToggleSwitch x:Uid="CameraUploadToogleSwitch" IsOn="{x:Bind CameraUploadPageViewModel.Enabled, Mode=TwoWay}"/>
+            <ToggleSwitch x:Uid="OnlyViaWifi"/>
+            <controls:HeaderedTextBlock x:Uid="UploadPath" Text="{x:Bind CameraUploadPageViewModel.TargetFolder.EntityId, Converter={StaticResource UriToNicePathConverter}}">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="Tapped" >
                         <core:InvokeCommandAction Command="{x:Bind CameraUploadPageViewModel.SelectFolderCommand}"/>
