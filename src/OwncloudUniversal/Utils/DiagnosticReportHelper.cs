@@ -11,7 +11,9 @@ using Windows.Networking.Connectivity;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
 using Windows.System.Profile;
+using Newtonsoft.Json;
 using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.Configuration;
 
 namespace OwncloudUniversal.Utils
 {
@@ -20,6 +22,12 @@ namespace OwncloudUniversal.Utils
         public static async Task GenerateReport()
         {
             StringBuilder builder = new StringBuilder();
+            builder.AppendLine("PLEASE READ THIS BEFORE YOU SEND:");
+            builder.AppendLine("The attachments contain error messages (errors.log) and info about sync cycles.");
+            builder.AppendLine(
+                "The database (webdav-sync.db) contains info (filenames, metadata) about your synced files and your configuration.");
+            
+            builder.AppendLine("");
             builder.AppendLine("**************************************************");
             builder.AppendLine("ownCloud Universal Windows App - Diagnostic Report");
             builder.AppendLine("**************************************************");
@@ -44,8 +52,8 @@ namespace OwncloudUniversal.Utils
             builder.AppendLine($"Manufacturer: {clientDeviceInformation.SystemManufacturer}");
             builder.AppendLine($"ProductName: {clientDeviceInformation.SystemProductName}");
 
-            var con = NetworkInformation.GetInternetConnectionProfile();
-            builder.AppendLine($"ConnectionProfile: {con?.ProfileName}");
+            var status = await OwnCloud.OcsClient.GetServerStatusAsync(Configuration.ServerUrl);
+            builder.AppendLine($"Server Info: {JsonConvert.SerializeObject(status)}");
             builder.AppendLine("**************************************************");
             Debug.WriteLine(builder.ToString());
             var mail = new EmailMessage
@@ -56,6 +64,9 @@ namespace OwncloudUniversal.Utils
             var logfile = await ApplicationData.Current.LocalFolder.TryGetItemAsync("log.txt");
             if(logfile != null)
                 mail.Attachments.Add(new EmailAttachment("errors.log", (StorageFile)logfile));
+            var db = await ApplicationData.Current.LocalFolder.TryGetItemAsync("webdav-sync.db");
+            if (db != null)
+                mail.Attachments.Add(new EmailAttachment("webdav-sync.db", (StorageFile)db));
             mail.To.Add(new EmailRecipient("adrian.gebhart@live.de", "Adrian Gebhart"));
             await EmailManager.ShowComposeNewEmailAsync(mail);
         }
