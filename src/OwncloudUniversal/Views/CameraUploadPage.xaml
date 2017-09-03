@@ -33,12 +33,12 @@
                        Margin="12"/>
         </Border>
 
-        <ListView Grid.Row="2">
+        <ListView Grid.Row="2" SelectionMode="None">
             <ToggleSwitch x:Uid="CameraUploadToogleSwitch" IsOn="{x:Bind CameraUploadPageViewModel.Enabled, Mode=TwoWay}"/>
             <ToggleSwitch x:Uid="OnlyViaWifi"/>
-            <controls:HeaderedTextBlock x:Uid="UploadPath" Text="{x:Bind CameraUploadPageViewModel.TargetFolder.EntityId, Converter={StaticResource UriToNicePathConverter}}">
+            <controls:HeaderedTextBlock x:Uid="UploadPath"  Text="{x:Bind CameraUploadPageViewModel.TargetFolder.EntityId, Converter={StaticResource UriToNicePathConverter}}">
                 <interactivity:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="Tapped" >
+                    <core:EventTriggerBehavior EventName="PointerPressed" >
                         <core:InvokeCommandAction Command="{x:Bind CameraUploadPageViewModel.SelectFolderCommand}"/>
                     </core:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>

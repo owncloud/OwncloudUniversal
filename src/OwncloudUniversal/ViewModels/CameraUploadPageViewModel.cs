@@ -28,7 +28,7 @@ namespace OwncloudUniversal.ViewModels
         {
             _targetFolder = new DavItem {EntityId = Configuration.CameraUploadTargetFolder};
             _registration = new InstantUploadRegistration();
-            SelectFolderCommand = new DelegateCommand(() => NavigationService.NavigateAsync(typeof(SelectFolderPage), new DavItem {EntityId = Configuration.ServerUrl}, new CommonNavigationTransitionInfo()));
+            SelectFolderCommand = new DelegateCommand(() => NavigationService.NavigateAsync(typeof(SelectFolderPage), new DavItem {EntityId = Configuration.ServerUrl}, new SuppressNavigationTransitionInfo()));
         }
 
         public bool Enabled
