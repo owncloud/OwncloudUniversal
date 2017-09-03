@@ -37,8 +37,11 @@ namespace OwncloudUniversal.ViewModels
             set
             {
                 _registration.Enabled = value;
-                if(value)
+                if (value)
+                {
+                    DeleteCameraUploadAssociation();
                     CreateCameraUploadAssociation();
+                }
                 else
                     DeleteCameraUploadAssociation();
             }
