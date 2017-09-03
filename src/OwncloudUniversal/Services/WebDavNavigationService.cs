@@ -73,7 +73,14 @@ namespace OwncloudUniversal.Services
             if (_instance != null) return _instance;
             _instance = new WebDavNavigationService();
             var item = new DavItem { Href = Configuration.ServerUrl, IsCollection = true };
-            await _instance.NavigateAsync(item);
+            try
+            {
+                await _instance.NavigateAsync(item);
+            }
+            catch (Exception e)
+            {
+                await ExceptionHandlerService.HandleException(e, e.Message);
+            }
             return _instance;
         }
 

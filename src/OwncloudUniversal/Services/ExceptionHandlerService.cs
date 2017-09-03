@@ -19,8 +19,11 @@ namespace OwncloudUniversal.Services
         {
             e.Handled = true;
             var exception = e.Exception;
-            //Debug.WriteLine(exception.GetType());
+            await HandleException(exception, e.Message);
+        }
 
+        public static async Task HandleException(Exception exception, string message)
+        {
             ContentDialog dia = new ContentDialog();
             dia.Content = App.ResourceLoader.GetString("UnhandledExceptionMessage");
             dia.Title = App.ResourceLoader.GetString("Oops");
@@ -51,10 +54,10 @@ namespace OwncloudUniversal.Services
                         dia.Content = App.ResourceLoader.GetString("ServiceUnavailableMessage");
                         break;
                 }
-                if(ex.Message == HttpStatusCode.Forbidden.ToString())
+                if (ex.Message == HttpStatusCode.Forbidden.ToString())
                     dia.Content = App.ResourceLoader.GetString("ForbiddenErrorMessage");
             }
-            await LogHelper.Write($"{e.Exception.GetType()}: {e.Message} \r\n{exception.StackTrace}");
+            await LogHelper.Write($"{exception.GetType()}: {message} \r\n{exception.StackTrace}");
             IndicatorService.GetDefault().HideBar();
             await dia.ShowAsync();
         }
