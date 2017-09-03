@@ -106,10 +106,15 @@ namespace OwncloudUniversal.Synchronization.Model
             using(var query = Connection.Prepare(GetSelectItemQuery()))
             {
                 BindSelectItemQuery(query, key);
-                if(query.Step() == SQLiteResult.ROW)
+                var result = query.Step();
+                if (result == SQLiteResult.ROW)
                 {
                     var item = CreateInstance(query);
                     return item;
+                }
+                else
+                {
+                    LogHelper.Write(Connection.ErrorMessage() + "SQLiteResult:" + result).ConfigureAwait(false);
                 }
             }
             return default(TItem);
@@ -126,10 +131,10 @@ namespace OwncloudUniversal.Synchronization.Model
                 var result = query.Step();
                 if (result != SQLiteResult.DONE)
                 {
-                    Debug.WriteLine(result.ToString());
-                    Debug.WriteLine(query.ToString());
+                    LogHelper.Write(Connection.ErrorMessage() + "SQLiteResult:" + result).ConfigureAwait(false);
                     throw new SQLiteException(result.ToString());
                 }
+
             }
         }
         /// <summary>
@@ -142,7 +147,12 @@ namespace OwncloudUniversal.Synchronization.Model
             using(var query = Connection.Prepare(GetUpdateItemQuery()))
             {
                 BindUpdateItemQuery(query, item, key);
-                query.Step();
+                var result = query.Step();
+                if (result != SQLiteResult.DONE)
+                {
+                    LogHelper.Write(Connection.ErrorMessage() + "SQLiteResult:" + result).ConfigureAwait(false);
+                    throw new SQLiteException(Connection.ErrorMessage());
+                }
             }
         }
 
@@ -155,7 +165,12 @@ namespace OwncloudUniversal.Synchronization.Model
             using(var query = Connection.Prepare(GetDeleteItemQuery()))
             {
                 BindDeleteItemQuery(query, key);
-                query.Step();
+                var result = query.Step();
+                if (result != SQLiteResult.DONE)
+                {
+                    LogHelper.Write(Connection.ErrorMessage() + "SQLiteResult:" + result).ConfigureAwait(false);
+                    throw new SQLiteException(Connection.ErrorMessage());
+                }
             }
         }
         /// <summary>
