@@ -184,6 +184,18 @@ namespace OwncloudUniversal.Synchronization.Configuration
             set => Config.Values["UploadViaWifiOnly"] = value;
         }
 
+        public static bool ShowCamerUploadInfo
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("ShowCamerUploadInfo"))
+                    return (bool)Config.Values["ShowCamerUploadInfo"];
+                return true;
+            }
+
+            set => Config.Values["ShowCamerUploadInfo"] = value;
+        }
+
         public static void Reset()
         {
             ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);

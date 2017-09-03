@@ -114,6 +114,30 @@ namespace OwncloudUniversal.ViewModels
             WebDavNavigationService = await WebDavNavigationService.InintializeAsync();
             WebDavNavigationService.PropertyChanged += WebDavNavigationServiceOnPropertyChanged;
             await Task.Run(() => LoadThumbnails());
+            await ShowCameraUploadInfo();
+        }
+
+        private async Task ShowCameraUploadInfo()
+        {
+            if (Configuration.ShowCamerUploadInfo)
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.VerticalAlignment = VerticalAlignment.Center;
+                dialog.Content = App.ResourceLoader.GetString("CameraUploadInfoText");
+                dialog.PrimaryButtonText = App.ResourceLoader.GetString("yes");
+                dialog.SecondaryButtonText = App.ResourceLoader.GetString("no");
+                var result = await dialog.ShowAsync();
+                if (result == ContentDialogResult.Secondary)
+                {
+                    Configuration.ShowCamerUploadInfo = false;
+                    return;
+                }
+                if (result == ContentDialogResult.Primary)
+                {
+                    Configuration.ShowCamerUploadInfo = false;
+                    await NavigationService.NavigateAsync(typeof(CameraUploadPage), null, new SuppressNavigationTransitionInfo());
+                }
+            }
         }
 
         public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
