@@ -571,48 +571,51 @@
     <value>מוריד {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>נמחק</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>נכשל</value>
   </data>
   <data name="Ignored" xml:space="preserve">
-    <value>Ignored</value>
+    <value>מה שהתעלמו ממנו</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>הועבר</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>התקבל</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>שונה שם</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+    <value>נשלח</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>העלאה ממצלמה</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>תיקייה זו כבר משמשת לסנכרון!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>תיקייה {0} כבר משמשת לסנכרון!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera</value>
+    <value>העלאה מהירה של תמונות שצולמו במצלמה</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>העלאה ממצלמה</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Instant picture uploads</value>
+    <value>העלאת תמונות מהירה</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>Upload pictures via WiFi only</value>
+    <value>העלאת תמונות דרך WiFi בלבד</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>Upload path</value>
+    <value>נתיב העלאה</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
   </data>
 </root>

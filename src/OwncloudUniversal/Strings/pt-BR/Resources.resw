@@ -565,48 +565,51 @@ Você gostaria de baixa-lo agora?</value>
     <value>Baixando {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>Excluído</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Falhou</value>
   </data>
   <data name="Ignored" xml:space="preserve">
-    <value>Ignored</value>
+    <value>Ignorado</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Movido</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Recebido</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Renomeado</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+    <value>Enviar</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Envio da Câmera</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Esta pasta já está em uso para sincronização!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>A pasta {0} já está em uso para sincronização!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera</value>
+    <value>Enviar instantaneamente fotos tiradas com a câmera</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Envio da Câmera</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Instant picture uploads</value>
+    <value>Envio instantâneo de imagem</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>Upload pictures via WiFi only</value>
+    <value>Fazer envio de fotos somente via WiFi</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>Upload path</value>
+    <value>Caminho para envio</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
   </data>
 </root>

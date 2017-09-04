@@ -568,13 +568,13 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Λήψη {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>Διεγράφη</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
   </data>
   <data name="Ignored" xml:space="preserve">
-    <value>Ignored</value>
+    <value>Αγνοήθηκε</value>
   </data>
   <data name="Moved" xml:space="preserve">
     <value>Moved</value>
@@ -586,7 +586,7 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Renamed</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+    <value>Απεσταλμένα</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
     <value>Camera Upload</value>
@@ -598,18 +598,21 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>The folder {0} is already in use for synchronisation!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera</value>
+    <value>Μεταφορτώστε απευθείας φωτογραφίες από την κάμερα</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
     <value>Camera Upload</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Instant picture uploads</value>
+    <value>Στιγμιαίες μεταφορτώσεις εικόνων</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>Upload pictures via WiFi only</value>
+    <value>Μεταφόρτωση εικόνων μόνο μέσω WiFi</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>Upload path</value>
+    <value>Διαδρομή μεταφόρτωσης</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
   </data>
 </root>

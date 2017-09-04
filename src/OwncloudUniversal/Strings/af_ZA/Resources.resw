@@ -571,7 +571,7 @@ Wil u dit nou aflaai?</value>
     <value>Laai tans {0} af</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>Geskrap</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
@@ -589,7 +589,7 @@ Wil u dit nou aflaai?</value>
     <value>Renamed</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+    <value>Gestuur</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
     <value>Camera Upload</value>
@@ -614,5 +614,8 @@ Wil u dit nou aflaai?</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
     <value>Upload path</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
   </data>
 </root>

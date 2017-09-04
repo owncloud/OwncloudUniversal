@@ -571,48 +571,51 @@ Möchten Sie diesen jetzt herunterladen?</value>
     <value>Lade {0} herunter</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>Gelöscht</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Fehlgeschlagen</value>
   </data>
   <data name="Ignored" xml:space="preserve">
-    <value>Ignored</value>
+    <value>Ignoriert</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Verschoben</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Empfangen</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Umbenannt</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+    <value>Gesendet</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Kamera-Upload</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Dieser Ordner wird bereits synchronisiert!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Der Ordner {0} wird bereits als Synchronisationsordner benutzt.</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera</value>
+    <value>Fotos von der Kamera sofort hochladen</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Kamera-Upload</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Instant picture uploads</value>
+    <value>Sofortiger Bilderupload</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>Upload pictures via WiFi only</value>
+    <value>Fotos nur über WiFi hochladen</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>Upload path</value>
+    <value>Pfad für das Hochladen</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
   </data>
 </root>

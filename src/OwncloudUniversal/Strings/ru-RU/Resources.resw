@@ -569,13 +569,13 @@
     <value>Скачивание {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>Удалено</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
   </data>
   <data name="Ignored" xml:space="preserve">
-    <value>Ignored</value>
+    <value>Проигнорирован</value>
   </data>
   <data name="Moved" xml:space="preserve">
     <value>Moved</value>
@@ -587,7 +587,7 @@
     <value>Renamed</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+    <value>Отправленные</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
     <value>Camera Upload</value>
@@ -599,18 +599,21 @@
     <value>The folder {0} is already in use for synchronisation!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera</value>
+    <value>Немедленно загружать фотографии, сделанные камерой</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
     <value>Camera Upload</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Instant picture uploads</value>
+    <value>Мгновенная загрузка фотографий</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>Upload pictures via WiFi only</value>
+    <value>Загрузка изображений только через Wi-Fi</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>Upload path</value>
+    <value>Путь загрузки</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
   </data>
 </root>

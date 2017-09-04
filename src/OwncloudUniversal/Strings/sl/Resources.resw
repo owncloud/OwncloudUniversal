@@ -571,13 +571,13 @@ Would you like to download it now?</value>
     <value>Prejemanje {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
+    <value>Izbrisano</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
   </data>
   <data name="Ignored" xml:space="preserve">
-    <value>Ignored</value>
+    <value>Prezrto</value>
   </data>
   <data name="Moved" xml:space="preserve">
     <value>Moved</value>
@@ -589,7 +589,7 @@ Would you like to download it now?</value>
     <value>Renamed</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+    <value>Poslano</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
     <value>Camera Upload</value>
@@ -601,18 +601,21 @@ Would you like to download it now?</value>
     <value>The folder {0} is already in use for synchronisation!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera</value>
+    <value>Hipno pošiljanje slik, ki so bile zajete s kamero, na strežnik</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
     <value>Camera Upload</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Instant picture uploads</value>
+    <value>Hipno pošiljanje slik</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>Upload pictures via WiFi only</value>
+    <value>Pošiljaj slike le preko povezav Wi-Fi</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>Upload path</value>
+    <value>Mapa za odlaganje slik v oblaku</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
   </data>
 </root>

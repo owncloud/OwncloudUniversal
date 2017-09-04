@@ -570,4 +570,52 @@ Would you like to download it now?</value>
   <data name="DownloadingFile" xml:space="preserve">
     <value>Laddar ner {0}</value>
   </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Raderad</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Ignored" xml:space="preserve">
+    <value>Ignorerad</value>
+  </data>
+  <data name="Moved" xml:space="preserve">
+    <value>Moved</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="Renamed" xml:space="preserve">
+    <value>Renamed</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Skickat</value>
+  </data>
+  <data name="CameraUpload.Text" xml:space="preserve">
+    <value>Camera Upload</value>
+  </data>
+  <data name="FolderAlreadyInUseForSync" xml:space="preserve">
+    <value>This folder is already used for synchronization!</value>
+  </data>
+  <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
+    <value>The folder {0} is already in use for synchronisation!</value>
+  </data>
+  <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
+    <value>Direktuppladning av bilder tagna med kameran</value>
+  </data>
+  <data name="CameraUploadPageHeader.Content" xml:space="preserve">
+    <value>Camera Upload</value>
+  </data>
+  <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
+    <value>Direktuppladdning av kamerabilder</value>
+  </data>
+  <data name="OnlyViaWifi.Header" xml:space="preserve">
+    <value>Ladda upp bilder endast via WiFi</value>
+  </data>
+  <data name="UploadPath.Header" xml:space="preserve">
+    <value>Uppladdningssökväg</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Instantly upload pictures taken by camera?</value>
+  </data>
 </root>
