@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -48,11 +49,11 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
                     IDictionary<string, object> propertyResult = null;
                     if (file.IsOfType(StorageItemTypes.File))
                         propertyResult =
-                            await ((StorageFile) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                            await ((StorageFile)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
                     else if (file.IsOfType(StorageItemTypes.Folder))
                         propertyResult =
-                            await ((StorageFolder) file).Properties.RetrievePropertiesAsync(prefetchedProperties);
-                    var item = new LocalItem(new FolderAssociation {Id = associationId}, file, propertyResult);
+                            await ((StorageFolder)file).Properties.RetrievePropertiesAsync(prefetchedProperties);
+                    var item = new LocalItem(new FolderAssociation { Id = associationId }, file, propertyResult);
 
                     var existingItem = ItemTableModel.GetDefault().GetItem(item);
                     if (existingItem != null)
@@ -76,6 +77,11 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
                 }
             }
 
+            if (files.Count == 0)
+            {
+                await _GetChangedFilesRecursive(folder, association, result);
+            }
+
             if (!IsBackgroundSync)
             {
                 var unsynced =
@@ -87,6 +93,47 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
                     abstractItem.SyncPostponed = false;
                 }
                 result.AddRange(unsynced);
+            }
+        }
+
+        //some users reported that the sync does not find any files
+        //this workaround is used if the SearchIndexer does not yield any results, but it's quite slow
+        private async Task _GetChangedFilesRecursive(StorageFolder folder, FolderAssociation association, List<BaseItem> result)
+        {
+            var items = await folder.GetItemsAsync();
+            foreach (var storageItem in items)
+            {
+                Debug.WriteLine(storageItem.Path);
+                BasicProperties propertyResult = null;
+                if (storageItem.IsOfType(StorageItemTypes.File))
+                    propertyResult =
+                        await ((StorageFile) storageItem).GetBasicPropertiesAsync();
+                else if (storageItem.IsOfType(StorageItemTypes.Folder))
+                    propertyResult =
+                        await ((StorageFolder)storageItem).GetBasicPropertiesAsync();
+
+                var existingItem = ItemTableModel.GetDefault().GetItemFromEntityId(storageItem.Path);
+                DateTime date;
+                if (existingItem != null && DateTime.TryParse(existingItem.ChangeKey, out date))
+                {
+                    int i = date.CompareTo(propertyResult.DateModified.UtcDateTime);
+                    if (i <= 0)
+                    {
+                        
+                        var item = new LocalItem(association, storageItem, propertyResult);
+                        result.Add(item);
+                    }
+                    else continue;
+                }
+                else if(existingItem == null)
+                {
+                    var item = new LocalItem(association, storageItem, propertyResult);
+                    result.Add(item);
+                }
+                if (storageItem.IsOfType(StorageItemTypes.Folder))
+                {
+                    await _GetChangedFilesRecursive((StorageFolder)storageItem, association, result);
+                }
             }
         }
 
@@ -249,8 +296,10 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             {
                 storageItems.Add(new BaseItem{EntityId = storageItem.Path});
             }
+            //if there are no results we assume the SearchIndexer returns wrong result
+            if (sItems.Count == 0)
+                return result;
             var missingItems = existingItems.Except(storageItems, new EnityIdComparer()).ToList();
-            //var fixedPath = sFolder.Path.Replace("USERS", "Users");
             foreach (var missingItem in missingItems)
             {
                 if (missingItem.EntityId == sFolder.Path) continue;
