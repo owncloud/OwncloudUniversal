@@ -616,6 +616,6 @@ Möchten Sie diesen jetzt herunterladen?</value>
     <value>Pfad für das Hochladen</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Fotos von der Kamera sofort hochladen?</value>
   </data>
 </root>

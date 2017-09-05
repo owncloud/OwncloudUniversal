@@ -610,6 +610,6 @@ Você gostaria de baixa-lo agora?</value>
     <value>Caminho para envio</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Enviar instantaneamente fotos tiradas pela câmera?</value>
   </data>
 </root>
