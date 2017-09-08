@@ -557,7 +557,7 @@ Abra una incidencia en: https://github.com/owncloud/OwncloudUniversal/issues o u
     <value>Error desconocido, por favor revise el archivo de log.</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>Para una óptima experiencia en el PC, por favor use el cliente original de escritorio &quot;sync&quot; de Windows.
+    <value>Para una óptima experiencia en el PC, por favor use el cliente original de escritorio "sync" de Windows.
 ¿Desearía descargarlo ahora?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">

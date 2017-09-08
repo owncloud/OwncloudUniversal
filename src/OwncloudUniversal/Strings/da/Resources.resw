@@ -532,10 +532,10 @@ Er du sikker på, at du vil bruge denne mappe?</value>
   <data name="StoreDescription" xml:space="preserve">
     <value>Tilslut din Windows 10-enhed med din ownCloud!
 
-For en optimal oplevelse på PC&apos;en, overvej i stedet at benytte det normale synkroniseringssoftware. Du finder dette her:
+For en optimal oplevelse på PC'en, overvej i stedet at benytte det normale synkroniseringssoftware. Du finder dette her:
 https://owncloud.org/install/#install-clients
 
-Denne app er et project kun udviklet af ownCloud-Community&apos;et og var started af Adrian Gebhart- Check projektet ud på GitHub hvis du har lyst til at deltage i udviklingen: https://github.com/owncloud/OwncloudUniversal
+Denne app er et project kun udviklet af ownCloud-Community'et og var started af Adrian Gebhart- Check projektet ud på GitHub hvis du har lyst til at deltage i udviklingen: https://github.com/owncloud/OwncloudUniversal
 
 Features:
 
@@ -556,7 +556,7 @@ Opret et problem på https://github.com/owncloud/OwncloudUniversal/issues eller 
     <value>Ukendt fejl, check venligst log-filen</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For en optimal oplevelse på PC&apos;en. Prøv venligst den originale Dekstop-klient for Windows.
+    <value>For en optimal oplevelse på PC'en. Prøv venligst den originale Dekstop-klient for Windows.
 Har du lyst til at download denne nu?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">

@@ -562,7 +562,7 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
 Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>Don't show again</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Open file</value>

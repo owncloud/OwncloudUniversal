@@ -602,7 +602,7 @@ Wilt u deze nu downloaden?</value>
     <value>The folder {0} is already in use for synchronisation!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Direct uploaden van foto&apos;s genomen met de camera</value>
+    <value>Direct uploaden van foto's genomen met de camera</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
     <value>Camera Upload</value>

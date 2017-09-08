@@ -572,37 +572,37 @@
     <value>Удалено</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Ошибка</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>Проигнорирован</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Перемещенный</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Полученный</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Переименованный </value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Отправленные</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Загрузка камеры</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Этот каталог уже используется для синхронизации!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Этот каталог {0} уже используется для синхронизации!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
     <value>Немедленно загружать фотографии, сделанные камерой</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Загрузка камеры</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
     <value>Мгновенная загрузка фотографий</value>
@@ -614,6 +614,6 @@
     <value>Путь загрузки</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Сразу загружать снимки, сделанные камерой?</value>
   </data>
 </root>
