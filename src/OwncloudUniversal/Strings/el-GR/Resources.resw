@@ -589,7 +589,7 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Απεσταλμένα</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Μεταφόρτωση κάμερας</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
     <value>This folder is already used for synchronization!</value>
@@ -601,7 +601,7 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Μεταφορτώστε απευθείας φωτογραφίες από την κάμερα</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Μεταφόρτωση κάμερας</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
     <value>Στιγμιαίες μεταφορτώσεις εικόνων</value>
