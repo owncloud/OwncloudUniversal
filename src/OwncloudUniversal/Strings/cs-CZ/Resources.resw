@@ -148,7 +148,7 @@
     <value>Zakázat synchronizaci</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>Ulož jako</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Stahuji...</value>
@@ -555,14 +555,14 @@ Problems?
 Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Neznámá chyba, prosím zkontrolujte logovací soubor</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
 Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don't show again</value>
+    <value>Znovu neukazovat</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Otevřít soubor</value>
@@ -580,13 +580,13 @@ Would you like to download it now?</value>
     <value>Ignorováno</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Přesunuto</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Přijmuto</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Přejmenováno</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Odeslaná</value>
@@ -595,7 +595,7 @@ Would you like to download it now?</value>
     <value>Camera Upload</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Tato složka je již synchronizována!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
     <value>The folder {0} is already in use for synchronisation!</value>
