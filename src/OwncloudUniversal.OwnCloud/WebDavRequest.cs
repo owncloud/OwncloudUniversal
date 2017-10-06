@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Media.SpeechRecognition;
 using Windows.Security.Credentials;
@@ -54,7 +55,7 @@ namespace OwncloudUniversal.OwnCloud
             _httpClient = new HttpClient(filter);
         }
 
-        public async Task<HttpResponseMessage> SendAsync()
+        public async Task<HttpResponseMessage> SendAsync(CancellationToken token = default(CancellationToken), Progress<HttpProgress> progressCallback = null)
         {
             using (var request = new HttpRequestMessage(_method, _requestUrl))
             using (_contentStream)
@@ -71,7 +72,7 @@ namespace OwncloudUniversal.OwnCloud
                 {
                     request.Content = new HttpStreamContent(_contentStream.AsInputStream());
                 }
-                HttpResponseMessage response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                HttpResponseMessage response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead).AsTask(token, progressCallback);
                 return response;
             }
         }

@@ -5,14 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization;
@@ -51,66 +52,60 @@ namespace OwncloudUniversal.OwnCloud
         {
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
-            var downloader = new BackgroundDownloader();
-            downloader.CostPolicy = ExecutionContext.Instance.IsBackgroundTask
-                ? BackgroundTransferCostPolicy.UnrestrictedOnly
-                : BackgroundTransferCostPolicy.Always;
-            downloader.ServerCredential = new PasswordCredential(_serverUrl.ToString(), _credential.UserName, _credential.Password);
-            Progress<DownloadOperation> progressCallback = new Progress<DownloadOperation>(async operation => await OnDownloadProgressChanged(operation));
-            var download = downloader.CreateDownload(url, targetFile);
-            await download.StartAsync().AsTask(progressCallback);
+            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(progress));
+            WebDavRequest request = new WebDavRequest(_credential, url, HttpMethod.Get);
+            var tokenSource = new CancellationTokenSource();
+            var response = await request.SendAsync(tokenSource.Token, progressCallback);
+            if (response.IsSuccessStatusCode)
+            {
+                var inputStream = await response.Content.ReadAsInputStreamAsync();
+                byte[] buffer = new byte[16 * 1024];
+                using (var writingStream = await targetFile.OpenStreamForWriteAsync())
+                using (var readingStream = inputStream.AsStreamForRead(16 * 1024))
+                {
+                    int read = 0;
+                    while ((read = await readingStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                    {
+                        await writingStream.WriteAsync(buffer, 0, read);
+                    }
+                }
+            }
+            else
+            {
+                throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
+            }
+            
         }
 
-        private async Task OnDownloadProgressChanged(DownloadOperation obj)
+        private Task OnHttpProgressChanged(HttpProgress progress)
         {
-            if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
+            if (progress.TotalBytesToReceive > 0)
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,() =>
-                {
-                    ExecutionContext.Instance.BackgroundTransferOperation = obj;
-                    ExecutionContext.Instance.Status = ExecutionStatus.Receiving;
-                });
+                Debug.WriteLine($"{progress.BytesReceived} / {progress.TotalBytesToReceive} - {progress.Stage}");
             }
+            if (progress.TotalBytesToSend > 0)
+            {
+                Debug.WriteLine($"{progress.BytesSent} / {progress.TotalBytesToSend} - {progress.Stage}");
+            }
+            return Task.CompletedTask;
         }
+        
 
         public async Task<DavItem> Upload(Uri url, StorageFile file)
         {
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
-
-            BackgroundUploader uploader = new BackgroundUploader();
-            uploader.CostPolicy = ExecutionContext.Instance.IsBackgroundTask
-                ? BackgroundTransferCostPolicy.UnrestrictedOnly
-                : BackgroundTransferCostPolicy.Always;
-            uploader.Method = "PUT";
-            var buffer = CryptographicBuffer.ConvertStringToBinary(_credential.UserName + ":" + _credential.Password, BinaryStringEncoding.Utf8);
-            var token = CryptographicBuffer.EncodeToBase64String(buffer);
-            var value = new HttpCredentialsHeaderValue("Basic", token);
-            uploader.SetRequestHeader("Authorization", value.ToString());
-
-            var upload = uploader.CreateUpload(url, file);
-            Progress<UploadOperation> progressCallback = new Progress<UploadOperation>(async operation => await OnUploadProgressChanged(operation));
-            var task = upload.StartAsync().AsTask(progressCallback);
-            var task2 = await task.ContinueWith(OnUploadCompleted);
-            return await task2;
-        }
-
-        private async Task OnUploadProgressChanged(UploadOperation obj)
-        {
-            if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
+            var stream = await file.OpenStreamForReadAsync();
+            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(progress));
+            var tokenSource = new CancellationTokenSource();
+            var postRequest = new WebDavRequest(_credential, url, HttpMethod.Put, stream);
+            var response = await postRequest.SendAsync(tokenSource.Token, progressCallback);
+            if (response.IsSuccessStatusCode)
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    ExecutionContext.Instance.BackgroundTransferOperation = obj;
-                    ExecutionContext.Instance.Status = ExecutionStatus.Sending;
-                });
+                var items = await ListFolder(url);
+                return items.FirstOrDefault();
             }
-        }
-
-        private async Task<DavItem> OnUploadCompleted(Task<UploadOperation> task)
-        {
-            var upload = await task;
-            return (await ListFolder(upload.RequestedUri)).FirstOrDefault();
+            throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
         }
 
         public async Task Delete(Uri url)
