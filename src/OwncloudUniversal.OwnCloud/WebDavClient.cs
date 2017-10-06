@@ -17,7 +17,9 @@ using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization;
+using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.Synchronization.Processing;
+using ExecutionContext = OwncloudUniversal.Synchronization.Processing.ExecutionContext;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
 namespace OwncloudUniversal.OwnCloud
@@ -52,13 +54,14 @@ namespace OwncloudUniversal.OwnCloud
         {
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
-            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(progress));
-            WebDavRequest request = new WebDavRequest(_credential, url, HttpMethod.Get);
             var tokenSource = new CancellationTokenSource();
+            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(tokenSource, progress));
+            WebDavRequest request = new WebDavRequest(_credential, url, HttpMethod.Get);
+            
             var response = await request.SendAsync(tokenSource.Token, progressCallback);
             if (response.IsSuccessStatusCode)
             {
-                var inputStream = await response.Content.ReadAsInputStreamAsync();
+                var inputStream = await response.Content.ReadAsInputStreamAsync().AsTask();
                 byte[] buffer = new byte[16 * 1024];
                 using (var writingStream = await targetFile.OpenStreamForWriteAsync())
                 using (var readingStream = inputStream.AsStreamForRead(16 * 1024))
@@ -77,8 +80,12 @@ namespace OwncloudUniversal.OwnCloud
             
         }
 
-        private Task OnHttpProgressChanged(HttpProgress progress)
+        private async Task OnHttpProgressChanged(CancellationTokenSource tokenSource, HttpProgress progress)
         {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                ExecutionContext.Instance.TransferOperation = new TransferOperation(progress, tokenSource);
+            });
             if (progress.TotalBytesToReceive > 0)
             {
                 Debug.WriteLine($"{progress.BytesReceived} / {progress.TotalBytesToReceive} - {progress.Stage}");
@@ -87,7 +94,6 @@ namespace OwncloudUniversal.OwnCloud
             {
                 Debug.WriteLine($"{progress.BytesSent} / {progress.TotalBytesToSend} - {progress.Stage}");
             }
-            return Task.CompletedTask;
         }
         
 
@@ -96,8 +102,8 @@ namespace OwncloudUniversal.OwnCloud
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
             var stream = await file.OpenStreamForReadAsync();
-            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(progress));
             var tokenSource = new CancellationTokenSource();
+            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(tokenSource, progress));
             var postRequest = new WebDavRequest(_credential, url, HttpMethod.Put, stream);
             var response = await postRequest.SendAsync(tokenSource.Token, progressCallback);
             if (response.IsSuccessStatusCode)

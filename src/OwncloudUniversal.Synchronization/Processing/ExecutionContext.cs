@@ -2,6 +2,9 @@
 using System.Net;
 using System.Runtime.CompilerServices;
 using Windows.Networking.BackgroundTransfer;
+using Windows.Web.Http;
+using OwncloudUniversal.Synchronization.Model;
+
 
 namespace OwncloudUniversal.Synchronization.Processing
 {
@@ -11,7 +14,7 @@ namespace OwncloudUniversal.Synchronization.Processing
         private int _currentFileNumber;
         private string _currentFileName;
         private ExecutionStatus _status;
-        private IBackgroundTransferOperation _backgroundTransferOperation;
+        private TransferOperation _transferOperation;
         private static ExecutionContext _instance;
 
         public static ExecutionContext Instance => _instance ?? (_instance = new ExecutionContext());
@@ -69,16 +72,16 @@ namespace OwncloudUniversal.Synchronization.Processing
             }  
         }
 
-        public IBackgroundTransferOperation BackgroundTransferOperation
+        public TransferOperation TransferOperation
         {
-            get { return _backgroundTransferOperation; }
+            get { return _transferOperation; }
             set
             {
-                _backgroundTransferOperation = value;
+                _transferOperation = value;
                 OnPropertyChanged();
             }
         }
-
+        
         public bool IsActive => !(Status == ExecutionStatus.Finished || Status == ExecutionStatus.Ready || Status == ExecutionStatus.Stopped || Status == ExecutionStatus.Error);
 
         public bool ShowProgress => Status == ExecutionStatus.Sending || Status == ExecutionStatus.Receiving;

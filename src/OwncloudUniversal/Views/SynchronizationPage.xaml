@@ -36,17 +36,17 @@
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"
                                     Visibility="{Binding ExecutionContext.ShowProgress, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <TextBlock Text="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToCompletedConverter}}" />
+                            <TextBlock Text="{Binding ExecutionContext.TransferOperation.HttpProgress, Converter={StaticResource ProgressToCompletedConverter}}" />
                             <TextBlock x:Uid="OutOf" Margin="8, 0" />
-                            <TextBlock Text="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToTotalConverter}}" />
+                            <TextBlock Text="{Binding ExecutionContext.TransferOperation.HttpProgress, Converter={StaticResource ProgressToTotalConverter}}" />
                         </StackPanel>
-                        
-                        <TextBlock Grid.Column="1" Text="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToPercentConverter}}" 
+
+                        <TextBlock Grid.Column="1" Text="{Binding ExecutionContext.TransferOperation.HttpProgress, Converter={StaticResource ProgressToPercentConverter}}" 
                                    HorizontalAlignment="Right"/>
                     </Grid>
 
                     <ProgressBar Minimum="0" Maximum="100"
-                                 Value="{Binding ExecutionContext.BackgroundTransferOperation.Progress, Converter={StaticResource ProgressToPercentConverter}}"
+                                 Value="{Binding ExecutionContext.TransferOperation.HttpProgress, Converter={StaticResource ProgressToPercentConverter}}"
                                  IsIndeterminate="{Binding ExecutionContext.IsActive}"
                                  Visibility="{Binding ExecutionContext.IsActive, Converter={StaticResource BoolToVisibilityConverter}}"
                                  Foreground="{ThemeResource ContrastColorBrush}"
