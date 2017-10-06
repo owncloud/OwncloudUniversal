@@ -574,40 +574,40 @@ Vil du laste den ned nå?</value>
     <value>Slettet</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Feilet</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>Ignorert</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Flyttet</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Mottatt</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Omdøpt</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Sendt</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Kameraopplasting</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Denne mappen brukes til synkronisering allerede!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Mappen {0} brukes allerede til synkronisering!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Last opp bilder tatt av kameraet umiddelbart</value>
+    <value>Direkte opplasting av bilder tatt med kameraet</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Kameraopplasting</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Umiddelbare bildeopplastninger</value>
+    <value>Direkte bildeopplastninger</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
     <value>Kun last opp bilder via WiFi</value>
@@ -616,6 +616,6 @@ Vil du laste den ned nå?</value>
     <value>Opplastings-sti</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Last opp bilder direkte når de tas med kamera?</value>
   </data>
 </root>

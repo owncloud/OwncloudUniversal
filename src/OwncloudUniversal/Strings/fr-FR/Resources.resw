@@ -157,10 +157,10 @@
     <value>Synchonisation automatique</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>Agent d&apos;arrière plan désactivé</value>
+    <value>Agent d'arrière plan désactivé</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>Agent d&apos;arrière plan activé</value>
+    <value>Agent d'arrière plan activé</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
     <value>Fichiers</value>
@@ -205,7 +205,7 @@
     <value>Lumineux</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Réinitialiser l&apos;application</value>
+    <value>Réinitialiser l'application</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
     <value>Paramètres</value>
@@ -217,7 +217,7 @@
     <value>Bouton retour</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
-    <value>Le bouton retour est dans l&apos;en-tête de la page</value>
+    <value>Le bouton retour est dans l'en-tête de la page</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
     <value>Le bouton retour est dans le Titre/Bare de titre</value>
@@ -247,7 +247,7 @@
     <value>Mettre en ligne des fichiers</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
-    <value>Nom d&apos;utilisateur</value>
+    <value>Nom d'utilisateur</value>
   </data>
   <data name="WebDavUrl.Header" xml:space="preserve">
     <value>WebDav-Url</value>
@@ -304,16 +304,16 @@
     <value>Adresse du serveur</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Le serveur n&apos;as pas été trouvé. Vérifier l&apos;URL et votre connection internet.</value>
+    <value>Le serveur n'as pas été trouvé. Vérifier l'URL et votre connection internet.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
-    <value>Une erreur interne s&apos;est produite dans le serveur.</value>
+    <value>Une erreur interne s'est produite dans le serveur.</value>
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
-    <value>La ressource demandée n&apos;as pas été trouvée</value>
+    <value>La ressource demandée n'as pas été trouvée</value>
   </data>
   <data name="ServiceUnavailableMessage" xml:space="preserve">
-    <value>Le service n&apos;est pas disponible pour l&apos;instant</value>
+    <value>Le service n'est pas disponible pour l'instant</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
     <value>La connection à échouée</value>
@@ -376,19 +376,19 @@
     <value>Synchonisation automatique</value>
   </data>
   <data name="InSecureConnectionSuccessful" xml:space="preserve">
-    <value>Connection réussie. Attention : la connection n&apos;est pas encryptée !</value>
+    <value>Connection réussie. Attention : la connection n'est pas encryptée !</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
-    <value>Nom d&apos;utilisateur ou mot de passe invalide.</value>
+    <value>Nom d'utilisateur ou mot de passe invalide.</value>
   </data>
   <data name="MaintenanceIsEnabled" xml:space="preserve">
-    <value>Le serveur est en maintenance ou l&apos;instalation est incomplête. Essayer à nouveau dans un moment ou contacter votre administrateur réseau.</value>
+    <value>Le serveur est en maintenance ou l'instalation est incomplête. Essayer à nouveau dans un moment ou contacter votre administrateur réseau.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Voulez-vous vraiment réinitailiser l&apos;application ?</value>
+    <value>Voulez-vous vraiment réinitailiser l'application ?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>S&apos;il vous plaît, relancez l&apos;application.</value>
+    <value>S'il vous plaît, relancez l'application.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>Connection sécuriser établie avec succés !</value>
@@ -397,7 +397,7 @@
     <value>octets</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Une erreur est survenue. Merci de relancer l&apos;application puis de réessayer.</value>
+    <value>Une erreur est survenue. Merci de relancer l'application puis de réessayer.</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Modifications en cours de traitement</value>
@@ -418,7 +418,7 @@
     <value>En recherche de changements</value>
   </data>
   <data name="Sending" xml:space="preserve">
-    <value>En cours d&apos;envoi</value>
+    <value>En cours d'envoi</value>
   </data>
   <data name="Stopped" xml:space="preserve">
     <value>Annulé</value>
@@ -454,20 +454,20 @@
     <value>Démarer la synchronisation</value>
   </data>
   <data name="SyncWarning" xml:space="preserve">
-    <value>Il est recommandé de connecter votre appareil à un réseau WiFi et un chargeur secteur car la synchronisation peut prendre un temps certain et l&apos;affichage restera actif.
+    <value>Il est recommandé de connecter votre appareil à un réseau WiFi et un chargeur secteur car la synchronisation peut prendre un temps certain et l'affichage restera actif.
 Êtes-vous sûr de vouloir démarrer maintenant la synchronisation ?</value>
   </data>
   <data name="ForbiddenErrorMessage" xml:space="preserve">
     <value>Le serveur ne permet pas cette opération.</value>
   </data>
   <data name="NotIndexedError" xml:space="preserve">
-    <value>Attention : le dossier choisi n&apos;est pas indexé par Windows Search.
+    <value>Attention : le dossier choisi n'est pas indexé par Windows Search.
 
 Ceci peut induire un comportement inattendu.
 Êtes-vous sûr de vouloir utiliser ce dossier ?</value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
-    <value>Attention : le dossier choisi n&apos;est que partiellement indexé par Windows Search.
+    <value>Attention : le dossier choisi n'est que partiellement indexé par Windows Search.
 
 Ceci peut induire un comportement inattendu.
 Êtes-vous sûr de vouloir utiliser ce dossier ?</value>
@@ -489,9 +489,9 @@ Ceci peut induire un comportement inattendu.
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
     <value>La synchronisation démarrera en tâche de fond si les conditions suivantes sont réunies : 
-- L&apos;appareil est connecté à un chargeur secteur.
-- L&apos;appareil est connecté à un réseau WiFi.
-- L&apos;appareil n&apos;est pas utilisé.</value>
+- L'appareil est connecté à un chargeur secteur.
+- L'appareil est connecté à un réseau WiFi.
+- L'appareil n'est pas utilisé.</value>
   </data>
   <data name="justNow" xml:space="preserve">
     <value>Tout de suite</value>
@@ -562,7 +562,7 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
 Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don&apos;t show again</value>
+    <value>Don't show again</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Ouvrir le fichier</value>

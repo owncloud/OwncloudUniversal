@@ -575,37 +575,37 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ลบแล้ว</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>ล้มเหลว</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>ถูกละเว้น</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>ย้ายแล้ว</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>ได้รับแล้ว</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>เปลี่ยนชื่อแล้ว</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>ส่ง</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>อัพโหลดรูป</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>โฟลเดอร์นี้ได้ถูกประสานข้อมูลแล้ว!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>โฟลเดอร์ {0} ได้ถูกประสานข้อมูลแล้ว!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
     <value>อัพโหลดรูปภาพที่ถ่ายโดยกล้องทันที</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>อัพโหลดรูป</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
     <value>อัพโหลดรูปภาพทันที</value>
@@ -617,6 +617,6 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ตำแหน่งพาธสำหรับอัพโหลด</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>อัพโหลดรูปภาพทันที?</value>
   </data>
 </root>

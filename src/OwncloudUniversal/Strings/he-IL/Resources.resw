@@ -616,6 +616,6 @@
     <value>נתיב העלאה</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>להעלות באופן מיידי תמונות שצולמו על ידי המצלמה?</value>
   </data>
 </root>

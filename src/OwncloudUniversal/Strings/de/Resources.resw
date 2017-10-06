@@ -612,6 +612,6 @@ Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/Owncloud
     <value>Pfad für das Hochladen</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Fotos von der Kamera sofort hochladen?</value>
   </data>
 </root>
