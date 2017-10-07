@@ -574,48 +574,48 @@ Wil u dit nou aflaai?</value>
     <value>Geskrap</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Misluk</value>
   </data>
   <data name="Ignored" xml:space="preserve">
-    <value>Ignored</value>
+    <value>Geïgnoreer</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Geskuif</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Ontvang</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Hernoem</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Gestuur</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Kamera-oplaai</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Hierdie vouer word reeds vir sinchronisering gebruik!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Die vouer {0} word reeds vir sinchronisering gebruik!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera</value>
+    <value>Laai kamerabeelde in ’n japtrap op</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Kamera-oplaai</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Instant picture uploads</value>
+    <value>Kitsbeeldoplaai</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>Upload pictures via WiFi only</value>
+    <value>Laai slegs beelde d.m.v. Wi-Fi op</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>Upload path</value>
+    <value>Oplaaipad</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Laai kamerabeelde in ’n japtrap op?</value>
   </data>
 </root>
