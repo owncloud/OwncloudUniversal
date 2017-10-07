@@ -4,15 +4,20 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Storage;
+using Windows.UI.Core;
+using Windows.Web.Http;
 using OwncloudUniversal.Model;
 using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Configuration;
 using OwncloudUniversal.Synchronization.Model;
+using OwncloudUniversal.Synchronization.Processing;
+using ExecutionContext = OwncloudUniversal.Synchronization.Processing.ExecutionContext;
 
 namespace OwncloudUniversal.OwnCloud
 {
@@ -61,10 +66,26 @@ namespace OwncloudUniversal.OwnCloud
                     return existingItem;
                 }
                 var file = await StorageFile.GetFileFromPathAsync(localItem.EntityId);
-                resultItem = await _davClient.Upload(new Uri(filePath, UriKind.RelativeOrAbsolute), file);
+                var progress = new Progress<HttpProgress>(OnHttpProgressChanged);
+                resultItem = await _davClient.Upload(new Uri(filePath, UriKind.RelativeOrAbsolute), file, CancellationToken.None, progress);
                 resultItem.Association = localItem.Association;
             }
             return resultItem;
+        }
+
+        private async void OnHttpProgressChanged(HttpProgress httpProgress)
+        {
+            if (Windows.ApplicationModel.Core.CoreApplication.Views.Count > 0)
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ExecutionContext.Instance.TransferOperation = new TransferOperationInfo(httpProgress, null);
+                    if(httpProgress.Stage == HttpProgressStage.ReceivingContent)
+                        ExecutionContext.Instance.Status = ExecutionStatus.Receiving;
+                    if (httpProgress.Stage == HttpProgressStage.SendingContent)
+                        ExecutionContext.Instance.Status = ExecutionStatus.Sending;
+                });
+            }
         }
 
         public override async Task<BaseItem> UpdateItem(BaseItem item)
@@ -75,12 +96,12 @@ namespace OwncloudUniversal.OwnCloud
                 return await GetItemInfos(path);
             }
             BaseItem targetItem = null;
+            var progress = new Progress<HttpProgress>(OnHttpProgressChanged);
             var folderPath = _BuildRemoteFilePath(item.Association, item.EntityId);
             await CreateFolder(item.Association, item, Path.GetDirectoryName(item.EntityId));
             var file = await StorageFile.GetFileFromPathAsync(item.EntityId);
-            targetItem = await _davClient.Upload(new Uri(folderPath, UriKind.RelativeOrAbsolute), file);
+            targetItem = await _davClient.Upload(new Uri(folderPath, UriKind.RelativeOrAbsolute), file, CancellationToken.None, progress);
             targetItem.Association = item.Association;
-
             return targetItem;
         }
 
@@ -280,7 +301,8 @@ namespace OwncloudUniversal.OwnCloud
             var server = new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute);
             var itemUri = new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute);
             var uri = new Uri(server, itemUri);
-            await _davClient.Download(uri, (StorageFile) targetItem);
+            var progress = new Progress<HttpProgress>(OnHttpProgressChanged);
+            await _davClient.Download(uri, (StorageFile) targetItem, CancellationToken.None, progress);
         }
     }
 }

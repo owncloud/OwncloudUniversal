@@ -14,7 +14,7 @@ namespace OwncloudUniversal.Synchronization.Processing
         private int _currentFileNumber;
         private string _currentFileName;
         private ExecutionStatus _status;
-        private TransferOperation _transferOperation;
+        private TransferOperationInfo _transferOperation;
         private static ExecutionContext _instance;
 
         public static ExecutionContext Instance => _instance ?? (_instance = new ExecutionContext());
@@ -72,7 +72,7 @@ namespace OwncloudUniversal.Synchronization.Processing
             }  
         }
 
-        public TransferOperation TransferOperation
+        public TransferOperationInfo TransferOperation
         {
             get { return _transferOperation; }
             set

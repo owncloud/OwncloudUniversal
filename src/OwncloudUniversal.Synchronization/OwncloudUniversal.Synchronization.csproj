@@ -125,7 +125,7 @@
     <Compile Include="Model\SyncHistoryEntry.cs" />
     <Compile Include="Model\SyncHistoryTableModel.cs" />
     <Compile Include="Model\SyncResult.cs" />
-    <Compile Include="Model\TransferOperation.cs" />
+    <Compile Include="Model\TransferOperationInfo.cs" />
     <Compile Include="Processing\BackgroundSyncProcess.cs" />
     <Compile Include="Processing\EnityIdComparer.cs" />
     <Compile Include="Processing\ExecutionContext.cs" />

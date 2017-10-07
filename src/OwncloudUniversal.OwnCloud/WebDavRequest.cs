@@ -72,7 +72,7 @@ namespace OwncloudUniversal.OwnCloud
                 {
                     request.Content = new HttpStreamContent(_contentStream.AsInputStream());
                 }
-                HttpResponseMessage response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseContentRead).AsTask(token, progressCallback);
+                HttpResponseMessage response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead).AsTask(token, progressCallback);
                 return response;
             }
         }

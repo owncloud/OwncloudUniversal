@@ -4,12 +4,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.Web.Http;
@@ -19,6 +22,7 @@ using OwncloudUniversal.OwnCloud.Model;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.Model;
 using OwncloudUniversal.Synchronization.Processing;
+using Buffer = Windows.Storage.Streams.Buffer;
 using ExecutionContext = OwncloudUniversal.Synchronization.Processing.ExecutionContext;
 using HttpStatusCode = Windows.Web.Http.HttpStatusCode;
 
@@ -50,27 +54,32 @@ namespace OwncloudUniversal.OwnCloud
             throw new WebDavException(response.StatusCode, response.ReasonPhrase, null);
         }
 
-        public async Task Download(Uri url, StorageFile targetFile)
+        public async Task Download(Uri url, StorageFile targetFile, CancellationToken token, Progress<HttpProgress> progress)
         {
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
-            var tokenSource = new CancellationTokenSource();
-            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(tokenSource, progress));
             WebDavRequest request = new WebDavRequest(_credential, url, HttpMethod.Get);
-            
-            var response = await request.SendAsync(tokenSource.Token, progressCallback);
+            var response = await request.SendAsync(token, progress);
             if (response.IsSuccessStatusCode)
             {
-                var inputStream = await response.Content.ReadAsInputStreamAsync().AsTask();
-                byte[] buffer = new byte[16 * 1024];
+                var inputStream = await response.Content.ReadAsInputStreamAsync();
+                IBuffer buffer = new Buffer(16*1024);
+               
                 using (var writingStream = await targetFile.OpenStreamForWriteAsync())
-                using (var readingStream = inputStream.AsStreamForRead(16 * 1024))
                 {
-                    int read = 0;
-                    while ((read = await readingStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                    ulong received = 0;
+                    do
                     {
-                        await writingStream.WriteAsync(buffer, 0, read);
-                    }
+                        buffer = await inputStream.ReadAsync(buffer, buffer.Capacity, InputStreamOptions.ReadAhead).AsTask(token);
+                        received += buffer.Length;
+                        await writingStream.WriteAsync(buffer.ToArray(), 0, (int)buffer.Length, token);
+                        ((IProgress<HttpProgress>)progress).Report(new HttpProgress
+                        {
+                            BytesReceived = received,
+                            TotalBytesToReceive = response.Content.Headers.ContentLength,
+                            Stage = HttpProgressStage.ReceivingContent
+                        });
+                    } while (buffer.Length > 0);
                 }
             }
             else
@@ -79,33 +88,14 @@ namespace OwncloudUniversal.OwnCloud
             }
             
         }
-
-        private async Task OnHttpProgressChanged(CancellationTokenSource tokenSource, HttpProgress progress)
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                ExecutionContext.Instance.TransferOperation = new TransferOperation(progress, tokenSource);
-            });
-            if (progress.TotalBytesToReceive > 0)
-            {
-                Debug.WriteLine($"{progress.BytesReceived} / {progress.TotalBytesToReceive} - {progress.Stage}");
-            }
-            if (progress.TotalBytesToSend > 0)
-            {
-                Debug.WriteLine($"{progress.BytesSent} / {progress.TotalBytesToSend} - {progress.Stage}");
-            }
-        }
         
-
-        public async Task<DavItem> Upload(Uri url, StorageFile file)
+        public async Task<DavItem> Upload(Uri url, StorageFile file, CancellationToken token, Progress<HttpProgress> progress)
         {
             if (!url.IsAbsoluteUri)
                 url = new Uri(_serverUrl, url);
             var stream = await file.OpenStreamForReadAsync();
-            var tokenSource = new CancellationTokenSource();
-            Progress<HttpProgress> progressCallback = new Progress<HttpProgress>(async progress => await OnHttpProgressChanged(tokenSource, progress));
             var postRequest = new WebDavRequest(_credential, url, HttpMethod.Put, stream);
-            var response = await postRequest.SendAsync(tokenSource.Token, progressCallback);
+            var response = await postRequest.SendAsync(token, progress);
             if (response.IsSuccessStatusCode)
             {
                 var items = await ListFolder(url);
