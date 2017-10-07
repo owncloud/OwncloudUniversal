@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Storage;
 using Windows.UI.Core;

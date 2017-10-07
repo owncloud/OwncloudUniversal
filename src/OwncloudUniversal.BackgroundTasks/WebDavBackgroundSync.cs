@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Notifications;
 using OwncloudUniversal.Synchronization.LocalFileSystem;
 using OwncloudUniversal.OwnCloud;

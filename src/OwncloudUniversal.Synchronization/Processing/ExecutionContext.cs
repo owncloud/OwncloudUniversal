@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Net;
 using System.Runtime.CompilerServices;
-using Windows.Networking.BackgroundTransfer;
 using Windows.Web.Http;
 using OwncloudUniversal.Synchronization.Model;
 

@@ -79,6 +79,8 @@ namespace OwncloudUniversal.OwnCloud
                             TotalBytesToReceive = response.Content.Headers.ContentLength,
                             Stage = HttpProgressStage.ReceivingContent
                         });
+                        if(token.IsCancellationRequested)
+                            return;
                     } while (buffer.Length > 0);
                 }
             }
