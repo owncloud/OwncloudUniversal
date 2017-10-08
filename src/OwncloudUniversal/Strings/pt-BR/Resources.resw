@@ -612,4 +612,16 @@ Você gostaria de baixa-lo agora?</value>
   <data name="CameraUploadInfoText" xml:space="preserve">
     <value>Enviar instantaneamente fotos tiradas pela câmera?</value>
   </data>
+  <data name="UploadingFile" xml:space="preserve">
+    <value>Uploading {0}</value>
+  </data>
+  <data name="InvalidCA" xml:space="preserve">
+    <value>The certification authority is invalid or incorrect.</value>
+  </data>
+  <data name="TrustCertificateQuestion" xml:space="preserve">
+    <value>Do you still want to trust the certificate?</value>
+  </data>
+  <data name="Fingerprint" xml:space="preserve">
+    <value>fingerprint</value>
+  </data>
 </root>
