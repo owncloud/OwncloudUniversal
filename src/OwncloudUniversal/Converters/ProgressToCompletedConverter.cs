@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Xaml.Data;
+using Windows.Web.Http;
 
 namespace OwncloudUniversal.Converters
 {
@@ -13,15 +13,13 @@ namespace OwncloudUniversal.Converters
         private readonly BytesToSuffixConverter _byteConverter = new BytesToSuffixConverter();
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is BackgroundDownloadProgress)
+            if (value is HttpProgress progress)
             {
-                var bytes = ((BackgroundDownloadProgress)value).BytesReceived;
-                return _byteConverter.Convert(bytes, null, null, string.Empty);
-            }
-            if (value is BackgroundUploadProgress)
-            {
-                var bytes = ((BackgroundUploadProgress)value).BytesSent;
-                return _byteConverter.Convert(bytes, null, null, string.Empty);
+                if (progress.TotalBytesToReceive > 0)
+                    return _byteConverter.Convert(progress.BytesReceived, null, null, string.Empty);
+                
+                if (progress.TotalBytesToSend > 0)
+                    return _byteConverter.Convert(progress.BytesSent, null, null, string.Empty);
             }
             return 0;
         }

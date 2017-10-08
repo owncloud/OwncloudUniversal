@@ -7,10 +7,12 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Media.SpeechRecognition;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Certificates;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
@@ -51,10 +53,11 @@ namespace OwncloudUniversal.OwnCloud
             var filter = new HttpBaseProtocolFilter {AllowUI = false};
             if(networkCredential.UserName != string.Empty && networkCredential.Password != string.Empty)
                 filter.ServerCredential = new PasswordCredential(requestUrl.DnsSafeHost, networkCredential.UserName, networkCredential.Password);
+            filter.IgnorableServerCertificateErrors.Add(ChainValidationResult.InvalidName);//when a self signed cert was allowed by the user it might still have a wrong name (demo vm for example with a dynamic ip)
             _httpClient = new HttpClient(filter);
         }
 
-        public async Task<HttpResponseMessage> SendAsync()
+        public async Task<HttpResponseMessage> SendAsync(CancellationToken token = default(CancellationToken), Progress<HttpProgress> progressCallback = null)
         {
             using (var request = new HttpRequestMessage(_method, _requestUrl))
             using (_contentStream)
@@ -71,7 +74,7 @@ namespace OwncloudUniversal.OwnCloud
                 {
                     request.Content = new HttpStreamContent(_contentStream.AsInputStream());
                 }
-                HttpResponseMessage response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                HttpResponseMessage response = await _httpClient.SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead).AsTask(token, progressCallback);
                 return response;
             }
         }

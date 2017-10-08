@@ -125,6 +125,7 @@
     <Compile Include="Model\SyncHistoryEntry.cs" />
     <Compile Include="Model\SyncHistoryTableModel.cs" />
     <Compile Include="Model\SyncResult.cs" />
+    <Compile Include="Model\TransferOperationInfo.cs" />
     <Compile Include="Processing\BackgroundSyncProcess.cs" />
     <Compile Include="Processing\EnityIdComparer.cs" />
     <Compile Include="Processing\ExecutionContext.cs" />
@@ -148,7 +149,7 @@
     <Reference Include="SQLitePCL.Ext, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>%USERPROFILE%\.nuget\packages\SQLitePCL\3.8.7.2\build\netcore451\SQLitePCL.Ext.dll</HintPath>
-    </Reference>   
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

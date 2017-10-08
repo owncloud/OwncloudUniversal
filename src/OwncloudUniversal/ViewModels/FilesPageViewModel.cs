@@ -13,7 +13,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
-using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
@@ -55,10 +54,10 @@ namespace OwncloudUniversal.ViewModels
         public FilesPageViewModel()
         {
             _syncedFolderService = new SyncedFoldersService();
-            UploadItemCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync(typeof(FileTransferPage), WebDavNavigationService.CurrentItem, new SuppressNavigationTransitionInfo()) );   
+            UploadItemCommand = new DelegateCommand(async () => await UploadFilesAsync() );   
             RefreshCommand = new DelegateCommand(async () => await WebDavNavigationService.ReloadAsync());
             AddToSyncCommand = new DelegateCommand<object>(async parameter => await RegisterFolderForSync(parameter));
-            DownloadCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(FileTransferPage), FilesPage.GetSelectedItems(item), new SuppressNavigationTransitionInfo()));
+            DownloadCommand = new DelegateCommand<DavItem>(async item => await DownloadFilesAsync(FilesPage.GetSelectedItems(item)));
             DeleteCommand = new DelegateCommand<DavItem>(async item => await DeleteItems(FilesPage.GetSelectedItems(item)));
             SwitchSelectionModeCommand = new DelegateCommand(() => SelectionMode = SelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.Single : ListViewSelectionMode.Multiple);
             ShowPropertiesCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(DetailsPage), item, new SuppressNavigationTransitionInfo()));
@@ -346,38 +345,138 @@ namespace OwncloudUniversal.ViewModels
         {
             try
             {
-                var operations = await WebDavItemService.GetDefault()
-                    .CreateDownloadAsync(new List<BaseItem> {item}, ApplicationData.Current.TemporaryFolder);
-                var operation = operations.FirstOrDefault();
-                var token = new CancellationTokenSource();
+                var tokenSource = new CancellationTokenSource();
                 var button = new Button();
                 button.Content = App.ResourceLoader.GetString("Cancel");
                 button.HorizontalAlignment = HorizontalAlignment.Center;
-                button.Command = new DelegateCommand(() => { token.Cancel(false); });
-                var callback = new Progress<DownloadOperation>(async downloadOperation =>
+                button.Command = new DelegateCommand(() =>
+                {
+                    tokenSource.Cancel(false);
+                    IndicatorService.GetDefault().HideBar();
+                });
+                var progress = new Progress<HttpProgress>(async httpProgress =>
                 {
                     await Dispatcher.DispatchAsync(() =>
                     {
                         var text = string.Format(App.ResourceLoader.GetString("DownloadingFile"), item.DisplayName);
-                        text += " - " + new ProgressToPercentConverter().Convert(downloadOperation.Progress, null, null, null);
+                        text += " - " + new ProgressToPercentConverter().Convert(httpProgress, null, null, null);
                         IndicatorService.GetDefault().ShowBar(text, button);
                     });
                 });
-                var task = operation.StartAsync().AsTask(token.Token, callback);
-                await task.ContinueWith(async downloadTask =>
+                var file = await WebDavItemService.GetDefault().DownloadAsync(item, ApplicationData.Current.TemporaryFolder, tokenSource.Token, progress);
+                if(!tokenSource.IsCancellationRequested)
+                    await Launcher.LaunchFileAsync(file);
+            }
+            finally
+            {
+                IndicatorService.GetDefault().HideBar();
+            }
+        }
+
+        private async Task DownloadFilesAsync(List<DavItem> files)
+        {
+            FolderPicker picker = new FolderPicker();
+            picker.FileTypeFilter.Add(".");
+            picker.SuggestedStartLocation = PickerLocationId.Downloads;
+            var folder = await picker.PickSingleFolderAsync();
+
+            var tokenSource = new CancellationTokenSource();
+            var button = new Button();
+            button.Content = App.ResourceLoader.GetString("Cancel");
+            button.HorizontalAlignment = HorizontalAlignment.Center;
+            button.Command = new DelegateCommand(() =>
+            {
+                tokenSource.Cancel(false);
+                IndicatorService.GetDefault().HideBar();
+            });
+
+            try
+            {
+                foreach (var fileToDownload in files)
                 {
-                    var download = await downloadTask;
-                    await Dispatcher.DispatchAsync(async () =>
+                    if (tokenSource.IsCancellationRequested)
                     {
-                        await Launcher.LaunchFileAsync(download.ResultFile);
+                        IndicatorService.GetDefault().HideBar();
+                        SelectionMode = ListViewSelectionMode.Single;
+                        return;
+                    }
+                    var progress = new Progress<HttpProgress>(async httpProgress =>
+                    {
+                        if(tokenSource.IsCancellationRequested)
+                            return;
+                        await Dispatcher.DispatchAsync(() =>
+                        {
+                            var text = string.Format(App.ResourceLoader.GetString("DownloadingFile"), fileToDownload.DisplayName);
+                            text += Environment.NewLine + new BytesToSuffixConverter().Convert(httpProgress.BytesReceived, null, null, null) + " - " + new ProgressToPercentConverter().Convert(httpProgress, null, null, null);
+                            IndicatorService.GetDefault().ShowBar(text, button);
+                        });
+                        if (httpProgress.BytesReceived == httpProgress.TotalBytesToReceive && files.Count - 1 == files.IndexOf(fileToDownload))
+                        {
+                            IndicatorService.GetDefault().HideBar();
+                            SelectionMode = ListViewSelectionMode.Single;
+                        }
                     });
-                });
+                    await WebDavItemService.GetDefault().DownloadAsync(fileToDownload, folder, tokenSource.Token, progress);
+                }
+                tokenSource.Cancel();
             }
             finally
             {
                 IndicatorService.GetDefault().HideBar();
             }
             
+        }
+
+        private async Task UploadFilesAsync()
+        {
+            FileOpenPicker picker = new FileOpenPicker();
+            picker.FileTypeFilter.Add("*");
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            var files = await picker.PickMultipleFilesAsync();
+
+            var tokenSource = new CancellationTokenSource();
+            var button = new Button();
+            button.Content = App.ResourceLoader.GetString("Cancel");
+            button.HorizontalAlignment = HorizontalAlignment.Center;
+            button.Command = new DelegateCommand(() =>
+            {
+                tokenSource.Cancel(false);
+                IndicatorService.GetDefault().HideBar();
+            });
+
+            try
+            {
+                foreach (var file in files)
+                {
+                    if (! tokenSource.IsCancellationRequested)
+                    {
+                        var progress = new Progress<HttpProgress>(async httpProgress =>
+                        {
+                            if (tokenSource.IsCancellationRequested)
+                                return;
+                            await Dispatcher.DispatchAsync(() =>
+                            {
+                                var text = string.Format(App.ResourceLoader.GetString("UploadingFile"), file.DisplayName);
+                                text += Environment.NewLine + new BytesToSuffixConverter().Convert(httpProgress.BytesSent, null, null, null) + " - " + new ProgressToPercentConverter().Convert(httpProgress, null, null, null);
+                                IndicatorService.GetDefault().ShowBar(text, button);
+
+                                if (httpProgress.BytesSent == httpProgress.TotalBytesToSend && files.Count - 1 == files.ToList().IndexOf(file))
+                                {
+                                    IndicatorService.GetDefault().HideBar();
+                                    SelectionMode = ListViewSelectionMode.Single;
+                                }
+                            });
+                        });
+                        await WebDavItemService.GetDefault().UploadAsync(WebDavNavigationService.CurrentItem, file, tokenSource.Token, progress);
+                    }
+                }
+            }
+            catch (TaskCanceledException) { }
+            finally
+            {
+                IndicatorService.GetDefault().HideBar();
+                await WebDavNavigationService.ReloadAsync();
+            }
         }
     }
 }

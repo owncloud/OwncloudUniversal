@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Networking.BackgroundTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+using Windows.Web.Http;
 
 namespace OwncloudUniversal.Converters
 {
@@ -14,11 +14,10 @@ namespace OwncloudUniversal.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is BackgroundDownloadProgress)
+            if (value is HttpProgress progress)
             {
-                var progress = (BackgroundDownloadProgress) value;
-                Debug.WriteLine(progress.Status);
-                if (progress.Status == BackgroundTransferStatus.Completed)
+                Debug.WriteLine(progress.Stage);
+                if (progress.Stage == HttpProgressStage.None)
                 {
                     return Visibility.Visible;
                 }

@@ -4,12 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Windows.Networking.BackgroundTransfer;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using OwncloudUniversal.Synchronization;
 using OwncloudUniversal.Synchronization.LocalFileSystem;
@@ -48,55 +49,37 @@ namespace OwncloudUniversal.Services
             return new Uri(serverUri, href);
         }
 
-        public async Task<List<DownloadOperation>> CreateDownloadAsync(List<BaseItem> items, StorageFolder folder)
+        public async Task<StorageFile> DownloadAsync(BaseItem davItem, StorageFolder folder, CancellationToken token, Progress<HttpProgress> progress)
         {
-            List<DownloadOperation> result = new List<DownloadOperation>();
-            BackgroundDownloader downloader = new BackgroundDownloader();
-            downloader.ServerCredential = new PasswordCredential(Configuration.ServerUrl, Configuration.UserName, Configuration.Password);
-            foreach (var davItem in items)
+            var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            StorageFile file;
+            Uri uri;
+            if (davItem.IsCollection)
             {
-                StorageFile file;
-                Uri uri;
-                if (davItem.IsCollection)
-                {
-                    file = await folder.CreateFileAsync(davItem.DisplayName + ".zip", CreationCollisionOption.OpenIfExists);
-                    uri = new Uri(GetZipUrl(davItem.EntityId));
-                }
-                else
-                {
-                    file = await folder.CreateFileAsync(davItem.DisplayName, CreationCollisionOption.OpenIfExists);
-                    uri = new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute);
-                }
-                
-                result.Add(downloader.CreateDownload(CreateItemUri(uri), file));
+                file = await folder.CreateFileAsync(davItem.DisplayName + ".zip", CreationCollisionOption.OpenIfExists);
+                uri = new Uri(GetZipUrl(davItem.EntityId));
             }
-            return result;
+            else
+            {
+                file = await folder.CreateFileAsync(davItem.DisplayName, CreationCollisionOption.OpenIfExists);
+                uri = new Uri(davItem.EntityId, UriKind.RelativeOrAbsolute);
+            }
+            await client.Download(uri, file, token, progress);
+            return file;
         }
 
-        public List<UploadOperation> CreateUpload(DavItem item, List<StorageFile> files)
-        {
-            List<UploadOperation> result = new List<UploadOperation>();
-            BackgroundUploader uploader = new BackgroundUploader();
-            uploader.Method = "PUT";
-            var buffer = CryptographicBuffer.ConvertStringToBinary(Configuration.UserName + ":" + Configuration.Password, BinaryStringEncoding.Utf8);
-            var token = CryptographicBuffer.EncodeToBase64String(buffer);
-            var value = new HttpCredentialsHeaderValue("Basic", token);
-            uploader.SetRequestHeader("Authorization", value.ToString());
-            foreach (var storageFile in files)
-            {
-                var uri = new Uri(item.EntityId.TrimEnd('/'), UriKind.RelativeOrAbsolute);
-                uri = new Uri(uri + "/" + storageFile.Name, UriKind.RelativeOrAbsolute);
-                if (!uri.IsAbsoluteUri)
-                    uri = CreateItemUri(uri);
-                UploadOperation upload = uploader.CreateUpload(uri, storageFile);
-                result.Add(upload);
-            }
-            return result;
+        public async Task UploadAsync(DavItem item, StorageFile file, CancellationToken token, Progress<HttpProgress> progress)
+        {   
+            var uri = new Uri(item.EntityId.TrimEnd('/'), UriKind.RelativeOrAbsolute);
+            uri = new Uri(uri + "/" + file.Name, UriKind.RelativeOrAbsolute);
+            if (!uri.IsAbsoluteUri)
+                uri = CreateItemUri(uri);
+            var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
+            await client.Upload(uri, file, token, progress);
         }
 
         public async Task DeleteItemAsync(List<DavItem> items)
         {
-
             var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
             foreach (var item in items)
             {
