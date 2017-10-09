@@ -619,15 +619,15 @@ Möchten Sie diesen jetzt herunterladen?</value>
     <value>Fotos von der Kamera sofort hochladen?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Lade {0} hoch</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>Die Zertifizierungsstelle ist ungültig oder fehlerhaft.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>Möchten Sie diesem Zertifikat trotzdem vertrauen?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>Fingerabdruck</value>
   </data>
 </root>

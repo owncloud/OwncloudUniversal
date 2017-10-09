@@ -619,15 +619,15 @@
     <value>להעלות באופן מיידי תמונות שצולמו על ידי המצלמה?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>העלאה {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>רשות הרישיונות אינה חוקית או שגויה.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>האם בכל זאת לתת אמון בתעודת האימות?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>תביעת אצבע</value>
   </data>
 </root>
