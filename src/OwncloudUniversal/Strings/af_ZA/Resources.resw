@@ -619,15 +619,15 @@ Wil u dit nou aflaai?</value>
     <value>Laai kamerabeelde in ’n japtrap op?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Laai tans {0} op</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>Die sertifiseringsowerheid is ongeldig of verkeerd.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>Wil u steeds die sertifikaat vertrou?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>vingerafdruk</value>
   </data>
 </root>
