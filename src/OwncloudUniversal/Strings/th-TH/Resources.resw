@@ -620,15 +620,15 @@ https://github.com/owncloud/OwncloudUniversal
     <value>อัพโหลดรูปภาพทันที?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>กำลังอัพโหลด {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>ออกใบรับรองไม่ถูกต้อง</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>คุณแน่ใจว่าต้องการใช้ใบรับรองนี้?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>ลายนิ้วมือ</value>
   </data>
 </root>
