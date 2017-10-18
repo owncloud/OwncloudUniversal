@@ -617,15 +617,15 @@
     <value>Сразу загружать снимки, сделанные камерой?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Закачивается {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>Удостоверяющий центр недопустимый или неправильный.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>Вы всё ещё хотите доверять сертификату?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>отпечаток</value>
   </data>
 </root>
