@@ -148,7 +148,7 @@
     <value>Çaktivizo njëkohësimin</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>Ruaje si</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Po shkarkohet…</value>
@@ -533,78 +533,80 @@ Jeni i sigur t se doni të përdoret kjo dosje?</value>
     <value>{0} vjet më parë</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Lidheni pajisjen tuaj Windows 10 me instancën tuaj ownCloud!
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+Për një punim optimal në PC, ju lutemi, më mirë shihni mundësinë e përdorimit të klientit normal desktop të njëkohësimeve. Mund ta gjeni këtu: https://owncloud.org/install/#install-clients 
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+Ky aplikacion është një projekt i zhvilluar vetëm nga ownCloud-Community dhe qe filluar nga Adrian Gebhart. Nëse doni të bëheni pjesë e zhvillimit të tij, shihni te GitHub: https://github.com/owncloud/OwncloudUniversal
 
-Features:
+Veçori:
 
-- Works on all Windows 10 devices!
-- Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- Punon në krejt pajisjet me Windows 10!
+- Software me burim të hapur
+- Njëkohësoni kartelat tuaja përmes një akti që kryhet në prapaskenë. Në telefona njëkohësimi do të kryhet vetëm kur bateria e pajisjes suaj ngarkohet, që të kursehet bateria.
+- Ngarkoni, shkarkoni dhe administroni kartela dhe dosje.
+- Shihni figura apo video drejt e nga instanca juaj ownCloud.
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Të reja në ownCloud?
+Shihini te https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Probleme?
+Parashtroni një problem të ri, te https://github.com/owncloud/OwncloudUniversal/issues ose përdorni funksionin e brendshëm të aplikacionit për raporte diagnostikimi.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Gabim i panjohur, ju lutemi, kontrolloni kartelën regjistër</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Për një punim optimal në PC, ju lutemi, provoni Klientin origjinal të Njëkohësimeve në Desktop për Windows.
+Doni ta shkarkoni tani?
+
+</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don't show again</value>
+    <value>Mos e shfaq më</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Hap kartelë</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>Po shkarkohet {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
     <value>U fshi</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Dështoi</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>U shpërfill</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>U lëviz</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>U mor</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>U riemërtua</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Të dërguar</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Ngarkim Kamere</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Kjo dosje është përdorur tashmë për njëkohësime</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Kjo dosje {0} përdoret tashmë për njëkohësime!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
     <value>Ngarkoni menjëherë foto të bëra nga kamera</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>Camera Upload</value>
+    <value>Ngarkim Kamere</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
     <value>Ngarkime të menjëhershme fotosh</value>
@@ -616,18 +618,18 @@ Would you like to download it now?</value>
     <value>Shteg ngarkimesh</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Të ngarkohen menjëherë fotot e bëra nga kamera?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Po ngarkohet {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>Autoriteti i dëshmisë është i gabuar ose i pasaktë.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>Doni ende t’i besoni kësaj dëshmie?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>shenja gishtash</value>
   </data>
 </root>
