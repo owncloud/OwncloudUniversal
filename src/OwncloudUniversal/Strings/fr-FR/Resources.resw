@@ -558,17 +558,17 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Unknown error, please check the log file</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
-Would you like to download it now?</value>
+    <value>Pour une expérience optimale sur PC, essayez le client Desktop Sync natif pour Windows.
+Voulez-vous le télécharger maintenant?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don't show again</value>
+    <value>Ne plus montrer</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>Ouvrir le fichier</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>Téléchargement {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
     <value>Supprimé</value>
