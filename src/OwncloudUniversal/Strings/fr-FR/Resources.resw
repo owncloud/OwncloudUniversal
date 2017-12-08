@@ -148,7 +148,7 @@
     <value>Désactiver la synchonisation</value>
   </data>
   <data name="Download.Text" xml:space="preserve">
-    <value>Save as</value>
+    <value>Sauvegarder sous</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
     <value>Téléchargement en cours ...</value>
@@ -533,29 +533,29 @@ Ceci peut induire un comportement inattendu.
     <value>Depuis {0} années</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Connectez votre appareil Windows 10 avec votre OwnCloud!
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+Pour une expérience optimale sur PC, utilisez plutôt le client de synchronisation à la place. Vous le trouverez ici: 
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+Cette application  fait partie du projet développé par la OwnCloud-Community seulement et commencée par Adrian Gebhart. Vérifiez le projet sur Github si vous voulez joindre le développement: https://github.com/owncloud/OwncloudUniversal
 
-Features:
+Fonctionnalitées:
 
-- Works on all Windows 10 devices!
-- Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- Fonctionne sur tous le appareils Windows 10!
+- Logiciel Open-source
+- Synchronisez vos fichiers en arrière-plan. Sur les smartphones, ils seront synchronisés uniquement si l'appareil est en charge afin de préserver la batterie.
+- Envoyez, téléchargez et gérez vos fichiers et dossiers.
+- Regardez vos images et vidéos directement depuis votre OwnCloud.
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Nouveau sur OwnCloud?
+Regardez sur https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Des problèmes?
+Ouvrez un nouveau sujet sur https://github.com/owncloud/OwncloudUniversal/issues ou utilisez la fonction de rapport de diagnostic dans l'application.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>Erreur inconnue, veuillez vérifier les logs serveur</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>Pour une expérience optimale sur PC, essayez le client Desktop Sync natif pour Windows.
@@ -574,19 +574,19 @@ Voulez-vous le télécharger maintenant?</value>
     <value>Supprimé</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Échoué</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>Ignoré</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Déplacé</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Reçu</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Renommé</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Envoyés</value>
@@ -595,10 +595,10 @@ Voulez-vous le télécharger maintenant?</value>
     <value>Camera Upload</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Ce dossier est déjà utilisé pour la synchronisation!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Le dossier {0} est déjà utilisé pour la synchronisation!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
     <value>Téléverser immédiatement les photos prises par la caméra</value>
@@ -619,15 +619,15 @@ Voulez-vous le télécharger maintenant?</value>
     <value>Instantly upload pictures taken by camera?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Envoi de {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>Le certificat d’authenticité est invalide ou incorrect.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>Voulez-vous toujours faire confiance au certificat?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>empreinte digitale</value>
   </data>
 </root>
