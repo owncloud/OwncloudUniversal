@@ -575,19 +575,19 @@ Wilt u deze nu downloaden?</value>
     <value>Verwijderd</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Mislukt</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>Genegeerd</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Verplaatst</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Ontvangen</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Hernoemd</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Verzonden</value>
@@ -620,7 +620,7 @@ Wilt u deze nu downloaden?</value>
     <value>Instantly upload pictures taken by camera?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Uploaden {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
     <value>The certification authority is invalid or incorrect.</value>
@@ -629,6 +629,6 @@ Wilt u deze nu downloaden?</value>
     <value>Do you still want to trust the certificate?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>vingerafdruk</value>
   </data>
 </root>
