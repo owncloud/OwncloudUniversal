@@ -65,7 +65,7 @@ namespace OwncloudUniversal.Services
 
         public List<FolderAssociation> GetConfiguredFolders()
         {
-            return FolderAssociationTableModel.GetDefault().GetAllItems().ToList().Where(x => x.SupportsInstantUpload == false).ToList();
+            return FolderAssociationTableModel.GetDefault().GetAllItems().ToList();
         }
 
         public List<FolderAssociation> GetAllSyncedFolders()
