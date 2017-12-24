@@ -596,10 +596,10 @@ Wilt u deze nu downloaden?</value>
     <value>Camera Upload</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Deze map wordt al gebruikt voor synchronisatie!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Map {0} wordt al gebruikt voor synchronisatie!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
     <value>Direct uploaden van foto's genomen met de camera</value>
@@ -623,7 +623,7 @@ Wilt u deze nu downloaden?</value>
     <value>Uploaden {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>De certification authority is ongeldig of onjuist.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
     <value>Do you still want to trust the certificate?</value>
