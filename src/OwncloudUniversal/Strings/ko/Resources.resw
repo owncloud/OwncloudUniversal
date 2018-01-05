@@ -1,0 +1,633 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Header" xml:space="preserve">
+    <value>정보</value>
+  </data>
+  <data name="ActivateSync.Text" xml:space="preserve">
+    <value>동기화 활성화</value>
+  </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>앱을 배경에서 실행하고 있어도 전송이 계속 진행됩니다!</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Connection.Header" xml:space="preserve">
+    <value>연결</value>
+  </data>
+  <data name="CurrentFile.Header" xml:space="preserve">
+    <value>현재 파일</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>파일을 삭제하시겠습니까?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>폴더를 삭제하시겠습니까?</value>
+  </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>동기화 비활성화</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>다른 이름으로 저ᅟᅡᆼ</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>다운로드 중...</value>
+  </data>
+  <data name="EnableBackgroundTask.Header" xml:space="preserve">
+    <value>자동 동기화</value>
+  </data>
+  <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
+    <value>배경 작업 비활성화됨</value>
+  </data>
+  <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
+    <value>배경 작업 활성화됨</value>
+  </data>
+  <data name="Files.Content" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="FilesButton.Text" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="FilesToSync.Header" xml:space="preserve">
+    <value>대기 중인 파일</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>파일 전송</value>
+  </data>
+  <data name="History.Header" xml:space="preserve">
+    <value>과거 기록</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>아니요</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>파일 열기</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="PasswordHeader.Text" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>속성</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="RequestedApplicationTheme.Header" xml:space="preserve">
+    <value>앱 테마</value>
+  </data>
+  <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
+    <value>어두움</value>
+  </data>
+  <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
+    <value>밝음</value>
+  </data>
+  <data name="ResetDatabase.Content" xml:space="preserve">
+    <value>이 앱 초기화</value>
+  </data>
+  <data name="Settings.Content" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="ShellDrawnBackButton.Header" xml:space="preserve">
+    <value>뒤로 가기 단추</value>
+  </data>
+  <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
+    <value>페이지 머릿글에 뒤로 가기 단추 표시</value>
+  </data>
+  <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
+    <value>제목 표시줄/작업 표시줄에 뒤로 가기 단추 표시</value>
+  </data>
+  <data name="StartSync.Content" xml:space="preserve">
+    <value>동기화 시작</value>
+  </data>
+  <data name="Status.Header" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="SynchedFolders.Text" xml:space="preserve">
+    <value>동기화할 폴더</value>
+  </data>
+  <data name="Synchronization.Content" xml:space="preserve">
+    <value>동기화(베타)</value>
+  </data>
+  <data name="SynchronizationButton.Text" xml:space="preserve">
+    <value>동기화(베타)</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>전송 중..</value>
+  </data>
+  <data name="Unsync.Text" xml:space="preserve">
+    <value>동기화 중지</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>파일 업로드</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>사용자 이름</value>
+  </data>
+  <data name="WebDavUrl.Header" xml:space="preserve">
+    <value>WebDav URL</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>예</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>삭제하시겠습니까?</value>
+  </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>속성</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>종류</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>Etag</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>동기화상태</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>수정한날짜</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>경로</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>새 폴더</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>모드 선택</value>
+  </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>연결</value>
+  </data>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>서버주소</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>서버를 찾을 수 없습니다. URL이 올바른지, 인터넷에 연결되어 있는지 확인하십시오.</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>서버 내부 오류가 발생함</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>지정한 자원을 찾을 수 없음</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>서비스를 사용할 수 없습니다.</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>로그인 실패</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>새 폴더 만들기</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>폴더이름</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>새 폴더</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>이런</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>파일을 삭제하시겠습니까?</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>동기화 상태</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>다음보다 큰 파일 다운로드하지 않기(MB):</value>
+  </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>수락</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>대상 폴더 선택</value>
+  </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>새 이름:</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>이름 바꾸기</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>이름 바꾸기</value>
+  </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>로컬 폴더</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>ownCloud 폴더</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>자동 동기화</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>연결되었습니다! 경고: 이 연결은 암호화되지 않았습니다!</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Wrong username or password.</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>오류가 발생했습니다. 서버가 관리 모드에 있거나 설치가 완료되지 않았습니다. 나중에 다시 시도하시거나 시스템 관리자에게 연락하십시오.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>이 앱을 초기화하시겠습니까?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>앱을 다시 시작하십시오.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>보안 연결이 성공했습니다!</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>바이트</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>오류가 발생했습니다. 프로그램을 다시 시작한 후 다시 시도하십시오.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>변경 사항 처리 중</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>삭제 처리 중</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>완료됨</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>준비</value>
+  </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>받는 중</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>변경 사항 검사 중</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>보내는 중</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>취소됨</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>데이터베이스 업데이트 중</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>다운로드만</value>
+  </data>
+  <data name="FullSync" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="UploadOnly" xml:space="preserve">
+    <value>업로드만</value>
+  </data>
+  <data name="SyncDirection.Header" xml:space="preserve">
+    <value>모드</value>
+  </data>
+  <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="SaveFolderConfiguration.Label" xml:space="preserve">
+    <value>변경 사항 저장</value>
+  </data>
+  <data name="FolderConfigurationHeader.Text" xml:space="preserve">
+    <value>동기화할 폴더 선택:</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>장치가 Wi-Fi 네트워크 및 충전기에 연결되었을 때 첫 동기화를 수동으로 시작하십시오. 첫 동기화는 시간이 오래 걸릴 수 있습니다.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>동기화 시작</value>
+  </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>장치를 Wi-Fi 네트워크 및 충전기에 연결해 두는 것을 권장합니다. 동기화가 오래 걸릴 수 있으며 그 동안 화면이 켜져 있을 것입니다.
+동기화를 지금 시작하시겠습니까?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>서버에서 이 작업을 허용하지 않습니다.</value>
+  </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>주의: 선택한 폴더가 Windows 검색의 색인에 추가되어 있지 않습니다.
+
+예상하지 못한 행동을 할 수도 있습니다.
+이 폴더를 그래도 사용하시겠습니까?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>주의: 선택한 폴더가 Windows 검색의 색인에 일부만 추가되어 있습니다.
+
+예상하지 못한 행동을 할 수도 있습니다.
+이 폴더를 그래도 사용하시겠습니까?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>소스 코드 보기</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>지원 연락하기</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>발행자</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>버전</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>이메일로 진단 보고 보내기</value>
+  </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>다음 조건을 만족했을 때 동기화를 배경에서 시작합니다:
+- 장치가 충전기에 연결되어 있습니다.
+- Wi-Fi에 연결되어 있습니다.
+- 장치가 사용 중이 아닙니다.</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>just now</value>
+  </data>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>1일 전</value>
+  </data>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>1분 전</value>
+  </data>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>1개월 전</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>1시간 전</value>
+  </data>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>1초 전</value>
+  </data>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>1년 전</value>
+  </data>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0}일 전</value>
+  </data>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0}시간 전</value>
+  </data>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0}분 전</value>
+  </data>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0}개월 전</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0}초 전</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0}년 전</value>
+  </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Windows 10 장치와 ownCloud를 연결하십시오!
+
+PC에서의 최적화된 사용자 경험을 위하여, PC에서는 데스크톱 동기화 클라이언트를 사용하는 것을 추천합니다. 다음 사이트에서 다운로드할 수 있습니다: https://owncloud.org/install/#install-clients 
+
+이 앱은 ownCloud 커뮤니티에서 개발하는 프로젝트이며 Adrian Gebhart가 시작했습니다. 프로젝트 개발에 관심이 있으면 GitHub에서 프로젝트를 확인하십시오: https://github.com/owncloud/OwncloudUniversal
+
+기능:
+
+- 모든 Windows 10 장치에서 작동합니다!
+- 오픈소스 소프트웨어
+- 배경 작업으로 파일을 동기화합니다. 휴대폰에서는 배터리를 절약하기 위하여 충전 중일 경우에만 동기화합니다.
+- 파일과 폴더를 업로드, 다운로드, 관리합니다.
+- ownCloud에 있는 사진을 보거나 동영상을 곧바로 스트리밍합니다.
+
+
+ownCloud에 처음이신가요?
+https://owncloud.org 사이트에서 확인해 보십시오.
+
+문제가 있나요?
+https://github.com/owncloud/OwncloudUniversal/issues 사이트에 문제를 보고하거나 앱의 진단 보고 기능을 사용하십시오.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>알 수 없는 오류. 로그 파일을 확인하십시오</value>
+  </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>PC에 최적화된 사용을 하려면 Windows용 데스크톱 동기화 클라이언트를 사용하십시오.
+지금 다운로드하시겠습니까?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>다시 보지 않기</value>
+  </data>
+  <data name="DownloadOpenFile.Text" xml:space="preserve">
+    <value>파일 열기</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>{0} 다운로드 중</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>삭제됨</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>실패함</value>
+  </data>
+  <data name="Ignored" xml:space="preserve">
+    <value>무시됨</value>
+  </data>
+  <data name="Moved" xml:space="preserve">
+    <value>이동됨</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>받음</value>
+  </data>
+  <data name="Renamed" xml:space="preserve">
+    <value>이름 변경됨</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>보낸 편지함</value>
+  </data>
+  <data name="CameraUpload.Text" xml:space="preserve">
+    <value>카메라 업로드</value>
+  </data>
+  <data name="FolderAlreadyInUseForSync" xml:space="preserve">
+    <value>이 폴더는 이미 동기화되고 있습니다!</value>
+  </data>
+  <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
+    <value>{0} 폴더는 이미 동기화되고 있습니다!</value>
+  </data>
+  <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
+    <value>카메라로 찍은 사진 즉시 업로드</value>
+  </data>
+  <data name="CameraUploadPageHeader.Content" xml:space="preserve">
+    <value>카메라 업로드</value>
+  </data>
+  <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
+    <value>사진 즉시 업로드</value>
+  </data>
+  <data name="OnlyViaWifi.Header" xml:space="preserve">
+    <value>Wi-Fi 사용 중일때만 사진 업로드</value>
+  </data>
+  <data name="UploadPath.Header" xml:space="preserve">
+    <value>업로드 경로</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>카메라로 찍은 사진을 즉시 업로드하시겠습니까?</value>
+  </data>
+  <data name="UploadingFile" xml:space="preserve">
+    <value>{0} 업로드 중</value>
+  </data>
+  <data name="InvalidCA" xml:space="preserve">
+    <value>The certification authority is invalid or incorrect.</value>
+  </data>
+  <data name="TrustCertificateQuestion" xml:space="preserve">
+    <value>Do you still want to trust the certificate?</value>
+  </data>
+  <data name="Fingerprint" xml:space="preserve">
+    <value>지문</value>
+  </data>
+</root>
