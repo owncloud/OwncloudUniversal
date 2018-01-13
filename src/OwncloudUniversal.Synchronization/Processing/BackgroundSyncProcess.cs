@@ -64,8 +64,6 @@ namespace OwncloudUniversal.Synchronization.Processing
             var associations = FolderAssociationTableModel.GetDefault().GetAllItems();
             foreach (FolderAssociation association in associations)
             {
-                if(association.SupportsInstantUpload)
-                    continue;
                 await LogHelper.Write($"Scanning {association.LocalFolderPath} and {association.RemoteFolderFolderPath} BackgroundTask: {_isBackgroundTask}");
                 if (_watch.Elapsed.Minutes >= 9)
                     break;

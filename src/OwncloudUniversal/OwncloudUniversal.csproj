@@ -151,7 +151,6 @@
     <Compile Include="Utils\DiagnosticReportHelper.cs" />
     <Compile Include="Utils\MimeTypeHelper.cs" />
     <Compile Include="Utils\ThemeHelper.cs" />
-    <Compile Include="ViewModels\CameraUploadPageViewModel.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="ViewModels\FilesPageViewModel.cs" />
     <Compile Include="ViewModels\PhotoPageViewModel.cs" />
@@ -161,9 +160,6 @@
     <Compile Include="ViewModels\SyncedFoldersPageViewModel.cs" />
     <Compile Include="ViewModels\SynchronizationPageViewModel.cs" />
     <Compile Include="ViewModels\WelcomePageViewModel.cs" />
-    <Compile Include="Views\CameraUploadPage.xaml.cs">
-      <DependentUpon>CameraUploadPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
@@ -293,10 +289,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Views\CameraUploadPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

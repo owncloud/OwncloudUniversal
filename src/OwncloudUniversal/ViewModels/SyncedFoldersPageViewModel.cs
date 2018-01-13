@@ -25,12 +25,8 @@ namespace OwncloudUniversal.ViewModels
             set
             {
                 _selectedItem = value;
-                if(!value.SupportsInstantUpload)
-                    NavigationService.Navigate(typeof(SyncedFolderConfigurationPage), _selectedItem, new SuppressNavigationTransitionInfo());
-                else
-                {
-                    NavigationService.Navigate(typeof(CameraUploadPage), null, new SuppressNavigationTransitionInfo());
-                }
+                NavigationService.Navigate(typeof(SyncedFolderConfigurationPage), _selectedItem, new SuppressNavigationTransitionInfo());
+
             }
         }
 

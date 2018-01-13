@@ -15,7 +15,7 @@ namespace OwncloudUniversal.Services
     public class SyncedFoldersService
     {
 
-        public async Task<FolderAssociation> AddFolderToSyncAsync (StorageFolder folder, DavItem remoteFolderItem, bool allowInstantUpload = false)
+        public async Task<FolderAssociation> AddFolderToSyncAsync (StorageFolder folder, DavItem remoteFolderItem, SyncDirection direction = SyncDirection.FullSync)
         {
             StorageApplicationPermissions.FutureAccessList.Add(folder);
             var properties = await folder.Properties.RetrievePropertiesAsync(new List<string> { "System.DateModified" });
@@ -25,14 +25,9 @@ namespace OwncloudUniversal.Services
                 IsActive = true,
                 LocalFolderId = 0,
                 RemoteFolderId = 0,
-                SyncDirection = SyncDirection.FullSync,
+                SyncDirection = direction,
                 LastSync = DateTime.MinValue
             };
-            if (allowInstantUpload)
-            {
-                fa.SyncDirection = SyncDirection.UploadOnly;
-                fa.SupportsInstantUpload = true;
-            }
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
             fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();
 
@@ -72,24 +67,7 @@ namespace OwncloudUniversal.Services
         {
             return FolderAssociationTableModel.GetDefault().GetAllItems().ToList();
         }
-
-        public List<FolderAssociation> GetInstantUploadAssociations()
-        {
-            return FolderAssociationTableModel.GetDefault().GetAllItems().ToList().Where(x => x.SupportsInstantUpload).ToList();
-        }
-
-        public void RemoveInstantUploadAssociations()
-        {
-            foreach (var association in GetInstantUploadAssociations())
-            {
-                FolderAssociationTableModel.GetDefault().DeleteItem(association.Id);
-                LinkStatusTableModel.GetDefault().DeleteLinksFromAssociation(association);
-                ItemTableModel.GetDefault().DeleteItem(association.RemoteFolderId);
-                ItemTableModel.GetDefault().DeleteItem(association.LocalFolderId);
-                ItemTableModel.GetDefault().DeleteItemsFromAssociation(association);
-            }
-        }
-
+        
         public void RemoveFromSyncedFolders(FolderAssociation association)
         {
             ItemTableModel.GetDefault().DeleteItemsFromAssociation(association);

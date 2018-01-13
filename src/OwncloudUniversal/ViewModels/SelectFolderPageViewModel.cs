@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -166,6 +167,7 @@ namespace OwncloudUniversal.ViewModels
             else
             {
                 SyncedFoldersService service = new SyncedFoldersService();
+                var library = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Pictures);
                 foreach (var assocaition in service.GetAllSyncedFolders())
                 {
                     if (WebDavNavigationService.CurrentItem.EntityId == assocaition.RemoteFolderFolderPath)
@@ -174,8 +176,17 @@ namespace OwncloudUniversal.ViewModels
                         await dialog.ShowAsync();
                         return;
                     }
+                    if (String.Equals(assocaition.LocalFolderPath, library.SaveFolder.Path, StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageDialog dialog = new MessageDialog(string.Format(App.ResourceLoader.GetString("SelectedFolderAlreadyInUseForSync"), library.SaveFolder.Path));
+                        await dialog.ShowAsync();
+                        return;
+                    }
                 }
-                await NavigationService.NavigateAsync(typeof(CameraUploadPage),
+                Configuration.IsBackgroundTaskEnabled = true;
+                new BackgroundTaskConfiguration().Enabled = true;
+                await service.AddFolderToSyncAsync(library.SaveFolder, WebDavNavigationService.CurrentItem, SyncDirection.UploadOnly);
+                await NavigationService.NavigateAsync(typeof(SyncedFoldersPageView),
                     WebDavNavigationService.CurrentItem, new SuppressNavigationTransitionInfo());
             }
         }

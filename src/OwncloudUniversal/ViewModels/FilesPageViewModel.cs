@@ -134,7 +134,7 @@ namespace OwncloudUniversal.ViewModels
                 if (result == ContentDialogResult.Primary)
                 {
                     Configuration.ShowCamerUploadInfo = false;
-                    await NavigationService.NavigateAsync(typeof(CameraUploadPage), null, new SuppressNavigationTransitionInfo());
+                    await NavigationService.NavigateAsync(typeof(SelectFolderPage), new DavItem { EntityId = Configuration.ServerUrl }, new SuppressNavigationTransitionInfo());
                 }
             }
         }
