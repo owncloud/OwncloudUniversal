@@ -302,7 +302,7 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             var missingItems = existingItems.Except(storageItems, new EnityIdComparer()).ToList();
             foreach (var missingItem in missingItems)
             {
-                if (missingItem.EntityId == sFolder.Path) continue;
+                if (missingItem.EntityId == localFolderItem.EntityId) continue;
                 //additional check if the file really does not exist
                 //for some reason the query seems to return wrong results sometimes
                 if (!missingItem.IsCollection)

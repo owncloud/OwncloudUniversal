@@ -30,19 +30,14 @@ namespace OwncloudUniversal.Services
             };
             FolderAssociationTableModel.GetDefault().InsertItem(fa);
             fa = FolderAssociationTableModel.GetDefault().GetLastInsertItem();
-
+            var path = folder.Path.Replace("\\USERS\\", "\\Users\\");
             BaseItem li = new LocalItem
             {
                 IsCollection = true,
                 LastModified = ((DateTimeOffset)properties["System.DateModified"]).LocalDateTime,
-                EntityId = folder.Path,
+                EntityId = path,
                 Association = fa,
             };
-            var testFolder = await StorageFolder.GetFolderFromPathAsync(folder.Path);
-            if (testFolder.Path != folder.Path)
-            {
-                li.EntityId = testFolder.Path;
-            }
             ItemTableModel.GetDefault().InsertItem(li);
             li = ItemTableModel.GetDefault().GetLastInsertItem();
 
