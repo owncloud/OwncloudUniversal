@@ -630,4 +630,16 @@ Would you like to download it now?</value>
   <data name="Fingerprint" xml:space="preserve">
     <value>fingerprint</value>
   </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Libraries</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Some components of this application use external libraries:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>This application is licensed under the Apache License 2.0.</value>
+  </data>
 </root>

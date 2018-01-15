@@ -113,9 +113,10 @@
            
             <!--  about  -->
             <PivotItem x:Uid="About">
-                <RelativePanel DataContext="{Binding AboutPartViewModel}">
+                <ScrollViewer>
+                    <RelativePanel DataContext="{Binding AboutPartViewModel}">
 
-                    <Border x:Name="LogoImage"
+                        <Border x:Name="LogoImage"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             BorderBrush="DimGray"
@@ -123,16 +124,16 @@
                             IsHitTestVisible="False"
                             RelativePanel.AlignRightWithPanel="True"
                             RelativePanel.AlignTopWithPanel="True">
-                        <Border.Background>
-                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-                        </Border.Background>
-                        <Image Margin="12"
+                            <Border.Background>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </Border.Background>
+                            <Image Margin="12"
                                Source="{Binding Logo}"
                                Stretch="Uniform"
                                MaxWidth="64"/>
-                    </Border>
+                        </Border>
 
-                    <TextBlock x:Name="DisplayNameTextBlock"
+                        <TextBlock x:Name="DisplayNameTextBlock"
                                Margin="0,0,0,12"
                                FontSize="24"
                                RelativePanel.AlignLeftWithPanel="True"
@@ -140,19 +141,19 @@
                                RelativePanel.AlignTopWithPanel="True"
                                Text="{Binding DisplayName}" />
 
-                    <toolkit:HeaderedTextBlock x:Name="PublisherTextBlock"
+                        <toolkit:HeaderedTextBlock x:Name="PublisherTextBlock"
                                                x:Uid="Publisher"
                                                RelativePanel.AlignLeftWithPanel="True"
                                                RelativePanel.Below="DisplayNameTextBlock"
                                                Text="ownCloud Community" />
 
-                    <toolkit:HeaderedTextBlock x:Name="VersionTextBlock"
+                        <toolkit:HeaderedTextBlock x:Name="VersionTextBlock"
                                                x:Uid="Version"
                                                RelativePanel.AlignLeftWithPanel="True"
                                                RelativePanel.Below="PublisherTextBlock"
                                                Text="{Binding Version}"/>
 
-                    <HyperlinkButton x:Name="ProjectUrl"
+                        <HyperlinkButton x:Name="ProjectUrl"
 
                                      x:Uid="ProjectUrl" NavigateUri="https://github.com/owncloud/OwncloudUniversal"
                                      RelativePanel.AlignLeftWithPanel="True"
@@ -160,21 +161,56 @@
                                      Foreground="{ThemeResource ContrastColorBrush}"/>
 
 
-                    <HyperlinkButton x:Name="SupportUrl"
+                        <HyperlinkButton x:Name="SupportUrl"
                                      x:Uid="SupportUrl" NavigateUri="https://github.com/owncloud/OwncloudUniversal/issues"
                                      RelativePanel.AlignLeftWithPanel="True"
                                      RelativePanel.Below="ProjectUrl"
                                      Foreground="{ThemeResource ContrastColorBrush}"/>
 
-                    <Button x:Uid="ReportButton"
+                        <Button x:Uid="ReportButton"
                             x:Name="ReportButton"
                             Margin="0,12,0,0"
                             Command="{Binding GenerateReportCommand}"
                             RelativePanel.AlignLeftWithPanel="True"
                             RelativePanel.Below="SupportUrl"
                             Content="Genereate diagnostic report"/>
-                    
-                </RelativePanel>
+
+                        <toolkit:HeaderedTextBlock x:Uid="LicenseHeader" x:Name="LicenseHeader" RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="ReportButton" Margin="0,30,0,0"/>
+
+                        <HyperlinkButton 
+                            x:Uid="LicenseUrl"
+                            x:Name="LicenseUrl" RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="LicenseHeader"
+                            Content="Apache License 2.0" NavigateUri="https://github.com/owncloud/OwncloudUniversal/blob/master/LICENSE.txt"
+                            Foreground="{ThemeResource ContrastColorBrush}"/>
+
+                        <toolkit:HeaderedTextBlock x:Uid="LibrariesHeader" x:Name="LibrariesHeader" RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="LicenseUrl" Margin="0,10,0,0"/>
+
+                        <HyperlinkButton x:Name="ToolkitUrl"
+                                     Content="UWP Community Toolkit (MIT License)" NavigateUri="https://github.com/Microsoft/UWPCommunityToolkit/blob/master/license.md"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.Below="LibrariesHeader"
+                                     Foreground="{ThemeResource ContrastColorBrush}"/>
+
+                        <HyperlinkButton x:Name="DotNetLicense"
+                                     Content=".NETCore (MIT License)" NavigateUri="https://github.com/dotnet/core-setup/blob/master/LICENSE.TXT"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.Below="ToolkitUrl"
+                                     Foreground="{ThemeResource ContrastColorBrush}"/>
+
+                        <HyperlinkButton x:Name="NewtonsoftLicense"
+                                     Content="Newtonsoft.JSON (MIT License)" NavigateUri="https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.Below="DotNetLicense"
+                                     Foreground="{ThemeResource ContrastColorBrush}"/>
+
+                        <HyperlinkButton x:Name="SQlitePclLicense"
+                                     Content="SQLite PCL (Apache License 2.0)" NavigateUri="https://sqlitepcl.codeplex.com/license"
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.Below="NewtonsoftLicense"
+                                     Foreground="{ThemeResource ContrastColorBrush}"/>
+
+                    </RelativePanel>
+                </ScrollViewer>
             </PivotItem>
         </Pivot>
 
