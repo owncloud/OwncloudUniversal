@@ -227,8 +227,7 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             string folderPath = Path.GetDirectoryName(filePath);
 
             var currentFolder = await StorageFolder.GetFolderFromPathAsync(item.Association.LocalFolderPath);
-            //var fixedName = currentFolder.Path.Replace("USERS", "Users");
-            string[] folders = folderPath.Replace(currentFolder.Path, "").TrimStart('\\').Split('\\');
+            string[] folders = folderPath.ToUpperInvariant().Replace(currentFolder.Path.ToUpperInvariant(), "").TrimStart('\\').Split('\\');
 
             foreach (var folder in folders)
             {
