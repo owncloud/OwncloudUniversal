@@ -232,10 +232,10 @@
     <value>동기화할 폴더</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>동기화(베타)</value>
+    <value>Synchronization</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>동기화(베타)</value>
+    <value>Synchronization</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>전송 중..</value>
@@ -616,7 +616,7 @@ https://github.com/owncloud/OwncloudUniversal/issues 사이트에 문제를 보�
     <value>업로드 경로</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>카메라로 찍은 사진을 즉시 업로드하시겠습니까?</value>
+    <value>Automatically upload new pictures?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>{0} 업로드 중</value>

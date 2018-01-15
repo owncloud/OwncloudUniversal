@@ -232,10 +232,10 @@
     <value>Pastas sincronizadas</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Sincronização (Beta)</value>
+    <value>Synchronization</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Sincronização (Beta)</value>
+    <value>Synchronization</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Transferência em curso...</value>
@@ -610,7 +610,7 @@ Gostaria de o transferir agora?</value>
     <value>Caminho de envio</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Automatically upload new pictures?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Uploading {0}</value>

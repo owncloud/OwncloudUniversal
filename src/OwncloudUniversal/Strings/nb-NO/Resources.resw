@@ -232,10 +232,10 @@
     <value>Synkroniserte mapper</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synkronisering (Beta)</value>
+    <value>Synchronization</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synkronisering (Beta)</value>
+    <value>Synchronization</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Overføring pågår.</value>
@@ -616,7 +616,7 @@ Vil du laste den ned nå?</value>
     <value>Opplastings-sti</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Last opp bilder direkte når de tas med kamera?</value>
+    <value>Automatically upload new pictures?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Uploading {0}</value>

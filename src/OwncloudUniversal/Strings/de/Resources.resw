@@ -232,10 +232,10 @@
     <value>Synchronisierte Ordner</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Synchronization</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Synchronization</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Übertragung läuft..</value>
@@ -612,7 +612,7 @@ Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/Owncloud
     <value>Pfad für das Hochladen</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Fotos von der Kamera sofort hochladen?</value>
+    <value>Automatically upload new pictures?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Lade {0} hoch</value>
