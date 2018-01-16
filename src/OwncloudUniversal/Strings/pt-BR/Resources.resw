@@ -232,10 +232,10 @@
     <value>Diretórios sincronizadas</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Sincronização</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Sincronização</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Transferência em andamento ..</value>
@@ -610,7 +610,7 @@ Você gostaria de baixa-lo agora?</value>
     <value>Caminho para envio</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Automatically upload new pictures?</value>
+    <value>Enviar automaticamente novas fotos?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Enviando {0}</value>
