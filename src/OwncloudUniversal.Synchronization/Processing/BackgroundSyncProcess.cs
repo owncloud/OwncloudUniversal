@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using OwncloudUniversal.Model;
@@ -21,7 +22,8 @@ namespace OwncloudUniversal.Synchronization.Processing
         private readonly bool _isBackgroundTask;
         private int _totalCount;
         private int _current;
-
+        private PauseTokenSource _pauseTokenSource;
+        
         public BackgroundSyncProcess(AbstractAdapter sourceEntityAdapter, AbstractAdapter targetEntityAdapter,
             bool isBackgroundTask)
         {
@@ -31,8 +33,9 @@ namespace OwncloudUniversal.Synchronization.Processing
 
         }
 
-        public async Task Run()
+        public async Task Run(PauseTokenSource pauseTokenSource)
         {
+            _pauseTokenSource = pauseTokenSource;
             LogHelper.ResetLog();
             _watch = Stopwatch.StartNew();
             SQLite.SQLiteClient.Init();
@@ -73,7 +76,7 @@ namespace OwncloudUniversal.Synchronization.Processing
                 var getUpdatedSourceTask = _sourceEntityAdapter.GetUpdatedItems(association);
                 var getDeletedTargetTask = _targetEntityAdapter.GetDeletedItemsAsync(association);
                 var getDeletedSourceTask = _sourceEntityAdapter.GetDeletedItemsAsync(association);
-
+                await _pauseTokenSource.WaitWhilePausedAsync();
                  var deletedItems = await getDeletedTargetTask;
                 deletedItems.AddRange(await getDeletedSourceTask);
 
@@ -93,6 +96,7 @@ namespace OwncloudUniversal.Synchronization.Processing
             {
                 try
                 {
+                    await _pauseTokenSource.WaitWhilePausedAsync();
                     if (item.AdapterType == _targetEntityAdapter.GetType() &&
                         item.Association.SyncDirection == SyncDirection.FullSync)
                     {
@@ -203,6 +207,7 @@ namespace OwncloudUniversal.Synchronization.Processing
             {
                 try
                 {
+                    await _pauseTokenSource.WaitWhilePausedAsync();
                     await SetExectuingFileName(item.BaseItem.EntityId);
                     if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
                         break;
@@ -270,6 +275,7 @@ namespace OwncloudUniversal.Synchronization.Processing
             {
                 try
                 {
+                    await _pauseTokenSource.WaitWhilePausedAsync();
                     await SetExectuingFileName(item.EntityId);
                     if (ExecutionContext.Instance.Status == ExecutionStatus.Stopped)
                         break;
@@ -363,9 +369,11 @@ namespace OwncloudUniversal.Synchronization.Processing
         {
             await SetExecutionStatus(ExecutionStatus.UpdatingIndex);
             var itemTableModel = ItemTableModel.GetDefault();
-            
+
+            association.LastSync = DateTime.Now;
             foreach (BaseItem t in items)
             {
+                await _pauseTokenSource.WaitWhilePausedAsync();
                 t.Association = association;
                 var foundItem = itemTableModel.GetItem(t);
                 if (foundItem == null)
@@ -384,7 +392,6 @@ namespace OwncloudUniversal.Synchronization.Processing
 
                 }
             }
-            association.LastSync = DateTime.Now;
             FolderAssociationTableModel.GetDefault().UpdateItem(association, association.Id);
         }
 

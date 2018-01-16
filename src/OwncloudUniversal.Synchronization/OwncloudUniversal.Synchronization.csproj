@@ -130,6 +130,8 @@
     <Compile Include="Processing\EnityIdComparer.cs" />
     <Compile Include="Processing\ExecutionContext.cs" />
     <Compile Include="Processing\ExecutionStatus.cs" />
+    <Compile Include="Processing\PauseToken.cs" />
+    <Compile Include="Processing\PauseTokenSource.cs" />
     <Compile Include="ToastHelper.cs" />
     <Compile Include="Model\SyncDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

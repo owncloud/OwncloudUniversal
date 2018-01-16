@@ -21,12 +21,15 @@ using OwncloudUniversal.OwnCloud;
 using OwncloudUniversal.Synchronization.Configuration;
 using OwncloudUniversal.Synchronization.Processing;
 using Template10.Mvvm;
+using Windows.ApplicationModel.ExtendedExecution;
 
 namespace OwncloudUniversal.Services
 {
     class SynchronizationService
     {
         private BackgroundSyncProcess _worker;
+        private ExtendedExecutionSession _executionSession;
+        private PauseTokenSource _pauseTokenSource;
 
         private static SynchronizationService _instance;
 
@@ -71,6 +74,8 @@ namespace OwncloudUniversal.Services
             {
                 await Task.Factory.StartNew(async () =>
                 {
+                    _executionSession = await RequestExtendedExecutionAsync();
+                    _pauseTokenSource = new PauseTokenSource();
                     DisplayRequest displayRequest = null;
                     try
                     {
@@ -81,7 +86,7 @@ namespace OwncloudUniversal.Services
                                 displayRequest.RequestActive();
                             });
                         _Initialize();
-                        await _worker.Run();
+                        await _worker.Run(_pauseTokenSource);
                     }
                     catch (Exception e)
                     {
@@ -102,9 +107,15 @@ namespace OwncloudUniversal.Services
                             {
                                 displayRequest?.RequestRelease();
                             });
+                        ClearExecutionSession(_executionSession);
                     }
                 });
             }
+        }
+
+        public void ResumeSyncProcess()
+        {
+            _pauseTokenSource.IsPaused = false;
         }
 
         private bool ChargerAndNetworkAvailable()
@@ -123,6 +134,34 @@ namespace OwncloudUniversal.Services
                 result = false;
             }
             return result;
+        }
+
+        private async Task<ExtendedExecutionSession> RequestExtendedExecutionAsync()
+        {
+            var session = new ExtendedExecutionSession();
+            session.Reason = ExtendedExecutionReason.Unspecified;
+            session.Revoked += SessionRevoked;
+            ExtendedExecutionResult result = await session.RequestExtensionAsync();
+            if (result == ExtendedExecutionResult.Allowed)
+                return session;
+            return null;
+        }
+
+        private void ClearExecutionSession(ExtendedExecutionSession session)
+        {
+            if (session != null)
+            {
+                session.Revoked -= SessionRevoked;
+                session.Dispose();
+            }
+        }
+
+        private void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        {
+            System.Diagnostics.Debug.WriteLine($"Extended execution session was revoked reaseon: {args.Reason}");
+            _pauseTokenSource.IsPaused = true;
+            ToastHelper.SendToast(App.ResourceLoader.GetString("TransferCancelled"));
+            ClearExecutionSession(_executionSession);
         }
     }
 }

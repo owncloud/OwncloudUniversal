@@ -25,14 +25,19 @@ namespace OwncloudUniversal.ViewModels
 
         public ExecutionContext ExecutionContext => ExecutionContext.Instance;
         public ICommand StartSyncCommand { get; private set; }
+        public ICommand ResumeSyncCommand { get; private set; }
 
         public SynchronizationPageViewModel()
         {
             _syncService = SynchronizationService.GetInstance();
             StartSyncCommand = new DelegateCommand(async () =>
             {
-
                 await _syncService.StartSyncProcess();
+            });
+            ResumeSyncCommand = new DelegateCommand(() =>
+            {
+                
+                _syncService.ResumeSyncProcess();
             });
         }
 
