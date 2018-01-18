@@ -55,9 +55,6 @@ namespace OwncloudUniversal.Synchronization.Processing
             await
                 LogHelper.Write(
                     $"Finished synchronization cycle. Duration: {_watch.Elapsed} BackgroundTask: {_isBackgroundTask}");
-            ToastHelper.SendToast(_isBackgroundTask
-                ? $"BackgroundTask: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}"
-                : $"ManualSync: {_uploadCount} Files Uploaded, {_downloadCount} Files Downloaded {_deletedCount} Files Deleted. Duration: {_watch.Elapsed}");
             _watch.Stop();
             await SetExecutionStatus(ExecutionStatus.Finished);
         }
@@ -156,7 +153,6 @@ namespace OwncloudUniversal.Synchronization.Processing
                 }
                 catch (Exception e)
                 {
-                    ToastHelper.SendToast(string.Format("Message: {0}, EntityId: {1}", e.Message, item.EntityId));
                     await
                         LogHelper.Write(string.Format("Message: {0}, EntityId: {1} StackTrace:\r\n{2}", e.Message,
                             item.EntityId, e.StackTrace));
@@ -260,8 +256,7 @@ namespace OwncloudUniversal.Synchronization.Processing
                     historyEntry.Result = SyncResult.Failed;
                     historyEntry.Message = e.Message;
                     SyncHistoryTableModel.GetDefault().InsertItem(historyEntry);
-                    ToastHelper.SendToast(string.Format("Message: {0}, EntityId: {1}", e.Message, item.BaseItem.EntityId));
-                    await
+                   await
                         LogHelper.Write(string.Format("Message: {0}, EntityId: {1} StackTrace:\r\n{2}", e.Message,
                             item.BaseItem.EntityId, e.StackTrace));
                 }
@@ -317,7 +312,6 @@ namespace OwncloudUniversal.Synchronization.Processing
                 }
                 catch (Exception e)
                 {
-                    ToastHelper.SendToast(string.Format("Message: {0}, EntityId: {1}", e.Message, item.EntityId));
                     await
                         LogHelper.Write(string.Format("Message: {0}, EntityId: {1} StackTrace:\r\n{2}", e.Message,
                             item.EntityId, e.StackTrace));
