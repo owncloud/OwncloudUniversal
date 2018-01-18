@@ -49,6 +49,50 @@
                RelativePanel.AlignRightWithPanel="True"
                RelativePanel.Below="pageHeader">
 
+            <PivotItem DataContext="{Binding SettingsPartViewModel}" x:Uid="General">
+                <ScrollViewer Margin="0,12,-12,0"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalScrollBarVisibility="Auto">
+                    <RelativePanel HorizontalAlignment="Left">
+
+                        <ToggleSwitch x:Name="ShowHiddenFileToogleSwitch"
+                                      x:Uid="ShowHiddenFiles"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="UseLightThemeToggleSwitch"/>
+
+                        <ToggleSwitch x:Name="BackgroundTaskEnabledToogleSwitch"
+                                      x:Uid="EnableBackgroundTask"
+                                      IsOn="{Binding BackgroundTaskEnabled, Mode=TwoWay}"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="FileSearchModeToogleswitch"/>
+                       
+                        <ToggleSwitch x:Name="UseLightThemeToggleSwitch"
+                                      x:Uid="RequestedApplicationTheme"
+                                      IsOn="{Binding UseLightThemeButton, Mode=TwoWay}"
+                                      RelativePanel.AlignLeftWithPanel="True"/>
+
+                        <ToggleSwitch x:Name="FileSearchModeToogleswitch"
+                                      x:Uid="Filesearchmode"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="ShowHiddenFileToogleSwitch" />
+
+                        <TextBox x:Name="MaxDownloadSizeBox"
+                                 x:Uid="MaxDownloadSize"
+                                 Text="{Binding MaximumDownloadSize, Mode=TwoWay}"
+                                 RelativePanel.AlignLeftWithPanel="True"
+                                 RelativePanel.Below="BackgroundTaskEnabledToogleSwitch"
+                                 InputScope="Number"/>
+
+                        <Button x:Name="ResetButton"
+                                Margin="0,12"
+                                x:Uid="ResetDatabase"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.Below="MaxDownloadSizeBox"
+                                Command="{Binding ResetCommand}"/>
+                    </RelativePanel>
+                </ScrollViewer>
+            </PivotItem>
+
             <!--  settings  -->
             <PivotItem DataContext="{Binding SettingsPartViewModel}" x:Uid="Connection">
                 <ScrollViewer Margin="0,12,-12,0"
@@ -79,35 +123,7 @@
                                      Password="{Binding Password, Mode=TwoWay}"
                                      RelativePanel.AlignLeftWithPanel="True"
                                      RelativePanel.Below="UserNameTextBox" />
-
-                        <ToggleSwitch x:Name="BackgroundTaskEnabledToogleSwitch"
-                                      x:Uid="EnableBackgroundTask"
-                                      IsOn="{Binding BackgroundTaskEnabled, Mode=TwoWay}"
-                                      RelativePanel.AlignLeftWithPanel="True"
-                                      RelativePanel.Below="PasswordBox" />
-
-                        <ToggleSwitch x:Name="UseLightThemeToggleSwitch"
-                                      x:Uid="RequestedApplicationTheme"
-                                      IsOn="{Binding UseLightThemeButton, Mode=TwoWay}"
-                                      RelativePanel.AlignLeftWithPanel="True"
-                                      RelativePanel.Below="BackgroundTaskEnabledToogleSwitch" />
-                        
-                        <TextBox x:Name="MaxDownloadSizeBox"
-                                 x:Uid="MaxDownloadSize"
-                                 Text="{Binding MaximumDownloadSize, Mode=TwoWay}"
-                                 RelativePanel.AlignLeftWithPanel="True"
-                                 RelativePanel.Below="UseLightThemeToggleSwitch"
-                                 InputScope="Number"/>
-                        
-                        <Button x:Name="ResetButton"
-                                Margin="0,12"
-                                x:Uid="ResetDatabase"
-                                RelativePanel.AlignLeftWithPanel="True"
-                                RelativePanel.Below="MaxDownloadSizeBox"
-                                Command="{Binding ResetCommand}"/>
-
                     </RelativePanel>
-
                 </ScrollViewer>
             </PivotItem>
            
