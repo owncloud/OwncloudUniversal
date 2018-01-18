@@ -630,4 +630,43 @@ Möchten Sie diesen jetzt herunterladen?</value>
   <data name="Fingerprint" xml:space="preserve">
     <value>Fingerabdruck</value>
   </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Libraries</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Some components of this application use external libraries:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>This application is licensed under the Apache License 2.0.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>The file transfer has been aborted by the system.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>The synchronisation with ownCloud was paused.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>File search mode for synchronization</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Slow (check every individual file)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Fast (asks Windows Search Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Show hidden files</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>
