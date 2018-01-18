@@ -29,7 +29,7 @@ namespace OwncloudUniversal.BackgroundTasks
                 var webDav = new WebDavAdapter(true, Configuration.ServerUrl, Configuration.Credential, fileSystem);
                 fileSystem.LinkedAdapter = webDav;
                 _worker = new BackgroundSyncProcess(fileSystem, webDav, true);
-                await _worker.Run();
+                await _worker.Run(new PauseTokenSource());
             }
             catch (Exception e)
             {

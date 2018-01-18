@@ -31,7 +31,6 @@ namespace OwncloudUniversal.ViewModels
             _syncService = SynchronizationService.GetInstance();
             StartSyncCommand = new DelegateCommand(async () =>
             {
-
                 await _syncService.StartSyncProcess();
             });
         }

@@ -21,12 +21,15 @@ using OwncloudUniversal.OwnCloud;
 using OwncloudUniversal.Synchronization.Configuration;
 using OwncloudUniversal.Synchronization.Processing;
 using Template10.Mvvm;
+using Windows.ApplicationModel.ExtendedExecution;
 
 namespace OwncloudUniversal.Services
 {
     class SynchronizationService
     {
         private BackgroundSyncProcess _worker;
+        private ExtendedExecutionSession _executionSession;
+        private PauseTokenSource _pauseTokenSource;
 
         private static SynchronizationService _instance;
 
@@ -52,25 +55,23 @@ namespace OwncloudUniversal.Services
 
         public async Task StartSyncProcess()
         {
+            if (_pauseTokenSource?.IsPaused ?? false)
+            {
+                await ResumeAsync();
+                return;
+            }
+
             var run = true;
             if (!ChargerAndNetworkAvailable())
             {
-                var dialog = new ContentDialog
-                {
-                    Content = App.ResourceLoader.GetString("SyncWarning"),
-                    PrimaryButtonText = App.ResourceLoader.GetString("yes"),
-                    SecondaryButtonText = App.ResourceLoader.GetString("no")
-                };
-                var result = await dialog.ShowAsync();
-                if (result != ContentDialogResult.Primary)
-                {
-                    run = false;
-                }
+                run = await GetWarningDialogResultAsync();
             }
             if (run)
             {
                 await Task.Factory.StartNew(async () =>
                 {
+                    _executionSession = await RequestExtendedExecutionAsync();
+                    _pauseTokenSource = new PauseTokenSource();
                     DisplayRequest displayRequest = null;
                     try
                     {
@@ -81,7 +82,7 @@ namespace OwncloudUniversal.Services
                                 displayRequest.RequestActive();
                             });
                         _Initialize();
-                        await _worker.Run();
+                        await _worker.Run(_pauseTokenSource);
                     }
                     catch (Exception e)
                     {
@@ -101,7 +102,9 @@ namespace OwncloudUniversal.Services
                             CoreDispatcherPriority.Normal, () =>
                             {
                                 displayRequest?.RequestRelease();
+                                ExecutionContext.Instance.IsPaused = false;
                             });
+                        ClearExecutionSession(_executionSession);
                     }
                 });
             }
@@ -123,6 +126,63 @@ namespace OwncloudUniversal.Services
                 result = false;
             }
             return result;
+        }
+
+        private async Task<bool> GetWarningDialogResultAsync()
+        {
+            var dialog = new ContentDialog
+            {
+                Content = App.ResourceLoader.GetString("SyncWarning"),
+                PrimaryButtonText = App.ResourceLoader.GetString("yes"),
+                SecondaryButtonText = App.ResourceLoader.GetString("no")
+            };
+            var result = await dialog.ShowAsync();
+            return result == ContentDialogResult.Primary;            
+        }
+
+        private async Task ResumeAsync()
+        {
+            _pauseTokenSource.IsPaused = false;
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                        CoreDispatcherPriority.Normal, () =>
+                        {
+                            ExecutionContext.Instance.IsPaused = false;
+                            ExecutionContext.Instance.Status = ExecutionStatus.Active;
+                        });
+            _executionSession = await RequestExtendedExecutionAsync();
+            return;
+        }
+
+        private async Task<ExtendedExecutionSession> RequestExtendedExecutionAsync()
+        {
+            var session = new ExtendedExecutionSession();
+            session.Reason = ExtendedExecutionReason.Unspecified;
+            session.Revoked += SessionRevoked;
+            ExtendedExecutionResult result = await session.RequestExtensionAsync();
+            if (result == ExtendedExecutionResult.Allowed)
+                return session;
+            return null;
+        }
+
+        private void ClearExecutionSession(ExtendedExecutionSession session)
+        {
+            if (session != null)
+            {
+                session.Revoked -= SessionRevoked;
+                session.Dispose();
+            }
+        }
+
+        private async void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        {
+            System.Diagnostics.Debug.WriteLine($"Extended execution session was revoked reaseon: {args.Reason}");
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                ExecutionContext.Instance.IsPaused = true;
+            });
+            _pauseTokenSource.IsPaused = true;
+            ToastHelper.SendToast(App.ResourceLoader.GetString("SyncWasPaused"));
+            ClearExecutionSession(_executionSession);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwncloudUniversal.Synchronization", "OwncloudUniversal.Synchronization\OwncloudUniversal.Synchronization.csproj", "{FA10E7B0-AC70-44BD-9446-492BD3AE1119}"
 EndProject
@@ -97,5 +97,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {98B2BCA3-DB64-48A2-837D-6CF2DEB59C42}
 	EndGlobalSection
 EndGlobal

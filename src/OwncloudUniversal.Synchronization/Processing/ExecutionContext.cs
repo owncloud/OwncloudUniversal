@@ -15,6 +15,7 @@ namespace OwncloudUniversal.Synchronization.Processing
         private ExecutionStatus _status;
         private TransferOperationInfo _transferOperation;
         private static ExecutionContext _instance;
+        private bool _isPaused;
 
         public static ExecutionContext Instance => _instance ?? (_instance = new ExecutionContext());
 
@@ -25,7 +26,7 @@ namespace OwncloudUniversal.Synchronization.Processing
             CurrentFileNumber = 0;
             TotalFileCount = 0;
         }
-        
+
         public ExecutionStatus Status
         {
             get { return _status; }
@@ -68,7 +69,7 @@ namespace OwncloudUniversal.Synchronization.Processing
                 _totalFileCount = value;
                 OnPropertyChanged();
                 OnPropertyChanged("FileText");
-            }  
+            }
         }
 
         public TransferOperationInfo TransferOperation
@@ -80,14 +81,24 @@ namespace OwncloudUniversal.Synchronization.Processing
                 OnPropertyChanged();
             }
         }
-        
-        public bool IsActive => !(Status == ExecutionStatus.Finished || Status == ExecutionStatus.Ready || Status == ExecutionStatus.Stopped || Status == ExecutionStatus.Error);
+
+        public bool IsActive => !(Status == ExecutionStatus.Finished || Status == ExecutionStatus.Ready || Status == ExecutionStatus.Stopped || Status == ExecutionStatus.Error || IsPaused);
 
         public bool ShowProgress => Status == ExecutionStatus.Sending || Status == ExecutionStatus.Receiving;
 
         public string FileText => $"{CurrentFileNumber} / {TotalFileCount}";
 
         public bool IsBackgroundTask { get; set; }
+
+        public bool IsPaused
+        {
+            get => _isPaused;
+            set
+            {
+                _isPaused = value;
+                OnPropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

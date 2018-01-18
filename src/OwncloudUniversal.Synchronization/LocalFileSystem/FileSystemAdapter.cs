@@ -119,9 +119,13 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
                     int i = date.CompareTo(propertyResult.DateModified.UtcDateTime);
                     if (i <= 0)
                     {
+                        if (propertyResult.Size != existingItem.Size)
+                        {
+                            var item = new LocalItem(association, storageItem, propertyResult);
+                            result.Add(item);
+                        }
                         
-                        var item = new LocalItem(association, storageItem, propertyResult);
-                        result.Add(item);
+
                     }
                     else continue;
                 }
@@ -146,7 +150,7 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             }
             catch (ArgumentException)
             {
-                ToastHelper.SendToast($"Path has invalid characters {Uri.EscapeUriString(item.EntityId)}");
+                await LogHelper.Write($"Path has invalid characters {Uri.EscapeUriString(item.EntityId)}");
                 return item;
             }
             IStorageItem storageItem;
@@ -154,7 +158,7 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             displayName = displayName.Substring(displayName.LastIndexOf('\\') + 1);
             if (!PathIsValid(displayName))
             {
-                ToastHelper.SendToast($"Path has invalid characters {Uri.EscapeUriString(item.EntityId)}");
+                await LogHelper.Write($"Path has invalid characters {Uri.EscapeUriString(item.EntityId)}");
                 return item;
             }
             if (item.IsCollection)

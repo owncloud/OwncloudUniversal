@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.ExtendedExecution;
 using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
@@ -49,7 +50,9 @@ namespace OwncloudUniversal.ViewModels
         private readonly SyncedFoldersService _syncedFolderService;
         private ListViewSelectionMode _selectionMode = ListViewSelectionMode.Single;
         private WebDavNavigationService _webDavNavigationService;
-        private CancellationTokenSource _token;
+        private CancellationTokenSource _thumbnailTokenSource;
+        private CancellationTokenSource _tokenSource;
+        private ExtendedExecutionSession _executionSession;
 
         public FilesPageViewModel()
         {
@@ -73,14 +76,14 @@ namespace OwncloudUniversal.ViewModels
             if (propertyChangedEventArgs.PropertyName == "Items")
             {
                 //stop loading the old thumbnails after changing the webdav folder
-                if(_token == null)
-                    _token = new CancellationTokenSource();
+                if(_thumbnailTokenSource == null)
+                    _thumbnailTokenSource = new CancellationTokenSource();
                 else
                 {
-                    _token.Cancel();
-                    _token = new CancellationTokenSource();
+                    _thumbnailTokenSource.Cancel();
+                    _thumbnailTokenSource = new CancellationTokenSource();
                 }
-                Task.Run(() => LoadThumbnails(), _token.Token);
+                Task.Run(() => LoadThumbnails(), _thumbnailTokenSource.Token);
             }
         }
 
@@ -380,21 +383,21 @@ namespace OwncloudUniversal.ViewModels
             picker.SuggestedStartLocation = PickerLocationId.Downloads;
             var folder = await picker.PickSingleFolderAsync();
 
-            var tokenSource = new CancellationTokenSource();
+            _tokenSource = new CancellationTokenSource();
             var button = new Button();
             button.Content = App.ResourceLoader.GetString("Cancel");
             button.HorizontalAlignment = HorizontalAlignment.Center;
             button.Command = new DelegateCommand(() =>
             {
-                tokenSource.Cancel(false);
+                _tokenSource.Cancel(false);
                 IndicatorService.GetDefault().HideBar();
             });
-
+            _executionSession = await RequestExtendedExecutionAsync();
             try
             {
                 foreach (var fileToDownload in files)
                 {
-                    if (tokenSource.IsCancellationRequested)
+                    if (_tokenSource.IsCancellationRequested)
                     {
                         IndicatorService.GetDefault().HideBar();
                         SelectionMode = ListViewSelectionMode.Single;
@@ -402,7 +405,7 @@ namespace OwncloudUniversal.ViewModels
                     }
                     var progress = new Progress<HttpProgress>(async httpProgress =>
                     {
-                        if(tokenSource.IsCancellationRequested)
+                        if(_tokenSource.IsCancellationRequested)
                             return;
                         await Dispatcher.DispatchAsync(() =>
                         {
@@ -416,12 +419,13 @@ namespace OwncloudUniversal.ViewModels
                             SelectionMode = ListViewSelectionMode.Single;
                         }
                     });
-                    await WebDavItemService.GetDefault().DownloadAsync(fileToDownload, folder, tokenSource.Token, progress);
+                    await WebDavItemService.GetDefault().DownloadAsync(fileToDownload, folder, _tokenSource.Token, progress);
                 }
-                tokenSource.Cancel();
+                _tokenSource.Cancel();
             }
             finally
             {
+                ClearExecutionSession(_executionSession);
                 IndicatorService.GetDefault().HideBar();
             }
             
@@ -434,25 +438,26 @@ namespace OwncloudUniversal.ViewModels
             picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
             var files = await picker.PickMultipleFilesAsync();
 
-            var tokenSource = new CancellationTokenSource();
+            _tokenSource = new CancellationTokenSource();
             var button = new Button();
             button.Content = App.ResourceLoader.GetString("Cancel");
             button.HorizontalAlignment = HorizontalAlignment.Center;
             button.Command = new DelegateCommand(() =>
             {
-                tokenSource.Cancel(false);
+                _tokenSource.Cancel(false);
                 IndicatorService.GetDefault().HideBar();
             });
+            _executionSession = await RequestExtendedExecutionAsync();
 
             try
             {
                 foreach (var file in files)
                 {
-                    if (! tokenSource.IsCancellationRequested)
+                    if (!_tokenSource.IsCancellationRequested)
                     {
                         var progress = new Progress<HttpProgress>(async httpProgress =>
                         {
-                            if (tokenSource.IsCancellationRequested)
+                            if (_tokenSource.IsCancellationRequested)
                                 return;
                             await Dispatcher.DispatchAsync(() =>
                             {
@@ -467,16 +472,45 @@ namespace OwncloudUniversal.ViewModels
                                 }
                             });
                         });
-                        await WebDavItemService.GetDefault().UploadAsync(WebDavNavigationService.CurrentItem, file, tokenSource.Token, progress);
+                        await WebDavItemService.GetDefault().UploadAsync(WebDavNavigationService.CurrentItem, file, _tokenSource.Token, progress);
                     }
                 }
             }
             catch (TaskCanceledException) { }
             finally
             {
+                ClearExecutionSession(_executionSession);
                 IndicatorService.GetDefault().HideBar();
                 await WebDavNavigationService.ReloadAsync();
             }
+        }
+
+        private async Task<ExtendedExecutionSession> RequestExtendedExecutionAsync()
+        {
+            var session = new ExtendedExecutionSession();
+            session.Reason = ExtendedExecutionReason.Unspecified;
+            session.Revoked += SessionRevoked;
+            ExtendedExecutionResult result = await session.RequestExtensionAsync();
+            if (result == ExtendedExecutionResult.Allowed)
+                return session;
+            return null;
+        }
+
+        private void ClearExecutionSession(ExtendedExecutionSession session)
+        {
+            if (session != null)
+            {
+                session.Revoked -= SessionRevoked;
+                session.Dispose();
+            }
+        }
+
+        private void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        {
+            Debug.WriteLine($"Extended execution session was revoked reaseon: {args.Reason}");
+            _tokenSource.Cancel(false);
+            ToastHelper.SendToast(App.ResourceLoader.GetString("TransferCancelled"));
+            ClearExecutionSession(_executionSession);
         }
     }
 }
