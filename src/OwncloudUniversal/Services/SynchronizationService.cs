@@ -181,7 +181,7 @@ namespace OwncloudUniversal.Services
                 ExecutionContext.Instance.IsPaused = true;
             });
             _pauseTokenSource.IsPaused = true;
-            ToastHelper.SendToast(App.ResourceLoader.GetString("TransferCancelled"));
+            ToastHelper.SendToast(App.ResourceLoader.GetString("SyncWasPaused"));
             ClearExecutionSession(_executionSession);
         }
     }

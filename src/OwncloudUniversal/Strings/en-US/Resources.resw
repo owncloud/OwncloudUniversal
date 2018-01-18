@@ -645,4 +645,7 @@ Would you like to download it now?</value>
   <data name="TransferCancelled" xml:space="preserve">
     <value>The file transfer has been aborted by the system.</value>
   </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>The synchronisation with ownCloud was paused.</value>
+  </data>
 </root>
