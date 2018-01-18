@@ -55,20 +55,16 @@ namespace OwncloudUniversal.Services
 
         public async Task StartSyncProcess()
         {
+            if (_pauseTokenSource?.IsPaused ?? false)
+            {
+                await ResumeAsync();
+                return;
+            }
+
             var run = true;
             if (!ChargerAndNetworkAvailable())
             {
-                var dialog = new ContentDialog
-                {
-                    Content = App.ResourceLoader.GetString("SyncWarning"),
-                    PrimaryButtonText = App.ResourceLoader.GetString("yes"),
-                    SecondaryButtonText = App.ResourceLoader.GetString("no")
-                };
-                var result = await dialog.ShowAsync();
-                if (result != ContentDialogResult.Primary)
-                {
-                    run = false;
-                }
+                run = await GetWarningDialogResultAsync();
             }
             if (run)
             {
@@ -106,16 +102,12 @@ namespace OwncloudUniversal.Services
                             CoreDispatcherPriority.Normal, () =>
                             {
                                 displayRequest?.RequestRelease();
+                                ExecutionContext.Instance.IsPaused = false;
                             });
                         ClearExecutionSession(_executionSession);
                     }
                 });
             }
-        }
-
-        public void ResumeSyncProcess()
-        {
-            _pauseTokenSource.IsPaused = false;
         }
 
         private bool ChargerAndNetworkAvailable()
@@ -134,6 +126,31 @@ namespace OwncloudUniversal.Services
                 result = false;
             }
             return result;
+        }
+
+        private async Task<bool> GetWarningDialogResultAsync()
+        {
+            var dialog = new ContentDialog
+            {
+                Content = App.ResourceLoader.GetString("SyncWarning"),
+                PrimaryButtonText = App.ResourceLoader.GetString("yes"),
+                SecondaryButtonText = App.ResourceLoader.GetString("no")
+            };
+            var result = await dialog.ShowAsync();
+            return result == ContentDialogResult.Primary;            
+        }
+
+        private async Task ResumeAsync()
+        {
+            _pauseTokenSource.IsPaused = false;
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                        CoreDispatcherPriority.Normal, () =>
+                        {
+                            ExecutionContext.Instance.IsPaused = false;
+                            ExecutionContext.Instance.Status = ExecutionStatus.Active;
+                        });
+            _executionSession = await RequestExtendedExecutionAsync();
+            return;
         }
 
         private async Task<ExtendedExecutionSession> RequestExtendedExecutionAsync()
@@ -156,9 +173,13 @@ namespace OwncloudUniversal.Services
             }
         }
 
-        private void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        private async void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
         {
             System.Diagnostics.Debug.WriteLine($"Extended execution session was revoked reaseon: {args.Reason}");
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                ExecutionContext.Instance.IsPaused = true;
+            });
             _pauseTokenSource.IsPaused = true;
             ToastHelper.SendToast(App.ResourceLoader.GetString("TransferCancelled"));
             ClearExecutionSession(_executionSession);

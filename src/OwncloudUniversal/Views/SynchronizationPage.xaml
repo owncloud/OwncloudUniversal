@@ -54,7 +54,6 @@
                                  />
                     
                     <Button x:Uid="StartSync" Command="{Binding StartSyncCommand}" IsEnabled="{Binding ExecutionContext.IsActive, Converter={StaticResource BoolConverter}}"/>
-                    <Button x:Uid="Resume" Content="Resume" Command="{Binding ResumeSyncCommand}"/>
                     <ToggleSwitch x:Uid="EnableBackgroundTask" IsOn="{Binding BackgroundTaskEnabled, Mode=TwoWay}" Margin="0,12,0,0">
                         <ToggleSwitch.HeaderTemplate>
                             <DataTemplate>
