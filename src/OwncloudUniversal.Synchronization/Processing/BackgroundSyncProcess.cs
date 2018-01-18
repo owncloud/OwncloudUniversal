@@ -438,7 +438,10 @@ namespace OwncloudUniversal.Synchronization.Processing
             {
                 link.ChangeNumber = sourceItem.ChangeNumber;
                 LinkStatusTableModel.GetDefault().UpdateItem(link, link.Id);
-                targetItem.Id = link.TargetItemId;
+                if (sourceItem.Id == link.TargetItemId)
+                    targetItem.Id = link.SourceItemId;
+                else
+                    targetItem.Id = link.TargetItemId;
                 ItemTableModel.GetDefault().UpdateItem(sourceItem, sourceItem.Id);
                 ItemTableModel.GetDefault().UpdateItem(targetItem, targetItem.Id);
             }
