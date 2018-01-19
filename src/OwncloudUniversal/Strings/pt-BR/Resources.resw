@@ -625,42 +625,42 @@ Você gostaria de baixa-lo agora?</value>
     <value>impressão digital</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>Bibliotecas</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>Alguns componentes deste aplicativo usam bibliotecas externas:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
-    <value>License</value>
+    <value>Licença</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>Esta aplicação está licenciada sob a Licença Apache 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>A transferência de arquivos foi abortada pelo sistema.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
-    <value>General</value>
+    <value>Geral</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>A sincronização com ownCloud foi pausada.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>Modo de busca de arquivo para sincronização</value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>Lento (verifique cada arquivo individual)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>Rápido (verificar com o Índice de Pesquisa do Windows)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
-    <value>Password</value>
+    <value>Senha</value>
   </data>
   <data name="ShowHiddenFiles.Header" xml:space="preserve">
-    <value>Show hidden files</value>
+    <value>Mostrar arquivos escondidos</value>
   </data>
   <data name="UserName.Header" xml:space="preserve">
-    <value>Username</value>
+    <value>Nome do Usuário</value>
   </data>
 </root>

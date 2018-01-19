@@ -635,7 +635,7 @@
     <value>Some components of this application use external libraries:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
-    <value>License</value>
+    <value>Лицензия</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
     <value>This application is licensed under the Apache License 2.0.</value>
@@ -644,7 +644,7 @@
     <value>The file transfer has been aborted by the system.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
-    <value>General</value>
+    <value>Основные</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
     <value>The synchronisation with ownCloud was paused.</value>
@@ -659,12 +659,12 @@
     <value>Fast (asks Windows Search Index)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
-    <value>Password</value>
+    <value>Пароль</value>
   </data>
   <data name="ShowHiddenFiles.Header" xml:space="preserve">
-    <value>Show hidden files</value>
+    <value>Показать скрытые файлы</value>
   </data>
   <data name="UserName.Header" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя пользователя</value>
   </data>
 </root>

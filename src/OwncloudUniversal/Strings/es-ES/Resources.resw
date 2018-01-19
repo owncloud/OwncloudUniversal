@@ -636,7 +636,7 @@ Abra una incidencia en: https://github.com/owncloud/OwncloudUniversal/issues o u
     <value>Some components of this application use external libraries:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
-    <value>License</value>
+    <value>Licencia</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
     <value>This application is licensed under the Apache License 2.0.</value>
@@ -660,12 +660,12 @@ Abra una incidencia en: https://github.com/owncloud/OwncloudUniversal/issues o u
     <value>Fast (asks Windows Search Index)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
-    <value>Password</value>
+    <value>Contraseña</value>
   </data>
   <data name="ShowHiddenFiles.Header" xml:space="preserve">
-    <value>Show hidden files</value>
+    <value>Mostrar archivos ocultos</value>
   </data>
   <data name="UserName.Header" xml:space="preserve">
-    <value>Username</value>
+    <value>Nombre de usuario</value>
   </data>
 </root>
