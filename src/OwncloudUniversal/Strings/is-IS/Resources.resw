@@ -232,10 +232,10 @@
     <value>Synced Folders</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Samstilling</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Samstilling</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Transfer in progress..</value>

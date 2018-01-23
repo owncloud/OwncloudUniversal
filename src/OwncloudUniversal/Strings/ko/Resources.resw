@@ -232,10 +232,10 @@
     <value>동기화할 폴더</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>동기화</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>동기화</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>전송 중..</value>
@@ -616,7 +616,7 @@ https://github.com/owncloud/OwncloudUniversal/issues 사이트에 문제를 보�
     <value>업로드 경로</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Automatically upload new pictures?</value>
+    <value>새 사진을 자동으로 업로드하시겠습니까?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>{0} 업로드 중</value>
@@ -631,34 +631,34 @@ https://github.com/owncloud/OwncloudUniversal/issues 사이트에 문제를 보�
     <value>지문</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>라이브러리</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>이 앱의 일부 구성 요소는 외부 라이브러리를 사용합니다:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>라이선스</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>이 앱은 Apache License 2.0으로 배포됩니다.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>시스템에서 파일 전송을 중단했습니다.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>일반</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>ownCloud 동기화가 일시 정지되었습니다.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>동기화 파일 검색 모드</value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>느림(모든 개별 파일 검색)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>빠름(Windows 검색 인덱스 사용)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>암호</value>

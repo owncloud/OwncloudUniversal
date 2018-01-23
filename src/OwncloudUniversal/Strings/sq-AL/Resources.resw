@@ -633,34 +633,34 @@ Doni ta shkarkoni tani?
     <value>shenja gishtash</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>Librari</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>Disa përbërës të këtij aplikacioni përdorin librari të jashtme:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>Licencë</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>Ky aplikacion licencohet nën licencën Apache License 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>Shpërngulja e kartelës u ndërpre nga sistemi.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>Të përgjithshme</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>Njëkohësimi me ownCloud-in u pushua.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>Mënyrë kërkimi kartelash gjatë njëkohësimesh</value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>E ngadaltë (kontrollo çdo kartelë individuale)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>E shpejtë (pyet Windows Search Index)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>Fjalëkalim</value>
