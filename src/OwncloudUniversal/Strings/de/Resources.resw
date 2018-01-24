@@ -627,25 +627,25 @@ Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/Owncloud
     <value>Fingerabdruck</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>Bibliotheken</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>Manche Teile dieser Anwendung benutzen externe Bibliotheken:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>Lizenz</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>Diese Anwendung ist unter der Apache-Lizenz 2.0 lizensiert.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>Die Dateiübertragung wurde vom System abgebrochen.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>Allgemein</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>Die Synchronisation mit ownCloud wurde pausiert.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
     <value>File search mode for synchronization</value>

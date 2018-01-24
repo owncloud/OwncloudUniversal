@@ -634,7 +634,7 @@ Möchten Sie diesen jetzt herunterladen?</value>
     <value>Bibliotheken</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>Manche Komponenten dieser Anwendung nutzen externe Bibliotheken:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>Lizenz</value>
@@ -643,22 +643,22 @@ Möchten Sie diesen jetzt herunterladen?</value>
     <value>This application is licensed under the Apache License 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>Die Dateiübertragung wurde vom System abgebrochen.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>Allgemein</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>Die Synchronisation mit ownCloud war pausiert.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>Datei-Suchmodus für Synchronisation </value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>Langsam (Durchsuche jede Datei einzeln)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>Schnell (nutze Windows Such Index)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>Passwort</value>
