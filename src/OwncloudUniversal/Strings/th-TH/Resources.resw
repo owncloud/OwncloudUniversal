@@ -232,10 +232,10 @@
     <value>ประสานข้อมูลโฟลเดอร์แล้ว</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>ประสานข้อมูล</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>ประสานข้อมูล</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>กำลังดำเนินการอยู่..</value>
@@ -617,7 +617,7 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ตำแหน่งพาธสำหรับอัพโหลด</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Automatically upload new pictures?</value>
+    <value>อัพโหลดภาพใหม่โดยอัตโนมัติ?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>กำลังอัพโหลด {0}</value>
@@ -632,7 +632,7 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ลายนิ้วมือ</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>ห้องสมุด</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
     <value>Some components of this application use external libraries:</value>
@@ -644,13 +644,13 @@ https://github.com/owncloud/OwncloudUniversal
     <value>This application is licensed under the Apache License 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>การโอนย้ายไฟล์ถูกยกเลิกโดยระบบ</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>ทั่วไป</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>การซิงค์กับ OwnCloud ถูกหยุดชั่วคราว</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
     <value>File search mode for synchronization</value>
