@@ -534,7 +534,7 @@
     <value>{0} ปีที่ผ่านมา</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>คุณสามารถใช้โปรแกรมสำหรับเชื่อมโยงข้อมูลได้จากลิงค์นี้ https://owncloud.org/install/#install-clients
+    <value>คุณสามารถใช้โปรแกรมสำหรับเชื่อมโยงข้อมูลได้จากลิงก์นี้ https://owncloud.org/install/#install-clients
 
 แอพนี้เป็นโครงการที่ได้รับการพัฒนาโดยชุมชนของคุณเอง เริ่มต้นโดย Adrian Gebhart สามารถตรวจสอบโครงการเกี่ยวกับ GitHub หากคุณต้องการเข้าร่วมการพัฒนา
 https://github.com/owncloud/OwncloudUniversal
@@ -635,13 +635,13 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ห้องสมุด</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>ส่วนประกอบบางอย่างของโปรแกรมนี้ใช้ไลบรารีจากภายนอก:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>License</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>แอพพลิเคชันนี้ได้รับสิทธิการใช้งานภายใต้ Apache License 2.0</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
     <value>การโอนย้ายไฟล์ถูกยกเลิกโดยระบบ</value>
@@ -653,13 +653,13 @@ https://github.com/owncloud/OwncloudUniversal
     <value>การซิงค์กับ OwnCloud ถูกหยุดชั่วคราว</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>โหมดค้นหาไฟล์สำหรับการประสานข้อมูล</value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>ช้า (ตรวจสอบทุกไฟล์)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>เร็ว (ใช้ Windows Search Index)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>รหัสผ่าน</value>
