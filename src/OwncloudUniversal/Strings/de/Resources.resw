@@ -648,13 +648,13 @@ Erstellen Sie einen neuen Fehlerbericht auf https://github.com/owncloud/Owncloud
     <value>Die Synchronisation mit ownCloud wurde pausiert.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>Dateisuchmodus für Synchronisierung</value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>Langsam (jede Datei einzeln prüfen)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>Schnell (Windows Suchindex nutzen)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>Kennwort</value>

@@ -640,7 +640,7 @@ Möchten Sie diesen jetzt herunterladen?</value>
     <value>Lizenz</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>Diese Anwendendung ist unter der Apache-Lizenz 2.0 lizensiert.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
     <value>Die Dateiübertragung wurde vom System abgebrochen.</value>
