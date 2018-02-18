@@ -38,6 +38,10 @@ namespace OwncloudUniversal.Services
             var client = new WebDavClient(new Uri(Configuration.ServerUrl, UriKind.RelativeOrAbsolute), Configuration.Credential);
             var result = await client.ListFolder(CreateItemUri(folderHref));
             if (result.Count > 0) result.RemoveAt(0);
+            if(!Configuration.ShowHiddenFiles)
+            {
+                result = result.Where<DavItem>(i => !i.DisplayName.StartsWith(".")).ToList();
+            }
             return result.OrderBy(x => !x.IsCollection).ThenBy(x => x.DisplayName, StringComparer.CurrentCultureIgnoreCase).ToList();
         }
 
