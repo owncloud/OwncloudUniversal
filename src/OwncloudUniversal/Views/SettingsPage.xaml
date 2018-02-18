@@ -74,7 +74,7 @@
 
                         <ToggleSwitch x:Name="FileSearchModeToogleswitch"
                                       x:Uid="Filesearchmode"
-                                      IsOn="{Binding DoNotUseSearchIndex, Mode=TwoWay}"
+                                      IsOn="{Binding DoNotUseSearchIndex, Mode=TwoWay, Converter={StaticResource BoolConverter}}"
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="ShowHiddenFileToogleSwitch" />
 

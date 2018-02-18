@@ -226,7 +226,7 @@ namespace OwncloudUniversal.Synchronization.Configuration
             {
                 if (Config.Values.ContainsKey("DoNotUseSearchIndex"))
                     return (bool)Config.Values["DoNotUseSearchIndex"];
-                return true;
+                return false;
             }
 
             set => Config.Values["DoNotUseSearchIndex"] = value;
