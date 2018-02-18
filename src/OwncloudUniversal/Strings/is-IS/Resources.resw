@@ -232,10 +232,10 @@
     <value>Synced Folders</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization (Beta)</value>
+    <value>Samstilling</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization (Beta)</value>
+    <value>Samstilling</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Transfer in progress..</value>
@@ -616,7 +616,7 @@ Would you like to download it now?</value>
     <value>Innsendingarslóð</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Automatically upload new pictures?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Uploading {0}</value>
@@ -629,5 +629,44 @@ Would you like to download it now?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>fingerprint</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Libraries</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Some components of this application use external libraries:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Notkunarleyfi</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>This application is licensed under the Apache License 2.0.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>The file transfer has been aborted by the system.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Almennt</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>The synchronisation with ownCloud was paused.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>File search mode for synchronization</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Slow (check every individual file)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Fast (asks Windows Search Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Lykilorð</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Sýna faldar skrár</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Notandanafn</value>
   </data>
 </root>

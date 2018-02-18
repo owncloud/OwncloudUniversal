@@ -232,10 +232,10 @@
     <value>ประสานข้อมูลโฟลเดอร์แล้ว</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>ระบบประสานข้อมูล (รุ่นเบต้า)</value>
+    <value>ประสานข้อมูล</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>ระบบประสานข้อมูล (รุ่นเบต้า)</value>
+    <value>ประสานข้อมูล</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>กำลังดำเนินการอยู่..</value>
@@ -534,7 +534,7 @@
     <value>{0} ปีที่ผ่านมา</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>คุณสามารถใช้โปรแกรมสำหรับเชื่อมโยงข้อมูลได้จากลิงค์นี้ https://owncloud.org/install/#install-clients
+    <value>คุณสามารถใช้โปรแกรมสำหรับเชื่อมโยงข้อมูลได้จากลิงก์นี้ https://owncloud.org/install/#install-clients
 
 แอพนี้เป็นโครงการที่ได้รับการพัฒนาโดยชุมชนของคุณเอง เริ่มต้นโดย Adrian Gebhart สามารถตรวจสอบโครงการเกี่ยวกับ GitHub หากคุณต้องการเข้าร่วมการพัฒนา
 https://github.com/owncloud/OwncloudUniversal
@@ -617,7 +617,7 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ตำแหน่งพาธสำหรับอัพโหลด</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>อัพโหลดรูปภาพทันที?</value>
+    <value>อัพโหลดภาพใหม่โดยอัตโนมัติ?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>กำลังอัพโหลด {0}</value>
@@ -630,5 +630,44 @@ https://github.com/owncloud/OwncloudUniversal
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>ลายนิ้วมือ</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>ห้องสมุด</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>ส่วนประกอบบางอย่างของโปรแกรมนี้ใช้ไลบรารีจากภายนอก:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>แอพพลิเคชันนี้ได้รับสิทธิการใช้งานภายใต้ Apache License 2.0</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>การโอนย้ายไฟล์ถูกยกเลิกโดยระบบ</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>การซิงค์กับ OwnCloud ถูกหยุดชั่วคราว</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>โหมดค้นหาไฟล์สำหรับการประสานข้อมูล</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>ช้า (ตรวจสอบทุกไฟล์)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>เร็ว (ใช้ Windows Search Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>รหัสผ่าน</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>แสดงไฟล์ที่ซ่อนอยู่</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>ชื่อผู้ใช้</value>
   </data>
 </root>

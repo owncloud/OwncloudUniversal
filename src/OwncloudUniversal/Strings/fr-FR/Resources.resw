@@ -616,7 +616,7 @@ Voulez-vous le télécharger maintenant?</value>
     <value>Chemin du dossier de téléversement</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Instantly upload pictures taken by camera?</value>
+    <value>Téléverser automatiquement les nouvelles photos ?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Envoi de {0}</value>
@@ -629,5 +629,44 @@ Voulez-vous le télécharger maintenant?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>empreinte digitale</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Librairies</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Certains composants de cette application utilisent des librairies externes :</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>Cette application est sous licence Apache 2.0.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>Le transfert du fichier a été annulé par le système.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>La synchronisation avec ownCloud a été mise en pause.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>File search mode for synchronization</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Lent (vérifie chaque fichier individuellement)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Rapide (interrogation de l'Index de Recherche Windows)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Afficher les fichiers cachés</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
 </root>

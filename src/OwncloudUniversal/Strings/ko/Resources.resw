@@ -232,10 +232,10 @@
     <value>동기화할 폴더</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>동기화(베타)</value>
+    <value>동기화</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>동기화(베타)</value>
+    <value>동기화</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>전송 중..</value>
@@ -616,7 +616,7 @@ https://github.com/owncloud/OwncloudUniversal/issues 사이트에 문제를 보�
     <value>업로드 경로</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>카메라로 찍은 사진을 즉시 업로드하시겠습니까?</value>
+    <value>새 사진을 자동으로 업로드하시겠습니까?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>{0} 업로드 중</value>
@@ -629,5 +629,44 @@ https://github.com/owncloud/OwncloudUniversal/issues 사이트에 문제를 보�
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>지문</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>라이브러리</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>이 앱의 일부 구성 요소는 외부 라이브러리를 사용합니다:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>라이선스</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>이 앱은 Apache License 2.0으로 배포됩니다.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>시스템에서 파일 전송을 중단했습니다.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>ownCloud 동기화가 일시 정지되었습니다.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>동기화 파일 검색 모드</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>느림(모든 개별 파일 검색)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>빠름(Windows 검색 인덱스 사용)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>숨김 파일 보이기</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>사용자 이름</value>
   </data>
 </root>

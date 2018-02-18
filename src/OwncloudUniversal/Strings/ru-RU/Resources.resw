@@ -232,10 +232,10 @@
     <value>Синхронизированные папки</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Синхронизация (Бета)</value>
+    <value>Синхронизация</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Синхронизация (Бета)</value>
+    <value>Синхронизация</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Идёт передача…</value>
@@ -614,7 +614,7 @@
     <value>Путь загрузки</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Сразу загружать снимки, сделанные камерой?</value>
+    <value>Автоматически закачивать новые изображения?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Закачивается {0}</value>
@@ -627,5 +627,44 @@
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>отпечаток</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Библиотеки</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Некоторые компоненты этого приложения используют внешние библиотеки:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>Это приложение распространяется под лицензией Apache 2.0</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>Передача файла была прервана системой.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Основные</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>Синхронизация с ownCloud приостановлена.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>Режим поиска файлов для синхронизации.</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Медленно (проверять каждый отдельный файл)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Быстро (запрашивая Индекс поиска Windows)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Показать скрытые файлы</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Имя пользователя</value>
   </data>
 </root>

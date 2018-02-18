@@ -232,10 +232,10 @@
     <value>Synchronisierte Ordner</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Synchronisation</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronisation (Beta)</value>
+    <value>Synchronisation</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Übertragung läuft..</value>
@@ -616,7 +616,7 @@ Möchten Sie diesen jetzt herunterladen?</value>
     <value>Pfad für das Hochladen</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Fotos von der Kamera sofort hochladen?</value>
+    <value>Neue Bilder automatisch hochladen?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Lade {0} hoch</value>
@@ -629,5 +629,44 @@ Möchten Sie diesen jetzt herunterladen?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>Fingerabdruck</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Bibliotheken</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Manche Komponenten dieser Anwendung nutzen externe Bibliotheken:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Lizenz</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>Diese Anwendendung ist unter der Apache-Lizenz 2.0 lizensiert.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>Die Dateiübertragung wurde vom System abgebrochen.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>Die Synchronisation mit ownCloud war pausiert.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>Datei-Suchmodus für Synchronisation </value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Langsam (Durchsuche jede Datei einzeln)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Schnell (nutze Windows Such Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Versteckte Dateien anzeigen</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Benutzername</value>
   </data>
 </root>

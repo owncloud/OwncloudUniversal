@@ -232,10 +232,10 @@
     <value>Dosje të Njëkohësuara</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Njëkohësim (Beta)</value>
+    <value>Njëkohësim</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Njëkohësim (Beta)</value>
+    <value>Njëkohësim</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Shpërngulje në ecuri e sipër…</value>
@@ -618,7 +618,7 @@ Doni ta shkarkoni tani?
     <value>Shteg ngarkimesh</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Të ngarkohen menjëherë fotot e bëra nga kamera?</value>
+    <value>Të ngarkohen vetvetiu fotot e reja?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>Po ngarkohet {0}</value>
@@ -631,5 +631,44 @@ Doni ta shkarkoni tani?
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>shenja gishtash</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Librari</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Disa përbërës të këtij aplikacioni përdorin librari të jashtme:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Licencë</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>Ky aplikacion licencohet nën licencën Apache License 2.0.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>Shpërngulja e kartelës u ndërpre nga sistemi.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Të përgjithshme</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>Njëkohësimi me ownCloud-in u pushua.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>Mënyrë kërkimi kartelash gjatë njëkohësimesh</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>E ngadaltë (kontrollo çdo kartelë individuale)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>E shpejtë (pyet Windows Search Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Fjalëkalim</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Shfaq kartela të fshehura</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Emër përdoruesi</value>
   </data>
 </root>
