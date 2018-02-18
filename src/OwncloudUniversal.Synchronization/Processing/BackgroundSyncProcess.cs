@@ -116,7 +116,11 @@ namespace OwncloudUniversal.Synchronization.Processing
                         {
                             if (linkedItem.IsCollection)
                             {
-                                var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId);
+                                var trailingSlash = "\\";
+                                if (linkedItem.EntityId.Contains('/'))
+                                    trailingSlash = "/";
+
+                                var childItems = ItemTableModel.GetDefault().GetFilesForFolder(linkedItem.EntityId + trailingSlash);
                                 foreach (var childItem in childItems)
                                 {
                                     var childLink = LinkStatusTableModel.GetDefault().GetItem(childItem);
@@ -141,7 +145,11 @@ namespace OwncloudUniversal.Synchronization.Processing
 
                     if (item.IsCollection)
                     {
-                        var childItems = ItemTableModel.GetDefault().GetFilesForFolder(item.EntityId);
+                        var trailingSlash = "\\";
+                        if (item.EntityId.Contains('/'))
+                            trailingSlash = "/";
+                        
+                        var childItems = ItemTableModel.GetDefault().GetFilesForFolder(item.EntityId + trailingSlash);
                         foreach (var childItem in childItems)
                         {
                             ItemTableModel.GetDefault().DeleteItem(childItem.Id);
