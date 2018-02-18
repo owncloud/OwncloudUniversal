@@ -208,6 +208,30 @@ namespace OwncloudUniversal.Synchronization.Configuration
             set => Config.Values["ShowGridView"] = value;
         }
 
+        public static bool ShowHiddenFiles
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("ShowHiddenFiles"))
+                    return (bool)Config.Values["ShowHiddenFiles"];
+                return false;
+            }
+
+            set => Config.Values["ShowHiddenFiles"] = value;
+        }
+
+        public static bool DoNotUseSearchIndex
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("DoNotUseSearchIndex"))
+                    return (bool)Config.Values["DoNotUseSearchIndex"];
+                return true;
+            }
+
+            set => Config.Values["DoNotUseSearchIndex"] = value;
+        }
+
         public static void Reset()
         {
             ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);
