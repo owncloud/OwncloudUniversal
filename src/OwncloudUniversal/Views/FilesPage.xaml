@@ -117,7 +117,7 @@
                   IsMultiSelectCheckBoxEnabled="True"
                   ShowsScrollingPlaceholders="False"
                   VerticalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged" Grid.ColumnSpan="2"
-                  Visibility="Collapsed">
+                  Visibility="{x:Bind FilesPageViewModel.ShowGridView, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay}">
             
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:DavItem">
@@ -235,7 +235,7 @@
                     Margin="12"
                     HorizontalAlignment="Stretch"
                     Grid.ColumnSpan="2"
-                    Visibility="Visible">
+                    Visibility="{x:Bind FilesPageViewModel.ShowGridView, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DavItem">
@@ -363,6 +363,9 @@
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
             <AppBarButton x:Uid="SelectMode" Icon="Bullets" 
                           Command="{Binding SwitchSelectionModeCommand}"
+                          Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
+            <AppBarButton Icon="ViewAll" 
+                          Command="{Binding ToogleViewCommand}"
                           Visibility="{Binding SelectionMode, Converter={StaticResource VisibleInSingleModeConverter}}"/>
         </CommandBar>
     </Grid>
