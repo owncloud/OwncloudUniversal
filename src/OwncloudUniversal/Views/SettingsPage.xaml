@@ -57,6 +57,7 @@
 
                         <ToggleSwitch x:Name="ShowHiddenFileToogleSwitch"
                                       x:Uid="ShowHiddenFiles"
+                                      IsOn="{Binding ShowHiddenFiles, Mode=TwoWay}"
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="UseLightThemeToggleSwitch"/>
 
@@ -73,6 +74,7 @@
 
                         <ToggleSwitch x:Name="FileSearchModeToogleswitch"
                                       x:Uid="Filesearchmode"
+                                      IsOn="{Binding DoNotUseSearchIndex, Mode=TwoWay}"
                                       RelativePanel.AlignLeftWithPanel="True"
                                       RelativePanel.Below="ShowHiddenFileToogleSwitch" />
 
@@ -139,7 +141,8 @@
                             BorderThickness="1"
                             IsHitTestVisible="False"
                             RelativePanel.AlignRightWithPanel="True"
-                            RelativePanel.AlignTopWithPanel="True">
+                            RelativePanel.AlignTopWithPanel="True"
+                            Margin="16">
                             <Border.Background>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </Border.Background>

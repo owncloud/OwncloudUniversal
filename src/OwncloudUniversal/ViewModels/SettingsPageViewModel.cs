@@ -46,29 +46,29 @@ namespace OwncloudUniversal.ViewModels
             ResetCommand = new DelegateCommand(async () => await ResetDataBaseAsync());
         }
 
-        public bool ShowHamburgerButton
-        {
-            get { return _settings.ShowHamburgerButton; }
-            set { _settings.ShowHamburgerButton = value; base.RaisePropertyChanged(); }
-        }
+        //public bool ShowHamburgerButton
+        //{
+        //    get { return _settings.ShowHamburgerButton; }
+        //    set { _settings.ShowHamburgerButton = value; base.RaisePropertyChanged(); }
+        //}
 
-        public bool IsFullScreen
-        {
-            get { return _settings.IsFullScreen; }
-            set
-            {
-                _settings.IsFullScreen = value;
-                base.RaisePropertyChanged();
-                if (value)
-                {
-                    ShowHamburgerButton = false;
-                }
-                else
-                {
-                    ShowHamburgerButton = true;
-                }
-            }
-        }
+        //public bool IsFullScreen
+        //{
+        //    get { return _settings.IsFullScreen; }
+        //    set
+        //    {
+        //        _settings.IsFullScreen = value;
+        //        base.RaisePropertyChanged();
+        //        if (value)
+        //        {
+        //            ShowHamburgerButton = false;
+        //        }
+        //        else
+        //        {
+        //            ShowHamburgerButton = true;
+        //        }
+        //    }
+        //}
 
         public bool UseLightThemeButton
         {
@@ -130,6 +130,18 @@ namespace OwncloudUniversal.ViewModels
         {
             get { return Configuration.MaxDownloadSize; }
             set { Configuration.MaxDownloadSize = value; }
+        }
+
+        public bool ShowHiddenFiles
+        {
+            get { return Configuration.ShowHiddenFiles; }
+            set { Configuration.ShowHiddenFiles = value; }
+        }
+
+        public bool DoNotUseSearchIndex
+        {
+            get { return Configuration.DoNotUseSearchIndex; }
+            set { Configuration.DoNotUseSearchIndex = value; }
         }
     }
 
