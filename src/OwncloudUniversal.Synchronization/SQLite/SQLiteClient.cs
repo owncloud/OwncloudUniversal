@@ -14,6 +14,8 @@ namespace OwncloudUniversal.Synchronization.SQLite
         public static SQLiteConnection Connection => _connection ?? (_connection = new SQLiteConnection("webdav-sync.db"));
         public static void Init()
         {
+            SetInitialSchemaVersion();
+
             string query = "";
             query = @"CREATE TABLE IF NOT EXISTS [Item] (
                         [Id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -76,7 +78,6 @@ namespace OwncloudUniversal.Synchronization.SQLite
                 statement.Step();
             }
 
-            SetInitialSchemaVersion();
             if (GetCurrentSchemaVersion() < 104)
                 UpgradeSchemaTo_v104();
         }
@@ -85,37 +86,42 @@ namespace OwncloudUniversal.Synchronization.SQLite
         {
             string query = "";
 
-            query = @"DROP TABLE LinkStatus;";
+            query = @"DROP TABLE IF EXISTS LinkStatus;";
             using (var statement = Connection.Prepare(query))
             {
                 statement.Step();
             }
 
-            query = @"DROP TABLE Item;";
+            query = @"DROP TABLE IF EXISTS Item;";
             using (var statement = Connection.Prepare(query))
             {
                 statement.Step();
             }
 
-            query = @"DROP TABLE Association;";
+            query = @"DROP TABLE IF EXISTS Association;";
             using (var statement = Connection.Prepare(query))
             {
                 statement.Step();
             }
 
-            query = @"DROP TABLE SyncHistory;";
+            query = @"DROP TABLE IF EXISTS SyncHistory;";
             using (var statement = Connection.Prepare(query))
             {
                 statement.Step();
             }
-            Init();
+
+            using (var statement = Connection.Prepare("PRAGMA user_version = 1"))
+            {
+                statement.Step();
+            }
         }
 
         private static void SetInitialSchemaVersion()
         {
             if (Configuration.Configuration.NeedsInitialSchemaVersion)
             {
-                using (var query = Connection.Prepare("PRAGMA schema_version = 100"))
+                Reset();
+                using (var query = Connection.Prepare("PRAGMA user_version = 100"))
                 {
                     query.Step();
                 }
@@ -125,11 +131,12 @@ namespace OwncloudUniversal.Synchronization.SQLite
 
         private static long GetCurrentSchemaVersion()
         {
-            using (var query = Connection.Prepare("PRAGMA schema_version"))
+            using (var query = Connection.Prepare("PRAGMA user_version"))
             {
                 if (query.Step() == SQLiteResult.ROW)
                 {
-                    return (long)query[0];
+                    var l = (long)query[0];
+                    return l;
                 }
             }
             return -1;
@@ -152,7 +159,7 @@ namespace OwncloudUniversal.Synchronization.SQLite
                 query.Step();
             }
 
-            using (var query = Connection.Prepare("PRAGMA schema_version = 104"))
+            using (var query = Connection.Prepare("PRAGMA user_version = 104"))
             {
                 query.Step();
             }
