@@ -226,53 +226,53 @@
 
         </ListView>
 
-        <GridView   x:Name="GridView"
+        <toolkit:AdaptiveGridView   x:Name="GridView"
                     ItemsSource="{x:Bind FilesPageViewModel.WebDavNavigationService.Items, Mode=OneWay}"
                     SelectedItem="{x:Bind FilesPageViewModel.SelectedItem, Mode=TwoWay}"
                     SelectionMode="{Binding SelectionMode}"
                     SelectionChanged="ListView_SelectionChanged"
                     Grid.Row="1"
-                    Margin="12"
+                    DesiredWidth="120"
+                    Margin="4"                                    
+                    OneRowModeEnabled="False"
+                    IsItemClickEnabled="True"
                     HorizontalAlignment="Stretch"
                     Grid.ColumnSpan="2"
                     Visibility="{x:Bind FilesPageViewModel.ShowGridView, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:DavItem">
-                        <Grid x:Name="ItemGrid" HorizontalAlignment="Stretch" Holding="ItemGrid_OnHolding" RightTapped="ItemGrid_OnRightTapped" Width="330">
-                            <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <Border BorderThickness="0">
+                        <Grid x:Name="ItemGrid" Holding="ItemGrid_OnHolding" RightTapped="ItemGrid_OnRightTapped">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
                             <toolkit:ImageEx
                                 x:Name="ImageEx"
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                Grid.RowSpan="2"
                                 IsCacheEnabled="True"
                                 Source="{x:Bind ThumbnailUrl}"
                                 PlaceholderSource="{x:Bind ContentType, Converter={StaticResource ContentTypeToSymbolUriConverter}}"
-                                PlaceholderStretch="UniformToFill"
-                                HorizontalAlignment="Left"
-                                Height="80" 
-                                Width="80"
+                                PlaceholderStretch="Uniform"
+                                HorizontalAlignment="Center"
                                 x:Phase="1"/>
-                        <StackPanel Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center">
-                            <TextBlock VerticalAlignment="Center" Text="{x:Bind DisplayName}"
-                                       HorizontalAlignment="Stretch" x:Phase="0" TextTrimming="CharacterEllipsis"/>
-                            <TextBlock VerticalAlignment="Center"
-                                        Text="{x:Bind Size, Converter={StaticResource BytesToSuffixConverter}}"
-                                        Foreground="{ThemeResource ForegroundMediumBrush}"
-                                        HorizontalAlignment="Stretch" x:Phase="0" />
-                            <TextBlock Grid.Column="1" Foreground="{ThemeResource ForegroundMediumBrush}"
-                                        Text="{x:Bind LastModified, Converter={StaticResource DateTimeToDaysAgoConverter}}"
-                                        HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                                        x:Phase="0" />                            
-                        </StackPanel>
+                            <StackPanel Grid.Row="1">
+                                <TextBlock 
+                                    Text="{x:Bind DisplayName}" 
+                                    x:Phase="0"
+                                    MaxLines="2" 
+                                    Height="40" 
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap"
+                                    HorizontalAlignment="Center"
+                                    TextTrimming="CharacterEllipsis"
+                                    Visibility="{x:Bind ContentType, Converter={StaticResource InvertedContentTypeToVisibilityConverter}}"/>
+                            </StackPanel>
 
-                        <FlyoutBase.AttachedFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Margin="12"
+                            <FlyoutBase.AttachedFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.OpenCommand, ElementName=Page}"
                                                 CommandParameter="{x:Bind}"
                                                 Visibility="{x:Bind IsCollection, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
@@ -280,7 +280,7 @@
                                                 Tag="OpenFile"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
-                                <MenuFlyoutItem Margin="12"
+                                    <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.AddToSyncCommand, ElementName=Page}"
                                                 CommandParameter="{x:Bind}"
                                                 Visibility="{x:Bind Converter={StaticResource InvertedItemToVisibilityConverter}}"
@@ -288,7 +288,7 @@
                                                 Tag="Sync"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
-                                <MenuFlyoutItem x:Name="DownloadMenuItem"
+                                    <MenuFlyoutItem x:Name="DownloadMenuItem"
                                                 Margin="12"
                                                 Command="{Binding DataContext.DownloadCommand, ElementName=Page}"
                                                 CommandParameter="{x:Bind}"
@@ -296,47 +296,49 @@
                                                 Tag="Download"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
-                                <MenuFlyoutItem Margin="12"
+                                    <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.MoveCommand, ElementName=Page}"
                                                 CommandParameter="{x:Bind}"
                                                 x:Uid="MoveToFolder"
                                                 Tag="MoveToFolder"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
-                                <MenuFlyoutItem Margin="12"
+                                    <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.DeleteCommand, ElementName=Page}"
                                                 CommandParameter="{x:Bind}"
                                                 x:Uid="Delete"
                                                 Tag="Delete"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
-                                <MenuFlyoutItem Margin="12"
+                                    <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.RenameCommand, ElementName=Page}"
                                                 CommandParameter="{x:Bind}"
                                                 x:Uid="Rename"
                                                 Tag="Rename"
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
 
-                                <MenuFlyoutItem Margin="12"
+                                    <MenuFlyoutItem Margin="12"
                                                 Command="{Binding DataContext.ShowPropertiesCommand, ElementName=Page}"
                                                 CommandParameter="{x:Bind}" x:Uid="Properties" 
                                                 Tag="More" 
                                                 Style="{StaticResource MenuFyloutItemStyle}"/>
-                            </MenuFlyout>
-                        </FlyoutBase.AttachedFlyout>
-                            
-                    </Grid>
+                                </MenuFlyout>
+                            </FlyoutBase.AttachedFlyout>
+
+                        </Grid>
+                    </Border>                    
                 </DataTemplate>
             </GridView.ItemTemplate>
 
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                    <Setter Property="MaxWidth" Value="120"/>
                 </Style>
             </GridView.ItemContainerStyle>
 
-        </GridView>
+        </toolkit:AdaptiveGridView>
 
         <CommandBar Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
             <AppBarButton x:Uid="Move" Icon="MoveToFolder" 
