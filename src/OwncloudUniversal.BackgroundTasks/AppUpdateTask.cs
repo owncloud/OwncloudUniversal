@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using OwncloudUniversal.Synchronization.Configuration;
 using OwncloudUniversal.Synchronization.SQLite;
+using System.Diagnostics;
 
 namespace OwncloudUniversal.BackgroundTasks
 {
@@ -18,11 +19,7 @@ namespace OwncloudUniversal.BackgroundTasks
                 var reg = new BackgroundTaskConfiguration();
                 reg.Enabled = true;
             }
-            if (Configuration.IsCameraUploadEnabled)
-            {
-                var reg = new InstantUploadRegistration();
-                reg.Enabled = true;
-            }
+            SQLiteClient.Reset();
             SQLiteClient.Init();
         }
     }
