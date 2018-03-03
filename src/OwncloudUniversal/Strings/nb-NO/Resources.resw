@@ -232,10 +232,10 @@
     <value>Synkroniserte mapper</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Synkronisering</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Synkronisering</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Overføring pågår.</value>
@@ -616,49 +616,49 @@ Vil du laste den ned nå?</value>
     <value>Opplastings-sti</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Automatically upload new pictures?</value>
+    <value>Last opp nye bilder automatisk?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Laster opp {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>Sertifiseringsinstansen er ugyldig eller feil</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>Ønsker du fortsatt å stole på sertifikatet?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>fingeravtrykk</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>Biblioteker</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>Noen komponenter i denne applikasjonen bruker eksterne biblioteker:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>Lisens</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>Denne applikasjonen er lisensiert under Apache License 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>Filoverføringen ble avbrutt av systemet.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>Generelt</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>Synkroniseringen med ownCloud ble satt på pause.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>Metode for filsøk for synkronisering</value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>Sakte (sjekk hver fil individuelt)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>Rask (spør Windows' søkeindeks)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>Passord</value>
