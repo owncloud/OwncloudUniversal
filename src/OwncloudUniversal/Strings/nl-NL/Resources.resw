@@ -232,10 +232,10 @@
     <value>Gesynchroniseerde mappen</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Synchronisatie</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Synchronisatie</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Transfer bezig...</value>
@@ -632,7 +632,7 @@ Wilt u deze nu downloaden?</value>
     <value>vingerafdruk</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>Bibliotheken</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
     <value>Some components of this application use external libraries:</value>
