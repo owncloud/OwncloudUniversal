@@ -232,10 +232,10 @@
     <value>Pastas sincronizadas</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Sincronização</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Sincronização</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Transferência em curso...</value>
@@ -479,7 +479,7 @@ Tem a certeza que quer começar a sincronização agora?</value>
     <value>Versão</value>
   </data>
   <data name="ReportButton.Content" xml:space="preserve">
-    <value>Enviar relatório de diagnóstico via email</value>
+    <value>Enviar relatório de diagnóstico via correio eletrónico</value>
   </data>
   <data name="SyncConditions.Text" xml:space="preserve">
     <value>A sincronização irá iniciar em segundo plano se as seguintes condições forem encontradas:
@@ -568,7 +568,7 @@ Gostaria de o transferir agora?</value>
     <value>Eliminado</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Falhou</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>Ignorado.</value>
@@ -577,10 +577,10 @@ Gostaria de o transferir agora?</value>
     <value>Moved</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Recebido</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Renomeado</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>Enviada</value>
@@ -622,10 +622,10 @@ Gostaria de o transferir agora?</value>
     <value>Do you still want to trust the certificate?</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>impressão digital</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>Librarias</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
     <value>Some components of this application use external libraries:</value>
