@@ -280,7 +280,7 @@
     <value>Gjendje njëkohësimi</value>
   </data>
   <data name="FileModified.Header" xml:space="preserve">
-    <value>Ndrysho datën</value>
+    <value>Modifydate</value>
   </data>
   <data name="Filename.Header" xml:space="preserve">
     <value>Emër</value>
