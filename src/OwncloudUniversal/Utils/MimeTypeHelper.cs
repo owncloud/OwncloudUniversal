@@ -111,7 +111,7 @@ namespace OwncloudUniversal.Utils
             ExtendedMimeTypes.Add("text/css", "text-code.png");
             ExtendedMimeTypes.Add("text/csv", "x-office-spreadsheet.png");
             ExtendedMimeTypes.Add("text/html", "text-code.png");
-            ExtendedMimeTypes.Add("text/vcard", "vcard");
+            ExtendedMimeTypes.Add("text/vcard", "text-vcard.png");
             ExtendedMimeTypes.Add("text/x-c", "text-code.png");
             ExtendedMimeTypes.Add("text/x-c++src", "text-code.png");
             ExtendedMimeTypes.Add("text/x-h", "text-code.png");

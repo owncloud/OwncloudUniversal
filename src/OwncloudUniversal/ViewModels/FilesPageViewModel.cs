@@ -69,6 +69,7 @@ namespace OwncloudUniversal.ViewModels
             MoveCommand = new DelegateCommand<DavItem>(async item => await NavigationService.NavigateAsync(typeof(SelectFolderPage), FilesPage.GetSelectedItems(item), new SuppressNavigationTransitionInfo()));
             RenameCommand = new DelegateCommand<DavItem>(async item => await Rename(item));
             OpenCommand = new DelegateCommand<DavItem>(async item => await OpenFileAsync(item));
+            ToogleViewCommand = new DelegateCommand(() => ShowGridView = !ShowGridView);
         }
 
         private void WebDavNavigationServiceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -87,18 +88,32 @@ namespace OwncloudUniversal.ViewModels
             }
         }
 
-        public ICommand UploadItemCommand { get; private set; }
-        public ICommand RefreshCommand { get; private set; }
-        public ICommand AddToSyncCommand { get; private set; }
-        public ICommand ShowPropertiesCommand { get; private set; }
-        public ICommand DownloadCommand { get; private set; }
-        public ICommand RenameCommand { get; private set; }
-        public ICommand DeleteCommand { get; private set; }
-        public ICommand AddFolderCommand { get; private set; }
-        public ICommand SwitchSelectionModeCommand { get; private set; }
-        public ICommand HomeCommand { get; private set; }
-        public ICommand MoveCommand { get; private set; }
+        public ICommand UploadItemCommand { get; }
+        public ICommand RefreshCommand { get; }
+        public ICommand AddToSyncCommand { get; }
+        public ICommand ShowPropertiesCommand { get;}
+        public ICommand DownloadCommand { get; }
+        public ICommand RenameCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand AddFolderCommand { get; }
+        public ICommand SwitchSelectionModeCommand { get; }
+        public ICommand HomeCommand { get; }
+        public ICommand MoveCommand { get; }
         public ICommand OpenCommand { get; }
+        public ICommand ToogleViewCommand { get; }
+
+        public bool ShowGridView
+        {
+            get
+            {
+                return Configuration.ShowGridView;
+            }
+            private set
+            {
+                Configuration.ShowGridView = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public WebDavNavigationService WebDavNavigationService
         {
@@ -305,7 +320,7 @@ namespace OwncloudUniversal.ViewModels
                 if (!davItem.IsCollection && davItem.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
                 {
                     var itemPath = davItem.EntityId.Substring(davItem.EntityId.IndexOf("remote.php/webdav", StringComparison.OrdinalIgnoreCase) + 17);
-                    var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 40 + "/" + 40 + itemPath;
+                    var url = serverUrl + "index.php/apps/files/api/v1/thumbnail/" + 120 + "/" + 120 + itemPath;
                     davItem.ThumbnailUrl = url;
                 }
             }

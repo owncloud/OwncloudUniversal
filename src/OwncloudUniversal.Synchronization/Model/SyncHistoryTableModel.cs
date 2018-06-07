@@ -100,7 +100,7 @@ namespace OwncloudUniversal.Synchronization.Model
         protected override string GetSelectAllQuery()
         {
             return
-                "SELECT Id, CreateDate, Message, Result, EntityId, ContentType From SyncHistory ORDER BY Id DESC";
+                "SELECT Id, CreateDate, Message, Result, EntityId, ContentType From SyncHistory ORDER BY Id DESC LIMIT 200";
         }
 
         protected override void BindSelectAllQuery(ISQLiteStatement query)

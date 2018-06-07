@@ -109,7 +109,6 @@
   <ItemGroup>
     <Compile Include="Configuration\BackgroundTaskConfiguration.cs" />
     <Compile Include="Configuration\Configuration.cs" />
-    <Compile Include="Configuration\InstantUploadRegistration.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="Model\IFileSyncAdapter.cs" />
     <Compile Include="LocalFileSystem\FileSystemAdapter.cs" />

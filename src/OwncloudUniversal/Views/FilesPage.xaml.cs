@@ -50,7 +50,10 @@ namespace OwncloudUniversal.Views
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedItems = ListView.SelectedItems?.ToList();
+            if(sender is ListView)
+                _selectedItems = ListView.SelectedItems?.ToList();
+            if (sender is GridView)
+                _selectedItems = GridView.SelectedItems?.ToList();
         }
 
         private void ItemGrid_OnHolding(object sender, HoldingRoutedEventArgs e)

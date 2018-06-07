@@ -196,6 +196,42 @@ namespace OwncloudUniversal.Synchronization.Configuration
             set => Config.Values["ShowCamerUploadInfo"] = value;
         }
 
+        public static bool ShowGridView
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("ShowGridView"))
+                    return (bool)Config.Values["ShowGridView"];
+                return true;
+            }
+
+            set => Config.Values["ShowGridView"] = value;
+        }
+
+        public static bool ShowHiddenFiles
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("ShowHiddenFiles"))
+                    return (bool)Config.Values["ShowHiddenFiles"];
+                return false;
+            }
+
+            set => Config.Values["ShowHiddenFiles"] = value;
+        }
+
+        public static bool DoNotUseSearchIndex
+        {
+            get
+            {
+                if (Config.Values.ContainsKey("DoNotUseSearchIndex"))
+                    return (bool)Config.Values["DoNotUseSearchIndex"];
+                return false;
+            }
+
+            set => Config.Values["DoNotUseSearchIndex"] = value;
+        }
+
         public static void Reset()
         {
             ApplicationData.Current.LocalSettings.DeleteContainer(ContainerName);

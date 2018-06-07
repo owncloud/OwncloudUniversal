@@ -218,8 +218,11 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             List<BaseItem> items = new List<BaseItem>();
             var item = GetAssociatedItem(association.LocalFolderId);
             StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(item.EntityId);
-            await _GetChangesFromSearchIndex(folder, association.Id, items);
-            //await _CheckLocalFolderRecursive(folder, association.Id, items);
+            if(Configuration.Configuration.DoNotUseSearchIndex)
+            {
+                await _GetChangedFilesRecursive(folder, association, items);
+            }
+            else await _GetChangesFromSearchIndex(folder, association.Id, items);
             return items;
         }
 
@@ -278,6 +281,16 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
 
         public override async Task<List<BaseItem>> GetDeletedItemsAsync(FolderAssociation association)
         {
+            if (Configuration.Configuration.DoNotUseSearchIndex)
+            {
+                var list = await GetDeletedItemsRecursiveAsync(association);
+                return list;
+            }
+            else return await GetDeletedItemsFromIndexAsync(association);
+        }
+
+        private async Task<List<BaseItem>> GetDeletedItemsFromIndexAsync(FolderAssociation association)
+        {
             List<BaseItem> result = new List<BaseItem>();
             //get the storagefolder
             var localFolderItem = GetAssociatedItem(association.LocalFolderId);
@@ -297,7 +310,7 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             var storageItems = new List<BaseItem>();
             foreach (var storageItem in sItems)
             {
-                storageItems.Add(new BaseItem{EntityId = storageItem.Path});
+                storageItems.Add(new BaseItem { EntityId = storageItem.Path });
             }
             //if there are no results we assume the SearchIndexer returns wrong result
             if (sItems.Count == 0)
@@ -323,6 +336,47 @@ namespace OwncloudUniversal.Synchronization.LocalFileSystem
             }
             return result;
         }
+
+        private async Task<List<BaseItem>> GetDeletedItemsRecursiveAsync(FolderAssociation association, List<BaseItem> result = null, StorageFolder folder = null)
+        {
+            if (result is null)
+                result = new List<BaseItem>();
+            if(folder is null)
+            {
+                var localFolderItem = GetAssociatedItem(association.LocalFolderId);
+                folder = await StorageFolder.GetFolderFromPathAsync(localFolderItem.EntityId);
+            }
+            var queryItems = ItemTableModel.GetDefault().GetFilesForFolder(folder.Path + "\\");
+            var dataBaseItems = new List<BaseItem>();
+            //remove the items from subfolders
+            foreach (var item in queryItems)
+            {
+                if (item.EntityId == folder.Path)
+                    continue;
+                var path = item.EntityId.Replace(folder.Path, "").Substring(1);
+                if (!path.Contains('\\'))
+                    dataBaseItems.Add(item);
+            }
+
+            var folderContent = await folder.GetItemsAsync();
+            foreach (var item in folderContent)
+            {
+                if (item.IsOfType(StorageItemTypes.Folder) && item.Path != folder.Path)
+                {
+                    result = await GetDeletedItemsRecursiveAsync(association, result, item as StorageFolder);
+                }
+            }
+
+            var folderItems = new List<BaseItem>();
+            foreach (var storageItem in folderContent)
+            {
+                folderItems.Add(new BaseItem { EntityId = storageItem.Path });
+            }
+            var missingItems = dataBaseItems.Except(folderItems, new EnityIdComparer()).ToList();
+            result.AddRange(missingItems);
+            return result;
+        }
+
         private bool PathIsValid(string path)
         {
             string chars = "?*<>|\"";
