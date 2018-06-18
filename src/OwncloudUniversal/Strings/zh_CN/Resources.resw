@@ -1,0 +1,672 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Header" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="ActivateSync.Text" xml:space="preserve">
+    <value>启用同步</value>
+  </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Transfer will also complete if the app is in the background!</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Connection.Header" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="CurrentFile.Header" xml:space="preserve">
+    <value>当前文件</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>删除文件？</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>删除文件夹吗？</value>
+  </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>禁用同步</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>保存为...</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>下载中...</value>
+  </data>
+  <data name="EnableBackgroundTask.Header" xml:space="preserve">
+    <value>自动同步</value>
+  </data>
+  <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
+    <value>后台任务已禁用</value>
+  </data>
+  <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
+    <value>后台任务已启用</value>
+  </data>
+  <data name="Files.Content" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="FilesButton.Text" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="FilesToSync.Header" xml:space="preserve">
+    <value>待处理文件</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>文件传输</value>
+  </data>
+  <data name="History.Header" xml:space="preserve">
+    <value>历史</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="PasswordHeader.Text" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="RequestedApplicationTheme.Header" xml:space="preserve">
+    <value>应用程序主题</value>
+  </data>
+  <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
+    <value>暗色</value>
+  </data>
+  <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
+    <value>亮色</value>
+  </data>
+  <data name="ResetDatabase.Content" xml:space="preserve">
+    <value>重置应用</value>
+  </data>
+  <data name="Settings.Content" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="ShellDrawnBackButton.Header" xml:space="preserve">
+    <value>Back Button</value>
+  </data>
+  <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
+    <value>Back button is in Page Header</value>
+  </data>
+  <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
+    <value>Back button in Title/TaskBar</value>
+  </data>
+  <data name="StartSync.Content" xml:space="preserve">
+    <value>开始同步</value>
+  </data>
+  <data name="Status.Header" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="SynchedFolders.Text" xml:space="preserve">
+    <value>已同步的文件夹</value>
+  </data>
+  <data name="Synchronization.Content" xml:space="preserve">
+    <value>同步</value>
+  </data>
+  <data name="SynchronizationButton.Text" xml:space="preserve">
+    <value>同步</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>正在传输......</value>
+  </data>
+  <data name="Unsync.Text" xml:space="preserve">
+    <value>停止同步</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>上传文件</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="WebDavUrl.Header" xml:space="preserve">
+    <value>WebDAV地址</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>删除？</value>
+  </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>电子标签</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>同步状态</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>修改日期</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>新建文件夹</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>选择模式</value>
+  </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>服务器地址</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>无法找到此服务器。请检查你的地址和网络连接。</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>服务器发生了内部错误</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>所请求的资源未找到</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>服务当前不可用。</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>创建新文件夹</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>文件夹名称</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>新建文件夹</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>糟糕</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>确定删除？</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>同步状态</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>不要下载大型文件。上限（MB）:</value>
+  </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>选择目标文件夹</value>
+  </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>新样式名称：</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>本地文件夹</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>ownCloud 文件夹</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>自动同步</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>成功连接！警告：连接未加密！</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>用户名 或 密码 错误</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>发生了一个错误。服务器可能处于维护模式之中或者安装不完整。请稍后再试或者联系你的系统管理员。</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>你真的想要重置这个应用吗？</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>请重新启动这个程序</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>安全连接成功！</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>字节</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>发生了一个错误。请重新启动这个应用程序再试一遍。</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>正在处理更改</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>正在处理删除</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>准备就绪</value>
+  </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>正在接收</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>正在寻找变更</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>发送中</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>已经取消</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>正在更新数据库</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>仅下载</value>
+  </data>
+  <data name="FullSync" xml:space="preserve">
+    <value>正常</value>
+  </data>
+  <data name="UploadOnly" xml:space="preserve">
+    <value>仅上传</value>
+  </data>
+  <data name="SyncDirection.Header" xml:space="preserve">
+    <value>模式</value>
+  </data>
+  <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="SaveFolderConfiguration.Label" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="FolderConfigurationHeader.Text" xml:space="preserve">
+    <value>这些文件夹里的这些文件将会被同步：</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>当设备连接到WiFi网络和充电器时请手动开始首个同步。首次同步可能需要一事时间。</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>开始同步</value>
+  </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>推荐将设备接入WiFi网络和充电器因为同步可能需要非常长的时间并且屏幕将会常亮。
+你确定现在要开始同步吗？</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>服务器不允许这个操作。</value>
+  </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>警告：选中的文件夹没有被Windows搜索索引。
+
+这可能引发意料之外的状况。
+你确定要使用这个文件夹吗？</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>警告：选中的文件夹只有部分被Windows搜索索引。
+
+这可能引发意料之外的状况。
+你确定要使用这个文件夹吗？</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>查看源代码</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>联系支持人员</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>发布者</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>使用电子邮件发送诊断报告</value>
+  </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>当下列情况得到满足时同步将会开始：
+- 设备连接到了充电器。
+- 连接了WiFi。
+- 设备未在使用。</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>刚刚</value>
+  </data>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>一天前</value>
+  </data>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>一分钟前</value>
+  </data>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>一月前</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>一小时前</value>
+  </data>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>一秒前</value>
+  </data>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>一年前</value>
+  </data>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0}天前</value>
+  </data>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0}小时前</value>
+  </data>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0}分钟前</value>
+  </data>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0}月前</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0}秒前</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0}年前</value>
+  </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Connect your Windows 10 device with your ownCloud!
+
+For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+
+This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+
+Features:
+
+- Works on all Windows 10 devices!
+- Open source software
+- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+- Upload, download and manage files and folders.
+- View your images or stream videos directly from your ownCloud.
+
+
+New to ownCloud?
+Check it out at https://owncloud.org
+
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Unknown error, please check the log file</value>
+  </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
+Would you like to download it now?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Don't show again</value>
+  </data>
+  <data name="DownloadOpenFile.Text" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Downloading {0}</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>已删除</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Ignored" xml:space="preserve">
+    <value>已忽略</value>
+  </data>
+  <data name="Moved" xml:space="preserve">
+    <value>Moved</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="Renamed" xml:space="preserve">
+    <value>Renamed</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>发出的邮件</value>
+  </data>
+  <data name="CameraUpload.Text" xml:space="preserve">
+    <value>Camera Upload</value>
+  </data>
+  <data name="FolderAlreadyInUseForSync" xml:space="preserve">
+    <value>This folder is already used for synchronization!</value>
+  </data>
+  <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
+    <value>The folder {0} is already in use for synchronisation!</value>
+  </data>
+  <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
+    <value>即时上传相机拍摄的图片</value>
+  </data>
+  <data name="CameraUploadPageHeader.Content" xml:space="preserve">
+    <value>Camera Upload</value>
+  </data>
+  <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
+    <value>即时图片上传</value>
+  </data>
+  <data name="OnlyViaWifi.Header" xml:space="preserve">
+    <value>仅通过 WIFI 上传图片。</value>
+  </data>
+  <data name="UploadPath.Header" xml:space="preserve">
+    <value>上传路径</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Automatically upload new pictures?</value>
+  </data>
+  <data name="UploadingFile" xml:space="preserve">
+    <value>正在上传{0}</value>
+  </data>
+  <data name="InvalidCA" xml:space="preserve">
+    <value>The certification authority is invalid or incorrect.</value>
+  </data>
+  <data name="TrustCertificateQuestion" xml:space="preserve">
+    <value>Do you still want to trust the certificate?</value>
+  </data>
+  <data name="Fingerprint" xml:space="preserve">
+    <value>指纹</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>库</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Some components of this application use external libraries:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>许可</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>This application is licensed under the Apache License 2.0.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>The file transfer has been aborted by the system.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>The synchronisation with ownCloud was paused.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>File search mode for synchronization</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Slow (check every individual file)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Fast (asks Windows Search Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>显示隐藏文件</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+</root>
