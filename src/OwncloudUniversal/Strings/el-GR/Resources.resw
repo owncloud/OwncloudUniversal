@@ -232,10 +232,10 @@
     <value>Συγχρονισμένοι φάκελοι</value>
   </data>
   <data name="Synchronization.Content" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Συγχρονισμός</value>
   </data>
   <data name="SynchronizationButton.Text" xml:space="preserve">
-    <value>Synchronization</value>
+    <value>Συγχρονισμός</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
     <value>Η μεταφορά είναι σε εξέλιξη...</value>
