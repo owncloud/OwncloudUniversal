@@ -622,10 +622,10 @@ Would you like to download it now?</value>
     <value>正在上传{0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>证书颁发机构无效或不正确。</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>你想继续信任此证书？</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
     <value>指纹</value>
