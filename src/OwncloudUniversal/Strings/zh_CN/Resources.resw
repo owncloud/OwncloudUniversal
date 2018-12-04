@@ -214,7 +214,7 @@
     <value>设置</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>Back Button</value>
+    <value>返回</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
     <value>Back button is in Page Header</value>
@@ -555,7 +555,7 @@ Problems?
 Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Unknown error, please check the log file</value>
+    <value>未知错误，请检查日志文件</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
     <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
@@ -568,13 +568,13 @@ Would you like to download it now?</value>
     <value>打开文件</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>下载中 {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
     <value>已删除</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>失败</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>已忽略</value>
