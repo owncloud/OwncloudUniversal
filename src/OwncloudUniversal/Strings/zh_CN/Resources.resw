@@ -562,7 +562,7 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
 Would you like to download it now?</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
-    <value>Don't show again</value>
+    <value>不再显示</value>
   </data>
   <data name="DownloadOpenFile.Text" xml:space="preserve">
     <value>打开文件</value>
@@ -580,13 +580,13 @@ Would you like to download it now?</value>
     <value>已忽略</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>已移动</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>已接收</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>已重命名</value>
   </data>
   <data name="Sent" xml:space="preserve">
     <value>发出的邮件</value>
@@ -616,7 +616,7 @@ Would you like to download it now?</value>
     <value>上传路径</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Automatically upload new pictures?</value>
+    <value>自动上传新图片？</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
     <value>正在上传{0}</value>
@@ -643,7 +643,7 @@ Would you like to download it now?</value>
     <value>This application is licensed under the Apache License 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>文件传输被系统终止。</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>常规</value>
