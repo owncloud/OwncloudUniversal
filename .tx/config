@@ -3,9 +3,9 @@ host = https://www.transifex.com
 
 [owncloud.windowsphone]
 file_filter = src/OwncloudUniversal/Strings/<lang>/Resources.resw
+lang_map = de_DE : de-DE, fr : fr-FR, cs_CZ : cs-CZ, pt_BR : pt-BR, pt_PT : pt-PT, el : el-GR, es : es-ES, he : he-IL, nb_NO : nb-NO, nl : nl-NL, ru : ru-RU, sq : sq-AL, th_TH : th-TH, is : is-IS
+minimum_perc = 80
 source_file = src/OwncloudUniversal/Strings/en-US/Resources.resw
 source_lang = en
 type = RESX
-minimum_perc = 80
-lang_map = de_DE : de-DE, fr : fr-FR, cs_CZ : cs-CZ, pt_BR : pt-BR, pt_PT : pt-PT, el : el-GR, es : es-ES, he : he-IL, nb_NO : nb-NO, nl : nl-NL, ru : ru-RU, sq : sq-AL, th_TH : th-TH, is : is-IS
 
