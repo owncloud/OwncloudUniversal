@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Header" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="ActivateSync.Text" xml:space="preserve">
+    <value>Senkronizasyonu etkinleştir</value>
+  </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Transfer will also complete if the app is in the background!</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Connection.Header" xml:space="preserve">
+    <value>Bağlantı</value>
+  </data>
+  <data name="CurrentFile.Header" xml:space="preserve">
+    <value>Mevcut Dosya</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>Dosya Silinsin mi?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>Klasör Silinsin mi?</value>
+  </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>Senkronizasyonu devre dışı bırak</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Şöyle kaydet</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>Yükleniyor...</value>
+  </data>
+  <data name="EnableBackgroundTask.Header" xml:space="preserve">
+    <value>Otomatik Senkronizasyon</value>
+  </data>
+  <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
+    <value>Arka plan görevi devre dışı.</value>
+  </data>
+  <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
+    <value>Arka plan görevi etkin.</value>
+  </data>
+  <data name="Files.Content" xml:space="preserve">
+    <value>Dosyalar</value>
+  </data>
+  <data name="FilesButton.Text" xml:space="preserve">
+    <value>Dosyalar</value>
+  </data>
+  <data name="FilesToSync.Header" xml:space="preserve">
+    <value>Bekleyen Dosyalar.</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>Dosya Transferi.</value>
+  </data>
+  <data name="History.Header" xml:space="preserve">
+    <value>Geçmiş</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Hayır</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>Açık Dosya.</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="PasswordHeader.Text" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Özellikler.</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>Yeniden yükle</value>
+  </data>
+  <data name="RequestedApplicationTheme.Header" xml:space="preserve">
+    <value>Uygulama Teması.</value>
+  </data>
+  <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
+    <value>Karanlık</value>
+  </data>
+  <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
+    <value>Aydınlık</value>
+  </data>
+  <data name="ResetDatabase.Content" xml:space="preserve">
+    <value>Uygulamayı Yeniden Başlat.</value>
+  </data>
+  <data name="Settings.Content" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="ShellDrawnBackButton.Header" xml:space="preserve">
+    <value>Geri Tuşu</value>
+  </data>
+  <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
+    <value>Geri Tuşu Sayfa Başlığında.</value>
+  </data>
+  <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
+    <value>Başlık/Görev Çubuğudaki Geri Tuşu.</value>
+  </data>
+  <data name="StartSync.Content" xml:space="preserve">
+    <value>Eşitlemeyi Başlat.</value>
+  </data>
+  <data name="Status.Header" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="SynchedFolders.Text" xml:space="preserve">
+    <value>Eşit Klasörler.</value>
+  </data>
+  <data name="Synchronization.Content" xml:space="preserve">
+    <value>Synchronization</value>
+  </data>
+  <data name="SynchronizationButton.Text" xml:space="preserve">
+    <value>Synchronization</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>Aktarma Devam ediyor...</value>
+  </data>
+  <data name="Unsync.Text" xml:space="preserve">
+    <value>Eşitlemeyi Durdur</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>Dosyaları yükle</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>Kullanıcı adı</value>
+  </data>
+  <data name="WebDavUrl.Header" xml:space="preserve">
+    <value>WebDav-Url</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Evet</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>İndir</value>
+  </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>Delete?</value>
+  </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>Özellikler.</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>Tür</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>Etag</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>Synchronizationstatus</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>Modifydate</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>Yol</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>Yeni Klasör</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>Select mode</value>
+  </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>Bağlan</value>
+  </data>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>Sunucu Adresi</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>Sunucu Bulunamadı. Lütfen adres ve internet bağlantınızı kontrol ediniz.</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>An internal error has occured at the server</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>İstenilen kaynak bulunamadı.</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>Servis şu anda mevcut değil.</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>Giriş başarısız</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>Yeni klasör oluştur</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Klasör İsmi</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>Yeni Klasör</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>Üzgünüz</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>Dosya Silinsin mi?</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>Eşitleme Durumu</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>Büyük dosyaları indirmeyin. Sınır (MB):</value>
+  </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>Kabul et</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>Taşı</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>Arkivi amandani secmek.</value>
+  </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>Taşı</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>Yeni İsim:</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>Yeniden adlandır</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>Yeniden adlandır</value>
+  </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>Yerel Klasör</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>ownCloud Folder</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>Yapılandırma</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>Otomatik Eşitleme</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>Bağlantı başarılı! Dikkat: Bu bağlantı şifreli değil.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Hatalı kullanıcı adı veya parola.</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>Bir hata oluştu. Belki sunucu bakım modundadır veya kurulum eksiktir. Lütfen daha sonra tekrar deneyin veya sistem yöneticinize başvurun.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>Bu uygulama yı gerçekten yeniden başlatmak istiyormusun?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>Lüften uygulama yı yeniden başlat.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>Güvenli bağlantı başarılı!</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>bayt</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>Bir hata oluştu. Lütfen uygulama yı yeniden başlatın ve tekrar deneyin.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Değişiklikler uygulanıyor</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>Processing deletions</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Tamamlandı</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Hazır</value>
+  </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>Alınıyor</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Looking for changes</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Gönderiliyor</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>İptal Edildi</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>Veritabanı güncelleniyor</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>Sadece İndir</value>
+  </data>
+  <data name="FullSync" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="UploadOnly" xml:space="preserve">
+    <value>Sadece Yükle</value>
+  </data>
+  <data name="SyncDirection.Header" xml:space="preserve">
+    <value>Kip</value>
+  </data>
+  <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="SaveFolderConfiguration.Label" xml:space="preserve">
+    <value>Değişiklikleri Kaydet</value>
+  </data>
+  <data name="FolderConfigurationHeader.Text" xml:space="preserve">
+    <value>Bu klasörler içerikleri eşitlenecek</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>Lütfen cihaz bir kablosuz ağa ve şarj cihazına bağlıyken ilk eşitleme yi manuel olarak başlatın. İlk senkronizasyon biraz zaman alabilir.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>Senkronizasyonu Başlat.</value>
+  </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>Senkronizasyon çok uzun sürdüğü ve ekran etkin kalacağı için cihaz ı bir kablosuz ağa ve şarj cihazına bağlamanız önerilir. Eşitleme yi şimdi başlatmak istediğinizden emin misiniz?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>Sunucu bu işleme izin vermiyor.</value>
+  </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>Dikkat: Seçilen klasör Windows araması tarafından dizine eklenmemiş. Bu, beklenmeyen davranışlara yol açabilir. Bu klasör ü kullanmak istediğinize emin misiniz?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>Dikkat: Seçilen klasör Windows araması tarafından kısmen indekslenmiştir. Bu beklenmeyen davranışlara yol açabilir. Bu klasör ü kullanmak istediğinize emin misiniz?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>Kaynak kodu görüntüle</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>İletişim desteği</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>Sürüm</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>Arıza tespit raporlarını e-posta ile gönder</value>
+  </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>Aşağıdaki koşullar yerine getirildiğinde senkronizasyon arka planda başlayacaktır: Cihaz bir şarj cihazına bağlı. Kablosuz Ağ Bağlantısı kuruldu. Cihaz kullanımda değil.</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>Şimdi</value>
+  </data>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>Bir gün önce</value>
+  </data>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>Bir dakika önce</value>
+  </data>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>1 ay önce</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>1 saat önce</value>
+  </data>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>1 saniye önce</value>
+  </data>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>bir yıl önce</value>
+  </data>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0} günler önce</value>
+  </data>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0} saatler önce</value>
+  </data>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0} dakikalar önce</value>
+  </data>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0} aylar önce</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0} saniyeler önce</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0} yıllar önce</value>
+  </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Connect your Windows 10 device with your ownCloud!
+
+For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+
+This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+
+Features:
+
+- Works on all Windows 10 devices!
+- Open source software
+- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
+- Upload, download and manage files and folders.
+- View your images or stream videos directly from your ownCloud.
+
+
+New to ownCloud?
+Check it out at https://owncloud.org
+
+Problems?
+Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Unknown error, please check the log file</value>
+  </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>For an optimal experience on the PC. Please try out the original Desktop Sync Client for Windows.
+Would you like to download it now?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Don't show again</value>
+  </data>
+  <data name="DownloadOpenFile.Text" xml:space="preserve">
+    <value>Açık Dosya.</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Downloading {0}</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Silinme</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Ignored" xml:space="preserve">
+    <value>Yoksayıldı</value>
+  </data>
+  <data name="Moved" xml:space="preserve">
+    <value>Moved</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="Renamed" xml:space="preserve">
+    <value>Renamed</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Gönderilenler</value>
+  </data>
+  <data name="CameraUpload.Text" xml:space="preserve">
+    <value>Camera Upload</value>
+  </data>
+  <data name="FolderAlreadyInUseForSync" xml:space="preserve">
+    <value>This folder is already used for synchronization!</value>
+  </data>
+  <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
+    <value>The folder {0} is already in use for synchronisation!</value>
+  </data>
+  <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
+    <value>Kamera ile çekilen fotoğrafları anında yükle</value>
+  </data>
+  <data name="CameraUploadPageHeader.Content" xml:space="preserve">
+    <value>Camera Upload</value>
+  </data>
+  <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
+    <value>Anında fotoğraf yüklemeleri</value>
+  </data>
+  <data name="OnlyViaWifi.Header" xml:space="preserve">
+    <value>Fotoğrafları sadece kablosuzda (WiFi) yükle</value>
+  </data>
+  <data name="UploadPath.Header" xml:space="preserve">
+    <value>Yükleme yolu</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Automatically upload new pictures?</value>
+  </data>
+  <data name="UploadingFile" xml:space="preserve">
+    <value>Uploading {0}</value>
+  </data>
+  <data name="InvalidCA" xml:space="preserve">
+    <value>The certification authority is invalid or incorrect.</value>
+  </data>
+  <data name="TrustCertificateQuestion" xml:space="preserve">
+    <value>Do you still want to trust the certificate?</value>
+  </data>
+  <data name="Fingerprint" xml:space="preserve">
+    <value>fingerprint</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Libraries</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Some components of this application use external libraries:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Lisans</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>This application is licensed under the Apache License 2.0.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>The file transfer has been aborted by the system.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>The synchronisation with ownCloud was paused.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>File search mode for synchronization</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Slow (check every individual file)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Fast (asks Windows Search Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Gizli dosyaları göster</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Kullanıcı adı</value>
+  </data>
+</root>
