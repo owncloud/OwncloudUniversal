@@ -124,7 +124,7 @@
     <value>เปิดใช้งานการประสานข้อมูล</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>การถ่ายโอนจะเสร็จสมบูรณ์หากแอพฯยังทำงานอยู่ในพื้นหลัง</value>
+    <value>การถ่ายโอนจะเสร็จสมบูรณ์หากแอปฯยังทำงานอยู่ในพื้นหลัง</value>
   </data>
   <data name="cancel" xml:space="preserve">
     <value>ยกเลิก</value>
@@ -196,7 +196,7 @@
     <value>โหลดใหม่อีกครั้ง</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>ธีมแอพพลิเคชัน</value>
+    <value>ธีมของแอป</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
     <value>มืด</value>
@@ -205,7 +205,7 @@
     <value>สว่าง</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>รีเซ็ตแอพฯนี้</value>
+    <value>รีเซ็ตแอปฯนี้</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
     <value>ตั้งค่า</value>
@@ -244,7 +244,7 @@
     <value>หยุดการประสานข้อมูล</value>
   </data>
   <data name="Upload.Label" xml:space="preserve">
-    <value>อัพโหลดไฟล์</value>
+    <value>อัปโหลดไฟล์</value>
   </data>
   <data name="UserNameHeader.Text" xml:space="preserve">
     <value>ชื่อผู้ใช้</value>
@@ -364,7 +364,7 @@
     <value>เปลี่ยนชื่อ</value>
   </data>
   <data name="LocalFolderHeader.Header" xml:space="preserve">
-    <value>โฟลเดอร์ต้นทาง</value>
+    <value>โฟลเดอร์ในเครื่อง</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
     <value>โฟลเดอร์ ownCloud</value>
@@ -385,10 +385,10 @@
     <value>เกิดข้อผิดพลาด บางทีเซิร์ฟเวอร์อาจอยู่ในโหมดการบำรุงรักษาหรือการติดตั้งไม่สมบูรณ์ โปรดลองอีกครั้งในภายหลังหรือติดต่อผู้ดูแลระบบของคุณ</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>คุณต้องรีเซ็ตแอพฯนี้?</value>
+    <value>คุณต้องการรีเซ็ตแอปฯนี้?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>โปรดรีสตาร์ทแอพ</value>
+    <value>โปรดรีสตาร์ทแอปฯ</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>การเชื่อมต่อที่ปลอดภัยสำเร็จ!</value>
@@ -397,7 +397,7 @@
     <value>ไบต์</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>เกิดข้อผิดพลาด โปรดรีสตาร์ทแอพฯใหม่และลองอีกครั้ง</value>
+    <value>เกิดข้อผิดพลาด โปรดรีสตาร์ทแอปฯใหม่และลองอีกครั้ง</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>กำลังเปลี่ยนแปลงการประมวลผล</value>
@@ -424,7 +424,7 @@
     <value>ยกเลิกแล้ว</value>
   </data>
   <data name="UpdatingIndex" xml:space="preserve">
-    <value>กำลังอัพเดทฐานข้อมูล</value>
+    <value>กำลังอัปเดตฐานข้อมูล</value>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
     <value>ดาวน์โหลดเท่านั้น</value>
@@ -433,7 +433,7 @@
     <value>ปกติ</value>
   </data>
   <data name="UploadOnly" xml:space="preserve">
-    <value>อัพโหลดเท่านั้น</value>
+    <value>อัปโหลดเท่านั้น</value>
   </data>
   <data name="SyncDirection.Header" xml:space="preserve">
     <value>โหมด</value>
@@ -536,15 +536,15 @@
   <data name="StoreDescription" xml:space="preserve">
     <value>คุณสามารถใช้โปรแกรมสำหรับเชื่อมโยงข้อมูลได้จากลิงก์นี้ https://owncloud.org/install/#install-clients
 
-แอพนี้เป็นโครงการที่ได้รับการพัฒนาโดยชุมชนของคุณเอง เริ่มต้นโดย Adrian Gebhart สามารถตรวจสอบโครงการเกี่ยวกับ GitHub หากคุณต้องการเข้าร่วมการพัฒนา
+แอปนี้เป็นโครงการที่ได้รับการพัฒนาโดยชุมชนของคุณเอง เริ่มต้นโดย Adrian Gebhart สามารถตรวจสอบโครงการเกี่ยวกับ GitHub หากคุณต้องการเข้าร่วมการพัฒนา
 https://github.com/owncloud/OwncloudUniversal
 
 คุณสมบัติ:
 
 - ทำงานได้กับอุปกรณ์ Windows 10 ทั้งหมด!
 - ซอฟต์แวร์โอเพนซอร์ส
-- ประสานไฟล์ของคุณกับงานพื้นหลัง โทรศัพท์จะซิงค์เฉพาะเมื่ออุปกรณ์กำลังชาร์จเพื่อประหยัดแบตเตอรี่
-- อัพโหลดและดาวน์โหลดจัดการไฟล์และโฟลเดอร์
+- ประสานไฟล์ของคุณกับงานพื้นหลัง โทรศัพท์จะประสานข้อมูลเฉพาะเมื่ออุปกรณ์กำลังชาร์จเพื่อประหยัดแบตเตอรี่
+- อัปโหลดและดาวน์โหลดจัดการไฟล์และโฟลเดอร์
 - ดูภาพหรือสตรีมวิดีโอของคุณได้โดยตรงกับ ownCloud ของคุณ
 
 
@@ -552,7 +552,7 @@ https://github.com/owncloud/OwncloudUniversal
 ไปดูรายละเอียดได้ที่ https://owncloud.org
 
 การแจ้งปัญหา?
-สามารถไปแจ้งปัญหาได้ที่ https://github.com/owncloud/OwncloudUniversal/issues หรือใช้ฟังก์ชันรายงานการวินิจฉัยภายในแอพพลิเคชัน
+สามารถไปแจ้งปัญหาได้ที่ https://github.com/owncloud/OwncloudUniversal/issues หรือใช้ฟังก์ชันรายงานการวินิจฉัยภายในแอปพลิเคชัน
 </value>
   </data>
   <data name="Error" xml:space="preserve">
@@ -572,7 +572,7 @@ https://github.com/owncloud/OwncloudUniversal
     <value>กำลังดาวน์โหลด {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>ลบแล้ว</value>
+    <value>ลบเมื่อ</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>ล้มเหลว</value>
@@ -593,7 +593,7 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ส่ง</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
-    <value>อัพโหลดรูป</value>
+    <value>อัปโหลดรูป</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
     <value>โฟลเดอร์นี้ได้ถูกประสานข้อมูลแล้ว!</value>
@@ -602,25 +602,25 @@ https://github.com/owncloud/OwncloudUniversal
     <value>โฟลเดอร์ {0} ได้ถูกประสานข้อมูลแล้ว!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
-    <value>อัพโหลดรูปภาพที่ถ่ายโดยกล้องทันที</value>
+    <value>อัปโหลดรูปภาพที่ถ่ายทันที</value>
   </data>
   <data name="CameraUploadPageHeader.Content" xml:space="preserve">
-    <value>อัพโหลดรูป</value>
+    <value>อัปโหลดรูป</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>อัพโหลดรูปภาพทันที</value>
+    <value>อัปโหลดรูปภาพทันที</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
-    <value>อัพโหลดรูปภาพผ่านทาง WiFi เท่านั้น</value>
+    <value>อัปโหลดรูปภาพผ่านทาง WiFi เท่านั้น</value>
   </data>
   <data name="UploadPath.Header" xml:space="preserve">
-    <value>ตำแหน่งพาธสำหรับอัพโหลด</value>
+    <value>ตำแหน่งพาธสำหรับอัปโหลด</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>อัพโหลดภาพใหม่โดยอัตโนมัติ?</value>
+    <value>อัปโหลดภาพใหม่โดยอัตโนมัติ?</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>กำลังอัพโหลด {0}</value>
+    <value>กำลังอัปโหลด {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
     <value>ออกใบรับรองไม่ถูกต้อง</value>
@@ -641,7 +641,7 @@ https://github.com/owncloud/OwncloudUniversal
     <value>License</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>แอพพลิเคชันนี้ได้รับสิทธิการใช้งานภายใต้ Apache License 2.0</value>
+    <value>แอปพลิเคชันนี้ได้รับสิทธิการใช้งานภายใต้ Apache License 2.0</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
     <value>การโอนย้ายไฟล์ถูกยกเลิกโดยระบบ</value>
@@ -650,7 +650,7 @@ https://github.com/owncloud/OwncloudUniversal
     <value>ทั่วไป</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>การซิงค์กับ OwnCloud ถูกหยุดชั่วคราว</value>
+    <value>การประสานข้อมูลกับ OwnCloud ถูกหยุดชั่วคราว</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
     <value>โหมดค้นหาไฟล์สำหรับการประสานข้อมูล</value>

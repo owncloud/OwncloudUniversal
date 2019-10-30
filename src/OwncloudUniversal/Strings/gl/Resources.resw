@@ -124,7 +124,7 @@
     <value>Activar a sincronización</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>Tamén se completará a transferencia se o aplicativo está en segundo plano.</value>
+    <value> A transferencia tamén se completará se a aplicación está en segundo plano!</value>
   </data>
   <data name="cancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -196,7 +196,7 @@
     <value>Volver cargar</value>
   </data>
   <data name="RequestedApplicationTheme.Header" xml:space="preserve">
-    <value>Tema do aplicativo</value>
+    <value>Tema da aplicación</value>
   </data>
   <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
     <value>Escuro</value>
@@ -205,7 +205,7 @@
     <value>Claro</value>
   </data>
   <data name="ResetDatabase.Content" xml:space="preserve">
-    <value>Restabelecer este aplicativo</value>
+    <value>Restabelecer esta aplicación</value>
   </data>
   <data name="Settings.Content" xml:space="preserve">
     <value>Axustes</value>
@@ -385,10 +385,10 @@
     <value>Produciuse un erro. Quizais o servidor estea en modo de mantemento ou a instalación estea incompleta. Ténteo de novo máis tarde ou contacte co administrador do sistema.</value>
   </data>
   <data name="ResetQuestion" xml:space="preserve">
-    <value>Confirma que quere restabelecer este aplicativo?</value>
+    <value>Confirma que quere restabelecer esta aplicación?</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Reinicie o aplicativo.</value>
+    <value>Reinicie a aplicación</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>A conexión segura foi satisfactoria!</value>
@@ -397,7 +397,7 @@
     <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Produciuse un erro. Reinicie o aplicativo e ténteo de novo.</value>
+    <value>Produciuse un erro. Reinicie a aplicación e ténteo de novo.</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Procesando cambios</value>
@@ -445,7 +445,7 @@
     <value>Gardar os cambios</value>
   </data>
   <data name="FolderConfigurationHeader.Text" xml:space="preserve">
-    <value>O contido destes cartafoles vai seren sincronizado:</value>
+    <value>O contido destes cartafoles vai ser sincronizado:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
     <value>Inicie a primeira sincronización manualmente cando o dispositivo estea conectado a unha rede WiFi e un cargador. A primeira sincronización pode levar bastante tempo.</value>
@@ -537,7 +537,7 @@ Confirma que quere empregar este cartafol?</value>
 
 Para unha experiencia óptima no PC, considere usar o cliente normal de sincronización de escritorio no seu lugar. Pode atopalo en: https://owncloud.org/install/#install-clients
 
-Este aplicativo é un proxecto desenvolvido pola propia comunidade do ownCloud e foi iniciado por Adrian Gebhart. Vexa o proxecto en GitHub se quere unirse ao desenvolvemento: https://github.com/owncloud/OwncloudUniversal
+Esta aplicación é un proxecto desenvolvido pola propia comunidade do ownCloud e foi iniciado por Adrian Gebhart. Vexa o proxecto en GitHub se quere unirse ao desenvolvemento: https://github.com/owncloud/OwncloudUniversal
 
 Características:
 
@@ -552,7 +552,7 @@ Novo no ownCloud?
 Véxao en https://owncloud.org
 
 Problemas?
-Abra un novo incidente en https://github.com/owncloud/OwncloudUniversal/issues ou empregue a función de informe de diagnose dentro do aplicativo.</value>
+Abra un novo incidente en https://github.com/owncloud/OwncloudUniversal/issues ou empregue a función de informe de diagnose dentro da aplicación.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Produciuse un erro descoñecido. Comprobe o ficheiro do rexistro</value>
@@ -634,13 +634,13 @@ Quere descargalo agora?</value>
     <value>Bibliotecas</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Algúns compoñentes deste aplicativo empregan bibliotecas externas:</value>
+    <value>Algúns compoñentes desta aplicación empregan bibliotecas externas:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>Licencia</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>Este aplicativo está licenzado baixo a Licenza Apache 2.0.</value>
+    <value>Esta aplicación está licenzada baixo a Licenza Apache 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
     <value>O sistema interrompeu a transferencia de ficheiros.</value>
@@ -664,7 +664,7 @@ Quere descargalo agora?</value>
     <value>Contrasinal</value>
   </data>
   <data name="ShowHiddenFiles.Header" xml:space="preserve">
-    <value>Amosar os ficheiros agachados</value>
+    <value>Amosar os ficheiros agochados</value>
   </data>
   <data name="UserName.Header" xml:space="preserve">
     <value>Nome de usuario</value>

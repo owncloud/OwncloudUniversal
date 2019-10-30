@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.Header" xml:space="preserve">
-    <value>Σχετικά</value>
+    <value>Περί</value>
   </data>
   <data name="ActivateSync.Text" xml:space="preserve">
     <value>Ενεργοποίηση συγχρονισμού</value>
   </data>
   <data name="BackgroundTransfer.Text" xml:space="preserve">
-    <value>Η μεταφορά θα ολοκληρωθεί επίσης, εφόσον η εφαρμογή υπάρχει στο ιστορικό</value>
+    <value>Η μεταφορά θα ολοκληρωθεί επίσης, ακόμα και εάν η εφαρμογή εκτελείται στο παρασκήνιο!</value>
   </data>
   <data name="cancel" xml:space="preserve">
     <value>Ακύρωση</value>
@@ -151,16 +151,16 @@
     <value>Αποθήκευση ως</value>
   </data>
   <data name="Downloading.Text" xml:space="preserve">
-    <value>Λήψη...</value>
+    <value>Γίνεται λήψη...</value>
   </data>
   <data name="EnableBackgroundTask.Header" xml:space="preserve">
     <value>Αυτόματος συγχρονισμός</value>
   </data>
   <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
-    <value>Υπηρεσία ιστορικού απενεργοποιημένη</value>
+    <value>Η εργασία στο παρασκήνιο είναι απενεργοποιημένη</value>
   </data>
   <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
-    <value>Υπηρεσία ιστορικού ενεργοποιημένη</value>
+    <value>Η εργασία στο παρασκήνιο είναι ενεργοποιημένη</value>
   </data>
   <data name="Files.Content" xml:space="preserve">
     <value>Αρχεία</value>
@@ -172,7 +172,7 @@
     <value>Αρχεία σε εκκρεμότητα</value>
   </data>
   <data name="FileTransfer.Text" xml:space="preserve">
-    <value>Διαβίβαση αρχείου</value>
+    <value>Μεταφορά αρχείου</value>
   </data>
   <data name="History.Header" xml:space="preserve">
     <value>Ιστορικό</value>
@@ -214,13 +214,13 @@
     <value>Ρυθμίσεις</value>
   </data>
   <data name="ShellDrawnBackButton.Header" xml:space="preserve">
-    <value>Πίσω κουμπί</value>
+    <value>Κουμπί επιστροφής</value>
   </data>
   <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
     <value>Το κουμπί Επιστροφή βρίσκεται στην Κεφαλίδα Σελίδας</value>
   </data>
   <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
-    <value>Το κουμπί Επιστροφής βρίσκετε στο Τίτλο/ΜπάραΕργασιών</value>
+    <value>Το κουμπί Επιστροφής βρίσκετε στο Τίτλο/Μπάρα Εργασιών</value>
   </data>
   <data name="StartSync.Content" xml:space="preserve">
     <value>Έναρξη συγχρονισμού</value>
@@ -238,7 +238,7 @@
     <value>Συγχρονισμός</value>
   </data>
   <data name="Transfering.Text" xml:space="preserve">
-    <value>Η μεταφορά είναι σε εξέλιξη...</value>
+    <value>Η μεταφορά είναι σε εξέλιξη..</value>
   </data>
   <data name="Unsync.Text" xml:space="preserve">
     <value>Λήξη συγχρονισμού</value>
@@ -304,7 +304,7 @@
     <value>Διεύθυνση διακομιστή</value>
   </data>
   <data name="ServerNotFound" xml:space="preserve">
-    <value>Αδυναμία εύρεσης διακομιστή. Παρακαλώ ελέγξτε το URL και τη σύνδεση σας.</value>
+    <value>Αδυναμία εύρεσης διακομιστή. Παρακαλούμε ελέγξτε την URL και τη σύνδεση σας στο Internet.</value>
   </data>
   <data name="InternalServerErrorMessage" xml:space="preserve">
     <value>Παρουσιάστηκε εσωτερικό σφάλμα στο διακομιστή</value>
@@ -316,7 +316,7 @@
     <value>Η υπηρεσία δεν είναι διαθέσιμη</value>
   </data>
   <data name="UnauthorizedMessage" xml:space="preserve">
-    <value>Η είσοδος απέτυχε!</value>
+    <value>Η είσοδος απέτυχε</value>
   </data>
   <data name="CreateNewFolder" xml:space="preserve">
     <value>Δημιουργία νέου φακέλου</value>
@@ -340,7 +340,7 @@
     <value>Κατάσταση Συγχρονισμού</value>
   </data>
   <data name="MaxDownloadSize.Header" xml:space="preserve">
-    <value>Μην κάνετε λήψη μεγάλων αρχείων. Όριο (MB):</value>
+    <value>Να μην γίνεται λήψη μεγάλων αρχείων. Όριο (MB):</value>
   </data>
   <data name="Accept.Label" xml:space="preserve">
     <value>Αποδοχή</value>
@@ -367,7 +367,7 @@
     <value>Τοπικός φάκελος</value>
   </data>
   <data name="RemoteFolderHeader.Header" xml:space="preserve">
-    <value>Φάκελο ownCloud</value>
+    <value>Φάκελος ownCloud</value>
   </data>
   <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
     <value>Ρυθμίσεις</value>
@@ -388,7 +388,7 @@
     <value>Επιθυμείτε πραγματικά να επαναφέρετε την εφαρμογή;</value>
   </data>
   <data name="RestartMessage" xml:space="preserve">
-    <value>Παρακαλώ επανεκκινήστε την εφαρμογή.</value>
+    <value>Παρακαλούμε επανεκκινήστε την εφαρμογή.</value>
   </data>
   <data name="SecureConnectionSuccessful" xml:space="preserve">
     <value>Επιτυχημένη ασφαλής σύνδεση!</value>
@@ -397,7 +397,7 @@
     <value>bytes</value>
   </data>
   <data name="UnhandledExceptionMessage" xml:space="preserve">
-    <value>Προέκυψε ένα σφάλμα. Παρακαλώ επανεκκινήστε την εφαρμογή και προσπαθήστε ξανά.</value>
+    <value>Προέκυψε ένα σφάλμα. Παρακαλούμε επανεκκινήστε την εφαρμογή και προσπαθήστε ξανά.</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Επεξεργασία αλλαγών</value>
@@ -415,7 +415,7 @@
     <value>Λήψη</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>Ψάχνετε για αλλαγές</value>
+    <value>Αναζήτηση για αλλαγές</value>
   </data>
   <data name="Sending" xml:space="preserve">
     <value>Αποστολή</value>
@@ -448,7 +448,7 @@
     <value>Το περιεχόμενο αυτών των φακέλων θα συγχρονιστεί:</value>
   </data>
   <data name="RunSyncMessage.Text" xml:space="preserve">
-    <value>Παρακαλώ ξεκινήστε τον πρώτο συγχρονισμό χειροκίνητα όταν η συσκευή είναι συνδεδεμένη σε ένα ασύρματο δίκτυο και φορτίζεται. Ο πρώτος συγχρονισμός θα χρειαστεί λίγο χρόνο.</value>
+    <value>Παρακαλούμε ξεκινήστε τον πρώτο συγχρονισμό χειροκίνητα όταν η συσκευή είναι συνδεδεμένη σε ένα ασύρματο δίκτυο και φορτίζεται. Ο πρώτος συγχρονισμός θα χρειαστεί λίγο χρόνο.</value>
   </data>
   <data name="StartFirstSync.Content" xml:space="preserve">
     <value>Έναρξη συγχρονισμού</value>
@@ -461,11 +461,13 @@
   </data>
   <data name="NotIndexedError" xml:space="preserve">
     <value>Προσοχή: Ο επιλεγμένος φάκελος δεν είναι καταχωρημένος στην αναζήτηση των Windows.
+
 Αυτό μπορεί να οδηγήσει σε απροσδόκητη συμπεριφορά.
 Είστε βέβαιοι πως επιθυμείτε να χρησιμοποιήσετε αυτό το φάκελο; </value>
   </data>
   <data name="PartiallyIndexedError" xml:space="preserve">
     <value>Προσοχή: Ο επιλεγμένος φάκελος είναι μερικώς καταχωρημένος στην αναζήτηση των Windows.
+
 Αυτό θα μπορούσε να οδηγήσει σε απροσδόκητη συμπεριφορά.
 Είστε βέβαιοι πως επιθυμείτε να χρησιμοποιήσετε αυτό το φάκελο; </value>
   </data>
@@ -530,33 +532,33 @@
     <value>{0} χρόνια πριν</value>
   </data>
   <data name="StoreDescription" xml:space="preserve">
-    <value>Connect your Windows 10 device with your ownCloud!
+    <value>Συνδέστε τη συσκευή Windows 10 με το δικό ownCloud!
 
-For an optimal experience on the PC, please consider using the normal desktop sync client instead. You can find it here: https://owncloud.org/install/#install-clients 
+Για βέλτιστη εμπειρία στον υπολογιστή, παρακαλούμε σκεφτείτε να χρησιμοποιήσετε αντί αυτού τον κανονικό πελάτη συγχρονισμού επιφάνειας εργασίας. Μπορείτε να το βρείτε εδώ: https://owncloud.org/install/#install-clients
 
-This app is a project developed by the ownCloud-Community only and was started by Adrian Gebhart. Checkout the project on GitHub if you want to join development: https://github.com/owncloud/OwncloudUniversal
+Αυτή η εφαρμογή είναι ένα έργο που αναπτύχθηκε μόνο από  την κοινότητα ownCloud και ξεκίνησε από τον Adrian Gebhart. Ελέγξτε το έργο στο GitHub αν θέλετε να συμμετάσχετε στην ανάπτυξη: https://github.com/owncloud/OwncloudUniversal
 
-Features:
+Χαρακτηριστικά:
 
-- Works on all Windows 10 devices!
-- Open source software
-- Synchronize your files with a background task. On phones it will only sync while your device is charging to save battery.
-- Upload, download and manage files and folders.
-- View your images or stream videos directly from your ownCloud.
+- Λειτουργεί σε όλες τις συσκευές Windows 10!
+- Λογισμικό ανοικτού κώδικα
+- Συγχρονίστε τα αρχεία σας με εργασία παρασκηνίου. Στα τηλέφωνα θα συγχρονίζεται μόνο όταν η συσκευή σας φορτίζει για να εξοικονομήσει μπαταρία.
+- Μεταφόρτωση, λήψη και διαχείριση αρχείων και φακέλων.
+- Προβολή των εικόνων σας ή ροή βίντεο απευθείας από το ownCloud σας.
 
 
-New to ownCloud?
-Check it out at https://owncloud.org
+Νέος στο ownCloud;
+Ελέγξτε το στο https://owncloud.org
 
-Problems?
-Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use the diagnostic report function inside the app.</value>
+Προβλήματα;
+Ανοίξτε ένα νέο πρόβλημα στη διεύθυνση https://github.com/owncloud/OwncloudUniversal/issues ή χρησιμοποιήστε τη λειτουργία αναφοράς διαγνωστικού ελέγχου μέσα στην εφαρμογή.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Άγνωστο σφάλμα, ελέγξτε το αρχείο καταγραφής</value>
+    <value>Άγνωστο σφάλμα, παρακαλούμε ελέγξτε το αρχείο καταγραφής</value>
   </data>
   <data name="DesktopClientInfoText" xml:space="preserve">
-    <value>Για βέλτιστη εμπειρία στον υπολογιστή. Δοκιμάστε το αρχικό πρόγραμμα-πελάτη Desktop Sync για Windows.
-Θα θέλατε να το κατεβάσετε τώρα;</value>
+    <value>Για βέλτιστη εμπειρία στον υπολογιστή. Παρακαλούμε δοκιμάστε το αρχικό πρόγραμμα-πελάτη Desktop Sync για Windows.
+Θα θέλατε να γίνει λήψη τώρα;</value>
   </data>
   <data name="DontShowAgain" xml:space="preserve">
     <value>Μην εμφανιστεί ξανά</value>
@@ -565,37 +567,37 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Άνοιγμα αρχείου</value>
   </data>
   <data name="DownloadingFile" xml:space="preserve">
-    <value>Λήψη {0}</value>
+    <value>Γίνεται λήψη {0}</value>
   </data>
   <data name="Deleted" xml:space="preserve">
-    <value>Διεγράφη</value>
+    <value>Διαγράφηκε</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Απέτυχε</value>
   </data>
   <data name="Ignored" xml:space="preserve">
     <value>Αγνοήθηκε</value>
   </data>
   <data name="Moved" xml:space="preserve">
-    <value>Moved</value>
+    <value>Μετακινήθηκε</value>
   </data>
   <data name="Received" xml:space="preserve">
-    <value>Received</value>
+    <value>Ελήφθη</value>
   </data>
   <data name="Renamed" xml:space="preserve">
-    <value>Renamed</value>
+    <value>Μετονομάστηκε</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Απεσταλμένα</value>
+    <value>Απεστάλη</value>
   </data>
   <data name="CameraUpload.Text" xml:space="preserve">
     <value>Μεταφόρτωση κάμερας</value>
   </data>
   <data name="FolderAlreadyInUseForSync" xml:space="preserve">
-    <value>This folder is already used for synchronization!</value>
+    <value>Αυτός ο φάκελος χρησιμοποιείται ήδη για συγχρονισμό!</value>
   </data>
   <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
-    <value>The folder {0} is already in use for synchronisation!</value>
+    <value>Ο φάκελος {0} χρησιμοποιείται ήδη για συγχρονισμό!</value>
   </data>
   <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
     <value>Μεταφορτώστε απευθείας φωτογραφίες από την κάμερα</value>
@@ -604,7 +606,7 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Μεταφόρτωση κάμερας</value>
   </data>
   <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
-    <value>Στιγμιαίες μεταφορτώσεις εικόνων</value>
+    <value>Απευθείας μεταφορτώσεις εικόνων</value>
   </data>
   <data name="OnlyViaWifi.Header" xml:space="preserve">
     <value>Μεταφόρτωση εικόνων μόνο μέσω WiFi</value>
@@ -613,49 +615,49 @@ Open a new issue on https://github.com/owncloud/OwncloudUniversal/issues or use 
     <value>Διαδρομή μεταφόρτωσης</value>
   </data>
   <data name="CameraUploadInfoText" xml:space="preserve">
-    <value>Automatically upload new pictures?</value>
+    <value>Να μεταφορτώνονται αυτόματα οι νέες φωτογραφίες;</value>
   </data>
   <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading {0}</value>
+    <value>Γίνεται μεταφόρτωση {0}</value>
   </data>
   <data name="InvalidCA" xml:space="preserve">
-    <value>The certification authority is invalid or incorrect.</value>
+    <value>Η αρχή πιστοποίησης είναι μη έγκυρη ή λανθασμένη.</value>
   </data>
   <data name="TrustCertificateQuestion" xml:space="preserve">
-    <value>Do you still want to trust the certificate?</value>
+    <value>Θέλετε ακόμα να εμπιστευτείτε το πιστοποιητικό;</value>
   </data>
   <data name="Fingerprint" xml:space="preserve">
-    <value>fingerprint</value>
+    <value>δακτυλικό αποτύπωμα</value>
   </data>
   <data name="LibrariesHeader.Header" xml:space="preserve">
-    <value>Libraries</value>
+    <value>Βιβλιοθήκες</value>
   </data>
   <data name="LibrariesHeader.Text" xml:space="preserve">
-    <value>Some components of this application use external libraries:</value>
+    <value>Ορισμένα στοιχεία αυτής της εφαρμογής χρησιμοποιούν εξωτερικές βιβλιοθήκες:</value>
   </data>
   <data name="LicenseHeader.Header" xml:space="preserve">
     <value>Άδεια</value>
   </data>
   <data name="LicenseHeader.Text" xml:space="preserve">
-    <value>This application is licensed under the Apache License 2.0.</value>
+    <value>Αυτή η εφαρμογή έχει άδεια χρήσης την Άδεια Apache 2.0.</value>
   </data>
   <data name="TransferCancelled" xml:space="preserve">
-    <value>The file transfer has been aborted by the system.</value>
+    <value>Η μεταφορά αρχείου ματαιώθηκε από το σύστημα.</value>
   </data>
   <data name="General.Header" xml:space="preserve">
     <value>Γενικά</value>
   </data>
   <data name="SyncWasPaused" xml:space="preserve">
-    <value>The synchronisation with ownCloud was paused.</value>
+    <value>Ο συγχρονισμός με το ownCloud παύθηκε.</value>
   </data>
   <data name="Filesearchmode.Header" xml:space="preserve">
-    <value>File search mode for synchronization</value>
+    <value>Λειτουργία αναζήτησης αρχείου για συγχρονισμό</value>
   </data>
   <data name="Filesearchmode.OffContent" xml:space="preserve">
-    <value>Slow (check every individual file)</value>
+    <value>Αργή (ελέγξτε κάθε μεμονωμένο αρχείο)</value>
   </data>
   <data name="Filesearchmode.OnContent" xml:space="preserve">
-    <value>Fast (asks Windows Search Index)</value>
+    <value>Γρήγορη (ερωτά το ευρετήριο αναζήτησης των Windows)</value>
   </data>
   <data name="Password.Header" xml:space="preserve">
     <value>Συνθηματικό</value>
