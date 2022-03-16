@@ -8,4 +8,3 @@ minimum_perc = 80
 source_file = src/OwncloudUniversal/Strings/en-US/Resources.resw
 source_lang = en
 type = RESX
-
