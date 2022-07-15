@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Header" xml:space="preserve">
+    <value>Informazioni</value>
+  </data>
+  <data name="ActivateSync.Text" xml:space="preserve">
+    <value>Abilita sincronizzazione</value>
+  </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Il trasferimento sarà completato anche se l'applicazione è in background!</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Connection.Header" xml:space="preserve">
+    <value>Connessione</value>
+  </data>
+  <data name="CurrentFile.Header" xml:space="preserve">
+    <value>File attuale</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>Vuoi eliminare il file?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>Vuoi eliminare la cartella?</value>
+  </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>Disabilita sincronizzazione</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Salva come</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>Scaricamento in corso...</value>
+  </data>
+  <data name="EnableBackgroundTask.Header" xml:space="preserve">
+    <value>Sincronizzazione automatica</value>
+  </data>
+  <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
+    <value>Attività in background disabilitata</value>
+  </data>
+  <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
+    <value>Attività in background abilitata</value>
+  </data>
+  <data name="Files.Content" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FilesButton.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FilesToSync.Header" xml:space="preserve">
+    <value>File in sospeso</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>Trasferimento file</value>
+  </data>
+  <data name="History.Header" xml:space="preserve">
+    <value>Cronologia</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>Apri file</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>di</value>
+  </data>
+  <data name="PasswordHeader.Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Proprietà</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>Ricarica</value>
+  </data>
+  <data name="RequestedApplicationTheme.Header" xml:space="preserve">
+    <value>Tema applicazione</value>
+  </data>
+  <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
+    <value>Scuro</value>
+  </data>
+  <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
+    <value>Chiaro</value>
+  </data>
+  <data name="ResetDatabase.Content" xml:space="preserve">
+    <value>Resettare questa App</value>
+  </data>
+  <data name="Settings.Content" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="ShellDrawnBackButton.Header" xml:space="preserve">
+    <value>Pulsante Nero</value>
+  </data>
+  <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
+    <value>Back button is in Page Header</value>
+  </data>
+  <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
+    <value>Pulsante nero nel titolo/Barra degli strumenti</value>
+  </data>
+  <data name="StartSync.Content" xml:space="preserve">
+    <value>Avvia sincronizzazione</value>
+  </data>
+  <data name="Status.Header" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="SynchedFolders.Text" xml:space="preserve">
+    <value>Cartelle sincronizzate</value>
+  </data>
+  <data name="Synchronization.Content" xml:space="preserve">
+    <value>Sincronizzazione</value>
+  </data>
+  <data name="SynchronizationButton.Text" xml:space="preserve">
+    <value>Sincronizzazione</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>Trasferimento in corso...</value>
+  </data>
+  <data name="Unsync.Text" xml:space="preserve">
+    <value>Ferma sincronizzazione</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>Nome utente</value>
+  </data>
+  <data name="WebDavUrl.Header" xml:space="preserve">
+    <value>WebDav-Url</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Sì</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>Scarica</value>
+  </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>Eliminare?</value>
+  </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>Proprietà</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>Etag</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>Synchronizationstatus</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>Modifydate</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>Percorso</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>Dimensione</value>
+  </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>Nuova cartella</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>Seleziona modalità</value>
+  </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>Connetti</value>
+  </data>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>Serveraddress</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>Impossibile trovare il server. Controllare l'URL e la connessione ad Internet.</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>SI è verificato un errore interno del server</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>La risorsa richiesta non può essere trovata</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>Il servizio non è attualmente disponibile.</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>Accesso non riuscito</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>Crea nuova cartella</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Nomecartella</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>Nuova cartella</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>Oops</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>Vuoi eliminare il file?</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>Stato di Sync</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>Non scaricare file grandi. Limite (MB):</value>
+  </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>Accetta</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>Sposta</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>Seleziona la cartella di destinazione</value>
+  </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>Sposta</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>Nuovo nome:</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>Cartella locale</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>Cartella di ownCloud</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>Configurazione</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>Sincronizzazione automatica</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>Connessione stabilita! Attenzione: la connessione non è crittata.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Nome utente o password errati.</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>Errore. Il server potrebbe essere in manutenzione o l'installazione è incompleta. Riprovare più tardi o contattare l'amministratore di sistema.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>Vuoi veramente resettare questa applicazione?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>Riavvia l'applicazione.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>Connessione sicura stabilita!</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>byte</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>Errore. Riavviare l'applicazione e riprovare.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Modifiche di processamento</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>Processing deletions</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Completato</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Pronto</value>
+  </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>Ricezione in corso</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Cercando modifiche</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Invio in corso</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Annullato</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>Aggiornamento del database</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>Scarica solo</value>
+  </data>
+  <data name="FullSync" xml:space="preserve">
+    <value>Normale</value>
+  </data>
+  <data name="UploadOnly" xml:space="preserve">
+    <value>Carica solo</value>
+  </data>
+  <data name="SyncDirection.Header" xml:space="preserve">
+    <value>Modalità</value>
+  </data>
+  <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="SaveFolderConfiguration.Label" xml:space="preserve">
+    <value>Salva le modifiche</value>
+  </data>
+  <data name="FolderConfigurationHeader.Text" xml:space="preserve">
+    <value>Il contenuto di queste cartelle sarà sincronizzato:</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>Iniziare la prima sincronizzazione manualmente quando il dispositivo è connesso a una rete WiFi e ad un caricatore. La prima sincronizzazione potrebbe richiedere del tempo.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>Avvia sincronizzazione</value>
+  </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>È consigliato connettere il dispositivo a una rete WiFi e a un caricatore in quanto la sincronizzazione può durare a lungo e lo schermo rimarrà acceso. 
+Sei sicuro di iniziare la sincronizzazione ora?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>Il server non consente questa operazione.</value>
+  </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>Attenzione: la cartella selezionata non è indicata dalla ricerca di Windows.
+
+Questo può portare a comportamenti inaspettati.
+Sei sicuro di voler usare questa cartella?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>Attenzione: la cartella selezionata è solo parzialmente indicata dalla ricerca di Windows.
+
+Questo può portare a comportamenti inaspettati.
+Sei sicuro di voler usare questa cartella?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>Visualizza sorgente</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>Contatta il supporto</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>Versione</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>Invia resoconto diagnostico tramite email</value>
+  </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>La sincronizzazione comincerà in background se le seguenti condizioni saranno rispettate:
+- Il dispositivo è collegato a un caricatore.
+- Una connnessione WiFi è stabilita.
+- Il dispositivo non sta venendo utilizzato.</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>In questo istante</value>
+  </data>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>un giorno fa</value>
+  </data>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>un minuto fa</value>
+  </data>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>un mese fa</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>un'ora fa</value>
+  </data>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>un secondo fa</value>
+  </data>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>un anno fa</value>
+  </data>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0} giorni fa</value>
+  </data>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0} ore fa</value>
+  </data>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0} minuti fa</value>
+  </data>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0} mesi fa</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0} secondi fa</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0} anni fa</value>
+  </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Connetti il tuo dispositivo Windows 10 con il tuo ownCloud!
+
+Per un'esperienza ottimale sul PC, considerare invece di usare il normale programma desktop di sincronizzazione. Puoi trovarlo qui: https://owncloud.org/install/#install-clients
+
+Questa applicazione è un progetto sviluppato dalla comunità di ownCloud ed è stato iniziato da Adrian Gebhart. Guarda il progetto su GitHub se vuoi partecipare allo sviluppo: https://github.com/owncloud/OwncloudUniversal
+
+Funzionalità:
+
+- Funziona su tutti i dispositivi con Windows 10!
+- Software open source.
+- Sincronizza i tuoi files con un'attività in background. Su smartphone avvierà la sincronizzazione solo quando il dispositivo è in carica, per risparmiare batteria.
+- Carica, scarica e gestisci files e cartelle.
+- Visualizza le tue immagini o streamma video direttamente da ownCloud.
+
+
+Nuovo su ownCloud?
+Scoprilo su https://owncloud.org
+
+Problemi?
+Apri una nuova questione su https://github.com/owncloud/OwncloudUniversal/issues o usa la funzione di report diagnostico nell'applicazione.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Errore sconosciuto, controllare il log</value>
+  </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>Per un'esperienza ottimale sul PC, prova il programma desktop di sincronizzazione originale.
+Vuoi scaricarlo ora?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Non mostrare di nuovo</value>
+  </data>
+  <data name="DownloadOpenFile.Text" xml:space="preserve">
+    <value>Apri file</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Downloading {0}</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Eliminato</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Non riuscito</value>
+  </data>
+  <data name="Ignored" xml:space="preserve">
+    <value>Ignorato</value>
+  </data>
+  <data name="Moved" xml:space="preserve">
+    <value>Spostato</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Ricevuto</value>
+  </data>
+  <data name="Renamed" xml:space="preserve">
+    <value>Rinominato</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Posta inviata</value>
+  </data>
+  <data name="CameraUpload.Text" xml:space="preserve">
+    <value>Caricamento fotocamera</value>
+  </data>
+  <data name="FolderAlreadyInUseForSync" xml:space="preserve">
+    <value>Questa cartella è già usata per la sincronizzazione!</value>
+  </data>
+  <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
+    <value>The folder {0} is already in use for synchronisation!</value>
+  </data>
+  <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
+    <value>Carica immediatamente le foto dalla fotocamera</value>
+  </data>
+  <data name="CameraUploadPageHeader.Content" xml:space="preserve">
+    <value>Caricamento fotocamera</value>
+  </data>
+  <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
+    <value>Caricamenti istantanei delle foto</value>
+  </data>
+  <data name="OnlyViaWifi.Header" xml:space="preserve">
+    <value>Carica le immagini solo via WiFi</value>
+  </data>
+  <data name="UploadPath.Header" xml:space="preserve">
+    <value>Percorso di caricamento</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Caricare automaticamente nuove foto?</value>
+  </data>
+  <data name="UploadingFile" xml:space="preserve">
+    <value>Uploading {0}</value>
+  </data>
+  <data name="InvalidCA" xml:space="preserve">
+    <value>L'autorità certificatrice è invalida o incorretta.</value>
+  </data>
+  <data name="TrustCertificateQuestion" xml:space="preserve">
+    <value>Vuoi ancora fidarti di questo certificato?</value>
+  </data>
+  <data name="Fingerprint" xml:space="preserve">
+    <value>fingerprint</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Librerie</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Alcuni componenti di questa applicazione utilizzano librerie esterne:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Licenza</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>Questa applicazione è registrata sotto Apache License 2.0.</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>Il trasferimento del file è stato annullato dal sistema.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Generale</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>La sincronizzazione con ownCloud è stata interrotta.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>Modalità ricerca file per la sinronizzazione</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Lento (controlla ogni file individualmente)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Fast (asks Windows Search Index)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Mostra i file nascosti</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Nome utente</value>
+  </data>
+</root>
