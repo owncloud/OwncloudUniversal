@@ -4,11 +4,11 @@
 
 .PHONY: l10n-push
 l10n-push:
-	tx -d push -s --skip --no-interactive
+	tx push -s --skip
 
 .PHONY: l10n-pull
 l10n-pull:
-	tx -d pull -a --skip --minimum-perc=75
+	tx pull -a --skip --minimum-perc=75
 
 .PHONY: l10n-clean
 l10n-clean:
@@ -19,4 +19,3 @@ l10n-read: ;
 
 .PHONY: l10n-write
 l10n-write: ;
-
