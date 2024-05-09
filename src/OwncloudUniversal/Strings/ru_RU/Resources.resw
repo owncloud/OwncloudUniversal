@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Header" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="ActivateSync.Text" xml:space="preserve">
+    <value>Разрешить синхронизацию</value>
+  </data>
+  <data name="BackgroundTransfer.Text" xml:space="preserve">
+    <value>Передача всё равно будет выполнена, если приложение находится в фоне!</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Connection.Header" xml:space="preserve">
+    <value>Соединение</value>
+  </data>
+  <data name="CurrentFile.Header" xml:space="preserve">
+    <value>Текущий файл</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="deleteConfirmation" xml:space="preserve">
+    <value>Удалить файл?</value>
+  </data>
+  <data name="deleteFolderConfirmation" xml:space="preserve">
+    <value>Удалить папку?</value>
+  </data>
+  <data name="DisableSync.Text" xml:space="preserve">
+    <value>Запретить синхронизацию</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Сохранить как</value>
+  </data>
+  <data name="Downloading.Text" xml:space="preserve">
+    <value>Загрузка...</value>
+  </data>
+  <data name="EnableBackgroundTask.Header" xml:space="preserve">
+    <value>Автоматическая синхронизация</value>
+  </data>
+  <data name="EnableBackgroundTask.OffContent" xml:space="preserve">
+    <value>Фоновая задача отключена</value>
+  </data>
+  <data name="EnableBackgroundTask.OnContent" xml:space="preserve">
+    <value>Фоновая задача включена</value>
+  </data>
+  <data name="Files.Content" xml:space="preserve">
+    <value>Файлы</value>
+  </data>
+  <data name="FilesButton.Text" xml:space="preserve">
+    <value>Файлы</value>
+  </data>
+  <data name="FilesToSync.Header" xml:space="preserve">
+    <value>Остающиеся файлы</value>
+  </data>
+  <data name="FileTransfer.Text" xml:space="preserve">
+    <value>Передача файла</value>
+  </data>
+  <data name="History.Header" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="OpenFile.Content" xml:space="preserve">
+    <value>Открыть файл</value>
+  </data>
+  <data name="OutOf.Text" xml:space="preserve">
+    <value>из</value>
+  </data>
+  <data name="PasswordHeader.Text" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="Refresh.Label" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="RequestedApplicationTheme.Header" xml:space="preserve">
+    <value>Тема приложения</value>
+  </data>
+  <data name="RequestedApplicationTheme.OffContent" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="RequestedApplicationTheme.OnContent" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="ResetDatabase.Content" xml:space="preserve">
+    <value>Сбросить это приложение</value>
+  </data>
+  <data name="Settings.Content" xml:space="preserve">
+    <value>Конфигурация</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Конфигурация</value>
+  </data>
+  <data name="ShellDrawnBackButton.Header" xml:space="preserve">
+    <value>Кнопка Назад</value>
+  </data>
+  <data name="ShellDrawnBackButton.OffContent" xml:space="preserve">
+    <value>Кнопка назад находится в заголовке страницы</value>
+  </data>
+  <data name="ShellDrawnBackButton.OnContent" xml:space="preserve">
+    <value>Кнопка Назад в заголовке / Панели задач</value>
+  </data>
+  <data name="StartSync.Content" xml:space="preserve">
+    <value>Запустить синхронизацию</value>
+  </data>
+  <data name="Status.Header" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SynchedFolders.Text" xml:space="preserve">
+    <value>Синхронизированные папки</value>
+  </data>
+  <data name="Synchronization.Content" xml:space="preserve">
+    <value>Синхронизация</value>
+  </data>
+  <data name="SynchronizationButton.Text" xml:space="preserve">
+    <value>Синхронизация</value>
+  </data>
+  <data name="Transfering.Text" xml:space="preserve">
+    <value>Идёт передача…</value>
+  </data>
+  <data name="Unsync.Text" xml:space="preserve">
+    <value>Остановить синхронизацию</value>
+  </data>
+  <data name="Upload.Label" xml:space="preserve">
+    <value>Закачать файлы</value>
+  </data>
+  <data name="UserNameHeader.Text" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="WebDavUrl.Header" xml:space="preserve">
+    <value>Адресная строка WebDav</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="DownloadMultiple.Label" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="CancelSelectMode.Label" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DeleteMultiple.Label" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="deleteMultipleConfirmation" xml:space="preserve">
+    <value>Удалить?</value>
+  </data>
+  <data name="DetailsPageHeader.Content" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="FileContentType.Header" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="FileEtag.Header" xml:space="preserve">
+    <value>Метка</value>
+  </data>
+  <data name="FileIsSynced.Header" xml:space="preserve">
+    <value>Состояние синхронизации</value>
+  </data>
+  <data name="FileModified.Header" xml:space="preserve">
+    <value>Дата изменения</value>
+  </data>
+  <data name="Filename.Header" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="FilePath.Header" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="FileSize.Header" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="NewFolder.Label" xml:space="preserve">
+    <value>новую папку</value>
+  </data>
+  <data name="SelectMode.Label" xml:space="preserve">
+    <value>Выбрать режим</value>
+  </data>
+  <data name="Connect.Content" xml:space="preserve">
+    <value>Подключить</value>
+  </data>
+  <data name="ServerAddressHeader.Text" xml:space="preserve">
+    <value>Адрес сервера</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>Не удалось найти сервер. Пожалуйста, проверьте адресную строку и подключение к интернету.</value>
+  </data>
+  <data name="InternalServerErrorMessage" xml:space="preserve">
+    <value>На сервере произошла внутренняя ошибка</value>
+  </data>
+  <data name="NotFoundMessage" xml:space="preserve">
+    <value>Не удалось найти запрошенный ресурс</value>
+  </data>
+  <data name="ServiceUnavailableMessage" xml:space="preserve">
+    <value>Служба в данный момент недоступна.</value>
+  </data>
+  <data name="UnauthorizedMessage" xml:space="preserve">
+    <value>Войти не удалось</value>
+  </data>
+  <data name="CreateNewFolder" xml:space="preserve">
+    <value>Создать новую папку</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Имя папки</value>
+  </data>
+  <data name="NewFolderName" xml:space="preserve">
+    <value>новую папку</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>Упс</value>
+  </data>
+  <data name="deleteFileConfirmation" xml:space="preserve">
+    <value>Удалить файл?</value>
+  </data>
+  <data name="SyncStatus.Header" xml:space="preserve">
+    <value>Cтатус Sync</value>
+  </data>
+  <data name="MaxDownloadSize.Header" xml:space="preserve">
+    <value>Не скачивать большие файлы. Лимит (МБ):</value>
+  </data>
+  <data name="Accept.Label" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="MoveToFolder.Text" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="SelectFolder.Text" xml:space="preserve">
+    <value>Выберите папку</value>
+  </data>
+  <data name="Move.Label" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>Новое имя:</value>
+  </data>
+  <data name="Rename.Text" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="RenameTitle" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="LocalFolderHeader.Header" xml:space="preserve">
+    <value>Локальная папка</value>
+  </data>
+  <data name="RemoteFolderHeader.Header" xml:space="preserve">
+    <value>Папка в ownCloud</value>
+  </data>
+  <data name="SyncConfigurationPageHeader.Content" xml:space="preserve">
+    <value>Конфигурация</value>
+  </data>
+  <data name="EnableBackgroundTaskHeader.Text" xml:space="preserve">
+    <value>Автоматическая синхронизация</value>
+  </data>
+  <data name="InSecureConnectionSuccessful" xml:space="preserve">
+    <value>Соединение успешно! Внимание: Соединение не зашифровано!</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Неверное имя пользователя или пароль.</value>
+  </data>
+  <data name="MaintenanceIsEnabled" xml:space="preserve">
+    <value>Произошла ошибка. Возможно сервер находится на обслуживании или установка ещё не завершена. Пожалуйста, попробуйе ещё раз или свяжитесь с администратором системы.</value>
+  </data>
+  <data name="ResetQuestion" xml:space="preserve">
+    <value>Вы действительно хотите сбросить это приложение?</value>
+  </data>
+  <data name="RestartMessage" xml:space="preserve">
+    <value>Пожалуйста, перезапустите приложение.</value>
+  </data>
+  <data name="SecureConnectionSuccessful" xml:space="preserve">
+    <value>Установлено безопасное соединение!</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>байты</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>Произошла ошибка. Пожалуйста перезапустите приложение и попробуйте ещё раз.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Обработка изменений</value>
+  </data>
+  <data name="Deletions" xml:space="preserve">
+    <value>Обработка удалений</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Receiving" xml:space="preserve">
+    <value>Приём</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Поиск изменений</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Отправка</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="UpdatingIndex" xml:space="preserve">
+    <value>Обновление базы данных</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>Только скачивание</value>
+  </data>
+  <data name="FullSync" xml:space="preserve">
+    <value>Нормальный</value>
+  </data>
+  <data name="UploadOnly" xml:space="preserve">
+    <value>Только закачка</value>
+  </data>
+  <data name="SyncDirection.Header" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="DeleteFolderConfiguration.Label" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="SaveFolderConfiguration.Label" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="FolderConfigurationHeader.Text" xml:space="preserve">
+    <value>Будет синхронизировано содержимое следующих папок:</value>
+  </data>
+  <data name="RunSyncMessage.Text" xml:space="preserve">
+    <value>Пожалуйста, запустите первую синхронизацию вручную, когда устройство будет подключено к сети WiFi и заряднику. Первая синхронизация займёт много времени.</value>
+  </data>
+  <data name="StartFirstSync.Content" xml:space="preserve">
+    <value>Запустить синхронизацию</value>
+  </data>
+  <data name="SyncWarning" xml:space="preserve">
+    <value>Рекомендуется подключить устройство к сети WiFi и зарядному устройство, так как синхронизация может занять много времени и экран будет оставаться включённым.
+Вы уверены, что хотите начать синхронизацию сейчас?</value>
+  </data>
+  <data name="ForbiddenErrorMessage" xml:space="preserve">
+    <value>Сервер не разрешает эту операцию.</value>
+  </data>
+  <data name="NotIndexedError" xml:space="preserve">
+    <value>Внимание! Выбранная папка не индексируется Поиском Windows.
+Это может привести к непредсказуемому поведению.
+Вы уверены, что хотите использовать эту папку?</value>
+  </data>
+  <data name="PartiallyIndexedError" xml:space="preserve">
+    <value>Внимание! Выбранная папка лишь частично индексируется Поиском Windows.
+Это может привести к непредсказуемому поведению.
+Вы уверены, что хотите использовать эту папку?</value>
+  </data>
+  <data name="ProjectUrl.Content" xml:space="preserve">
+    <value>Показать исходный код</value>
+  </data>
+  <data name="SupportUrl.Content" xml:space="preserve">
+    <value>Связаться с поддержкой</value>
+  </data>
+  <data name="Publisher.Header" xml:space="preserve">
+    <value>Опубликовавший</value>
+  </data>
+  <data name="Version.Header" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="ReportButton.Content" xml:space="preserve">
+    <value>Отправить диагностический отчёт по почте</value>
+  </data>
+  <data name="SyncConditions.Text" xml:space="preserve">
+    <value>Синхронизаци начнётся в фоновом режиме, если будут удовлетворены следующие условия:
+- Устройство подключено к зарядному устройству.
+- Установлено соединение WiFi.
+- Устройство не используется.</value>
+  </data>
+  <data name="justNow" xml:space="preserve">
+    <value>прямо сейчас</value>
+  </data>
+  <data name="ADayAgo" xml:space="preserve">
+    <value>день назад</value>
+  </data>
+  <data name="AMinuteAgo" xml:space="preserve">
+    <value>минуту назад</value>
+  </data>
+  <data name="AMonthAgo" xml:space="preserve">
+    <value>месяц назад</value>
+  </data>
+  <data name="AnHourAgo" xml:space="preserve">
+    <value>час назад</value>
+  </data>
+  <data name="ASecondAgo" xml:space="preserve">
+    <value>секунду назад</value>
+  </data>
+  <data name="AYearAgo" xml:space="preserve">
+    <value>год назад</value>
+  </data>
+  <data name="XDaysAgo" xml:space="preserve">
+    <value>{0} дней назад</value>
+  </data>
+  <data name="XHoursAgo" xml:space="preserve">
+    <value>{0} часов назад</value>
+  </data>
+  <data name="XMinutesAgo" xml:space="preserve">
+    <value>{0} минут назад</value>
+  </data>
+  <data name="XMonthsAgo" xml:space="preserve">
+    <value>{0} месяцев назад</value>
+  </data>
+  <data name="XSecondsAgo" xml:space="preserve">
+    <value>{0} секунд назад</value>
+  </data>
+  <data name="XYearsAgo" xml:space="preserve">
+    <value>{0} лет назад</value>
+  </data>
+  <data name="StoreDescription" xml:space="preserve">
+    <value>Подключите ваше устройство с Windows 10 к вашему облаку!
+
+Для оптимального доступа на ПК, пожалуйста попробуйте использовать вместо этого обычный desktop sync client. Вы можете найти его здесь: https://owncloud.org/install/#install-clients
+
+Это приложение — это проект, разрабатываемый только сообществом ownCloud, первоначальный автор Адриан Гебхарт Adrian Gebhart. Посмотрите проект на Гитхабе, если хотите присоединиться к разработке: https://github.com/owncloud/OwncloudUniversal
+
+Возможности:
+
+- Работает на всех устройствах с Windows 10!
+- ПО с открытыми исходниками
+- Синхронизация файлов работает в фоновом режиме. На телефонах синхронизация будет работать только при зарядке устройства, чтобы не расходовать батарею.
+- Закачивание, скачивание и управление файлами и каталогами.
+- Просмотр изображений и видеопотоков прямо из ownCloud.
+
+
+Впервые сталкиваетесь с ownCloud?
+Посмотрите на https://owncloud.org
+
+Проблемы?
+Откройте новый вопрос на https://github.com/owncloud/OwncloudUniversal/issues или используйте функцию диагностических отчётов внутри приложения.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Неизвестная ошибка, пожалуйста проверьте файл журнала</value>
+  </data>
+  <data name="DesktopClientInfoText" xml:space="preserve">
+    <value>Для оптимального доступа из ПК. Пожалуйста попробуйте Desktop Sync Client для Windows.
+Желаете скачать его сейчас?</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Не показывать снова</value>
+  </data>
+  <data name="DownloadOpenFile.Text" xml:space="preserve">
+    <value>Открыть файл</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Скачивание {0}</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Удалено</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Ignored" xml:space="preserve">
+    <value>Проигнорирован</value>
+  </data>
+  <data name="Moved" xml:space="preserve">
+    <value>Перемещенный</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Полученный</value>
+  </data>
+  <data name="Renamed" xml:space="preserve">
+    <value>Переименованный </value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Отправленные</value>
+  </data>
+  <data name="CameraUpload.Text" xml:space="preserve">
+    <value>Загрузка камеры</value>
+  </data>
+  <data name="FolderAlreadyInUseForSync" xml:space="preserve">
+    <value>Этот каталог уже используется для синхронизации!</value>
+  </data>
+  <data name="SelectedFolderAlreadyInUseForSync" xml:space="preserve">
+    <value>Этот каталог {0} уже используется для синхронизации!</value>
+  </data>
+  <data name="CameraUploadConfigurationHeader.Text" xml:space="preserve">
+    <value>Немедленно загружать фотографии, сделанные камерой</value>
+  </data>
+  <data name="CameraUploadPageHeader.Content" xml:space="preserve">
+    <value>Загрузка камеры</value>
+  </data>
+  <data name="CameraUploadToogleSwitch.Header" xml:space="preserve">
+    <value>Мгновенная загрузка фотографий</value>
+  </data>
+  <data name="OnlyViaWifi.Header" xml:space="preserve">
+    <value>Загрузать изображения только посредством WiFi </value>
+  </data>
+  <data name="UploadPath.Header" xml:space="preserve">
+    <value>Путь загрузки</value>
+  </data>
+  <data name="CameraUploadInfoText" xml:space="preserve">
+    <value>Автоматически закачивать новые изображения?</value>
+  </data>
+  <data name="UploadingFile" xml:space="preserve">
+    <value>Закачивается {0}</value>
+  </data>
+  <data name="InvalidCA" xml:space="preserve">
+    <value>Удостоверяющий центр недопустимый или неправильный.</value>
+  </data>
+  <data name="TrustCertificateQuestion" xml:space="preserve">
+    <value>Вы всё ещё хотите доверять сертификату?</value>
+  </data>
+  <data name="Fingerprint" xml:space="preserve">
+    <value>отпечаток</value>
+  </data>
+  <data name="LibrariesHeader.Header" xml:space="preserve">
+    <value>Библиотеки</value>
+  </data>
+  <data name="LibrariesHeader.Text" xml:space="preserve">
+    <value>Некоторые компоненты этого приложения используют внешние библиотеки:</value>
+  </data>
+  <data name="LicenseHeader.Header" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="LicenseHeader.Text" xml:space="preserve">
+    <value>Это приложение распространяется под лицензией Apache 2.0</value>
+  </data>
+  <data name="TransferCancelled" xml:space="preserve">
+    <value>Передача файла была прервана системой.</value>
+  </data>
+  <data name="General.Header" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="SyncWasPaused" xml:space="preserve">
+    <value>Синхронизация с ownCloud приостановлена.</value>
+  </data>
+  <data name="Filesearchmode.Header" xml:space="preserve">
+    <value>Режим поиска файлов для синхронизации.</value>
+  </data>
+  <data name="Filesearchmode.OffContent" xml:space="preserve">
+    <value>Медленно (проверять каждый отдельный файл)</value>
+  </data>
+  <data name="Filesearchmode.OnContent" xml:space="preserve">
+    <value>Быстро (запрашивая Индекс поиска Windows)</value>
+  </data>
+  <data name="Password.Header" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="ShowHiddenFiles.Header" xml:space="preserve">
+    <value>Показать скрытые файлы</value>
+  </data>
+  <data name="UserName.Header" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+</root>
